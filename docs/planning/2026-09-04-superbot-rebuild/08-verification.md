@@ -26,19 +26,63 @@ adds the layers that carry the rest.
 
 ## 1 · The population contract — the one rule the other layers hang on
 
-> **Every gate declares the population it runs over. The declaration is
-> committed beside the gate. The gate asserts the population is non-empty
-> against a committed floor, and that it is the shipped artifact rather than a
-> model of it.**
+> **Every gate declares the population it runs over. The expected set is
+> committed beside the gate and derived independently of the code under test.
+> The gate asserts the walked population is EQUAL to that set — any difference
+> in either direction is a failure — and that what it walks is the shipped
+> artifact rather than a model of it.**
 
-Concretely, every check in the successor carries three lines it cannot omit:
+> **Corrected after external review (fm #1025, P1), and the correction is the
+> point of this whole document.** The first version of this contract said
+> `assert len(population) >= FLOOR` with `FLOOR = 250` — and Codex observed that
+> against the measured 314 panels, **a population that silently drops 64 panels
+> still passes**, and a hand-maintained 250-entry *model* passes identically,
+> because `POPULATION` was only prose. A lower bound is not an identity check.
+> **The section proposing the cure was itself an instance of the disease**, which
+> is precisely how this defect survives in careful repositories: the floor feels
+> like rigour. The contract below asserts **membership against an independently
+> derived expected set**, and keeps the floor only as a cheap tripwire under it.
+
+Concretely, every check in the successor carries these lines, and none of them
+is optional:
 
 ```python
-POPULATION = "every panel in the committed manifest snapshot"   # prose, for a human
-FLOOR      = 250                                                 # committed, versioned
-assert len(population) >= FLOOR, f"POPULATION FLOOR BREACH: {len(population)} < {FLOOR}"
+# 1 · the population, named in prose for a human
+POPULATION = "every panel in the committed manifest snapshot"
+
+# 2 · the EXPECTED SET, derived independently of the code under test and
+#     committed — this is the denominator, and it is data, not a number
+EXPECTED = load_committed("expected/panels.json")     # 314 ids at this pin
+
+# 3 · identity, not a lower bound: the gate fails on ANY difference, in EITHER
+#     direction, and names which ids moved
+actual = {p.id for p in walk_shipped_manifest()}
+missing, extra = EXPECTED - actual, actual - EXPECTED
+assert not (missing or extra), (
+    f"POPULATION MISMATCH — missing {sorted(missing)}, unexpected {sorted(extra)}"
+)
+
+# 4 · the floor, kept only as a tripwire for the case where EXPECTED itself is
+#     emptied or fails to load — it is the cheap guard, never the proof
+FLOOR = 250
+assert len(EXPECTED) >= FLOOR, f"EXPECTED SET COLLAPSED: {len(EXPECTED)} < {FLOOR}"
+
 assert ok, problems
 ```
+
+**Growing the product is a reviewable diff, by construction.** Adding a panel
+reds the gate until `expected/panels.json` is updated in the same PR, which is
+the intended friction: the population changes when someone decides it changes,
+and the decision appears in a diff a human reads. Shrinking it works the same
+way, which is the half that matters — `superbot-games`' coverage halved with
+nobody deciding anything.
+
+**And the expected set must be derived independently of the walker it checks.**
+If both come from the same function, the gate asserts a tautology — that is the
+`superbot-next` boot-gate shape, where the committed manifest is compared
+against what the same source regenerates (`lane-claimed`, CHALLENGE F). Derive
+`EXPECTED` from the declaration (the feature specs on disk) and `actual` from the
+built artifact, so the two can genuinely disagree.
 
 Four properties follow, and each answers a measured failure rather than a
 hypothetical one:

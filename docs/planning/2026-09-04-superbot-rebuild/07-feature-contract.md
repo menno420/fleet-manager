@@ -121,10 +121,17 @@ class FeatureManifest:
 **And one deletion, stated so it is not read as an oversight.** There is no
 `help` facet and no `navigation` facet. Help pages and Back/Home links are
 **generated** from `parent`, `entry`, `commands`, `panels` and `summary`. This is
-`superbot-next`'s one unambiguous product improvement and I-21 records it:
-`superbot`'s `attach_standard_nav` is opt-in with **17 call sites across 9
-files**, while `superbot-next` made engine-injected navigation the default — *"a
-port that was improved rather than restated."* The successor keeps the
+`superbot-next`'s clearest product improvement — **stated with the caveat
+[`03-architecture-matrix.md`](03-architecture-matrix.md) § 2.2 attaches to it,
+which an earlier draft of this file dropped.** `superbot`'s `attach_standard_nav`
+has **17 direct call sites across 9 files** (`lane-claimed`), which reads as
+opt-in; but a second lane measured a **base-class constructor** reaching **217 of
+280 views** (`lane-claimed`, E-S1), which would make navigation structural there
+too. **This session re-derived neither, the disagreement is unresolved, and the
+comparison must not be quoted as settled** — engine-injected navigation is
+better than opt-in attachment *if* the 17-call-site reading is the right one.
+Whoever builds slice one should measure it, because it decides whether this is a
+genuine inheritance or a restatement of what `superbot` already had. The successor keeps the
 improvement and fixes what it did not fix: I-13 measured `superbot-next`'s help
 tree at **max depth 0** over **314** panels wired by **200** downward edges,
 where a 314-node graph needs 313 merely to be a tree. Injected Back/Home links
@@ -142,7 +149,10 @@ write), which **gate** reads it, and the **evidence** that the obligation exists
 An obligation with no gate is a wish; every row below names one.
 
 Every gate here inherits [`08-verification.md`](08-verification.md) § 1 without
-restating it: it declares its population, asserts a committed floor, and runs
+restating it: it declares its population, asserts equality against a committed
+expected set (a floor alone passes while the population shrinks —
+[`08-verification.md`](08-verification.md) § 1, corrected after external
+review), and runs
 over the shipped artifact. A gate registered without a population and a floor
 cannot run.
 
@@ -561,11 +571,27 @@ happens to those. The gate:
 
 ```
 POPULATION : every file changed by this pull request
-FLOOR      : 1                      # a PR that changes nothing is not a feature PR
-RULE       : for a PR labelled `feature:<key>`, every changed path is under
-             features/<key>/ , or is the regenerated snapshot, or is listed in
-             this PR's `cross_cutting` block with a reason and an expiry.
+EXPECTED   : the feature keys DERIVED FROM THE DIFF —
+             {k for path in changed if path.startswith(f"features/{k}/")}
+RULE       : 1 · if the diff touches any features/<k>/ path, the PR must carry
+                 exactly one `feature:<k>` label and it must equal that key.
+                 A missing, extra or mismatched label is a FAILURE, not a skip.
+             2 · for that key, every changed path is under features/<k>/ , or is
+                 the regenerated snapshot, or is listed in this PR's
+                 `cross_cutting` block with a reason and an expiry.
+             3 · a diff touching NO features/ path is out of scope for this gate
+                 and says so in its output, so "not applicable" is visible
+                 rather than indistinguishable from "passed".
 ```
+
+**Derived from the diff, never from the label — corrected after external review
+(fm #1025).** The first version keyed the whole rule on a `feature:<key>` label
+being present and well-formed, which made the gate opt-in: an unlabelled or
+mistyped feature PR touched central files and never entered the check. **A gate
+whose population is supplied by the thing it polices is the population defect in
+its purest form**, and it appeared in the section of this package that exists to
+prevent it. The diff is the artifact; the label is an assertion about the diff,
+so the diff derives the expected set and the label is checked against it.
 
 Three properties it needs, each taken from a mechanism this estate already built
 and never generalised ([`08-verification.md`](08-verification.md) § 3):

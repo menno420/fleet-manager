@@ -65,7 +65,9 @@ cannot forget**: authority, audit, send-egress and member-data erasure.
 The measurement that makes this concrete is the `superbot` side of it
 (`lane-claimed`, CHALLENGE B): 166 hand-placed authority decorators, 49
 hand-written audit calls, **18 of 915 sends setting `allowed_mentions`**, and 31
-hand-written teardown helpers against 84 guild-scoped columns. Every one of those
+hand-written teardown helpers against 74 guild-scoped tables (**`MEASURED`**,
+[`10-migration.md`](10-migration.md) § 10, which reconciles two conflicting lane
+figures — the lanes said 84 and 23/74). Every one of those
 is a place a future contributor forgets. In `superbot-next` they are schema.
 
 That is the donation. Around it:
@@ -133,8 +135,11 @@ The two failure profiles are not symmetric, and the asymmetry is the finding.
   composition root.** `sb/spec/config.py:252-255` justifies degrading because
   refusing "darked the WHOLE bot when every slash command still serves" — while
   `sb/app/main.py:616` hardcodes `sync_remote(bot, committed, enabled=False)`, so
-  no slash command is ever registered (**`MEASURED`**, I-19; this also refutes the
-  2026-08-05 audit's "27 slash commands survive").
+  **this composition root publishes no slash-command set at all** (**`MEASURED`**,
+  I-19). It does not follow that the audit's *"27 slash commands survive"* is
+  refuted — an application keeps commands from an earlier sync, and that is
+  unmeasured here (I-19, narrowed after external review). What *is* established
+  is that the degrade rationale rests on a surface this root never creates.
 - **The clean layer DAG is a measurement artifact.** M8 reported "977 module-level
   cross-layer imports, ZERO reverse-direction." Re-measured including function
   bodies: **296 cross-subsystem `sb.domain` imports, of which 268 (90.5 %) sit
@@ -286,10 +291,20 @@ click-unreachable behind a green check.
 So this plan adds the ninth requirement, and it is the one that makes the other
 eight mean anything:
 
-> **Every gate declares the population it runs over, that declaration is
-> committed, and the gate asserts the population is non-empty and is the real
-> artifact rather than a model of it** — `assert len(population) >= FLOOR`
-> beside every `assert ok`, with `FLOOR` in the repo.
+> **Every gate declares the population it runs over, commits the expected set
+> beside the gate, and asserts the walked population is EQUAL to it — any
+> difference in either direction is a failure — over the real artifact rather
+> than a model of it.**
+
+**The rule is given in its corrected form, and the correction is worth more than
+the rule.** This document first wrote it as `assert len(population) >= FLOOR`
+with a committed floor. External review pointed out that against the 314 measured
+panels a floor of 250 lets **64 panels vanish silently**, and a 250-entry
+hand-built model passes identically — a lower bound is not an identity check.
+**The paragraph prescribing the cure was an instance of the disease**, which is
+exactly how this defect survives in careful repositories: a floor feels like
+rigour. The floor survives only as a cheap tripwire under the equality check.
+Full contract: [`08-verification.md`](08-verification.md) § 1.
 
 Full derivation, and the three source-read instances behind it:
 [`04-root-cause.md`](04-root-cause.md) § 2.

@@ -202,13 +202,24 @@ serializer production does not install.
 
 ## 4 · The extension boundary
 
-This is where OD-19 is won or lost, and the evidence is unusually good: **the
-thing being asked for has already happened 54 times.** 54 `disbot`↔`sb` file pairs
-score above 0.55 similarity, 8 at ≥ 0.90, and one is byte-identical —
-`disbot/utils/mining/capacity.py` and `sb/domain/mining/capacity.py` share md5
-`64f1665a9fb83a940d95eca5b9492bf2` (I-21). Portability across these two
-architectures is demonstrated. What blocked it as a *contract* is a fence, and
-the fence has a stated cause.
+This is where OD-19 is won or lost, and the evidence is encouraging without
+being sufficient: **the domain logic has already crossed 54 times.** 54
+`disbot`↔`sb` file pairs score above 0.55 similarity, 8 at ≥ 0.90, and one is
+byte-identical — `disbot/utils/mining/capacity.py` and `sb/domain/mining/capacity.py`
+share md5 `64f1665a9fb83a940d95eca5b9492bf2` (I-21).
+
+**Read what that does and does not show, because an earlier draft of this file
+overstated it and external review caught the overstatement.** It shows the
+*computational core* of a feature survives the move between these two
+architectures largely unchanged — which is the expensive part, and it is real
+evidence. It does **not** show that a cog can be *installed* through an
+extension boundary: every one of those 54 crossings was a human rewriting the
+surrounding module in-tree, and I-10 measures 29 of 49 subsystems that the
+existing out-of-tree host cannot accept at all. OD-19 asks for *added on demand,
+or slightly altered* — and the only thing that can demonstrate that is a cog
+loaded and exercised through the contract below, which is slice two's
+acceptance, not a result this review holds. What blocked it as a *contract* is a
+fence, and the fence has a stated cause.
 
 ### 4.1 · Why the fence exists, and the structural fact under it
 
@@ -378,7 +389,8 @@ construction cannot guarantee:
    correctly-hidden subsystem as unreachable and trains its readers to ignore it
    (I-14).
 2. **Population** — the walk declares its population (the graph the composition
-   root built), asserts it against a committed floor, and walks the **rendered**
+   root built), asserts it EQUALS a committed expected set (not merely a floor —
+   [`08-verification.md`](08-verification.md) § 1), and walks the **rendered**
    view rather than a model of the registry
    ([`08-verification.md`](08-verification.md) § 1).
 
@@ -501,7 +513,8 @@ and therefore nothing to keep in sync and no exception file to grow.
   inventory rather than a hand list, and its docstring says why: *"Completeness is
   STRUCTURAL, not audited by inspection"* (read at the pin,
   `sb/kernel/privacy/erasure.py:1-25`). **Prevents:** `superbot`'s 31
-  `_teardown_*` helpers against 84 guild-scoped columns, with staged setup drafts
+  `_teardown_*` helpers against 74 guild-scoped tables (`10-migration.md` § 10,
+  measured; the lane figure of 84 is superseded), with staged setup drafts
   surviving a guild leaving and being re-read on re-invite (B-D08, M1-D01, both
   `lane-claimed`).
   **And the caveat that comes with the donor:** the declaration is complete and
@@ -609,10 +622,11 @@ the port and golden parity structurally unable to see the loss (I-11).
 
 Not a gateway connection. Not a 200 on `/ready`. The measured failure is exact:
 `sb/app/main.py:616` hardcodes `enabled=False`, so that root registers no slash
-command, and `/ready` answers 200 anyway — and the *design rationale* for
+command set, and `/ready` answers 200 anyway — and the *design rationale* for
 degrading rather than refusing to boot rests on a survivor set of 27 slash
-commands that does not exist (I-19). The population defect inside an
-architectural argument.
+commands **that this root never publishes** (I-19; whether any survive from an
+earlier sync is unmeasured, and needs the application's remote command set read).
+The population defect inside an architectural argument.
 
 **The `SURFACE` record**, produced at § 2 step 8 and committed as a floor file:
 
@@ -695,7 +709,7 @@ rule.**
 | 4 | typed operation (one mutation seam) | button path · AI path · scheduler · wizard apply | 190 service modules with 0 authority decorators (B-D07 `lane-claimed`) |
 | 5 | `authority_ref` on the operation | every surface inherits it; the audit row records the tier | authority attached to the surface, so a new surface starts unguarded |
 | 6 | one audit writer inside the op txn | case record · AI decision log · erasure legs | 49 hand-written audit sites across 27 files (I-18) |
-| 7 | store registry with `data_class`/retention/`erasure_ref` | erasure walk · guild teardown walk · schema-growth gate | 31 teardown helpers vs 84 guild-scoped columns (B-D08 `lane-claimed`) |
+| 7 | store registry with `data_class`/retention/`erasure_ref` | erasure walk · guild teardown walk · schema-growth gate | 31 teardown helpers vs 74 guild-scoped tables (`10-migration.md` § 10, measured — supersedes B-D08's 84) |
 | 8 | per-module migration ladder + `mod_<name>` schema | out-of-tree modules · restore/verify | the facet fence: 29 of 49 subsystems ineligible (I-10) |
 | 9 | typed config spec + `os.getenv` fence | deployment-readiness · the setup wizard's "what is missing" panel | ambient config reads scattered across the tree (M10-S1 `lane-claimed`) |
 | 10 | governance/visibility record | renderer · reachability gate · scheduler · disable lever | a second enable flag, and a disable that does not stop background work |

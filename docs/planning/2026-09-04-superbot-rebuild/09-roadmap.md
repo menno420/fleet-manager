@@ -223,6 +223,29 @@ authority tier boundary, the not-found answer, boot floors.
 registry), the scheduler, the out-of-tree loader, any second module, any
 community feature from OD-D's middle set, prefix aliases beyond the root.
 
+> **This exclusion is in tension with OD-16, and external review was right to
+> say so rather than let it pass (fm #1025, P1).** OD-16 (2026-08-21) reads
+> *"AI given meaningful freedom from the first slice"*, and
+> [`00-README.md`](00-README.md) lists it among the live constraints. A slice
+> that ships no gateway does not satisfy that as written.
+>
+> **The reconciliation, stated so a reader can reject it.** OD-16 was written
+> against the multi-game platform plan; the owner's 2026-09-04 AI-authority
+> decision ([`run/in-flight-direction.md`](run/in-flight-direction.md)) is newer
+> and gives the operative shape — AI supplies judgement, deterministic code
+> supplies authority, along a fixed pipeline. **What that decision makes
+> non-negotiable from commit one is the pipeline's SHAPE, not a live model**:
+> S1 ships the deterministic pre-check, the typed verdict boundary and the
+> policy/permission gate as real seams with the AI stage empty, so S4 fills a
+> socket rather than cutting one. Retrofitting that shape after two slices is
+> the failure OD-16 exists to prevent; running a provider in slice one is not.
+>
+> **This is a reading, and it is the plan's, not the owner's.** If he means
+> literally a model reasoning in slice one, S1 grows an AI vertical and the
+> roadmap shifts — [`12-owner-decisions.md`](12-owner-decisions.md) OD-F is
+> where that is put to him, and it is the second question worth his time after
+> OD-A.
+
 **The one thing that must be in even though it looks like S2's:** the *shape* of
 a module directory ([`06-architecture.md`](06-architecture.md) § 1) and the
 loader that reads it. S1 ships **one** in-tree module through that loader, so
@@ -446,7 +469,7 @@ arrives in S5).
 - **Teardown** — the guild-leave walk empties every one of the module's tables
   with no edit to the walk. Negative control: add a fourth table without
   declaring it; the walk's completeness assert must red. The measured original is
-  `superbot`'s **31 hand-written teardown helpers against 84 guild-scoped
+  `superbot`'s **31 hand-written teardown helpers against 74 guild-scoped
   columns**, with staged setup drafts surviving a guild leaving and being
   re-read on re-invite (B-D08, M1-D01, both `lane-claimed`).
 
@@ -471,7 +494,30 @@ nothing ([`06-architecture.md`](06-architecture.md) § 4.3).
 ### Failure and rollback
 
 Uninstall is a lockfile entry and a restart; the module's schema is dropped or
-retained by an explicit, audited operation, never implicitly. **Stop rule:** if
+retained by an explicit, audited operation, never implicitly.
+
+**And the RETAINED branch may not orphan personal data — corrected after
+external review (fm #1025, P1).** § 4.2 makes member erasure and guild teardown
+registry-derived walks, and the registry is populated by *loaded* modules — so
+retaining a schema while removing the module silently removes its `erasure_ref`
+implementations from the walk, and a later deletion request cannot discover the
+rows it must erase. That is the `superbot-next` failure shape exactly: a walk
+whose population quietly shrank. Two ways out, and the successor must pick one
+before the first uninstall ships:
+
+1. **Purge before uninstall** — retention requires the module to stay installed,
+   so the walk's population and the schema's population are the same set by
+   construction. Simplest, and it makes "retain" mean "keep it installed".
+2. **Executable tombstones** — uninstall writes a durable record carrying the
+   store declarations and an erasure handler that survives the distribution's
+   removal, and the erasure walk covers registered modules **plus** tombstones.
+   Strictly more capable, strictly more to get wrong.
+
+**Whichever is chosen, the erasure walk asserts its own population against the
+committed expected set** ([`08-verification.md`](08-verification.md) § 1): the
+union of loaded stores and tombstoned stores, equal to what the schema actually
+holds. An uninstall that shrinks the walk without shrinking the data is a red
+gate. **Stop rule:** if
 the module needs a host-side edit to work — any edit outside its own directory —
 the contract has failed and the fix belongs in the contract, not in a host
 special case. That is the fence re-forming, and it is how 29 of 49 became

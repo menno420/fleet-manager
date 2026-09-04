@@ -12,9 +12,22 @@ written the way that gate must be written: it declares its population, asserts
 the population is non-empty, and walks the SHIPPED ARTIFACT (the compiled
 manifest) rather than a runtime registry a test fixture can empty.
 """
-import json, sys, collections
+import json, os, sys, collections
 
-SNAP = "/home/user/superbot-next/manifest.snapshot.json"
+# The pinned default is one author's checkout; accept an override so this is
+# re-derivable from any clone (Codex review, fm #1025).
+_DEFAULT_SNAP = "/home/user/superbot-next/manifest.snapshot.json"
+SNAP = (
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else os.environ.get("SUPERBOT_NEXT_MANIFEST", _DEFAULT_SNAP)
+)
+if not os.path.exists(SNAP):
+    raise SystemExit(
+        f"manifest snapshot not found: {SNAP}\n"
+        "pass the path as argv[1], or set SUPERBOT_NEXT_MANIFEST.\n"
+        "expected: <superbot-next checkout>/manifest.snapshot.json at pin d5f66dc2"
+    )
 
 def load():
     d = json.load(open(SNAP))

@@ -51,10 +51,12 @@ findings change what the entry point above says, each measured at this pin:
   `DiscordPanelPresenter` (`sb/app/panel_host.py:66`), which **no CI job
   exercises** — the required gate installs only `pytest pyyaml`, so its four
   tests skip.
-- **The audit's "27 slash commands survive" does not hold.**
+- **This composition root publishes no slash-command set.**
   `sb/app/main.py:616` hardcodes `sync_remote(bot, committed, enabled=False)`,
-  and the only other sync leg is gated on `SB_DATA_PLANE=test`. This root
-  registers none.
+  and the only other sync leg is gated on `SB_DATA_PLANE=test`. Whether the
+  audit's *"27 slash commands survive"* still holds from an earlier registration
+  is **unmeasured** — but the repo's own justification for degrading rather than
+  refusing to boot rests on that survivor set, and this root never creates it.
 - **The clean layer DAG is a measurement artifact.** 296 cross-subsystem
   `sb.domain` imports, **268 of them (90.5 %) inside function bodies**, where
   all 8 mutual subsystem pairs live and where the module-level census never

@@ -56,7 +56,18 @@ think of reachability. It built the walker, and pointed it at a population that 
 empty by construction in the venue where it runs — while the compiled manifest, in the
 same repo, holds the 314 panels and 153 dead ends that walker was written to find.
 
-## I-3 · superbot-next's headline layering claim is TRUE but UNENFORCED — `MEASURED`
+## I-3 · superbot-next's headline layering claim is TRUE but UNENFORCED — `MEASURED`, **and its architectural half is SUPERSEDED by [I-22](#i-22)**
+
+> **SUPERSEDED, 2026-09-04, by this session's own adversarial lane.** What
+> survives is the narrow census below — *module-level* `sb.kernel` → `sb.domain`
+> imports are 0 against 234 the other way, and no checker guards import
+> direction. **What does NOT survive is any conclusion about the codebase's
+> layering**, including the sentence further down that calls the direction
+> perfect: **I-22 measured 268 of 296 cross-subsystem imports (90.5 %) inside
+> function bodies, where all 8 mutual subsystem pairs live.** The module-level
+> figure is a property of where the census looked. **Cite I-22, not this entry,
+> for anything about layering; cite this entry only for the absence of a
+> checker.**
 
 AST scan of every module-level import under `sb/kernel/`:
 
@@ -208,7 +219,33 @@ back-button, hub coverage); `superbot-next` donates the guards over the **invari
 of the system** (config seam, migration immutability, namespace, egress, lifecycle,
 cost, cardinality). A successor needs both, and neither repo has both.
 
-## I-9 · The EAP added almost NO code to `superbot` and 23 % of its documentation — `MEASURED`
+## I-9-ADDENDUM · The churn measurement I-9 needed, run after Codex asked for it — `MEASURED`
+
+**Codex was right about the derivation and the conclusion survives it.**
+`git log --diff-filter=A` counts when files were *created*; it is blind to every
+line added to a file that already existed, so it could not on its own establish
+that the EAP fortnight added almost no runtime code. If the EAP had rewritten
+hundreds of the 909 pre-existing files, I-9's census would have looked
+identical.
+
+Run in `/home/user/superbot` at `5e3a667b`, for the EAP window
+`2026-07-07 .. 2026-07-21`:
+
+```
+git log --since=2026-07-07 --until=2026-07-22 --numstat --pretty=format: -- 'disbot/**/*.py'
+  -> 418 lines added · 2 deleted · 10 distinct files touched   (of 883 runtime .py files)
+```
+
+**10 of 883 runtime files touched, +418/-2 lines.** So the conclusion holds on
+the measurement that can actually carry it: the EAP fortnight did not write the
+runtime. (For contrast, the same window across all `*.py` in the repo is
++5,463/-22,461 — that churn is test and tooling movement, not `disbot/`.)
+
+**What changes in the package:** [`../04-root-cause.md`](../04-root-cause.md) § 1
+may cite this addendum for "the debt is owner-era, not EAP-era". It may **not**
+cite the file-creation census alone for that, and the entry below now says so.
+
+## I-9 · The EAP added almost NO code to `superbot` and 23 % of its documentation — `MEASURED` (**read with [I-9-ADDENDUM](#i-9-addendum) — the census below is file CREATION only**)
 
 Era split by each file's **oldest add commit** (`git log --diff-filter=A`, full clone,
 6,391 commits — not the shallow-clone trap), against the EAP fortnight 2026‑07‑07 → 07‑21:
@@ -218,6 +255,14 @@ Era split by each file's **oldest add commit** (`git log --diff-filter=A`, full 
 | `disbot/**/*.py` ever added | **909 (100 %)** | **2 (0 %)** | 0 | 911 |
 | `docs/**/*.md` ever added | 822 (76 %) | **245 (23 %)** | 8 (1 %) | 1,075 |
 | `docs/**/*.md` still present | 624 | **183** | 7 | 814 |
+
+*Method limit that matters most, added after Codex review:* **this is a census of
+file creation, and it is blind to modification.** Every line changed in a file that
+already existed is invisible to it, so this table alone cannot support "the EAP
+did not write the runtime" — only "the EAP created 2 runtime files". The churn
+measurement that does support it is **I-9-ADDENDUM** above (10 of 883 runtime
+files touched, +418/−2 lines in the window). Cite the addendum for the debt
+attribution; cite this table only for file creation.
 
 *Method limits, stated:* `--diff-filter=A` attributes a rename as a new add, so both
 "ever added" columns are upper bounds on distinct files; 814 present-by-add-path against
@@ -839,10 +884,28 @@ that catches it is the one this review keeps arriving at from every direction �
 of `assert len(population) >= FLOOR`.
 
 
-## I-19 · The audit's "27 slash commands survive" is wrong, and the weekly restore proof cannot fail — `MEASURED`
+## I-19 · This composition root publishes NO new slash-command set, and the weekly restore proof cannot fail — `MEASURED` (**headline narrowed after Codex review**)
 
-Two R4 claims, re-derived here per I-17's rule. Both hold, and the first corrects
-the figure this estate has quoted for a month.
+Two R4 claims, re-derived here per I-17's rule.
+
+> **The first claim is NARROWER than this entry originally stated, and the
+> correction is Codex's (fm #1025 review, P1).** I wrote that the audit's *"27
+> slash commands survive"* is **wrong**. The source proves less than that:
+> `enabled=False` means **this boot publishes no new command set**, and it does
+> not follow that no commands are reachable. A Discord application retains
+> commands registered by an *earlier* sync, and skipping the sync does not stop
+> this process loading matching callbacks into its local tree. So the honest
+> statement is: **this composition root never publishes slash commands, and
+> whether any survive from a prior registration is UNMEASURED** — it needs the
+> application's remote command set read, or the commands driven in a test guild,
+> which is [`../13-verdict.md`](../13-verdict.md) gap 1.
+>
+> **What survives, and it is still the load-bearing half:** `sb/spec/config.py`
+> justifies degrading rather than refusing to boot on the grounds that refusing
+> *"darked the WHOLE bot when every slash command still serves"* — and this root
+> is not a root where that premise can be checked, because it publishes nothing.
+> The degrade rationale rests on a surface this composition root does not
+> create.
 
 ### The degraded-boot number
 

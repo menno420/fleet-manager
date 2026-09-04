@@ -33,10 +33,15 @@ This is not a formality. It means:
 - The 2026-08-05 audit's own honest nulls are **inherited, not closed**: no
   click-through census, and the "two taps" property measured as a graph rather
   than driven.
-- The one figure this session did overturn — the audit's *"27 slash commands
-  survive"*, which `main.py:616`'s hardcoded `enabled=False` refutes (I-19) —
-  shows how much a static read can still move, and equally how much it cannot
-  settle.
+- The one figure this session moved — the audit's *"27 slash commands survive"* —
+  shows both halves of that at once. `main.py:616`'s hardcoded `enabled=False`
+  establishes that **this composition root publishes no command set** (I-19); it
+  does **not** establish that no commands are reachable, because an application
+  retains what an earlier sync registered. External review caught that overreach
+  in this very package, and the corrected claim is narrower and still damaging:
+  the degrade rationale rests on a surface this root never creates. **Reading
+  the application's remote command set is a one-call measurement that this
+  contract forbade**, which is gap 1 in one sentence.
 
 **Closed by:** a boot of `superbot-next` in a test guild with a test app, driving
 the help tree and the setup flow. About an hour, per the audit's own recipe.
@@ -111,9 +116,16 @@ Stated positively, because a `PARTIAL` verdict is not a recommendation to wait:
   the donor for guards and product behaviour; `superbot-next` for authority,
   audit, egress and erasure as **required fields rather than convention**
   (CHALLENGE B).
-- **Cog portability is demonstrated, not hoped for** — 54 `disbot`↔`sb` file
-  pairs above 0.55 similarity, 8 at ≥0.90, one byte-identical. The fence that
-  blocks it for stateful modules is a contract choice, not a structural limit.
+- **Domain logic is demonstrably reusable across the two trees** — 54
+  `disbot`↔`sb` file pairs above 0.55 similarity, 8 at ≥0.90, one byte-identical.
+  **This is NOT a demonstration of cog portability, and an earlier draft of this
+  file said it was** (caught by external review): a helper can be copied verbatim
+  while the cog around it is rewritten by hand and remains uninstallable through
+  any extension boundary. OD-19's requirement is that an existing cog can be
+  *added on demand*, and proving that needs a cog actually loaded and exercised
+  through the proposed contract — which is slice two's job, not a finding this
+  review can claim. What the similarity does establish is that the port is not
+  starting from nothing.
 
 ## What a future session may do on this verdict
 

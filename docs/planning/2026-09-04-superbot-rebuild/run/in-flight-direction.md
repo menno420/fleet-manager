@@ -17,8 +17,7 @@ changed, or was rejected.
 
 > **RESOLVED 2026-09-04T17:1xZ, at the base re-read this file demanded.**
 > #1021 **merged** as `104c2e5`, and the decision is now stamped in
-> [`../../../decisions.md`](../../../decisions.md) as **`[D-0042]`** — its
-> permanent home. **Nothing below changed on the way in**: the statement this
+> [`../../../decisions.md`](../../../decisions.md) under its own id — its permanent home. **Nothing below changed on the way in**: the statement this
 > file recorded is the statement that landed, so every use the plan package
 > makes of it stands as written. This file remains the *record of it arriving
 > mid-run*; the ledger is where it lives. The standing action at the bottom of
@@ -37,7 +36,7 @@ baseline / `estate` seed manifest). This plan touches neither's files.
 > durable, easy for the developer to find and act on — preferably through GitHub
 > or an equally clear developer-facing system."*
 
-Recorded as `[D-0042]` in that PR, with `docs/repos/spider-bot/intent.md`
+Recorded as a decision-ledger entry in that PR, with `docs/repos/spider-bot/intent.md`
 rewritten from DRAFT to ANSWERED and the 2026-08-21 game-community plan given a
 `NARROWED 2026-09-04` banner.
 
@@ -51,7 +50,7 @@ question had been the named blocker on re-sequencing the GCB roadmap since
 
 **2 · The GCB plan's multi-game headline is narrowed — for `spider-bot`, and
 not for the successor.** The PR is careful about this and so is this plan:
-`[D-0042]` states it *"does not supersede his 2026-08-28 'one real well
+It states that it *"does not supersede his 2026-08-28 'one real well
 functioning bot … without architectural debt' direction — that one governs the
 shape this input must be in; this one governs what it is for."* So **whether the
 eventual single bot is multi-game, or a second instance of a one-server tool,
@@ -59,7 +58,7 @@ remains open** and is carried into [`../12-owner-decisions.md`](../12-owner-deci
 as a real decision rather than assumed either way.
 
 **3 · The AI authority contract is now owner-derived, and this plan adopts it
-rather than proposing its own.** From `[D-0042]`, refining rather than deleting
+rather than proposing its own.** From that decision, refining rather than deleting
 spider-bot's invariant 5 (*"the AI never performs side effects"*):
 
 ```
@@ -112,7 +111,11 @@ same morning — the precise failure `fleet-preflight` § 6 was written from.
 
 **Standing action for the synthesis step — ✅ DISCHARGED 2026-09-04T17:1xZ.**
 #1021's state was re-read before publishing: **merged** as `104c2e5`, unchanged
-in substance, and the decision is stamped as `[D-0042]` in the estate ledger.
+in substance, and the decision is now stamped in the estate ledger
+([`../../../decisions.md`](../../../decisions.md)) and carried by
+[`../../../repos/spider-bot/README.md`](../../../repos/spider-bot/README.md).
+**This file deliberately does not repeat its id** — it has two homes in `main`
+now, and the one-home rule is the estate's, not an inconvenience.
 The plan package links back to *this* file rather than restating the id, under
 the one-home rule; the ledger entry and the rewritten `intent.md` are the
 canonical text.

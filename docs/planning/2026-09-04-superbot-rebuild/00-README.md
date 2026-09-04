@@ -81,7 +81,11 @@ Four standing constraints from the directive table, all still live:
   existing cog so that it works with this bot"* — and **the bots remain
   separated**; the consolidation is of **repositories**, not of running bots.
 - **OD-16 (2026-08-21):** server-first, retaining the best of both, AI given
-  meaningful freedom from the first slice.
+  meaningful freedom from the first slice. **Read this one with
+  [`09-roadmap.md`](09-roadmap.md) § 2**, which does not put a live model in
+  slice one and says plainly why, what it ships instead (the pipeline's seams,
+  with the AI stage empty), and that the reconciliation is the plan's reading
+  rather than the owner's — routed to `12-owner-decisions.md` OD-F.
 - **OD-13 (2026-08-08):** methods and enforcement come before high-value product
   work. **This plan is method work about a product**, not an execution order —
   nothing here authorises implementation.

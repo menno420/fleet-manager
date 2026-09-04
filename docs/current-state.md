@@ -172,23 +172,16 @@ copy product architecture or internal product state. Canonical intent:
   [`repos/spider-bot/`](repos/spider-bot/README.md)). `OQ-GCB-REVIEW-SCOPE`
   (the review-loop letters) stays open, now as spider-bot's next-phase
   direction.
-  **UPDATE 2026-09-04: the SuperBot successor now has an evidence-backed plan,
-  and it is a separate thread from spider-bot.**
-  [`planning/2026-09-04-superbot-rebuild/`](planning/2026-09-04-superbot-rebuild/00-README.md)
-  is a full comparative review of `superbot` (`5e3a667b`) and `superbot-next`
-  (`d5f66dc2`), read-only on both, and **it supersedes the comparative and
-  architectural halves of the 2026-08-21 game-community-bot plan.** Its verdict
-  is `PARTIAL — EVIDENCE GAPS`: the gaps block design-lock and any production
-  claim, not the first slice. What it settles — the root cause of both failures
-  is one defect (a green instrument over a population that is empty, a model, or
-  smaller than reported); the first slice is navigation and first-run access,
-  because both bots lose that journey by unrelated mechanisms; and the two repos
-  donate different halves of the same discipline (`superbot` guards what the
-  user can reach, `superbot-next` guards what the system may not do). What it
-  does not settle is one owner question — `OQ-SUPERBOT-SUCCESSOR-SCOPE` (A):
-  one server or many, which moves the entire ~40-panel setup surface. **Nothing
-  in this review authorized or performed any change to `superbot`, its Railway
-  worker, its Postgres, or any Discord surface.**
+  **UPDATE 2026-09-04: the SuperBot successor has an evidence-backed plan, a
+  separate thread from spider-bot** —
+  [`planning/2026-09-04-superbot-rebuild/`](planning/2026-09-04-superbot-rebuild/00-README.md),
+  read-only on both repos, **superseding the comparative and architectural
+  halves of the 2026-08-21 plan.** Verdict `PARTIAL — EVIDENCE GAPS`: the gaps
+  block design-lock, not the first slice. The two bots failed **differently** —
+  debt from non-local feature cost, versus instruments pointed at models — and a
+  successor avoiding one fails the other. Open: `OQ-SUPERBOT-SUCCESSOR-SCOPE`
+  (A), one server or many. **Nothing in `superbot`, its Railway worker, its
+  Postgres or any Discord surface was touched.**
 - **Cross-session visibility now has a surface: [`activity/`](activity/README.md)**
   (2026-08-26, fm #947). Owner ask: *"how well does a cloud session understand
   what the local sessions have been doing?"* `MEASURED` answer: barely — in the
