@@ -205,6 +205,23 @@ findings go here, below the fence.)
   rendered page, not a diff" rule made cheap. · workaround: none needed.
   — LAST-VERIFIED: 2026-09-03
 
+- 2026-09-04 · route-fact · `autonomous-project` (cloud container, couch-legend
+  #19) · **A Codex inline review comment's `commit_id` is NOT which round
+  produced it — GitHub RE-ANCHORS an unresolved comment to the newest commit
+  that touches its file. `original_commit_id` is the stable field.** ·
+  evidence: after round 1 returned 11 inline comments on `3a74970`, a push to
+  `c433048` left `GET /pulls/19/comments` reporting **6 of those 11 with
+  `commit_id` = `c433048`** while the review summary still read *"Running"*.
+  Filtering on `commit_id` therefore showed "6 new findings at the round-2
+  head" that were round 1's, five of which were already fixed in the push that
+  moved them. Reading `original_commit_id` settled it in one call: all 11 carry
+  `3a74970b` and `created_at` 13:54:20–21Z, i.e. one batch, one round. ·
+  workaround: poll `original_commit_id`, never `commit_id`, when deciding
+  whether a round has answered; and treat the summary comment's
+  Running/Completed state as the round's own signal — it stayed *Running* for
+  ~9 minutes after the re-anchored comments appeared.
+  — LAST-VERIFIED: 2026-09-04
+
 - 2026-09-02 · capability · `owner-live` · **Codex's automatic review
   triggers (PR open, draft→ready) are NOT ENABLED on this account — the
   owner's choice, not an unreliability — re-verification of the 2026-08-29
