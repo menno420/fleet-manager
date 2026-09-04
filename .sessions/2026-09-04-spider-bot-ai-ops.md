@@ -1,8 +1,14 @@
 # 2026-09-04 — Spider Bot becomes the AI operations bot of the Slingy Spider test server
 
-> **Status:** `in-progress` — branch `claude/spider-bot-ai-ops-sthix0`, born red.
-> Flipped to `complete` as the deliberate LAST step, after the spider-bot PR is
-> green and the estate records are reconciled.
+> **Status:** `complete` — branch `claude/spider-bot-ai-ops-sthix0`, born red and
+> flipped here as the deliberate last step: spider-bot#3 green at `d3a66bb`,
+> spider-swing#181 green and armed, and the estate records reconciled.
+>
+> **Two things are deliberately NOT claimed.** The spider-bot PR was left for
+> the owner rather than merged — it is live in a real server, `main` deploys
+> straight to production with no gate, and what it needs next are his decisions.
+> So the deployed SHA is unverified, and its own card says so under *Deployment
+> outcome* instead of pretending otherwise.
 
 - **📊 Model:** opus-5 · xhigh · feature build
 - **📍 Venue:** cloud-container
@@ -43,7 +49,7 @@ registry, closed-test clock and membership memory that the entry point lists as
 | PR | What |
 |---|---|
 | [fleet-manager#1021](https://github.com/menno420/fleet-manager/pull/1021) | The records: `intent.md` answered, `[D-0042]`, `OQ-GCB-REVIEW-SCOPE` closed, the Layer-2 entry point re-derived |
-| [spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | The build: 19 commits, +13,190 lines, 246 → 647 tests |
+| [spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | The build: **22 commits**, 246 → **669 tests**, 21 → **55 invariants** |
 | [spider-swing#181](https://github.com/menno420/spider-swing/pull/181) | The producer half of the support feed: a versioned, fail-closed cross-repo contract |
 
 **The build, in dependency order.** Shared foundations (stable ids, a storage
@@ -58,25 +64,35 @@ on arrival: moderation ships `off`, the autonomy ceiling ships at
 
 **The adversarial review is most of what this session actually was.**
 
-- **8 lanes** (`fleet-preflight` run first; concurrency measured at 2, so the
-  fleet was spent on design and review rather than parallel implementation) plus
-  a synthesis pass: **41 findings**, every one reproduced here before it was
-  touched, every fix carrying a test verified to fail when the fix is removed.
-- **1 Codex round** at flip-readiness: **15 more** (5 P1, 10 P2), all fifteen
-  reproduced and fixed. That is the number that matters: Codex found fifteen
-  things eight independent Opus lanes had missed.
-- The four worst, and they are the same shape: **`classifier.SYSTEM` reached
-  the model on no call ever made** (a mode-dispatch bug routed moderation down
-  the chat path); **the human publication gate approved by report id** so it
-  swapped a classifier publishing unseen content for a person publishing unseen
-  content; **a masked markdown link — and then an HTML anchor — passed both
-  escapers** into a public issue under the bot's name; and **two members filing
-  at the same instant could leave a report durably stored and invisible to
-  every read path**, after its reporter had been told it was saved.
+**48 findings from four independent sources, every one reproduced here before
+it was touched, every fix carrying a test verified to fail when the fix is
+removed.**
 
-**What the whole review is about, stated once:** of the five sharpest findings,
-four were *documented* protections — a docstring asserting a property is the
-cheapest possible way to stop looking for its absence.
+| Source | Found |
+|---|---|
+| 8 Opus lanes + a synthesis pass (`fleet-preflight` run first; concurrency **measured** at 2, so the fleet went to design and review rather than parallel implementation lanes) | 41 |
+| Codex round 1 · 2 · 3 (the cap, [D-0039]) | 15 · 17 · 8 |
+| Free-key Gemini over round 3's own fixes | 7 — **4 real, 3 wrong**, and the wrong three are recorded as wrong with what they were checked against |
+
+- **The five worst.** `classifier.SYSTEM` reached the model on **no call ever
+  made** — a mode-dispatch bug routed every moderation call down the chat path.
+  The human publication gate **approved by report id**, so requiring a person
+  swapped a classifier publishing unseen content for a *person* publishing
+  unseen content. A masked link passed both escapers — in markdown, then in
+  HTML — into a public issue under the bot's name. Two members filing at the
+  same instant could leave a report **durably stored and invisible to every
+  read path** after its reporter was told it was saved. And my own consent fix
+  pushed three modal placeholders past Discord's 100-character limit, making
+  the publishable forms **unopenable** — `ComplaintModal` was already at 104
+  before that change, so the private-report form had never opened at all.
+
+**What the whole review is about, stated twice because it happened twice.**
+Four of those five were *documented* protections: a docstring asserting a
+property is the cheapest possible way to stop looking for its absence. And the
+second-order version — **three of Codex round 3's findings were consequences of
+round 2's fixes, and two of Gemini's four were consequences of round 3's.** A
+fix does not remove a problem so much as move it, and the new place has not been
+looked at by anyone.
 
 **Records reconciled here:** `docs/repos/spider-bot/intent.md` (ANSWERED, all
 four ❓ closed beside their questions), `[D-0042]`, `OQ-GCB-REVIEW-SCOPE`
