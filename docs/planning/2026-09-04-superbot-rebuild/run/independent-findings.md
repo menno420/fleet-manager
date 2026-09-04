@@ -927,3 +927,56 @@ Two properties, both cheap and both absent here:
   (`!platform findings`) is a frozen capture-world literal that always renders
   *"(none)"*. Three independent mechanisms, each of which alone would have hidden
   it.
+
+## I-20 · The one place `superbot-next`'s parity gate is HONEST — and how this session nearly published its opposite — `MEASURED`
+
+`tools/run_golden_parity.py --gate`, run on a machine with no Postgres:
+
+```
+golden-parity gate: 50 ported / 0 pending
+gate: RED — 50 subsystem(s) are flipped `ported` but no replay is possible:
+  no bot-under-test binding (HarnessBootError: Postgres unavailable:
+  asyncpg is not installed — the DB seam cannot serve)
+REAL EXIT: 1
+```
+
+**It refuses to be vacuous.** It notices that its population cannot be replayed,
+names the reason, and **reds** — the opposite of `pytest tests/integration -q`
+exiting 0 on `14 skipped` two steps later in the *same job* (I-16). And CI
+invokes it correctly: `golden-parity.yml:67` and `named-gates.yml:141` both
+`run: python3 tools/run_golden_parity.py --gate` with **no pipe**, and
+`continue-on-error` appears **0 times** in either file. The exit propagates.
+
+So this belongs on the credit side of the ledger: **the flagship acceptance gate
+detects its own empty population.** Whatever else § 3b says about what it
+compares, it does not lie about whether it ran.
+
+### How this session nearly published the reverse, which is the more useful half
+
+The first reading of that command was
+`python3 tools/run_golden_parity.py --gate 2>&1 | tail -4; echo "EXIT=$?"` →
+**`EXIT=0`**. On that reading the finding was going to be *"the gate announces
+its own redness in prose and returns success"* — a spectacular defect, and false.
+
+`$?` after a pipe is `tail`'s status. **This estate's boot file carries exactly
+one rule about exit codes** — *"verify with real exit codes (never `$?` after a
+pipe)"* — and `docs/traps.md:512-524` carries a six-case matrix for it. **I had
+quoted that rule, in this document, about `superbot-next`'s `restore-verify.yml`,
+roughly one hour earlier** (I-19), and then committed it in my own shell.
+
+**The mechanism worth extracting is not "remember the rule".** It is why nothing
+caught it:
+
+> **The false reading pointed the same way as the thesis.** Every other error in
+> this session's re-derivation ledger was caught by absurdity or by a reviewer
+> asking — because the number looked wrong. This one looked *right*: a review
+> about vacuous gates found a vacuous gate. Confirmation supplied the plausibility
+> that would otherwise have triggered a second look.
+
+That is the sharpest statement of this review's whole subject, and it applies to
+the successor's gates as directly as to this document: **a defect is hardest to
+see when its output agrees with what you expected**, which is precisely the
+condition a green CI check creates every day. It is also the argument for why
+§ 3's mechanisms must be *structural* rather than *habitual* — habits fail in the
+direction of the thing you already believe, and this session demonstrated it
+inside the document arguing for it.
