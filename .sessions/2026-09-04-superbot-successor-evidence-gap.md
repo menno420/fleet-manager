@@ -76,7 +76,7 @@ worker, its Postgres and every Discord surface stay untouched** (the rail in
   discord.py's `Interaction` → the tree / component feed → `resolve()` → the
   panel engine → the **production** `DiscordPanelPresenter`. Population
   declared (the committed snapshot's 314 panel ids) and reported both ways.
-  Five clean runs on a fresh database plus one restart run; the walker was
+  Seven clean runs on a fresh database plus one restart run; the walker was
   corrected twice on the way (a command-access lock-out it caused itself,
   then a Cog Manager select it re-clicked 6,518 times because session views
   mint a fresh id per render) — both corrections are in the record as
@@ -90,12 +90,12 @@ worker, its Postgres and every Discord surface stay untouched** (the rail in
   — the production presenter has no branch for a request with no interaction
   origin, the parity twin does, the reply links to message id `0`; the
   advanced wizard behind `/setup-hub` works — 21 of 40 panels, session row,
-  depth, skips, 76 audit rows; three of ten setup commands unusable from slash
+  depth, skips, 69 audit rows; three of ten setup commands unusable from slash
   because commands register parameterless); **two unhandled
   `AttributeError`s** (`ticket/setup_panel.py:159,191` — `WorkflowResult.ok`;
   `platform/guild_snapshot.py:243` — `ResourceRequirement.name`); the
   **one-click owner lock-out** on the Command Access panel (the override is
-  the platform owner's); the global walk (1,490 interactions, 236 panels) and the whole run
+  the platform owner's); the global walk (1,493 interactions, 236 panels) and the whole run
   (1,821 interactions, 237 of 314 rendered, 234 sent, 77 never); the population contract applied; a nine-row
   table of package claims confirmed, sharpened or contradicted; the gateway
   leg's recipe; the honest nulls.

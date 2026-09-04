@@ -802,6 +802,7 @@ class Drive:
             return f"{b.panel_id}.{b.component_id}" if b is not None else cid
 
         async def drive_step(payload: dict, step_label: str) -> dict:
+            nonlocal n
             step = await self.run_interaction(payload, label=step_label)
             if any(x["reason"] == "channel" for x in step["resolved"]) and self.dsn:
                 # the walker's own earlier click changed the command-access
@@ -826,6 +827,7 @@ class Drive:
                                                message_id=int(payload["message"]["id"]) if payload.get("message") else None)
                 payload["id"], payload["token"] = str(iid), token
                 step = await self.run_interaction(payload, label=step_label + " [replay after reset]")
+                n += 1          # the replay is a driven interaction, counted like any other
             return step
 
         for root in roots:
@@ -939,12 +941,17 @@ def checkout_revision(repo: str) -> tuple[str, bool]:
 
     head = subprocess.run(["git", "-C", repo, "rev-parse", "HEAD"],
                           capture_output=True, text=True, check=True).stdout.strip()
-    status = subprocess.run(["git", "-C", repo, "status", "--porcelain"],
+    # tracked changes only: an untracked file (a result JSON written next to
+    # the checkout, an editor's scratch) does not alter the revision under test
+    status = subprocess.run(["git", "-C", repo, "status", "--porcelain", "--untracked-files=no"],
                             capture_output=True, text=True, check=True).stdout
     return head, bool(status.strip())
 
 
 async def main_async(args) -> int:
+    # resolve every path the caller gave BEFORE the chdir into the checkout
+    args.repo = os.path.abspath(args.repo)
+    args.out = os.path.abspath(args.out)
     head, dirty = checkout_revision(args.repo)
     if args.pin and head != args.pin:
         raise SystemExit(f"checkout HEAD {head} is not the expected pin {args.pin}; "

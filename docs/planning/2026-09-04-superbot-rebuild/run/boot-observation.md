@@ -8,7 +8,7 @@
 > everything below is `MEASURED` unless it says otherwise, **and "measured"
 > here means measured HEADLESS** — read § 1 before quoting any number.
 >
-> **What produced it:** [`headless_drive.py`](headless_drive.py), run six
+> **What produced it:** [`headless_drive.py`](headless_drive.py), run seven
 > times to a clean end on a fresh database while the walker itself was being
 > corrected (§ 6, § 7) and then hardened after review, plus one *restart* run
 > over the same database. The retained result of the final run is
@@ -286,12 +286,19 @@ one select 6,518 times before that was fixed.
   (`/bugreport`, `/dispatch`: honest, no bridge configured); four answer in
   text — `/setup-reset` usefully, `/setup-describe`, `/setup-skip` and
   `/setup-unskip` as § 5.4 says.
-- **Interactions:** 1,490 in the global walk
-  (1,821 in the whole run); budget not exhausted (8,000 allowed), queue empty;
-  42 modals submitted.
+- **Interactions:** 1,493 in the global walk — 1,490 clicks plus the three
+  replays after the lock-out resets of § 6 — and 1,821 in the whole run
+  (3 first-contact + 116 help + 202 setup + 7 launcher + 1,493); budget not
+  exhausted (8,000 allowed), queue empty; 42 modals submitted.
 - **Panels rendered from any command:** 236 (depth histogram
   from the command roots `{0: 21, 1: 66, 2: 114, 3: 28, 4: 4, 5: 3}`).
-- **`BUG` envelopes met:** 4 — the two ticket buttons of § 5.5, each met in the setup walk and again here; nothing else.
+- **`BUG` envelopes met:** 4 — the two ticket buttons of § 5.5, each met in
+  the setup walk and again here; nothing else carried the `bug` error class.
+  One more reply carried the same *"Something went wrong on our end — it's
+  been logged."* copy as a handler-level `blocked` result:
+  `blackjack.hub.bj_solo_bet`, the solo-bet modal, whose bet field the walker
+  filled with text (§ 11) — a validation gap that answers with the crash copy
+  rather than a *"bets are numbers"* line.
 - **Not modelled, met:** `PUT /guilds/{id}/bans/{uid}`, `DELETE …/bans/{uid}`,
   `DELETE /guilds/{id}/members/{uid}`, `GET /users/{uid}` — the live moderation
   effects, which the fake refuses (each rendered as the adapter's honest
@@ -388,12 +395,15 @@ environment.
   guild can refuse where this one allowed.
 - **No client rendered anything.** Embed budgets, component limits and
   Discord's own rejections were not exercised — only the payloads.
-- **My inputs.** Modals took `3` or a fixed string; native pickers took one
-  synthetic id each. Seven `parse_target_and_reason` errors in the log are the
-  walker feeding text to a user-id field, not a defect (they render as the
-  honest *"could not parse"* copy; one reached a `BUG` envelope on the
-  modal-submit surface — `moderation.hub.logs`, a validation gap, recorded
-  but not counted with § 5.5).
+- **My inputs.** Modals took `3` for a field whose label reads as a number
+  and a fixed string otherwise; native pickers took one synthetic id each. The
+  `invalid literal for int()` errors in the log are the walker feeding that
+  string to numeric fields, not defects of the bot — most render as the
+  handlers' own *"could not parse"* copy; the blackjack bet form (§ 7)
+  answered with the generic failure copy instead, which is the one
+  validation gap worth a line. `moderation.hub.logs`, which an earlier run's
+  log showed failing on the same input, parsed the `3` and rendered
+  `moderation.modlogs_card` in the retained run.
 - **The prefix surface was not driven** (no message intent declared), so
   `!help` / `!setup` and the audit's fresh-database note are unmeasured here.
 - **Timing is not representative** — no network, one process, one actor.
