@@ -318,7 +318,63 @@ was **wider than the review stated**.
 
 ## 8 · The seed manifest
 
-*(completed from the fleet's returned evidence)*
+[`../planning/2026-09-04-estate-seed-manifest.csv`](../planning/2026-09-04-estate-seed-manifest.csv)
+— **generated**, never hand-edited, by
+`python3 tools/estate_baseline/build_manifest.py` from the fleet's retained
+journals. Re-running it reproduces the file; re-running it against a fresh fleet
+at seed time shows what moved.
+
+**Twenty-one columns per row**, which is what `[D-0035]`'s acceptance test asks
+for (*"one verb per candidate with a verifier's name"*) plus the provenance the
+fresh-start directive requires (*no certainty tag, no seed*): subject · source
+repository · source path · verification point · certainty · canonical owner ·
+destination role · disposition · transformation required · links that must
+survive · blocker · verifier · the four dissent fields · fact · origin lane ·
+`survives` · `killed_by`.
+
+### The shape of the cut
+
+| | N |
+|---|--:|
+| rows | 109 |
+| **live in `estate`** | **48** — 15 `carry`, 33 `distill` |
+| `archive_only` (stays in fleet-manager, reachable by link) | 52 |
+| killed by the survival rule, published with the branch that fired | 9 |
+
+**48 live items against ~1,300 tracked files** is the thin seed the plan asks
+for, and the ratio is the point rather than the count: the fresh start exists
+because *"a growing archive nobody reads"* is a named non-goal, and a manifest
+that seeded three hundred items would have reproduced it.
+
+Destination roles of the 48: `practices/` 14 · `owner/` 9 · `tools/` 9 ·
+`plans/` 4 · `decisions/` 3 · `root` 3 · `repositories/` 2 · `state/` 2 ·
+`evidence/` 1 · `ideas/` 1.
+
+### What the rule killed, and the honest limit on that number
+
+Nine rows died across **seven distinct branches** — `only_source_is_hub_summary
+and certainty != 'OWNER'` (×2) · `refuted` (×2) · unresolved contradiction (×2,
+two phrasings) · `not source_path` · `stale_on_copy and disposition == 'carry'`
+· `not verification_point`. A spread that wide is evidence the rule
+**discriminates** rather than rejecting everything or nothing.
+
+**But it is not yet evidence that the rule adds anything to the judges.**
+Splitting the kills by origin: **all nine were already killed by a disposition
+judge, and the rule independently overturned zero rows a judge had kept.** So on
+this half of the corpus the aggregation rule has only echoed the judges. Its own
+discrimination is demonstrated by the 12 hand-written fixtures (8 kill / 4
+survival) and the two proved-firing aggregation fixtures — not by live data.
+The repository lane is the real test, because there readers emit seed items with
+no judge between them and the manifest; § 5 reports that split rather than the
+total.
+
+### Coverage
+
+The `origin_lane` column carries which agent produced each row, so coverage is
+readable from the artifact rather than asserted here. The builder also prints a
+`NOTE` naming any repository in the re-audit slice with no reading in the
+journals it was given — a deliberate loud null rather than a silently short
+manifest.
 
 ## 9 · The Substrate Kit dependency, at its currently verified state
 
