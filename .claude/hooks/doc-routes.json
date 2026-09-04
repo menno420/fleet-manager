@@ -1279,6 +1279,18 @@
         "docs/CAPABILITIES.md"
       ],
       "says": "You are about to attribute a merge to a person. $GITHUB_PAT is account-scoped, so a SESSION's merge and the owner's are the same bytes: merged_by.login, timeline actor and performed_via_github_app were identical (menno420 / menno420 / None) on spider-bot#3 and on spider-bot#4, which a session merged with the PAT as the positive control. Write 'merged under the account' and name the other candidates when a sibling session was active on that PR. See 'A session's merge is INDISTINGUISHABLE from the owner's' in docs/CAPABILITIES.md. A GitHub App DOES stamp performed_via_github_app, so merge-on-green and the Codex connector remain identifiable; the gap is specific to PAT calls."
+    },
+    {
+      "id": "railway-cli-project",
+      "when": [
+        "\\brailway\\s+(config|status|link|redeploy|deploy|service|environment)\\b",
+        "@railway/cli",
+        "RAILWAY_API_TOKEN"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "STOP and read the Project line before trusting any `railway` CLI output: this container's RAILWAY_PROJECT_ID / RAILWAY_ENVIRONMENT_ID / RAILWAY_SERVICE_ID point at superbot-production and the CLI honours them OVER `railway link`. MEASURED 2026-09-04: an unoverridden `railway config plan` against spider-bot's IaC file previewed 24 variable deletions plus the Postgres on superbot-production. Override all three ids on the command line for the project you mean. `plan` is read-only; never run `apply` from a session. Recipe and the two measured IaC facts (omit means delete; preserve() on an absent variable is a no-op): docs/CAPABILITIES.md § Railway's GraphQL API — the query shapes."
     }
   ]
 }
