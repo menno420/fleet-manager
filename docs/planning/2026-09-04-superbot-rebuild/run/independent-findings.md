@@ -882,10 +882,29 @@ run: python3 -m sb.app.verify_boot | tee verify-report.json
 ```
 
 Measured across all **8** workflow files in the repo: **0 occurrences of
-`pipefail`** and **0 `shell:` keys**. GitHub Actions' default shell for `run:`
-is `bash -e`, not `bash -eo pipefail`, so the step's exit status is `tee`'s —
-which is 0 whether the boot verified or crashed. **The weekly proof that the bot
-can be restored cannot fail.**
+`pipefail`** and **0 `shell:` keys**. The step's exit status is therefore `tee`'s
+— 0 whether the boot verified or crashed. **The weekly proof that the bot can be
+restored cannot fail.**
+
+**The load-bearing assumption there is that Actions' default `run` shell does not
+enable `pipefail`, so it is grounded rather than asserted from memory**, three
+ways:
+
+1. **The estate has already measured this class.** `docs/traps.md:512-524`
+   carries the exemption semantics in detail — `pipefail` counts only when set on
+   a non-comment line *above* the pipe, and not when set after it, inside a
+   subshell, or named in a comment — with a six-case test matrix behind it. The
+   estate ships a checker for exactly this and treats the swallowed-exit-code
+   behaviour as established.
+2. **`superbot`'s own maintainers write `set -euo pipefail` by hand inside
+   `run:` blocks** — `code-quality.yml:51`, `dashboard-data-refresh.yml:75`,
+   `pr-auto-update.yml:67`, across 5 workflow files. Nobody types that if the
+   default already provides it. Behavioural evidence from the same authors, in
+   the sibling repository.
+3. **`verify_boot` does exit non-zero on failure** — `sb/app/verify_boot.py:100`
+   is `sys.exit(main())`, so `main()`'s status propagates and the pipe has a real
+   non-zero to swallow. Without this the finding would be vacuous in its own
+   right.
 
 And this is the estate's own standing rule, from `.claude/CLAUDE.md`: *"verify
 before fold; verify with real exit codes (never `$?` after a pipe)."* It is
