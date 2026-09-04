@@ -62,6 +62,8 @@ def normalise(item: dict, lane: str) -> dict | None:
         else:
             v = "" if v is None else str(v)
         out[f] = v
+    out["estate_role"] = canon_role(out["estate_role"])
+    out["source_repo"] = out["source_repo"].split("/")[-1]
     out["judge_branch"] = str(item.get("judge_branch", ""))
     out.setdefault("contradiction_resolution", "none")
     if not out["contradiction_resolution"]:
@@ -69,6 +71,24 @@ def normalise(item: dict, lane: str) -> dict | None:
     out["fact"] = str(item.get("fact", ""))
     out["origin_lane"] = lane
     return out
+
+
+ROLES = {"owner", "repositories", "state", "plans", "decisions", "ideas",
+         "evidence", "practices", "tools", "sessions", "archive", "root"}
+
+
+def canon_role(value: str) -> str:
+    """One spelling per destination.
+
+    The eleven `estate` roles are a closed, agreed set. Agents wrote them both
+    ways ("state" and "state/"), which silently split one destination into two
+    rows of the role census. `root` is the one member with no trailing slash,
+    because it is not a folder.
+    """
+    v = (value or "").strip().strip("/").split("/")[0].lower()
+    if v in ROLES:
+        return v if v == "root" else v + "/"
+    return value.strip() or "(unassigned)"
 
 
 def flatten(cell) -> str:
@@ -186,6 +206,9 @@ def main() -> int:
     print("by estate role:", dict(collections.Counter(r["estate_role"] for r in survivors)))
     print("kill branches :", dict(collections.Counter(
         (r["judge_branch"] or "; ".join(why(r))) for r in killed)))
+    echoed = sum(1 for r in killed if r.get("judge_branch"))
+    print(f"kill origin   : {len(killed) - echoed} made by the rule itself · "
+          f"{echoed} echoed from a disposition judge")
     print(f"lanes         : {len(readings)} repository readings · {len(refutations)} refutations · "
           f"{len(areas)} area dispositions")
 
@@ -197,8 +220,9 @@ def main() -> int:
         json.dump(areas, (ev / "area-dispositions.json").open("w"), indent=1)
         print(f"evidence      : repo-readings.json, refutations.json, area-dispositions.json -> {ev}")
 
+    seen_repos = {str(x.get("repo", "")).split("/")[-1] for x in readings}
     unaudited = [r for r in classification
-                 if r not in {x.get("repo") for x in readings}
+                 if r not in seen_repos
                  and classification[r]["classification"] in
                  ("CHANGED_REAUDIT", "WEAK_OR_INCOMPLETE", "NEW")
                  and r != "fleet-manager"]

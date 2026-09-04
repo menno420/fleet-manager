@@ -275,7 +275,86 @@ tool is worth carrying, and it is worth carrying with this written down.
 
 ## 5 · What the re-audit found
 
-*(§ 5 is completed from the fleet's returned evidence; see the sections below.)*
+Thirteen repositories re-read from their own source at pinned SHAs, each then
+attacked by an Opus adversary told to kill it. **26 agents, 26 returned, 0
+errors.** Raw evidence: [`repo-readings.json`](data/2026-09-04-estate-truth-baseline/repo-readings.json)
+and [`refutations.json`](data/2026-09-04-estate-truth-baseline/refutations.json).
+
+| repo | state | docs vs source | front door | hub agrees | prior evidence |
+|---|---|---|---|---|---|
+| `spider-swing` | active | **DISAGREE** | **NO** | PARTIAL | STILL_HOLDS |
+| `product-forge` | active | **DISAGREE** | **NO** | **DISAGREE** | STILL_HOLDS |
+| `estate-backups` | dormant | PARTIAL | **NO** | AGREE | STILL_HOLDS |
+| `couch-legend` | active | PARTIAL | YES | PARTIAL | STILL_HOLDS |
+| `spider-bot` | active | PARTIAL | PARTIAL | PARTIAL | **PARTIAL** |
+| `websites` | active | PARTIAL | PARTIAL | PARTIAL | **SUPERSEDED** |
+| `creator-kit` | dormant | PARTIAL | PARTIAL | AGREE | STILL_HOLDS |
+| `idea-engine` | dormant | PARTIAL | PARTIAL | PARTIAL | STILL_HOLDS |
+| `sim-lab` | dormant | PARTIAL | PARTIAL | AGREE | STILL_HOLDS |
+| `superbot-next` | parked | PARTIAL | PARTIAL | AGREE | STILL_HOLDS |
+| `shiftlife` | paused | AGREE | YES | AGREE | STILL_HOLDS |
+| `substrate-kit` | infrastructure | AGREE | YES | AGREE | STILL_HOLDS |
+| `superbot` | frozen | AGREE | YES | AGREE | STILL_HOLDS |
+
+**Only two walls in thirteen repositories**, both recorded with exact error text.
+Private repositories read as cleanly as public ones on the direct-PAT path.
+
+### The three findings that matter for the seed
+
+1. **Three front doors are inadequate and two of them are actively wrong.**
+   `spider-swing`'s README still says naming is *"still open"*, *"No release
+   signing exists"* and store publishing *"remain[s] absent"* — all three false
+   against the repository's own ledger, which records the name decided
+   2026-08-05, a signing workflow run through version code 66, and a signed
+   build on Play's internal-testing track. `product-forge` routes a cold session
+   to a seat retired 2026-07-21. Both were known; **neither has been fixed**, and
+   the turnkey fix briefs written 2026-08-23 are still unapplied.
+2. **`websites` is the one repository whose prior evidence is SUPERSEDED** —
+   the only `CHANGED_REAUDIT` row where re-reading changed the answer rather
+   than confirming it. `spider-bot`'s reads PARTIAL for a different reason: its
+   purpose was restated by the owner *during this run* (§ 4b).
+3. **`prior_evidence_verdict` is `STILL_HOLDS` in 11 of 13.** The 2026-08 audit
+   wave was accurate. What it lacked was not correctness but **scope** — which
+   is exactly what the unchanged-reuse lane found on the other five
+   repositories, and it is the finding that should shape the seed: this estate's
+   records are trustworthy about what they measured and silent about what the
+   successor needs.
+
+### The unchanged five: zero movement is not reusability
+
+The [reuse lane](data/2026-09-04-estate-truth-baseline/unchanged-reuse.md)
+re-verified all five tips independently (5 of 5 byte-identical to the pinned
+SHAs) and then judged the evidence rather than the tree:
+
+| repo | verdict |
+|---|---|
+| `venture-lab` | **REUSABLE** |
+| `superbot-plugin-hello` | split — reusable for *"is it a build input?"* (no, measured from the host's own boot test), not for purpose |
+| `curious-research` · `gba-homebrew` · `pokemon-mod-lab` | **NOT_REUSABLE** |
+
+Four of the five anchor to `2026-08-22-repo-dispositions.md`, whose own header
+says it is *"**Not canonical for** any repo's internal state."* It measured
+*should this be archived*, never *what is this repo for, where does its truth
+live, what must a fresh agent not trust*. **Zero commits proves the source did
+not move; it cannot make evidence reusable that never asked the question.**
+`curious-research` is the sharpest case — its row rests on the owner's *"gets a
+new mission later"*, a claim about **intent**, for which commit count is not
+even the right freshness instrument.
+
+**This overturns the mechanical classification for four repositories**, and it is
+the single most important correction this run makes to its own delta.
+
+### The nine archived
+
+The [provenance lane](data/2026-09-04-estate-truth-baseline/archived-provenance.md)
+confirmed the archived flag live on all nine and answered the one question that
+could change a disposition — *does anything live still depend on one?* —
+with **None**, from six targeted checks (the one real pin read at its source;
+the live successor `spider-bot`'s own docs, 0 hits in 4 of 4 files; the one cron;
+serving surfaces; forks and issues; the hub's records). It states its own limit:
+`search/code` indexes a minority of this account, so this is **not** an
+account-wide completeness claim, and closing it would need a clone-and-grep of
+the keeps, which was not run.
 
 ## 6 · Defects found in fleet-manager's own live truth, and fixed here
 
@@ -314,7 +393,50 @@ was **wider than the review stated**.
 
 ## 7 · Contradictions — exposed, never reconciled away
 
-*(completed from the fleet's returned evidence)*
+**Readers reported 13. Their adversaries found 38 more they had missed** — the
+refute stage nearly quadrupled the count, which is the clearest evidence in the
+run that a single-pass audit under-reports disagreement. It also killed **58
+claims** and flagged **73 certainty overclaims** (`MEASURED` where the basis was
+a document describing a live surface — the estate's own TRAP-001). **Every one of
+the 13 verdicts is `PARTIAL`:** no reading was fully confirmed, and none was
+wholly refuted.
+
+**One contradiction is `UNRESOLVED` by design** — `spider-bot`'s status, where
+the repository's README Status and Threads sections disagree with each other and
+with the hub's Layer-2 folder, and the owner restated the repository's purpose
+mid-run. Two authoritative sources disagreeing is a contradiction requiring
+resolution, not a tie to be broken by whichever is easier, so the manifest kills
+the affected seed row rather than picking one.
+
+### Hub-versus-repository, resolved in the repository's favour
+
+`product-forge` is the only outright `DISAGREE` on the hub axis, and
+`spider-swing`, `couch-legend`, `spider-bot`, `websites` and `idea-engine` are
+`PARTIAL`. The pattern is consistent and worth stating because it shapes the
+seed: **where the hub and a repository disagree, the hub is usually right about
+the resolved state and the repository's own front door is stale.** `spider-swing`
+is the clean case — `ESTATE.md` correctly records the name, the Play track and
+the signing, while the repository's README denies all three.
+
+That inverts the naive rule *"the repository always wins"*. The repository wins
+on **what is true**; it does not follow that its **README** wins, and a seed
+built by copying front doors would import the errors. The manifest's
+`canonical_state_source` column exists for this: it points at the repository's
+ledger, not its README.
+
+### Contradictions found inside single hub documents
+
+Three, all fixed or withdrawn in this PR, and all of the same class — *"several
+polished front doors, each internally plausible and jointly stale"*, here
+occurring **within one file**:
+
+- `docs/current-state.md` held three different states for `OQ-FM-D2-TARGET` (§ 6).
+- `docs/current-state.md` never mentioned that this repository is being replaced (§ 6).
+- `docs/ESTATE.md` carried a `search/code` sweep presented as having *"removed
+  the stated blocker on the deletion question"*, 83 lines below its own section
+  headed *"`search/code` does NOT cover this account — dependency sweeps are
+  unreliable."* Withdrawn; the disposition is unaffected because it rests on
+  value, but **deletion is irreversible** and that clearance was not earned.
 
 ## 8 · The seed manifest
 

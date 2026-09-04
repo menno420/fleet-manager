@@ -262,9 +262,18 @@ removes the stated blocker on the deletion question.~~
 > the method [§ `search/code` does NOT cover this account](#️-searchcode-does-not-cover-this-account--dependency-sweeps-are-unreliable)
 > refutes: `MEASURED` 2026-08-23, **7 of 26 repositories are indexed and 19 are
 > not**, so a zero from an unindexed repository is indistinguishable from a
-> genuine absence. `Substrate-kit-app` is itself among the unindexed. A search
-> that cannot see 19 repositories does not establish anything about them, and
-> **the blocker on the deletion question was never removed.**
+> genuine absence. A search that cannot see 19 repositories does not establish
+> anything about them, and **the blocker on the deletion question was never
+> removed** — whichever bucket any single repository falls into. The struck
+> paragraph's error is that it read a partial index as a complete one.
+>
+> *(A first draft of this note added "`Substrate-kit-app` is itself among the
+> unindexed". That was relayed from an agent and not earned: re-probing
+> `search/code` on 2026-09-04 returned `total_count: 0` for the **positive
+> control** too — `mining repo:menno420/superbot-games`, recorded at 292 hits
+> on 2026-08-23 — so the query measured nothing and its zeros prove nothing
+> either way ([`traps.md`](traps.md) TRAP-003). Removed rather than re-stated,
+> because the withdrawal never needed it.)*
 >
 > Both halves sat in this file at once — the warning, and this paragraph reading
 > as though the warning did not apply to it — which is the failure the

@@ -1,0 +1,1070 @@
+[
+ {
+  "repo": "menno420/superbot",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "\"8 open Dependabot PRs ... parked by D-0017 doctrine, not active development\" / \"This matches the estate's own doctrine that Dependabot PRs on this repo are parked (D-0017 exemption)\"",
+    "why_it_fails": "D-0017 does not park anything. Its own `rules out` clause reads: \"It does **not** govern third-party automation surfaces (dependabot, superbot's `bot/dashboard-refresh`): those PRs are not session work and keep their own disposition rules.\" That is an exemption FROM D-0017, pointing at the repo's own rule \u2014 and superbot's own rule is the opposite of parked. docs/operations/repo-settings-state.md \u00a7 \"Dependabot PR policy (owner decision Q-0256, 2026-07-09)\" says: \"**Review-on-sight, then merge.** The *first* session that sees an open dependabot PR reviews it ... and merges it ... An open dependabot PR is unclaimed work for whoever sees it; don't leave it for later.\" docs/AGENT_ORIENTATION.md line 90 repeats it: \"**Dependabot PRs are yours on sight (Q-0256).**\" So the 8 open PRs are, by owner decision recorded in the product repo, an unworked backlog \u2014 not a deliberately parked surface. A seed session told they are \"parked by doctrine\" will leave owner-mandated work undone. The hub README (docs/repos/superbot/README.md:43) carries the same error (\"parked by doctrine \u2014 D-0017 explicitly...\"), and the reading amplified it instead of checking the primary source.",
+    "what_you_checked": "/home/user/fleet-manager/docs/decisions.md lines 325-361 (D-0017 full entry incl. `rules out`); menno420/superbot docs/operations/repo-settings-state.md @5e3a667b (blob 85b758e24fe2953c488df22817b239d7189c21e1, 7764 B) lines 71-89; docs/AGENT_ORIENTATION.md @5e3a667b (blob 40407de151128368c22ee391c60749b3acb0c6c3, 32059 B) lines 90-95; /home/user/fleet-manager/docs/repos/superbot/README.md:43"
+   },
+   {
+    "claim": "`contradictions: []` and `hub_agrees: \"AGREE ... every one of these was independently verified against the live repo/API in this audit and matched exactly\"`",
+    "why_it_fails": "At least two hub-vs-repo contradictions exist and were reported as zero. (1) The dependabot-parking claim above \u2014 hub says parked-by-doctrine, repo's owner decision Q-0256 says review-on-sight-and-merge. (2) Deploy watch filter \u2014 hub docs/repos/superbot/README.md:23-26 says worker had `watchPatterns: []` and now carries `[...,'Procfile']`; superbot's own deployment truth doc still states the opposite: \"| Watch Paths | (none) | Every push to `main` builds; no path filter. |\" and \"The Railway GitHub integration **auto-builds and deploys `worker` on every push to `main`**\". A reader who verified \"every one of these\" against source would have hit both. Reporting AGREE with an empty contradictions list is the failure mode this stage exists to catch.",
+    "what_you_checked": "superbot docs/operations/production-deployment.md @5e3a667b (blob 1d5c80621d2f2e73b43ab77e3899fab49697d28d, 17577 B) lines 40-50 and line 102; hub docs/repos/superbot/README.md lines 19-26, 43; sb PR #2446 body via live API (merged 2026-08-14T12:34:57Z, body: \"`worker` has no Railway watch filter \u2014 a filter is being added Railway-side\")"
+   },
+   {
+    "claim": "Seed item \"deploy safety rail\": `source_path: \"docs/operations/ (runbooks, present in tree) + fleet-manager docs/repos/superbot/README.md\"`, certainty `MEASURED-PRIOR`, `contradicted_by: []`, verifier \"this audit confirmed docs/operations/ exists in tree\"",
+    "why_it_fails": "The cited product-repo source does not support the watch-filter half of the fact \u2014 it contradicts it (production-deployment.md line 102: Watch Paths (none), no path filter; `watchPatterns` returns 0 code hits repo-wide). Confirming that a directory named docs/operations/ exists in the tree is not verification of a claim about a Railway dashboard setting; the only actual source for the watchPatterns/SKIPPED-deploy half is the hub summary plus a Railway console state neither audit read. `MEASURED-PRIOR` with `contradicted_by: []` overstates both provenance and cleanliness. The hard rail itself (never touch worker/Postgres uninvited) is sound and does have repo backing (production-deployment.md \u00a7 How code reaches production: merge = immediate auto-deploy of `worker`; Postgres service with volume) \u2014 so the item should be kept but re-sourced and split, not seeded as-is.",
+    "what_you_checked": "GitHub code search `watchPatterns repo:menno420/superbot` \u2192 total_count 0; tree.json @5e3a667b (5326 entries, no railway.json/railway.toml); production-deployment.md lines 16-19, 34-50, 94-107; sb #2446 live"
+   },
+   {
+    "claim": "Seed item \"successor direction\" (spider-bot is the forward direction; superbot-next an architecture donor), certainty REASONED, source_repo fleet-manager, `only_source_is_hub_summary: true`, `disposition: archive_only`",
+    "why_it_fails": "This is hub product-plan truth about two OTHER repositories, with zero primary source in superbot and no source read in this audit beyond the hub row it came from (the audit's own `blocker` says spider-bot was never opened). Its verification_point asserts a negative about superbot's tree (\"confirmed superbot repo itself has no game-community-bot planning material\") that no listed path establishes. Seeding it from a superbot audit duplicates a fact the hub already owns in docs/ESTATE.md and docs/planning/2026-08-21-game-community-bot/, and it is archive_only \u2014 it routes nothing.",
+    "what_you_checked": "/home/user/fleet-manager/docs/ESTATE.md lines 72, 85 (both spider-bot claims live only there); superbot tree.json @5e3a667b \u2014 no game-community-bot path; the reading's own paths_opened lists no spider-bot or GCB plan file"
+   }
+  ],
+  "survived": [
+   "[survived] No root README: tree @5e3a667b2a55bae98a7863dd66492f477dd19546 is 5326 entries, truncated=false, and zero root-level path matches /^readme/i (root files are .claude, .github, CITATION.cff, CONTRIBUTING.md, LICENSE, Procfile, SECURITY.md, bootstrap.py, pyproject.toml, requirements*.txt, substrate.config.json and directories). Verified independently.",
+   "[survived] docs/AGENT_ORIENTATION.md is present and is a genuine front door: blob 40407de151128368c22ee391c60749b3acb0c6c3, 32059 bytes, sha/size match the tree entry exactly. It opens \"Read This First\", states \"It is the only file in `docs/` that exists to orient a brand-new session\", names the three binding docs (architecture \u00b7 ownership \u00b7 runtime_contracts), gives the layered order (.claude/CLAUDE.md + collaboration-model \u2192 current-state \u2192 subsystem folio \u2192 binding docs on demand \u2192 maintainer-question-router), and warns against reading the 100+ file docs/ tree top-to-bottom. front_door_adequate: YES survives.",
+   "[survived] docs/current-state.md is the state source and the S1-S5 split is real: blob cde589388406d2e335a90e4a40a6d1e53b939385, 103878 bytes; docs/current-state/{README,S1-bot,S2-btd6,S3-ai-memory,S4-docs,S5-ops}.md all present in the tree at the pinned SHA, exactly as named.",
+   "[survived] state_word \"frozen\" is verbatim owner/repo language, not an inference: current-state.md line 6 \u2014 \"**superbot is FROZEN as the behavioral oracle for the `superbot-next` rebuild.** No new feature work is expected here; the live production bot is stable and the forward queue is docs / oracle maintenance, not new features.\" \"oracle-freeze posture\" recurs at lines 131-212. Owner vocabulary list is accurate.",
+   "[survived] The #2393 reconcile marker and its zero-open-PR snapshot: current-state.md line 130-141 \u2014 \"**Last updated:** 2026-08-10 \u2014 fifty-sixth Q-0107 reconciliation pass ... reconciled band #2342-#2393 ... **disposed the open-PR set** \u2014 **zero open PRs** ... marker #2341 \u2192 #2393\". Accurate as reported, including that the document disclaims itself as a dated snapshot.",
+   "[survived] Live open-PR surface: GET /repos/menno420/superbot/pulls?state=open returns exactly 8, all authored by dependabot[bot], oldest #2398 2026-08-10T18:36:23Z, newest #2453 2026-08-31T18:38:08Z. The count and composition are right; only the doctrinal framing is wrong (see kill 1).",
+   "[survived, corrected] canonical_product_entry disbot/bot1.py: Procfile @5e3a667b (blob 44b76d1698133a75150137d36078d273f25dae6b, 30 B) is literally `worker: python disbot/bot1.py`, and docs/operations/production-deployment.md lines 16-19 confirm Railway with `worker` and `Postgres` services. Correction: `reliable-grace` is the Railway PROJECT name, `worker` is the service \u2014 the reading's \"Railway service `reliable-grace`/worker\" collapses the two.",
+   "[survived] Repo metadata: full_name menno420/superbot, private=false, archived=false, default_branch=main, pushed_at 2026-08-31T18:38:08Z. The pinned SHA resolves (no 422), so no baseline discrepancy.",
+   "[survived] The reported wall is real and correctly classified as a call-shape quirk: the task's own G() helper with an empty path yields .../repos/menno420/superbot/ and returns no repo object; dropping the trailing slash returns 200 immediately. Reproduced this run. Not an access wall."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Disposition of open Dependabot PRs on superbot",
+    "hub_says": "docs/repos/superbot/README.md:43 \u2014 \"**8 open PRs are all dependabot, parked by doctrine** \u2014 D-0017 explicitly [exempts them]\"; the reading escalated this to \"parked ... not abandoned work\"",
+    "repo_says": "docs/operations/repo-settings-state.md \u00a7 \"Dependabot PR policy (owner decision Q-0256, 2026-07-09)\": \"Review-on-sight, then merge ... An open dependabot PR is unclaimed work for whoever sees it; don't leave it for later.\" Echoed in docs/AGENT_ORIENTATION.md:90 \"Dependabot PRs are yours on sight (Q-0256).\" And D-0017 itself only says it does not govern them \u2014 it parks nothing.",
+    "authoritative": "REPO \u2014 an owner decision (Q-0256, 2026-07-09) recorded in the product repo, which D-0017 explicitly defers to (\"keep their own disposition rules\"). The hub row should be corrected to: 8 open Dependabot PRs = unclaimed review-and-merge work per Q-0256, exempt from D-0017's no-open-PR rule but NOT parked."
+   },
+   {
+    "subject": "Whether the Railway worker deploy is path-filtered",
+    "hub_says": "docs/repos/superbot/README.md:23-26 \u2014 worker had `watchPatterns: []` so every push rebuilt it (344 production-bot restarts); a filter ending `'Procfile'` was added and live-tested, sb #2446's workflows-only merge SKIPPED the deploy",
+    "repo_says": "docs/operations/production-deployment.md line 102 \u2014 \"| Watch Paths | (none) | Every push to `main` builds; no path filter. |\" (verified from the dashboard 2026-06-14) and lines 41-42 \"auto-builds and deploys `worker` on **every push to `main`**\"; `watchPatterns` has 0 hits anywhere in the repo",
+    "authoritative": "HUB, on recency \u2014 the filter is a Railway console setting made 2026-08-14 (sb #2446's own body says \"a filter is being added Railway-side\"), postdating the repo doc's 2026-06-14 dashboard snapshot. But this makes superbot's production-deployment.md STALE on its most safety-relevant line, which is itself a finding the reading owed and did not report."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "open PR surface (8 open Dependabot PRs, parked by D-0017)",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "successor direction (spider-bot / superbot-next donor)",
+    "reason": "no_primary_source"
+   }
+  ],
+  "overclaimed_certainty": [
+   "seed \"deploy safety rail\" \u2014 certainty MEASURED-PRIOR, but the watch-filter/SKIPPED-deploy half has no primary source in the cited docs/operations/ (which states the opposite) and no Railway-console read in either audit; only_source_is_hub_summary is true for that half. Downgrade to REASONED for the watch-filter clause, keep MEASURED for the worker/Postgres rail with source_path corrected to docs/operations/production-deployment.md, and set contradicted_by to that file's line 102.",
+   "seed \"successor direction\" \u2014 verification_point \"live-repo-tree@2026-09-04 (confirmed superbot repo itself has no game-community-bot planning material...)\" asserts a verified negative that no listed path establishes; the audit's own verifier field admits it \"cross-checked hub claim only, did not open spider-bot\". The verification_point and the verifier contradict each other.",
+   "prior_evidence_verdict STILL_HOLDS \u2014 asserts \"All claims verified true byte-for-byte / count-for-count\" including the hub's \"parked by D-0017\" claim, which is false against D-0017's own text. The tree/blob/count half of the verdict holds; the doctrine half does not.",
+   "docs_agree_with_source \"AGREE\" \u2014 supported for claims 1 and 2 as stated, but the audit never opened the repo's Dependabot policy or deployment runbook, so the agreement verdict covers only the two claims it happened to test, not the repo's doc surface.",
+   "hub_agrees \"AGREE ... every one of these was independently verified\" \u2014 the parked-by-doctrine element was not verified against D-0017's text, only re-read from the hub row that asserts it."
+  ],
+  "corrected_fields": "canonical_product_entry: `reliable-grace` is the Railway PROJECT; `worker` is the service running `python disbot/bot1.py` (Procfile, blob 44b76d16). | current_work_state: replace \"This matches the estate's own doctrine that Dependabot PRs on this repo are parked (D-0017 exemption), not abandoned work\" with \"8 open Dependabot PRs are UNWORKED under superbot's own owner decision Q-0256 (review-on-sight, then merge); D-0017 exempts them from the no-open-PR rule but explicitly defers disposition to the repo's own rule \u2014 they are not parked.\" | contradictions: [] \u2192 two entries (dependabot disposition; production-deployment.md's stale \"no path filter\" line). | hub_agrees: AGREE \u2192 PARTIAL \u2014 tree/entry-point/PR-count claims verified, the \"parked by doctrine (D-0017)\" claim refuted against D-0017's text. | seed \"deploy safety rail\": source_path \u2192 docs/operations/production-deployment.md (blob 1d5c8062); split the watch-filter clause out at REASONED with contradicted_by = that file's Watch Paths row."
+ },
+ {
+  "repo": "menno420/spider-swing",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "contradictions[0].why: 'docs/current-state.md is dated 2026-08-23 ... and cites merged PR #171 (2026-08-05) and a successfully-run android-release.yml through version code 66'",
+    "what_you_checked": "Fetched docs/current-state.md at fc64a3fbb25ff8be21a7bbeceb1d5c8275d614f0 to disk (blob sha e6d153a2dc10d896e42de8d3ed3527460cc6c36e, 45321 bytes, matches tree.json). `grep -n '171\\|176'` returns ZERO hits in the entire file; the highest PR numbers it cites are #112-#129 (line 631ff).",
+    "why_it_fails": "The ledger does not cite PR #171 at all. The '#171 (2026-08-05)' citation comes from the HUB file /home/user/fleet-manager/docs/repos/spider-swing/README.md line 106, not from the repo ledger. The reading attributed a hub-only citation to the repo's primary source \u2014 exactly the failure mode this stage exists to catch. The vc66 half IS in cs.md (line 105: android-release.yml 'has run successfully through version code 66'), so only the #171 half is dead \u2014 but the sentence as written misstates what the authoritative source says."
+   },
+   {
+    "claim": "successor_seed 'Build gates': source_path 'README.md (## Verifying section)', certainty MEASURED \u2014 \"spider-swing's main branch REQUIRES both the substrate-gate and a game-specific game-quality check (architecture + headless test suite via tools/verify.py) before landing\"",
+    "what_you_checked": "Read README.md \u00a7Verifying verbatim at the pinned SHA (lines 230-250). It says: 'Two commands. Both must pass before work lands, and they never call each other' \u2014 `python3 tools/verify.py` and `python3 bootstrap.py check --strict`. `grep -i 'substrate-gate|game-quality|required'` over README.md: zero hits for all three strings. Tree at SHA does contain .github/workflows/substrate-gate.yml and game-quality.yml.",
+    "why_it_fails": "The cited source says nothing about substrate-gate, game-quality, or branch requirements \u2014 it describes two LOCAL commands. The workflow names were imported from the tree listing and the claim 'main branch requires' is a branch-protection/ruleset fact that was never fetched (no rulesets or branch-protection call in paths_opened). MEASURED is inflated to REASONED at best, and the seed as written would send a session looking for required checks it has not confirmed exist."
+   },
+   {
+    "claim": "successor_seed 'Google Play release state', source_path docs/current-state.md, only_source_is_hub_summary=false: 'The 12-tester x 14-continuous-day closed test \u2014 the actual gate toward production \u2014 has not started.'",
+    "what_you_checked": "grep -i 'tester|closed test|12|14 continuous' over docs/current-state.md at the pinned SHA. The ledger says only (line 558-560): 'Signed version 66 and listing materials are ready; closed testing has not started.' No 12-tester and no 14-day figure appears anywhere in it. Those numbers are in the HUB file /home/user/fleet-manager/docs/repos/spider-swing/README.md lines 49-50 and 102, and in that folder's intent.md line 32.",
+    "why_it_fails": "The load-bearing quantitative detail is not in the source it is attributed to; its only source in reach is a hub summary of Google Play policy. `only_source_is_hub_summary: false` is wrong for that clause, and a seed session would treat an unverified policy number as repo-measured. The bare 'closed testing has not started' half survives."
+   },
+   {
+    "claim": "current_work_state: 'Only one open PR at HEAD: #180, a routine dependabot GitHub Actions version bump, unrelated to product state.' Same in open_work.",
+    "what_you_checked": "GET /repos/menno420/spider-swing/pulls?state=open&per_page=100 (live, --noproxy). TWO open PRs: #180 (dependabot, 2026-08-31) and #181 'Publish what Spider Bot may say about this game: a versioned support feed', opened by menno420 on 2026-09-04T13:10:26Z. repo pushed_at = 2026-09-04T13:10:00Z; branches/main tip is still the pinned SHA, so commits_since=0 holds.",
+    "why_it_fails": "False against the live surface at the time of this refutation: there are two open PRs, and the second is owner-authored, product-facing, and cross-repo (spider-bot support feed) \u2014 precisely the kind of in-flight work a seed session must not be told does not exist. Charitably a timing artifact, but the reading states it as current fact with no as-of stamp."
+   },
+   {
+    "claim": "successor_seed 'Publishing name and package identity', certainty MEASURED: '...com.menno420.spiderswing.dev is the separate, PERMANENT debug identity and is not changing.'",
+    "what_you_checked": "cs.md line 88-91 says build 0.45.0-run-feedback 'retains the stable conventional public debug identity' \u2014 it never says permanent or not-changing. README.md lines 14-17 at the same SHA say the opposite: 'The repository name, the Godot project name, and the package identifier com.menno420.spiderswing.dev are all development identifiers and are all expected to change.' Also cs.md line 100-103: the Android Release preset's applicationId 'is a committed placeholder because a published applicationId is permanent' \u2014 i.e. com.menno420.slingyspider is NOT in any committed source, only in ledger prose (lines 552-553).",
+    "why_it_fails": "Two defects. (a) 'permanent / not changing' is asserted where the ledger says only 'stable' and the README explicitly says it is expected to change \u2014 a within-repo contradiction the reading itself did not list. (b) MEASURED is inflated: the production package id was read off a prose ledger entry describing an owner action in Google Play Console, not off source or a live Play surface. Correct certainty is OWNER."
+   }
+  ],
+  "survived": [
+   "contradictions[0] core claim \u2014 README front matter is stale against the repo's own ledger. Verified verbatim at fc64a3f (README blob 9fb99d71..., 21599 bytes, 346 lines, matches tree.json): lines 10-17 codename blockquote with 'Naming, trademark, domain, and store-conflict review are all still open'; line 268 'No release signing exists.'; line 191 'store publishing remain absent'. grep -ci 'closed test|internal testing|tester|slingy|version code' over README.md = 0. Authoritative: repo, and specifically docs/current-state.md over README. [survived]",
+   "prior_evidence_verdict STILL_HOLDS \u2014 all four \u00a77.1 defects reproduce at the pinned SHA, and branches/main tip == fc64a3f (committed 2026-08-23T20:17:00Z, '#179'), so commits_since = 0 is correct and no fix has landed. [survived]",
+   "successor_seed 'Owner north star' \u2014 verbatim at cs.md lines 9-15: 'North star (owner directive, 2026-08-02): tune core feel, difficulty and upgrade impact until excellent play can meaningfully reach 25 k+' plus 'still \\\"too difficult and moves too quickly\\\"' and the deferral of unlocks/Campaign trees/monetisation. certainty OWNER is correctly assigned. [survived]",
+   "successor_seed 'Canonical entry points' incl. the .substrate/rendered/current-state.md caveat \u2014 fetched that blob (4955ca90..., 1056 bytes): it is the unfilled substrate-kit template ('(Describe the accepted-stable baseline once established\u2026)'). Not a competing ledger. [survived]",
+   "Play internal-testing core fact \u2014 cs.md lines 550-556: '2026-08-05 \u2014 The game is on Google Play's internal testing track. A signed Android App Bundle, version code 64 \u2026 published by the owner under the name Slingy Spider (com.menno420.slingyspider)'; line 392-394: 'Signed version code 64 is active on Google Play's internal-testing track and owner-confirmed working. Signed version code 66 is prepared locally but has not been uploaded to Play.' certainty OWNER and stale_on_copy=true are both correctly set. [survived]",
+   "state_word 'active', sha_verified, front_door_adequate 'NO', docs_agree_with_source 'DISAGREE' \u2014 all supported. Live repo object: archived=false, private=false, default_branch=main, pushed_at 2026-09-04T13:10:00Z. Issue #2 'Phase 0: Build the Swing Laboratory' is open, updated_at 2026-07-28T15:25:57Z, exactly as claimed. [survived]",
+   "hub_agrees PARTIAL \u2014 I opened both hub files myself. docs/ESTATE.md line 66 carries the Slingy Spider / vc66 / signed vc64-on-internal-testing row and docs/repos/spider-swing/README.md carries the same, so the hub does resolve the naming/signing question correctly against the stale README. [survived]"
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Debug package identity: permanent vs expected-to-change",
+    "hub_says": "(hub + the reading) com.menno420.spiderswing.dev is the separate, permanent debug identity and is not changing",
+    "repo_says": "README.md lines 14-17 @fc64a3f: 'the package identifier com.menno420.spiderswing.dev [is a] development identifier and [is] expected to change'; docs/current-state.md line 88 says only that the build 'retains the stable conventional public debug identity'",
+    "authoritative": "repo \u2014 and this is a FOURTH stale-README defect the reading's \u00a77.1 list does not include, so the turnkey 5-edit fix brief it points at does not cover it"
+   },
+   {
+    "subject": "GitHub repo description (live surface) still carries the codename",
+    "hub_says": "published as Slingy Spider; naming decided 2026-08-05",
+    "repo_says": "live repo object description: 'Android-first 2D physics swing game \u2014 internal codename Spider Swing'",
+    "authoritative": "repo/live \u2014 the stale-front-door finding is broader than README.md: the About blurb, the first thing a human sees on github.com, is stale in the same way and is a one-field owner/agent fix not listed in open_work"
+   },
+   {
+    "subject": "Version code 66 vs what is actually on Play",
+    "hub_says": "reading's current_work_state: 'Build 0.45.0-run-feedback (Android version code 66) is current' alongside 'a signed AAB (version code 64) has sat on internal testing' \u2014 no statement that 66 is unpublished",
+    "repo_says": "docs/current-state.md line 393-394: 'Signed version code 66 is prepared locally but has not been uploaded to Play.'",
+    "authoritative": "repo \u2014 the omission is not false but reads as if 66 flows to Play; the explicit not-uploaded sentence belongs in the seed"
+   },
+   {
+    "subject": "Open PR set",
+    "hub_says": "reading: one open PR (#180, dependabot, unrelated to product)",
+    "repo_says": "live pulls API: #180 (dependabot 2026-08-31) AND #181 'Publish what Spider Bot may say about this game: a versioned support feed' (menno420, 2026-09-04T13:10:26Z) \u2014 owner-authored, product-facing, cross-repo with spider-bot",
+    "authoritative": "repo/live"
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "No unconsumed owner comments pending routing (docs/owner-comments/spider-swing/README.md, 0 unconsumed / 0 consumed)",
+    "reason": "not_needed_for_routing"
+   },
+   {
+    "subject": "Build gates (substrate-gate + game-quality required on main, cited to README \u00a7Verifying)",
+    "reason": "no_primary_source"
+   },
+   {
+    "subject": "Google Play release state \u2014 the '12-tester x 14-continuous-day' clause specifically, cited to spider-swing docs/current-state.md",
+    "reason": "unverified"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed[0] 'Publishing name and package identity' \u2014 MEASURED should be OWNER. com.menno420.slingyspider appears only in ledger prose (cs.md 552-553) describing an owner action in Play Console; cs.md 100-103 confirms the committed release preset carries a placeholder applicationId, so nothing in source measures this.",
+   "successor_seed[5] 'Build gates' \u2014 MEASURED should be REASONED, and the branch-requirement half is unverified: no rulesets/branch-protection endpoint was read, and the strings 'substrate-gate'/'game-quality'/'required' do not occur in the cited README section.",
+   "successor_seed[1] 'Google Play release state' \u2014 certainty OWNER is right for the vc64 fact, but the 12-tester x 14-day gate carried inside the same fact field is a hub-summarised Google Play policy figure with no repo source; only_source_is_hub_summary=false is wrong for that clause.",
+   "contradictions[0].why \u2014 states as fact that the repo ledger 'cites merged PR #171'; it cites neither #171 nor #176. Presented at document certainty, derived from a hub file.",
+   "current_work_state \u2014 'Only one open PR at HEAD' and 'the run-evidence ledger system (schema-2, PR #176) exists' are stated flatly; #176 is a hub-only PR number (absent from cs.md, which mentions 'schema-2' at line 546 without a PR reference), and the open-PR count is false live."
+  ],
+  "corrected_fields": "current_work_state: replace 'Only one open PR at HEAD: #180\u2026' with 'Two open PRs as of 2026-09-04: #180 (dependabot Actions bump, 2026-08-31) and #181 \\\"Publish what Spider Bot may say about this game: a versioned support feed\\\" (menno420, 2026-09-04T13:10Z, owner-authored, product-facing, couples this repo to spider-bot). main tip is still fc64a3f (2026-08-23T20:17:00Z), so commits_since = 0.' Also add: 'Signed version code 66 is prepared locally but has NOT been uploaded to Play (docs/current-state.md line 393).' | contradictions[0].why: drop 'cites merged PR #171 (2026-08-05)'; the ledger cites no PR for the naming decision \u2014 the #171 pointer exists only in fleet-manager/docs/repos/spider-swing/README.md line 106. Keep the vc66 / android-release.yml half (cs.md line 105). | contradictions: add a fourth README defect \u2014 README lines 14-17 call com.menno420.spiderswing.dev an identifier 'expected to change' while the ledger and hub treat the debug identity as stable/permanent \u2014 and note the live GitHub repo description still reads 'internal codename Spider Swing'. | successor_seed[0]: certainty MEASURED\u2192OWNER; strike 'permanent \u2026 and is not changing', replace with 'stable debug identity retained since 0.19.0-depth-testing (docs/current-state.md line 88); README still calls it expected-to-change'. | successor_seed[1]: split \u2014 keep 'signed vc64 on internal testing since 2026-08-05, closed testing has not started' at OWNER from cs.md 550-560; move the '12 testers x 14 continuous days' gate to a separate item with source fleet-manager/docs/repos/spider-swing/README.md lines 49-50,102, certainty UNVERIFIED, only_source_is_hub_summary=true. | successor_seed[5] 'Build gates': rewrite to what README \u00a7Verifying actually says \u2014 'two commands must pass before work lands and they never call each other: python3 tools/verify.py (Godot located via GODOT_BIN/GODOT/GODOT4/PATH, version assert, architecture checker + 14 self-test fixtures, headless import, boot smoke, headless test runner) and python3 bootstrap.py check --strict' \u2014 certainty REASONED; note separately that .github/workflows/substrate-gate.yml and game-quality.yml exist in the tree at fc64a3f but that no ruleset read was performed, so 'required on main' is unverified. | successor_seed[6] owner-comments: drop."
+ },
+ {
+  "repo": "menno420/substrate-kit",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "current_work_state: \"Three commits landed on main since the fleet-manager baseline (8ae41997)... Latest session card: .sessions/2026-09-01-git-freshness-orientation-section.md\" \u2014 presented as the repo's current work state.",
+    "what_you_checked": "GET /repos/menno420/substrate-kit/branches/main and /compare/ff06fb902c6922272f2a338a3a60b528255d57e5...main, live 2026-09-04. Also GET /repos/menno420/substrate-kit (repo object): pushed_at = 2026-09-04T12:30:02Z.",
+    "why_it_fails": "The pinned SHA is NOT the tip. main is 2 commits AHEAD of ff06fb9: 8a83c733 (2026-09-04T12:15:38Z, \"Adoption profiles: one declared shape, and the five hub prerequisites (K1-K5)\", #590) and 6a82288e (2026-09-04T12:30:02Z, \"Session card: 'feature' is not a PL-004 task class; 'feature build' is\", #591). So it is FIVE commits since baseline, not three, and 2026-09-01 is not the latest card. #590 in particular introduces a named hub-prerequisite set (K1-K5) that a seed session routing between kit and hub would want and this reading does not mention at all. The reading read a snapshot and reported it as the present tense."
+   },
+   {
+    "claim": "successor_seed item 4: \"OD-24 owner-directed review round is in progress, session 5 not yet run... sessions 1-4 done\" (certainty REVIEWED, only_source_is_hub_summary: true).",
+    "what_you_checked": "/home/user/fleet-manager/docs/repos/substrate-kit/README.md header and Threads section (local, read this pass) \u2014 it self-stamps \"true as of 2026-08-28\" and says \"session 4 DONE... session 5 named below\". Cross-checked against live kit main: three commits have landed since that stamp (#589 2026-09-01, #590 and #591 2026-09-04).",
+    "why_it_fails": "The only source is a hub summary that is six days stale and that the reading itself flags as never independently verified against an owner transcript. Work has demonstrably continued in the kit since the stamp (#590 is round-shaped: declared adoption shape + five hub prerequisites), so \"session 5 not yet run\" is an assertion the reading could not and did not check. The reading nonetheless recorded contradicted_by: [] and refuted: false. Default-to-kill applies."
+   },
+   {
+    "claim": "successor_seed item 6 \"Adopter dependency graph\", source_path: docs/adopters.md \u2014 fact text includes \"ESTATE.md notes the registry undercounts the estate (omits sim-lab, superbot-idle, product-forge, spider-swing, couch-legend) and creator-kit (2026-08-25) already vendors v1.21.0\".",
+    "what_you_checked": "Fetched docs/adopters.md at ff06fb9 to disk (blob sha a85454529749d647b40ee7c94cb28365a2bd2b9b, 4459 bytes, matches tree.json). Read the full Registry table, Drift report and Row protocol.",
+    "why_it_fails": "The stated source_path does not contain the stated fact. adopters.md carries exactly 12 rows and a 3-row drift report on superbot-games; it says nothing about sim-lab, superbot-idle, product-forge, spider-swing, couch-legend or creator-kit. That half of the fact comes from fleet-manager/docs/ESTATE.md \u2014 a hub commentary \u2014 and is attributed to the kit's own generated file. Evidence does not say what the claim says. (The 12-row count and the 9-current/3-stale split DO hold \u2014 see survived.)"
+   },
+   {
+    "claim": "successor_seed item 5: \"No unresolved owner-comment items for substrate-kit \u2014 0 unconsumed and 0 consumed\" (certainty MEASURED, disposition archive_only, links_that_must_survive: []).",
+    "what_you_checked": "The item's own fields plus the seeding criteria in the task. Source is fleet-manager/docs/owner-comments/substrate-kit/README.md, a generated index.",
+    "why_it_fails": "A zero-count of a generated index is not a fact worth carrying into a successor: it has no links, disposition archive_only, is regenerable in one command, and goes false the moment anyone files a comment. It routes nothing. It is index noise seeded as truth."
+   },
+   {
+    "claim": "prior_evidence_verdict / current_work_state framing that \"No release cut since v1.21.0; fixes ride main unreleased\" is a fact of the pinned snapshot only.",
+    "what_you_checked": "GET /releases?per_page=5 (live) and GET /contents/pyproject.toml?ref=main (live).",
+    "why_it_fails": "Not killed \u2014 this one survives and survives harder than stated: v1.21.0 (published 2026-08-13T12:23:57Z) is still the newest release with no drafts/prereleases above it, and pyproject.toml at the LIVE tip still reads version = \"1.21.0\" (blob 7e4a4aad, identical to the pinned blob). Recording it here because the reading only established it at the pin; it is true at live. Treat as [survived], not a kill."
+   }
+  ],
+  "survived": [
+   "v1.21.0 is the kit's current version \u2014 pyproject.toml reads version = \"1.21.0\" at BOTH the pinned SHA ff06fb9 and the live tip 6a82288e (identical blob 7e4a4aad18cbddb4f2ae3bd3b117deae364a0442), and v1.21.0 (2026-08-13T12:23:57Z) is the newest GitHub release. control/status.md (blob 16a7f17c, 1537 bytes, matches tree) carries `kit: v1.21.0 \u00b7 check: green \u00b7 engaged: no` and `last-shipped: v1.21.0 (tag -> commit 0021adc) via PR #581`. [survived]",
+   "0 open PRs \u2014 GET /pulls?state=open&per_page=100 returns an empty list, live 2026-09-04. Note the reading's evidence is looser than it says: control/status.md's line is dated and qualified (\"0 open PRs as of 2026-08-28 (before the round's own in-flight records PR)\"), not a standing claim; the conclusion holds only because I checked the live API. [survived]",
+   "The kit's live worklist lives in fleet-manager, not the kit \u2014 verified DIRECTLY at the pinned SHA, not inherited: docs/NEXT-TASKS.md (blob 5d3a7d7e, 2690 bytes, matches tree) is titled \"superseded: the worklist lives in fleet-manager\", stamps itself `reference` superseded 2026-08-28 (kit #587), and routes to fleet-manager's docs/findings/2026-08-13-substrate-kit-v1210-followups.md plus docs/repos/substrate-kit/README.md. It also independently confirms the release mechanics dependency (release.yml: hand-pushed v* tag owner-side, workflow_dispatch the only agent-runnable path because the session git proxy 403s tag pushes). [survived]",
+   "The #588 reconcile the prior evidence recommended did land \u2014 docs/NEXT-TASKS.md row 4 at ff06fb9 reads \"reconciled 2026-08-28 (kit #588, the round's session 3) \u2014 the dated reconcile block at the top of docs/current-state.md is the current truth\". The prior_evidence_verdict STILL_HOLDS survives on this point. [survived]",
+   "12-row adopter registry with 3 rows not current \u2014 adopters.md at ff06fb9 has exactly 12 data rows (generated 2026-08-14T10:23:29Z, kit release v1.21.0); 9 verdict `current`, stale: trading-strategy (v1.20.2), pokemon-mod-lab (v1.15.0), superbot-games (v1.20.1). This matches control/status.md's \"9 of 12 registry rows current at v1.21.0\" exactly. [survived]",
+   "hub_agrees on the two documents I opened myself: fleet-manager/docs/ESTATE.md line 73 reads verbatim \"infrastructure \u2014 v1.21.0 cut 2026-08-13; its next worklist lives HERE, not in the kit\" with canonical entry control/status.md -> docs/PROJECT-CLOSEOUT.md; fleet-manager/docs/repos/substrate-kit/README.md states 12 registry rows, v1.21.0 since 2026-08-13, 0 open PRs, #552 MERGED 2026-08-04, current-state reconciled by kit #588. Both match the repo at the pin. [partial] \u2014 the reading's added gloss \"only one additional small commit (#589) since that hub doc was written\" is false at live (three: #589, #590, #591).",
+   "canonical_state_source = control/status.md \u2014 supported by the file itself: 1537 bytes, dated header, carries version/health/last-shipped/adopter counts, and explicitly points onward (\"Full handover... is docs/PROJECT-CLOSEOUT.md. Read that first.\"). The onward pointer the reading describes is verbatim in the source. [survived]"
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "The kit's own state word for itself",
+    "hub_says": "ESTATE.md row 73 and the reading both give state_word = \"infrastructure\"",
+    "repo_says": "control/status.md at ff06fb9 opens \"SEAT CLOSED \u2014 2026-07-21T18:22:07Z\" and phase: \"SEAT CLOSED. The Self Improvement seat is closed as of 2026-07-21; releases are cut by owner-directed sessions.\" The repo does not call itself infrastructure anywhere I read.",
+    "authoritative": "Both, at different layers \u2014 not a factual conflict but a vocabulary one the reading reported as clean AGREE. \"infrastructure\" is the hub's estate-role classification; \"SEAT CLOSED\" is the repo's own operational state. A seed carrying only \"infrastructure\" loses the fact that no seat runs this repo and every release is an owner-directed session."
+   },
+   {
+    "subject": "How current the hub's Layer-2 entry point is",
+    "hub_says": "fleet-manager/docs/repos/substrate-kit/README.md self-stamps \"true as of 2026-08-28\", and the reading asserts only one small commit (#589) has landed since.",
+    "repo_says": "Live main is at 6a82288e (2026-09-04T12:30:02Z), three commits past that stamp: #589 (2026-09-01), #590 (2026-09-04, adoption profiles + five hub prerequisites K1-K5), #591 (2026-09-04, PL-004 task-class card fix).",
+    "authoritative": "The repo. The hub entry point is six days behind and its \"session 5 not yet run\" thread status is unverifiable from it \u2014 #590 is round-shaped work that postdates the stamp."
+   },
+   {
+    "subject": "Whether the reading's pinned SHA is the repo's tip",
+    "hub_says": "The reading treats ff06fb902c6922272f2a338a3a60b528255d57e5 as the current state of the repo (\"sha_verified\", present-tense current_work_state).",
+    "repo_says": "GET /repos/menno420/substrate-kit gives pushed_at 2026-09-04T12:30:02Z; /compare shows main ahead_by 2, behind_by 0 relative to the pin.",
+    "authoritative": "The live branch. The pin is a legitimate audit baseline but the reading never says it is a baseline rather than the present, so every present-tense sentence in current_work_state is silently 2 commits stale."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "No unresolved owner-comment items for substrate-kit",
+    "reason": "not_needed_for_routing"
+   },
+   {
+    "subject": "OD-24 owner-directed review round is in progress, session 5 not yet run",
+    "reason": "no_primary_source"
+   },
+   {
+    "subject": "Adopter dependency graph (as written \u2014 the ESTATE.md undercount/creator-kit half attributed to the kit's docs/adopters.md)",
+    "reason": "product_truth_duplicated"
+   },
+   {
+    "subject": "Current version and release state (as a counted snapshot: \"three unreleased fixes #587/#588/#589 ride main\")",
+    "reason": "stale_on_copy"
+   }
+  ],
+  "overclaimed_certainty": [
+   "front_door_adequate: \"No stale claims found in README.md itself during this pass\" \u2014 an absence claim from a single read, stated without hedge. I did not re-open README.md this pass (its blob sha 25d4bcfb95ef7786523c5685fa735d4f0ef891dd / 7163 bytes does match tree.json, so the reading did read the right file), but a one-pass negative over a 7 KB front door is REASONED, not MEASURED.",
+   "docs_agree_with_source: \"AGREE\" for claim 2 (0 open PRs) cites control/status.md as agreeing with source, but that file's line is explicitly dated and qualified (\"as of 2026-08-28 (before the round's own in-flight records PR)\"). The live API is what makes the claim true today; the document is a dated record that happens to still match.",
+   "successor_seed item 3 (worklist lives in fleet-manager) is tagged MEASURED-PRIOR with verifier \"docs/findings/2026-08-28-kit-tree-truth-pass.md ... re-checked via commit diff\" \u2014 this is certainty DEFLATION. docs/NEXT-TASKS.md at ff06fb9 states it in the first line; it is MEASURED off the live tree.",
+   "successor_seed item 6 (adopters) carries certainty MEASURED-PRIOR pinned to a9acc413...@2026-08-28 with verifier \"not re-fetched this session (not in the ~20-30 call budget)\" \u2014 one contents call re-derives it. Budget was not the binding constraint; the item should have been MEASURED at ff06fb9 or dropped.",
+   "prior_evidence_verdict: \"STILL_HOLDS\" is asserted over a 23-file stale-claim set on the strength of re-checking exactly two claims (v1.21.0, 0 open PRs). Two of twenty-three is not a verdict on the set; it is a spot check. The reconcile landing (#588) is verified; the completeness of the reconcile is not.",
+   "hub_agrees: \"AGREE ... all confirmed still true at the pinned SHA, with only one additional small commit (#589) since\" \u2014 the \"only one additional commit\" half is stated with no hedge and is false against live main (three)."
+  ],
+  "corrected_fields": "current_work_state -> \"BASELINE ff06fb9 (2026-09-01) is NOT the tip. Live main at audit time: 6a82288e, 2026-09-04T12:30:02Z, 2 commits ahead. Kit is at v1.21.0 (pyproject.toml at live tip; newest release v1.21.0 published 2026-08-13T12:23:57Z; no release cut since), 0 open PRs (live). FIVE commits on main since the fleet-manager baseline 8ae41997: #587 (2026-08-28, routes the kit worklist to fleet-manager and fixes a check_no_false_walls false-negative family), #588 (2026-08-28, OD-24 session-3 reconcile of docs/current-state.md + control/status.md), #589 (2026-09-01, git-freshness section in SessionStart orientation), #590 (2026-09-04, 'Adoption profiles: one declared shape, and the five hub prerequisites K1-K5'), #591 (2026-09-04, 'Session card: feature is not a PL-004 task class; feature build is'). Fixes ride main unreleased. Latest session card at the pin is .sessions/2026-09-01-git-freshness-orientation-section.md (345 .sessions paths at the pin); #590/#591 postdate it and are unread by this audit.\"\n\nhub_agrees -> \"AGREE with a currency caveat. ESTATE.md row 73 and docs/repos/substrate-kit/README.md both match the repo on version, 0 open PRs, #552 MERGED 2026-08-04, the #588 reconcile, and the worklist living in fleet-manager (that last one corroborated by the kit's own docs/NEXT-TASKS.md, not just the hub). BUT the hub Layer-2 entry self-stamps 'true as of 2026-08-28' and is three commits behind live, and its OD-24 thread status ('session 4 done, session 5 not yet run') is unverifiable and probably overtaken by #590.\"\n\ndocs_agree_with_source claim 2 -> downgrade the evidence characterization: control/status.md's 0-open-PRs line is dated 2026-08-28 and qualified; the live /pulls?state=open check is what carries it.\n\nsuccessor_seed item 3 certainty -> MEASURED (verified at ff06fb9 in docs/NEXT-TASKS.md, blob 5d3a7d7e).\nsuccessor_seed item 6 -> certainty MEASURED at ff06fb9 (blob a85454529749d647b40ee7c94cb28365a2bd2b9b), fact narrowed to what the file actually says: \"12 rows generated 2026-08-14T10:23:29Z against kit v1.21.0; 9 current, 3 stale (trading-strategy v1.20.2, pokemon-mod-lab v1.15.0, superbot-games v1.20.1); 3-item drift report, all superbot-games self-report vs tree.\" The ESTATE.md undercount/creator-kit material belongs to the hub row, not to this source_path.\n\nsha_verified -> relabel as \"baseline_sha (not tip)\": ff06fb902c6922272f2a338a3a60b528255d57e5; live tip at audit 6a82288e9e8164ddb5e0233c11449f0938a6e0b5.\n\nNote on repo metadata (the reading reports none): archived=false, private=false, default_branch=main, pushed_at=2026-09-04T12:30:02Z."
+ },
+ {
+  "repo": "menno420/websites",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "docs_agree_with_source: PARTIAL \u2014 only two claims checked, and the verdict is that apart from current-state.md's stale 'In flight' line the repo's docs agree with source.",
+    "what_you_checked": "Fetched docs/AGENT_ORIENTATION.md (blob a362b8b1, 5633 B) and docs/current-state.md (blob dd26861c, 19725 B) at 48b75de8 (blob shas cross-checked against tree.json) and compared their binding claims against each other and against docs/decisions.md (blob 426902c6) [D-0037].",
+    "why_it_fails": "Two repo-internal contradictions the reading never opened. (a) AGENT_ORIENTATION's Architecture/layering contract says the four services live in one repo 'each has its own Dockerfile + requirements.txt + Railway service' \u2014 but current-state says review's 'retired Railway host returns 404 and is not a live service', and [D-0037] records the superbot-websites/review service (id 511fd9eb...) deleted at the 2026-08-20 cutover. (b) AGENT_ORIENTATION's Ownership/Mutation-seam contracts say 'This repo owns no database in its shipped state', that botsite /submit and the dashboard control panel are 'deliberate stubs with no production credentials present', and that the submissions Postgres is a 'deferred owner call, not owned here yet' \u2014 while current-state says /submit and /testing are 'both now Postgres-backed (durable, dual-backend SQLite<->Postgres)'. The repo's declared binding-contract doc is stale on both its service topology and its write-path ownership. A PARTIAL that omits both was reached by not looking."
+   },
+   {
+    "claim": "front_door_adequate: README.md is 'a clear project pitch (what's landing)'; its only defect is not pointing a cold agent at docs/AGENT_ORIENTATION.md or docs/current-state.md.",
+    "what_you_checked": "Read README.md in full at 48b75de8 (blob 77ffc95d, 1454 B, sha and size match the tree.json entry) against docs/current-state.md at the same SHA.",
+    "why_it_fails": "README is not merely under-linked, it is materially stale about state. It calls the botsite/dashboard rework 'A later, deliberately checkpointed phase, not this repo's first work' when both have been live Railway services for weeks per current-state, and it never mentions the review/Pages surface at all \u2014 the single most active area of the repo (both PRs merged 2026-09-03 touch review/**). A cold agent reading the named canonical_product_entry gets a three-item roadmap from a closed era, not the four-surface present. The verdict owed is 'stale', not 'incomplete'."
+   },
+   {
+    "claim": "successor_seed item 1 ('What websites is and its four services'), certainty MEASURED, source_path 'README.md, docs/current-state.md'.",
+    "what_you_checked": "grep of README.md at 48b75de8 for 'four', 'review', 'Pages', 'FastAPI' \u2014 zero hits (fastapi count 0 in README, 2 in current-state); the four-service/FastAPI framing appears only in docs/AGENT_ORIENTATION.md.",
+    "why_it_fails": "README.md supports no part of this fact \u2014 it names three workstreams, calls two of them future, and never mentions review or Pages, so half the cited evidence does not say what the claim says. Worse, the doc that does carry the four-service framing (AGENT_ORIENTATION) asserts in the same sentence that review has its own Railway service, which this seed fact denies. The seed silently takes one half of a self-contradicting source and stamps it MEASURED."
+   },
+   {
+    "claim": "dependencies / current_work_state: the GitHub Pages review archive is 'published by review-pages.yml on review/** changes to main'.",
+    "what_you_checked": "Read /home/user/fleet-manager/docs/repos/websites/README.md lines 40-75 (the #524 thread) alongside [D-0037] in docs/decisions.md at 48b75de8.",
+    "why_it_fails": "Stated as a reliable automatic mechanism with no caveat, while the hub doc the reader claims to have opened records the measured opposite on the most recent occasion: 'review-pages.yml dispatched by hand (no push-event run fired for the merge \u2014 the trap held), run 33746044580 green'. The one operationally load-bearing detail \u2014 that a review/** merge did not republish the archive and needed a manual dispatch \u2014 is flattened out of a routing-facing dependency line."
+   }
+  ],
+  "survived": [
+   "sha_verified 48b75de8fd305a9ab658d18a3fa8962ec63b8fea \u2014 resolves; git/trees?recursive=1 returns 1012 entries, truncated=false; repo.json pushed_at 2026-09-03T20:49:57Z matches.",
+   "state_word 'active' and '0 open PRs at the pinned SHA' \u2014 pulls?state=open&per_page=100 returns []; repo.json archived=false, private=false, default_branch=main.",
+   "Contradiction 1 (hub Layer-2 one merged PR behind) \u2014 confirmed independently: commits?sha=main shows 48b75de8 'Program Review: Chrome walkthrough report and three clear defect fixes (#525)' at 2026-09-03T20:49:56Z on top of 137b80eb '(#524)' at 10:45:16Z, while /home/user/fleet-manager/docs/repos/websites/README.md line 3 stamps 'true as of 2026-09-03' and its latest thread (lines 43-72) ends at #524/137b80e.",
+   "Contradiction 2 (current-state 'In flight' stale) \u2014 confirmed verbatim at docs/current-state.md line 105: 'No estate-review implementation tranche remains in flight after #521, #523, and Fleet Manager #952.'; grep for '#524'/'#525' in that file returns zero hits.",
+   "prior_evidence_verdict SUPERSEDED \u2014 follows directly from those two commits.",
+   "D-0012 / D-0036 present with the cited mechanism \u2014 docs/decisions.md line 96 (HTTP Basic on SITE_PASSWORD, constant-time compare, 401 on wrong creds, 503 when unset) and line 287 ('dependencies=[Depends(owner.require_owner_page)]', 'scripts/smoke_crawl.py skips the exact paths (exact, not prefix)').",
+   "Railway project name 'superbot-websites' \u2014 docs/current-state.md line 68: 'project `superbot-websites`, service `control-plane`, deployed from `main`'.",
+   "superbot dependency (committed site.json / dashboard.json / console.json consumed read-only over raw.githubusercontent.com, never written back) \u2014 verbatim in docs/AGENT_ORIENTATION.md's Ownership contract.",
+   "0 unconsumed owner-comment records for websites \u2014 /home/user/fleet-manager/docs/owner-comments/websites/README.md: 'Unconsumed (0)', one consumed record oc-c3c8bee2da350d92f9f32fe983e273bc consumed 2026-08-28T00:43:20Z.",
+   "hub_agrees on the ESTATE row \u2014 /home/user/fleet-manager/docs/ESTATE.md line 70 matches the reading's quotation exactly, status 'active'.",
+   "AGENT_ORIENTATION's 'Start every session' list \u2014 confirmed as quoted (1 .claude/CLAUDE.md, 2 docs/current-state.md, 3 docs/CAPABILITIES.md, 4 this file)."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Does the review service still exist on Railway?",
+    "hub_says": "docs/AGENT_ORIENTATION.md (repo binding contracts): four services in one repo, 'each has its own Dockerfile + requirements.txt + Railway service' \u2014 review among them.",
+    "repo_says": "docs/current-state.md: review is the Pages archive and 'The retired Railway host returns 404 and is not a live service'; docs/decisions.md [D-0037] records superbot-websites/review (id 511fd9eb...) deleted once Pages was verified serving.",
+    "authoritative": "repo \u2014 current-state.md + [D-0037]. AGENT_ORIENTATION is the stale side, and it is the doc the reading praised as 'a genuinely strong router'."
+   },
+   {
+    "subject": "Does websites own a durable write path / database?",
+    "hub_says": "docs/AGENT_ORIENTATION.md Ownership + Mutation seam: 'This repo owns no database in its shipped state'; botsite /submit and the dashboard control panel are 'deliberate stubs with no production credentials present'; submissions Postgres is a 'deferred owner call, not owned here yet'; 'Websites is read-only by design'.",
+    "repo_says": "docs/current-state.md: botsite 'hosts the /submit idea intake and the /testing tester program, both now Postgres-backed (durable, dual-backend SQLite<->Postgres)'.",
+    "authoritative": "repo \u2014 current-state.md, the living ledger and the later statement. This also undercuts purpose_plain's 'read-mostly FastAPI services'."
+   },
+   {
+    "subject": "What the canonical product entry says is built, vs what is built",
+    "hub_says": "README.md (the reading's canonical_product_entry): control-plane SHIPPED; the dashboard/botsite rework is 'A later, deliberately checkpointed phase, not this repo's first work'; review/Pages not mentioned.",
+    "repo_says": "docs/current-state.md: three live Railway services plus the Pages review archive since the 2026-08-20/21 cutover; the last two merged PRs (#524, #525) are review-site work.",
+    "authoritative": "repo \u2014 current-state.md and the commit log. The reading graded the front door only on missing links and missed that its content is out of date."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "No unresolved owner-routing items for websites (0 unconsumed owner-comment records)",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Canonical current-state source (including 'stale by two merged PRs #524/#525')",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Governing decisions D-0012 and D-0036",
+    "reason": "product_truth_duplicated"
+   },
+   {
+    "subject": "Front door / reading order for a cold agent (docs/AGENT_ORIENTATION.md)",
+    "reason": "product_truth_duplicated"
+   },
+   {
+    "subject": "What websites is and its four services",
+    "reason": "unverified"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed item 1 is stamped MEASURED, but README.md \u2014 half its cited source_path \u2014 contains none of the claimed content, and the doc that does (AGENT_ORIENTATION) contradicts the same seed fact on review's Railway service. This is REASONED off a stale document, not MEASURED.",
+   "successor_seed item 3 is fair on the reading order, but its accompanying description of AGENT_ORIENTATION as carrying 'binding architecture/ownership/mutation-seam contracts' presents as current a doc whose ownership and mutation-seam contracts are both contradicted by current-state.md at the same SHA.",
+   "docs_agree_with_source claim 2 says the mechanism detail matches, citing '401 fail-closed'. decisions.md lines 96 and 287 make 401 the challenge and 503 the fail-closed state when no credential path is configured; a claim whose entire point is that the detail matches conflates two distinct behaviours.",
+   "docs_agree_with_source claim 1 attributes the stale sentence to current-state.md's banner; it is in the '## In flight' section at line 105. The banner (2026-08-27) is separately stale but does not contain that sentence.",
+   "open_work item 1 recasts the hub's 'Next touch' note \u2014 the mail session links /after, /examples#projects-overview-mockup, /problems#coordinator-authority and /story, named in its prompt's OPEN bullet \u2014 as an open question about whether that session 'should now proceed'. The hub records the linking as the planned next step and only the two pass-time questions as open; the gating question is the reader's invention.",
+   "purpose_plain's 'four independently deployable, read-mostly FastAPI services' is doubly overstated: review is a static export with no deployable service behind it, and 'read-mostly' is contradicted by the durable Postgres-backed /submit and /testing paths in current-state.md."
+  ],
+  "corrected_fields": "docs_agree_with_source should read DISAGREE on three counts, not PARTIAL on one: current-state.md's 'In flight' line is stale (#524/#525 landed after it), and docs/AGENT_ORIENTATION.md's binding contracts are stale on two further counts (review still described as owning a Railway service; the repo described as owning no database while /submit and /testing are Postgres-backed). front_door_adequate should say README.md is stale as well as under-linked \u2014 it frames botsite/dashboard as future work and omits review/Pages entirely \u2014 and should warn that AGENT_ORIENTATION, though a good router, must not be trusted for its architecture/ownership contracts. current_work_state and dependencies should carry the measured caveat that a review/** merge does not reliably fire review-pages.yml (the #524 merge produced no push-event run; the deploy was hand-dispatched, run 33746044580). purpose_plain should drop 'independently deployable' for review and 'read-mostly' for botsite. Everything the reading says about the SHA, open-PR count, state word, the two contradictions it did report, D-0012/D-0036, the Railway project name and the owner-comment count re-derives cleanly from source and stands."
+ },
+ {
+  "repo": "menno420/couch-legend",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "docs_agree_with_source: 'No disagreement found between the repo's self-description and its own tree/API state' \u2014 i.e. the repo's own docs are internally sound and the only staleness is hub-side.",
+    "what_you_checked": "Fetched docs/current-state.md at d877ed0b611418f35ad9e578785b012a844d1992 (blob 206b0de5b007ea69bce698275bff1135f040d4e2, 7364 B \u2014 matches tree.json) and read its final 'Review rhythm' section against /home/user/fleet-manager/.claude/CLAUDE.md \u00a7 Capabilities.",
+    "why_it_fails": "current-state.md asserts 'Codex reviews every PR \u2014 trigger on open, draft-to-ready, or the literal comment \"@codex review\"'. The hub's boot file records the owner live, 2026-09-02: the automatic triggers are OFF by his explicit choice, and the comment is the ONLY trigger. That is a live falsehood sitting in the repo's own canonical state document, on the exact surface a seed session would copy \u2014 and the reader's audit declared the repo's docs clean. Also unflagged: the same section's hard rule 'Never merge a PR you asked it to review' coexists with a repo that has zero open PRs, so nothing caught it."
+   },
+   {
+    "claim": "seed item 'Cross-repo dependency: Android release signing' \u2014 verifier: 'couch-legend's own current-state.md independently names the same phone-controller pattern', certainty MEASURED-PRIOR.",
+    "what_you_checked": "grep of docs/current-state.md at the pinned SHA ('release signing with a managed keystore, on the phone-controller pattern'), plus /home/user/fleet-manager/docs/ESTATE.md line 311.",
+    "why_it_fails": "The repo names a *pattern*, never the repository `product-forge`. The repo\u2192repo edge exists in ESTATE.md alone, so the corroboration is not independent and the claim's routing-relevant half (which repo holds the rails) has a single hub source. The fact may stand; the stated verification does not."
+   },
+   {
+    "claim": "prior_evidence_verdict: '...missing the repo's 5 newest commits (PR #17, 2026-08-23)'.",
+    "what_you_checked": "GET /repos/menno420/couch-legend/commits?since=2026-08-22 \u2014 5 commits: 9e04b0d6 + c0ed6c24 (PR #14 signing identity, 2026-08-22) and 8c5bd40a/6a203521/d877ed0b (#16/#17/#18, 2026-08-23).",
+    "why_it_fails": "The hub Layer-2 README explicitly documents #14 (dated 'true as of 2026-08-22', with the four signer certificates enumerated). Its coverage gap is 3 commits, not 5. Small, but it is the kind of counted claim a seed session would carry forward unchecked."
+   }
+  ],
+  "survived": [
+   "sha_verified d877ed0b611418f35ad9e578785b012a844d1992 \u2014 confirmed as the live tip of `main` (GET branches/main, committed 2026-08-23T10:00:25Z); repo public, archived=false, pushed_at 2026-08-23T10:00:25Z. state_word 'active' is supported.",
+   "0 open PRs \u2014 GET pulls?state=open&per_page=100 returned an empty list, live 2026-09-04. [survived]",
+   "README.md 'Layout' block \u2014 fetched at the pinned SHA (blob 4a14069c4045d5bdd1b1b4787d9bd6ce63d3a8eb, 4052 B, matches tree.json). Every listed path exists in tree.json: src/lib/{engine,content,save,format}.ts + src/lib/sim/, src/components/*.tsx, docs/DESIGN.md, docs/design/2026-08-21-looks-pass.md, docs/ORIGIN.md, tests/. AGREE confirmed.",
+   "Required checks \u2014 GET rulesets/21117825 returned name 'main-branch-protection', enforcement 'active', required_status_checks [ci, substrate-gate]. The reading's live check reproduces exactly.",
+   "current_work_state \u2014 'In flight: (none)', #17 2026-08-23, #14 2026-08-22, #11 2026-08-21, and Next = milestone B gated on the owner's phone test + DESIGN \u00a7 9.8 arc-3 + feel pass: all read verbatim off docs/current-state.md at the pinned SHA.",
+   "The reported contradiction against ESTATE.md row 68 is real \u2014 I opened /home/user/fleet-manager/docs/ESTATE.md line 68 and it does say 'next: the Android/Capacitor shell (DESIGN \u00a7 7) + the owner's late-game feel pass', with a state clause that stops at #7/kit v1.21.0 (2026-08-21). hub_agrees: PARTIAL stands.",
+   "prior_evidence STILL_HOLDS on substance \u2014 /home/user/fleet-manager/docs/repos/couch-legend/README.md's Android thread ('A LANDED 2026-08-21 (#11) \u00b7 B's signing slice LANDED 2026-08-22 (#14) \u00b7 the rest of B is owner-gated') matches current-state.md's own account; nothing it asserts was contradicted."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Codex review triggers (repo state doc vs owner's live instruction)",
+    "hub_says": "fleet-manager/.claude/CLAUDE.md: 'ALWAYS ask @codex explicitly \u2014 never rely on it noticing your PR. The automatic triggers are OFF, by the owner's choice' (owner, live, 2026-09-02); hard cap of three rounds per PR per session [D-0039].",
+    "repo_says": "couch-legend docs/current-state.md \u00a7 Review rhythm @d877ed0b: 'Codex reviews every PR \u2014 trigger on open, draft-to-ready, or the literal comment \"@codex review\"; it answers in about 3-6 minutes.'",
+    "authoritative": "hub"
+   },
+   {
+    "subject": "Test count in the hub's Layer-2 entry point",
+    "hub_says": "docs/repos/couch-legend/README.md: 'pinned by the test suite (89 tests as of the implementation session)' \u2014 while the same file warns 'count the tests with pnpm test, never from prose'.",
+    "repo_says": "docs/current-state.md @d877ed0b (#17, 2026-08-23): 'Verified with 124 tests'.",
+    "authoritative": "repo"
+   },
+   {
+    "subject": "Currency of the owner gate on Android milestone B",
+    "hub_says": "docs/repos/couch-legend/README.md: 'As of 2026-08-22 no report of any kind exists on the repo \u2014 checked, not assumed \u2014 so the gate is still shut, and he has now been asked the three questions directly.'",
+    "repo_says": "docs/current-state.md still lists the gate as open, but the repo has had no push since 2026-08-23T10:00:25Z \u2014 so repo silence is the only evidence, and nothing in either source establishes the gate's status on 2026-09-04.",
+    "authoritative": "repo"
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "No unresolved owner items for routing",
+    "reason": "not_needed_for_routing"
+   },
+   {
+    "subject": "Current work state / next milestone",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Required status checks / kit adoption",
+    "reason": "stale_on_copy"
+   }
+  ],
+  "overclaimed_certainty": [
+   "seed 'Current work state / next milestone' \u2014 certainty MEASURED with verification_point 'd877\u2026@2026-09-04'. What was measured is what a document said at a SHA last pushed 2026-08-23. Its blocker ('owner must test the milestone-A APK') is a 13-day-old doc assertion whose only current evidence is repo silence; a seed session would read it as a fact established today. REASONED at best on the 2026-09-04 timestamp.",
+   "seed 'Cross-repo dependency: Android release signing' \u2014 certainty MEASURED-PRIOR, but the repo-name half (product-forge) has exactly one source, fleet-manager/docs/ESTATE.md; the repo corroborates only the phrase 'phone-controller pattern'. The 'independently names the same' verifier overstates what two sources agree on.",
+   "dependencies[] \u2014 'fleet-manager's image-prompt/asset-pipeline/audio-prompt skills'. couch-legend's current-state.md names only the 'image-prompt/asset-pipeline route'; `audio-prompt` appears only in ESTATE.md line 313, which lumps couch-legend with spider-swing. No couch-legend source names an audio dependency.",
+   "front_door_adequate 'YES \u2026 a cold agent has everything needed to orient without guessing' \u2014 the README and current-state halves I could verify hold, but the tree at the pinned SHA also carries docs/AGENT_ORIENTATION.md, docs/reading-path.md, docs/repo-navigation-map.md and docs/question-router.md alongside .claude/CLAUDE.md. Four competing orientation surfaces is exactly the guessing the verdict says does not exist; the verdict is defensible but was reached without weighing them.",
+   "seed 'No unresolved owner items for routing' \u2014 certainty MEASURED on a tool-GENERATED index whose own header says it is regenerated by `owner_comments.py reindex`. An empty snapshot of a regenerated file is not a measurement of anything durable."
+  ],
+  "corrected_fields": "docs_agree_with_source should read PARTIAL-with-a-repo-side-defect, not \"no disagreement found\": docs/current-state.md \u00a7 Review rhythm asserts automatic Codex triggers that the owner disabled (live, 2026-09-02) \u2014 the repo's own canonical state doc carries a false operating instruction, and fixing it is real, small, landable work. hub_agrees stays PARTIAL but on three contradictions, not one (add: hub Layer-2 \"89 tests\" vs repo \"124 tests\"; and the milestone-B owner gate whose currency neither source establishes past 2026-08-23). dependencies[] should drop `audio-prompt` (no couch-legend source) and mark the product-forge edge as hub-sourced only. successor_seed should ship two items, not six \u2014 \"Product identity and purpose\" and \"Canonical mechanics and state docs\" (both re-derived verbatim from README.md/docs/current-state.md at d877ed0b) \u2014 with work-state, ruleset and owner-comment items replaced by a pointer to the live surfaces that answer them in one API call."
+ },
+ {
+  "repo": "menno420/product-forge",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "\"stable-signed APK releases v0.4.0 through v0.22.0 (verified live via the releases API)\" \u2014 repeated in current_work_state, purpose_plain and successor_seed[0]",
+    "what_you_checked": "Fetched control/status.md at 7a53b2667b29ac13817821bad6fe62eccf512ed7 (blob e736ca81, 17272 bytes, sha matches tree.json), read the OA-005 block: \"\u2691 RESOLVED 2026-07-24 (OA-005) \u2014 stable release signing is configured: repo secrets PC_RELEASE_KEYSTORE_B64 + PC_RELEASE_KEYSTORE_PASSWORD ... v0.9.0 re-signed with it via workflow_dispatch. Updates now install in place from v0.9.0 onward (one final uninstall when coming from ephemeral-signed \u2264v0.8.0).\" Also fetched releases?per_page=100 (19 releases, phone-controller-v0.4.0 \u2026 v0.22.0, newest 2026-08-20T20:09:11Z).",
+    "why_it_fails": "The repo's own state file says releases \u2264v0.8.0 were EPHEMERAL-signed; stable signing starts at v0.9.0. The reading's range is wrong at the bottom five releases. Worse, the cited instrument cannot support the claim at all: the releases API returns tags/dates/assets and carries no signing information, so \"verified live via the releases API\" is certainty laundering. The true provenance is fleet-manager docs/repos/product-forge/README.md:24-25, which asserts the same over-wide range while its own measurement is narrower (\"signer cert byte-identical v0.18.0 \u2192 v0.22.0, v2 signing-block parse\"). MEASURED downgrades to: 19 releases v0.4.0\u2192v0.22.0 exist (MEASURED, API); stable-signed from v0.9.0 (MEASURED-PRIOR, repo status.md); signer-cert identity measured only v0.18.0\u2192v0.22.0."
+   },
+   {
+    "claim": "\"22 shipped slice cards through 2026-08-20\" (current_work_state and successor_seed[0], tagged MEASURED)",
+    "what_you_checked": "Enumerated .sessions/ blobs in git/trees/7a53b2667b29ac13817821bad6fe62eccf512ed7?recursive=1 (253 entries): 36 session-card blobs, of which 19 are slice-named, covering slice4 \u2026 slice22 (no slice1/2/3 card exists in the tree).",
+    "why_it_fails": "The tree yields 19 slice cards, not 22. \"22\" is the highest slice NUMBER, silently reported as a card count and tagged MEASURED. The defensible measured statements are: 19 slice cards present (slices 4-22), most recent two dated 2026-08-20 (slice21-hardware-keyboard, slice22-foldables) \u2014 those two filenames I did confirm."
+   },
+   {
+    "claim": "successor_seed[3] fields canonical_owner=\"hub\" and only_source_is_hub_summary=true for the R2 / keystore item",
+    "what_you_checked": "control/status.md at the pinned SHA: line ~47 \"Repo question answered in-session: build in product-forge; graduation = fm R2, next.\" and the OA-005 block \"Keystore lives ONLY in the repo secret\" naming PC_RELEASE_KEYSTORE_B64 / PC_RELEASE_KEYSTORE_PASSWORD. Also read fleet-manager docs/repos/product-forge/README.md:127-146.",
+    "why_it_fails": "Both load-bearing facts (R2 is the next step; the keystore exists only as repo secrets) have a primary source INSIDE the repository, so \"only source is a hub summary\" is false and the hub is not the canonical owner of them. Only the derived three-option relay analysis and the option-2 recommendation are hub-only. Seeding it as hub-owned would hide the primary source a successor should re-read."
+   }
+  ],
+  "survived": [
+   "[survived] Contradiction 1 (inbox vs status). control/inbox.md (blob c653598d, 4751 bytes, sha matches tree) shows ORDER 001/002/003/004 each literally `status: new`; control/status.md \u00a7 Orders reads `orders: acked=001,002,003,004 done=001,002,003,004`. Both at 7a53b266. Direct contradiction confirmed; status.md is the corroborated side (dated slice/ORDER evidence throughout). authoritative=repo stands.",
+   "[survived] Contradiction 2 / front_door_adequate=NO / hub_agrees=DISAGREE. README.md (blob aac67d40, 2927 bytes, sha matches tree) read in full: titled \"the fleet's product build seat\", Status: binding, describes ORDERs in control/inbox.md \"written by the fleet manager\", the control/ bus with coordinator heartbeat, and the fallback \"Empty inbox \u2192 polish the newest product's roughest edge and flag `inbox empty` in status\". It never contains the string phone-controller. Hub side opened directly: docs/ESTATE.md:71 and docs/repos/product-forge/README.md both name phone-controller as the living asset with R2 next. Verdicts hold.",
+   "[survived] products/games-web parked since 2026-07-10. Re-derived live, not from a doc: commits?path=products/games-web returns newest commit 2026-07-10T22:43:14Z (\"a11y: landmarks, ARIA widgets, keyboard focus ring for games-web\"). Only 3 games-web session cards, all 2026-07-10.",
+   "[survived] No open PRs. pulls?state=open&per_page=100 returned an empty array on my own call.",
+   "[survived] sha_verified and the walls entry. git/trees/7a53b266?recursive=1 resolves (253 entries, not truncated); branches/main tip == 7a53b2667b29ac13817821bad6fe62eccf512ed7 (committed 2026-08-20T20:06:39Z). The base-object 404 is real and transient exactly as described: my first three GETs to /repos/menno420/product-forge returned 404 Not Found, three later identical GETs returned 200 with archived=false, private=false, pushed_at=2026-08-20T20:06:59Z, default_branch=main \u2014 the reading's reported values match mine field for field.",
+   "[survived] owner_vocabulary \"the controller app\". docs/ESTATE.md:289 verbatim: `- **\"the controller app\"** \u2014 `product-forge` (phone-controller).` The two games-web phrases also exist verbatim in control/inbox.md ORDER 001 (\"Shakes & Fidget-style comic browser-RPG presentation (owner-named\", \"could be simulated later\"), though they are manager-relayed rather than directly captured owner speech, and describe a parked product."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Which phone-controller releases are stable-signed",
+    "hub_says": "docs/repos/product-forge/README.md:24-25 \u2014 \"MEASURED 2026-08-20: stable-signed APK releases v0.4.0 \u2192 v0.22.0 on the repo's releases page (signer cert byte-identical v0.18.0 \u2192 v0.22.0, v2 signing-block parse)\"; docs/ESTATE.md:71 \u2014 \"v0.22.0 signed releases\".",
+    "repo_says": "control/status.md @7a53b266, OA-005 block: stable signing configured 2026-07-24; \"v0.9.0 re-signed with it\"; \"one final uninstall when coming from ephemeral-signed \u2264v0.8.0\".",
+    "authoritative": "repo"
+   },
+   {
+    "subject": "Whether the hub's own MEASURED tag is supported by its own parenthetical",
+    "hub_says": "Tags the whole v0.4.0\u2192v0.22.0 range MEASURED while the only measurement named is signer-cert identity across v0.18.0\u2192v0.22.0.",
+    "repo_says": "status.md gives the actual signing boundary at v0.9.0.",
+    "authoritative": "repo"
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "No open PRs on product-forge at the pinned SHA / as of this audit",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "control/inbox.md and control/status.md directly contradict each other on ORDER completion",
+    "reason": "not_needed_for_routing"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed[0] certainty MEASURED for \"stable-signed APK releases v0.4.0\u2192v0.22.0\" \u2014 the releases API carries no signing data; the range is copied from a hub doc and is contradicted by control/status.md (stable from v0.9.0). Should be split: release list MEASURED; signing boundary MEASURED-PRIOR (repo status.md, 2026-07-24).",
+   "successor_seed[0] certainty MEASURED for \"22 shipped slice cards\" \u2014 the tree shows 19 slice cards (slices 4-22). Count was inferred from the highest slice number.",
+   "current_work_state \"(verified live via the releases API)\" \u2014 attaches a live-surface verification to a property that surface does not expose.",
+   "successor_seed[3] only_source_is_hub_summary=true / canonical_owner=hub \u2014 understates provenance; both core facts sit in product-forge control/status.md at the pinned SHA.",
+   "dependencies entry \"GitHub Pages ... reported pending as of the products/README.md snapshot\" \u2014 honestly hedged, but note control/status.md carries the same as an open OWNER-ACTION (OA-003), which the reading did not cite despite having opened that file.",
+   "owner_vocabulary items 2 and 3 are presented as owner vocabulary but are manager-written ORDER text from 2026-07-10 about a parked product; only \"the controller app\" is estate-live vocabulary."
+  ],
+  "corrected_fields": "current_work_state: replace with \u2014 \"Only products/phone-controller is under active development: 19 slice session cards in .sessions/ covering slices 4-22, the newest two dated 2026-08-20 (slice21 hardware-keyboard, slice22 foldables); 19 GitHub releases phone-controller-v0.4.0 through v0.22.0, newest published 2026-08-20T20:09:11Z (MEASURED, releases API). Signing: ephemeral-signed through v0.8.0, stable repo-secret keystore from v0.9.0 onward (MEASURED-PRIOR, control/status.md OA-005); hub-side signer-cert identity measured only across v0.18.0\u2192v0.22.0. products/games-web is parked \u2014 newest commit on that path 2026-07-10T22:43:14Z (MEASURED, commits API). 0 open PRs. Next planned step is program R2 (subtree-split phone-controller to its own repo), named in the repo itself at control/status.md ('graduation = fm R2, next'), not started; keystore relay undecided.\" | purpose_plain: strike \"stable-signed releases v0.4.0 through v0.22.0\", use \"19 shipped releases v0.4.0\u2192v0.22.0, stable-signed from v0.9.0\". | successor_seed[3]: canonical_owner \"product-forge\" for the R2/keystore facts (hub owns only the three-option relay analysis and the option-2 recommendation); only_source_is_hub_summary false; add links_that_must_survive \"control/status.md\". | Everything else in the reading re-derived cleanly at 7a53b2667b29ac13817821bad6fe62eccf512ed7."
+ },
+ {
+  "repo": "menno420/superbot-next",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "docs_agree_with_source Claim 1: docs/current-state.md's 'six required named gates (.github/workflows/named-gates.yml)' and the auto-merge-enabler as the sole in-repo merge automation \u2014 AGREE",
+    "what_you_checked": "Live rules API GET /repos/menno420/superbot-next/rules/branches/main (2026-09-04) returns SEVEN required status-check contexts: code-quality, manifest-validate, architecture, sim-gate, golden-parity, check_compat_frozen, pip-audit. The classic branches/main protection block shows required_status_checks enforcement_level 'off' with empty contexts (the ruleset carries it). The reading's evidence was file existence in tree.json only \u2014 .github/workflows/named-gates.yml (sha 9143bd7d3b21) and auto-merge-enabler.yml (sha b52a21434ba1) exist, which tests nothing about 'six required' or 'sole merge automation'.",
+    "why_it_fails": "The evidence does not say what the claim says. Existence of two workflow files cannot verify a count of required gates or an exclusivity claim. Against the live surface the doc's 'six' understates the enforced set (pip-audit is required and is not a named-gates.yml job), so the correct verdict on that claim is DISAGREE-in-detail, not AGREE. 'Sole in-repo merge automation' remains wholly unverified."
+   },
+   {
+    "claim": "front_door_adequate / seed item 3: README 'cites superseded numbers \u2026 51 vs 49 subsystems' as doc-vs-doc drift",
+    "what_you_checked": "README.md@4f9ac556339e8e9addf82c5d60baf021d521f3e9 (1574 bytes, blob sha matched tree.json) read in full. Its own text says '~200 panels across 49 subsystems'; the 51/51 appears only in the CI paragraph as the 2026-07-13 full-corpus parity snapshot ('484/484 goldens, 51/51 subsystems; run 29238825392').",
+    "why_it_fails": "README's subsystem count is 49 \u2014 identical to current-state.md's 49/49. There is no 51-vs-49 subsystem drift; the only real drift is the golden count (484 \u2192 533) and the dated parity snapshot. The stated drift is a misread of the file the claim cites."
+   },
+   {
+    "claim": "front_door_adequate / seed item 3: README points to control/status.md as 'live truth', 'which docs/current-state.md itself says is being retired in the EAP wind-down'",
+    "what_you_checked": "docs/current-state.md@5b65c92b503e1472b1f2719a3ba0872103662e02, lines 9-13 (program note: heartbeat 'being retired') AND lines 48-56: 'The control/status.md heartbeat + control/claims stay load-bearing, though: the required substrate-gate.yml runs bootstrap.py check --strict --status-only against them (L52) and substrate.config.json still points claims_dir \u2192 control/claims (L35), so naive control/ deletion would RED a required gate'.",
+    "why_it_fails": "Half-quoted and materially misleading. The same document that announces retirement states in its In-flight section that control/status.md is still load-bearing and read by a gate. Presenting only the retirement half would lead a seed session toward exactly the deletion the repo warns REDs a gate. The front_door PARTIAL verdict itself survives on other grounds (stale stamp, no link to current-state/PROJECT-CLOSEOUT), but this supporting reason does not."
+   },
+   {
+    "claim": "hub_agrees: AGREE \u2014 'Hub's Layer-2 entry and ESTATE.md row both call it complete-parked architecture donor \u2026 all independently confirmed live'",
+    "what_you_checked": "/home/user/fleet-manager/docs/repos/superbot-next/README.md read in full and /home/user/fleet-manager/docs/ESTATE.md line 85 + lines 104-110, 285, 304-305.",
+    "why_it_fails": "The Layer-2 entry's own stated governing caveat is 'golden-parity green must not be read as \"ported\"' \u2014 the 2026-08-05 owner-live audit found capture-world literals shipping as constants and 60 of 66 help panels button-less. That directly contradicts the reading's purpose_plain and seed item 1 ('all 49 subsystems + kernel ported'). ESTATE.md line 85 repeats it ('533/533 golden parity green but parity \u2260 ported') and additionally carries two facts the reading never reports: the clean successor repo spider-bot exists and is live since 2026-08-24 (GCB-1's repo half resolved), and archiving superbot-next is queued R5 work paired with superbot-plugin-hello. A reader who had opened both hub files could not honestly write AGREE with 'fully ported' in its own summary."
+   },
+   {
+    "claim": "open_work: 'None currently open in this repo \u2014 0 open PRs, main untouched since 2026-08-13'",
+    "what_you_checked": "ESTATE.md line 85 and line 110 (hub, live local files); pulls?state=open&per_page=100 = 0 (confirmed).",
+    "why_it_fails": "The PR count is right; the conclusion is not. Estate-level open work on this repo exists: the R5 archive disposition is explicitly 'queued R5 work for a session that takes it deliberately', paired with superbot-plugin-hello (ESTATE line 110). Also, open_work item 2 characterises docs/NEXT-TASKS.md's contents while stating in the same sentence that the file was 'unread this pass' \u2014 a claim about a file the reader did not open (the file is in the tree at e0292dc9bb00, 9077 bytes; opening it was one call)."
+   },
+   {
+    "claim": "seed item 1 + purpose_plain: 'fully ported (49 subsystems + kernel), golden-parity-green' with certainty MEASURED, verifier 'this audit via GitHub REST content fetch'",
+    "what_you_checked": "Source of the claim is docs/current-state.md prose (lines 19-27), i.e. a document read, not a surface measured; the hub's Layer-2 entry cites findings/2026-08-05-superbot-next-live-audit.md refuting the 'ported' reading; current-state.md itself is internally inconsistent on the corpus size (line 24 '533/533', lines 130-131 quote check_parity_depth.py as '49 subsystems (49 ported), kernel ported, 523 goldens').",
+    "why_it_fails": "Certainty inflation: fetching a file over REST measures that the file says X, not that X is true \u2014 this is MEASURED-PRIOR/REASONED at best. And the substantive 'ported' half is contradicted by an owner-live audit the hub flags as the caveat governing everything about this repo."
+   }
+  ],
+  "survived": [
+   "sha_verified d5f66dc27768d49b2755f368c6a2d0ecca66a1af \u2014 [survived] branches/main tip re-fetched live 2026-09-04 = same SHA; repo object (no trailing slash) shows archived=false, private=false, default_branch=main, pushed_at 2026-08-13T15:21:12Z.",
+   "state_word 'parked' and 0 open PRs \u2014 [survived] pulls?state=open&per_page=100 returned an empty list; last commit on main is #606 2026-08-13T15:21:11Z.",
+   "The read-only contradiction \u2014 [survived] docs/PROJECT-CLOSEOUT.md@1ced40cc3a98 lines 5-7 verbatim: 'the last day this repository accepts changes \u2014 it becomes permanently read-only on 2026-07-22 at 00:00 UTC'; commits?sha=main shows 704aba39cdb8 (2026-08-05, #602 kit 1.17.0\u21921.20.1) and d5f66dc27768 (2026-08-13, #606 kit v1.21.0). Repo tree beats repo prose; hub's correction is right.",
+   "front_door_adequate PARTIAL as a verdict \u2014 [survived] README.md is stamped 're-stamped 2026-07-14', cites 484/484 goldens, points at control/status.md as 'Live truth', and links neither docs/current-state.md nor docs/PROJECT-CLOSEOUT.md nor docs/AGENT_ORIENTATION.md (full text read at blob 4f9ac556339e).",
+   "canonical_state_source pairing \u2014 [survived] docs/current-state.md line 15 links 'Program closeout & continuation guide: docs/PROJECT-CLOSEOUT.md'; header declares itself the living ledger, 'Source code and merged work always win over this file'.",
+   "Seed item 4, the superbot oracle + Postgres dependency \u2014 [survived] docs/current-state.md lines 85-91: minting/refreshing a golden requires BOTH the menno420/superbot oracle clone and a provisioned Postgres; a session without them cannot verify parity.",
+   "No unconsumed owner comments \u2014 [survived] /home/user/fleet-manager/docs/owner-comments/superbot-next/ contains only README.md."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "whether golden-parity green means the bot is ported",
+    "hub_says": "Layer-2 README: 'The one caveat that governs everything here: golden-parity green must not be read as \"ported\"' \u2014 capture-world literals shipping as constants, 60 of 66 help panels button-less (2026-08-05 owner-live audit). ESTATE.md line 85: '533/533 golden parity green but parity \u2260 ported'.",
+    "repo_says": "docs/current-state.md lines 19-27: 'All seven port bands built (49 subsystems\u2026)', 'full-corpus green \u2014 533/533 goldens, 49/49 subsystems ported + kernel'.",
+    "authoritative": "hub \u2014 the caveat comes from an owner-live audit of the repo's actual code, which the repo's own ledger has not been updated to reflect; the reading adopted the repo's framing and reported hub_agrees: AGREE while its own summary contradicted the hub's stated governing caveat."
+   },
+   {
+    "subject": "number and identity of required merge gates on main",
+    "hub_says": "Layer-2 README: 'Seven required checks on main: code-quality \u00b7 manifest-validate \u00b7 architecture \u00b7 sim-gate \u00b7 golden-parity (gate job) \u00b7 check_compat_frozen \u00b7 pip-audit. substrate-gate is NOT required here and reds on a pre-existing break.'",
+    "repo_says": "docs/current-state.md lines 25-26: 'the committed-checker fleet + the six required named gates (.github/workflows/named-gates.yml) are green on main.'",
+    "authoritative": "live surface \u2014 GET /repos/menno420/superbot-next/rules/branches/main (2026-09-04) returns exactly the hub's seven contexts. The hub is right, the repo doc undercounts, and the reading marked this AGREE."
+   },
+   {
+    "subject": "the successor repository for the game-community direction",
+    "hub_says": "ESTATE.md line 85 and lines 104-105: 'That clean repo exists: spider-bot, live 2026-08-24 \u2014 GCB-1's repo-confirmed half is resolved'; line 285 names spider-bot as 'the bot' for Slingy-Spider work.",
+    "repo_says": "nothing \u2014 superbot-next's own docs predate it (last doc change 2026-07-21).",
+    "authoritative": "hub \u2014 this is estate routing truth, not repo truth. The reading's open_work still frames the 2026-08-21 plan as the forward state and never names spider-bot, so a seed session reading it would look for a repo that has existed for eleven days."
+   },
+   {
+    "subject": "whether anything is queued against this repo",
+    "hub_says": "ESTATE.md line 85: the archive 'stays queued R5 work for a session that takes it deliberately'; line 110: superbot-plugin-hello's disposition is 'archive, paired with superbot-next'.",
+    "repo_says": "nothing (parked since 2026-07-21).",
+    "authoritative": "hub \u2014 estate disposition is the hub's to own; the reading reported open_work 'None currently open in this repo'."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "repo state \u2014 complete-parked architecture donor",
+    "reason": "unverified"
+   },
+   {
+    "subject": "closeout's read-only claim is false",
+    "reason": "product_truth_duplicated"
+   },
+   {
+    "subject": "root README.md is stale and an inadequate standalone front door",
+    "reason": "stale_on_copy"
+   }
+  ],
+  "overclaimed_certainty": [
+   "seed item 1 certainty MEASURED with verifier 'GitHub REST content fetch' \u2014 the fact ('fully ported, 533/533') is read off docs/current-state.md prose, so it is MEASURED-PRIOR/REASONED; and its 'ported' half is refuted in part by the hub-cited 2026-08-05 owner-live audit.",
+   "seed item 3 certainty MEASURED for '484/484 goldens across 51 subsystems \u2026 vs 49' \u2014 the 51-vs-49 subsystem drift does not exist in the source (README itself says 49 subsystems), so a MEASURED tag sits on a misreading.",
+   "seed item 3's claim that current-state.md says control/status.md is being retired \u2014 MEASURED tag on a half-quote; the same file says it stays load-bearing and gate-read.",
+   "docs_agree_with_source 'Claim 1 checked \u2026 AGREE' \u2014 file existence presented as verification of a count-and-exclusivity claim; live rules show seven required contexts, not six.",
+   "hub_agrees 'AGREE \u2026 all independently confirmed live' \u2014 asserted while the hub's own governing caveat contradicts the reading's summary; the confirmation covered only the numbers both documents happened to share.",
+   "paths_opened lists 'repos/menno420/superbot-next@<sha> (repo object)' but no archived/private/pushed_at fact is reported anywhere in the reading; the prompt's own recipe (G \"\") 404s on the trailing slash, so the entry is plausibly an unopened path.",
+   "current_work_state 'no owner comments unconsumed' is correct but carries no path; it is only checkable because docs/owner-comments/superbot-next/ contains a single README.md."
+  ],
+  "corrected_fields": "docs_agree_with_source \u2192 PARTIAL, with Claim 1 restated: current-state.md's \"six required named gates\" DISAGREES with the live ruleset, which enforces seven contexts (the six named gates plus pip-audit); \"sole in-repo merge automation\" remains unverified. front_door_adequate \u2192 keep PARTIAL, but drop the \"51 vs 49 subsystems\" drift (README says 49) and restate the control/status.md point as \"README points at control/status.md as live truth; current-state.md both announces its retirement AND states it stays load-bearing because a required gate reads it \u2014 do not delete control/\". hub_agrees \u2192 PARTIAL: hub and repo agree on parked/533/#606/0 PRs, but the hub's governing caveat (\"parity \u2260 ported\", 2026-08-05 owner-live audit) contradicts the repo ledger's \"49/49 ported\" framing, and the hub carries two facts absent from the reading (spider-bot exists and is live since 2026-08-24; archiving superbot-next is queued R5 work paired with superbot-plugin-hello). purpose_plain \u2192 replace \"all 49 subsystems + kernel ported with full-corpus golden-parity green\" with \"full-corpus golden-parity green (533/533) \u2014 which the estate explicitly warns must not be read as fully ported\". open_work \u2192 add the queued R5 archive (paired with superbot-plugin-hello) and drop the characterisation of docs/NEXT-TASKS.md, which the reading admits it did not open. successor_seed \u2192 keep only item 4 (superbot oracle + Postgres dependency, a real routing trap) and item 5 (canonical doc pair), and add one hub-owned routing row: superbot-next is the architecture donor, spider-bot (live 2026-08-24) is the build target, archive queued R5."
+ },
+ {
+  "corrected_fields": "owner_vocabulary \u2192 should be relabeled/emptied: none of the three phrases is attested owner speech; all three are agent-authored workflow-header comments at c1439ab (dump.yml lines 1-2, sizing.yml lines 1-20). The owner's actual routing vocabulary for this repo lives in fleet-manager docs/ESTATE.md:293 (\"backups\" \u2014 venue vs recurring job), which the reading did not put in this field. | contradictions \u2192 not empty: sizing.yml's header (2026-08-20, in-repo, primary) calls the other job \"the nightly backup\"; ESTATE.md:293 says the superbot recurring backup is \"weekly\" and docs/repos/estate-backups/README.md says \"daily \u2192 weekly since sb #2446\". Cadence disagreement between primary source and hub, unreported. | successor_seed[0].source_path \u2192 the sealed-box PUT\u2192dispatch\u2192read-log\u2192DELETE pattern text appears ONLY in sizing.yml; dump.yml says only that \"the proxy, the credential, and the source service are all deleted minutes after this run\". Citing both files for that sentence overstates. | current_work_state \u2192 the run-completion claim is now MEASURED (I read actions/runs: total_count 2, both workflow_dispatch, both conclusion=success, \"postgres-botsite final dump\" 2026-08-16T07:56:59Z on 5f005ba3, \"bot-db sizing (read-only)\" 2026-08-20T22:35:10Z on c1439abb) \u2014 but the reading itself never opened that endpoint.",
+  "killed": [
+   {
+    "claim": "owner_vocabulary: \"final dump\" / \"before owner-approved deletion\"; \"one-shot-credential pattern\"; \"READ-ONLY BY CONSTRUCTION\" presented as owner vocabulary",
+    "what_you_checked": "Fetched .github/workflows/dump.yml (blob 2435314fc0, 3752 B) and sizing.yml (blob 1a2507dd55, 4397 B) at c1439abb35976ca706c19f7817823d09b443a8e0 to disk and read them in full; blob shas/sizes match tree.json entries. All three phrases are verbatim in agent-written YAML comment headers. Also read /home/user/fleet-manager/docs/ESTATE.md:293 and docs/owner-comments/estate-backups/README.md (0 unconsumed, 0 consumed records \u2014 zero owner utterances on record for this repo).",
+    "why_it_fails": "The strings exist, but they are the phrasing of the session that wrote the workflows, not the owner's. There is no owner-comment record for estate-backups at all, and the field's routing purpose is to capture what the OWNER calls things. A seed session told these are owner vocabulary will mis-route his actual words (his term per ESTATE.md is \"backups\", which is ambiguous between venue and the superbot recurring job)."
+   },
+   {
+    "claim": "contradictions: [] and walls: []",
+    "what_you_checked": "sizing.yml header at c1439ab: \"Connects over the DB's long-standing public TCP proxy (the same route the nightly backup uses\u2026)\". fleet-manager docs/ESTATE.md:293: \"the recurring bot backup is a superbot workflow (weekly)\". docs/repos/estate-backups/README.md: \"daily \u2192 weekly since sb #2446\".",
+    "why_it_fails": "A primary in-repo file dated 2026-08-20 calls the companion job nightly; the hub calls it weekly (and elsewhere daily-then-weekly). The reading claims to have opened all three of these files and still reported zero contradictions. This is exactly the deciding-signal-ignored failure this stage exists for \u2014 and it sits inside the one disambiguation the reading calls \"critical\"."
+   },
+   {
+    "claim": "successor_seed item 2 \u2014 \"Disambiguation: recurring bot backup does NOT live here \u2026 a superbot workflow (daily then weekly since sb #2446)\", certainty MEASURED-PRIOR, source_repo estate-backups, source_path \"README.md (what it fails to say)\"",
+    "what_you_checked": "Read estate-backups README.md in full (blob 3e6632c808, 130 B): two lines, identity only, no mention of superbot, backups cadence, or sb #2446. Read the whole tree at the pinned SHA \u2014 3 blobs, nothing else. No superbot file was opened by this audit; the paths_opened list confirms it.",
+    "why_it_fails": "The cited primary source is a file's SILENCE, which is not evidence of the positive claim, and the substantive content (superbot workflow, daily\u2192weekly, sb #2446) comes only from fleet-manager's own Layer-2 doc \u2014 a hub summary. only_source_is_hub_summary is set false and it should be true. The cadence half is additionally contradicted by sizing.yml (\"nightly\"). Cite superbot's workflow file or drop the cadence."
+   },
+   {
+    "claim": "docs_agree_with_source Claim 2 wording: \"dump.yml's own header/steps claim a restore-verified dump was released\" used as if the workflow attests the run happened",
+    "what_you_checked": "dump.yml at c1439ab is `on: workflow_dispatch` only \u2014 it describes intent, not an occurrence. The occurrence is established by actions/runs (conclusion success, 2026-08-16T07:56:59Z) and releases (tag postgres-botsite-final-2026-08-16, assets manifest.txt / postgres-botsite-final.dump / postgres-botsite-final.sql.gz), the first of which the reading never opened.",
+    "why_it_fails": "Partial kill of the reasoning, not the conclusion: the conclusion is true (I re-derived it), but the reading's stated evidence chain \u2014 workflow text plus a release \u2014 cannot establish that the restore-verification STEP actually passed; only the run log can, and nobody read it. \"Restore-verified\" remains REASONED from manifest.txt's own claim line, not MEASURED."
+   }
+  ],
+  "survived": [
+   "sha_verified c1439abb35976ca706c19f7817823d09b443a8e0 \u2014 git/trees/<sha>?recursive=1 resolves 200, truncated=false; tree is exactly 3 blobs: README.md (130 B, 3e6632c808), .github/workflows/dump.yml (3752 B, 2435314fc0), .github/workflows/sizing.yml (4397 B, 1a2507dd55). The prior audit's \"3 blobs total\" holds byte-for-byte.",
+   "front_door_adequate: NO \u2014 README.md fetched to disk, decoded, blob sha and size match the tree entry: two lines totalling 130 bytes, identity only. It carries no workflow purpose, no one-shot-vs-recurring distinction, no superbot disambiguation. Verdict supported by the tree.",
+   "open PRs 0 \u2014 pulls?state=open&per_page=100 returns an empty array at the pinned SHA.",
+   "Release artifact seed item \u2014 /releases returns exactly one release, tag postgres-botsite-final-2026-08-16, created 2026-08-16T07:56:32Z, assets exactly [manifest.txt, postgres-botsite-final.dump, postgres-botsite-final.sql.gz]. MEASURED is correct.",
+   "state_word: dormant \u2014 repo (menno420/estate-backups, private=true, archived=false) pushed_at 2026-08-20T22:34:33Z, size 5 KB, 3 commits total (8296af7 init, 5f005ba 2026-08-16, c1439ab 2026-08-20), 2 workflow runs both completed success, 0 open PRs, issues disabled. Nothing has moved in 15 days.",
+   "purpose_plain \u2014 the 80/443-egress rationale is in-source, not inferred: sizing.yml header says \"this runner venue is the proven path for TCP work \u2014 agent containers only reach ports 80/443\". Survives as MEASURED against the file.",
+   "hub_agrees direction \u2014 I opened docs/ESTATE.md:74 and docs/repos/estate-backups/README.md myself; both describe the venue, the two one-shot workflows, the sealed-secret pattern and the OQ-BOT-DB-BTD6-PRUNE dependency in terms the tree supports. AGREE is right on substance; it is wrong only on the cadence detail killed above, so the field should read PARTIAL, not AGREE."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "Cadence of the recurring bot-database backup",
+    "hub_says": "\"the recurring bot backup is a superbot workflow (weekly)\" (docs/ESTATE.md:293); \"daily \u2192 weekly since sb #2446\" (docs/repos/estate-backups/README.md)",
+    "repo_says": "\"the same route the nightly backup uses\" \u2014 .github/workflows/sizing.yml header, committed 2026-08-20T22:34:31Z at c1439abb",
+    "authoritative": "Neither, on this evidence \u2014 the authoritative source is superbot's own workflow file, which no one in this audit chain opened. Until then the cadence must carry UNVERIFIED, not be seeded as fact."
+   },
+   {
+    "subject": "Whether README.md is an adequate canonical entry",
+    "hub_says": "docs/ESTATE.md:74 names the canonical entry as \"README.md + the two workflows\"",
+    "repo_says": "README.md is 130 bytes of identity line; all context lives in the workflow headers",
+    "authoritative": "The repo. ESTATE.md's canonical-entry cell is only true because it bundles the workflows; a router reading \"README.md\" first gets nothing. The reading reported front_door_adequate NO and hub_agrees AGREE without noticing the hub cell it contradicts."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "Disambiguation: recurring bot backup does NOT live here (daily then weekly since sb #2446)",
+    "reason": "no_primary_source"
+   },
+   {
+    "subject": "Open owner dependency: OQ-BOT-DB-BTD6-PRUNE unanswered",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Front door is inadequate on its own",
+    "reason": "not_needed_for_routing"
+   }
+  ],
+  "overclaimed_certainty": [
+   "current_work_state asserts \"sizing.yml ran 2026-08-20 \u2026 both already run and complete\" as fact, but paths_opened contains no actions/runs read \u2014 it was inferred from the commit date and the hub's Layer-2 doc. REASONED presented as MEASURED. (It happens to be true: I read actions/runs and both are conclusion=success.)",
+   "successor_seed[2] verification_point \"live-api@2026-09-04\" for the release is fine, but the accompanying words \"restore-verified\" are MEASURED only about the manifest's self-description; nobody read the run log where the row-count diff either passed or failed. Certainty on the verification itself is REASONED.",
+   "successor_seed[1] certainty MEASURED-PRIOR with only_source_is_hub_summary=false \u2014 the only source IS a hub summary (docs/repos/estate-backups/README.md). The flag is wrong, not just the tag.",
+   "owner_vocabulary entries are presented without a certainty caveat as owner words; they are agent-authored file comments, and docs/owner-comments/estate-backups/README.md records zero owner comments for this repo.",
+   "hub_agrees: \"AGREE \u2026 all confirmed against the live source in this audit\" \u2014 the cadence claim inside those same hub files is contradicted by sizing.yml, so the blanket confirmation is not supportable."
+  ],
+  "repo": "menno420/estate-backups",
+  "verdict": "PARTIAL"
+ },
+ {
+  "corrected_fields": "canonical_state_source \u2192 \"README.md (Status section); CLAUDE.md for the 21 invariants\" (not 12 \u2014 the \"12\" is fleet-manager ESTATE.md line 67's stale figure, which the reading copied rather than read off source).\n\ncontradictions[1] (test count) \u2192 hub_says should read \"fleet-manager docs/repos/spider-bot/README.md says 78 tests (lines 43, 58, 104)\"; the repo's own README does NOT say 78 and has no \"Threads\" section. authoritative should be \"repo source\", not UNRESOLVED: 217 `def test_` definitions at the pinned SHA plus 9 `@pytest.mark.parametrize` decorators is a strict FLOOR on pytest's collected count, so the repo README's \"116 tests\" is stale-low and the hub's \"78\" is staler still. Nothing about parametrize or fixtures can push a collected count below the def count.\n\ncontradictions[0] commit attribution \u2192 bc4f9985 is \"Merge pull request #1 from menno420/codex/railpack-iac-migration\"; the commit actually titled \"Migrate Spider Bot to Railway IaC and Railpack\" is cc930e2668. bf4d7527 is \"Merge pull request #2\"; \"Preserve Railway build watch patterns in IaC\" is 2aacade5a5. And bf4d7527 IS the pinned SHA, so PR #2 landed AT the pinned SHA, not \"before\" it.\n\nsuccessor_seed[4] \u2192 extraction ledger has 12 data rows at the pinned SHA (14 markdown table lines including header + separator), not 14 rows.\n\nNew contradiction the reading missed: ESTATE.md line 67 says CLAUDE.md carries \"the 12 invariants\"; CLAUDE.md at the pinned SHA numbers 21. Authoritative: repo.",
+  "killed": [
+   {
+    "claim": "\"CLAUDE.md for the 12 invariants\" / \"CLAUDE.md adds the 12 invariants + verify commands\" (canonical_state_source, front_door_adequate, successor_seed[2])",
+    "what_you_checked": "Fetched CLAUDE.md blob e1a0f8ab0df95bed574105ad2c1324183264bcba (6089 bytes, matches tree.json) at bf4d75278a74147aaf9c7f19e2da2c7abb1939cb. `grep -nE '^[0-9]+\\. '` returns a single numbered list under '## Invariants (violating any of these is a defect, not a style choice)' running 1..21, ending at line 72 with '21. The tester role is never granted by code.' Headings are only: agent boot file / Invariants / Verify / Venue rules \u2014 one list, no sub-lists.",
+    "why_it_fails": "There are 21 invariants, not 12. The figure 12 appears verbatim in /home/user/fleet-manager/docs/ESTATE.md line 67 (\"`README.md` \u2192 `CLAUDE.md` (the 12 invariants)\"), so the reading reproduced a stale hub number while listing CLAUDE.md in paths_opened and marking the seed item MEASURED. This is the precise failure mode this stage exists to catch: the deciding source was fetched and the hub's number was reported anyway."
+   },
+   {
+    "claim": "contradictions[1]: \"repo README.md's own 'Threads' section [says] '78 tests'\" and \"three different counts exist\"",
+    "what_you_checked": "Full text of README.md blob b8da79f9ed443b90c048db96b58ea13fe7b21cec (5510 bytes, matches tree.json) at the pinned SHA. Its section headings are: Status / The app surface / Discord identity / Stack ruling / Secrets / Deployment / Invariants. There is no 'Threads' section and the string '78' does not occur. The only test count in it is '(116 tests)' in Status.",
+    "why_it_fails": "The 'Threads' section belongs to fleet-manager's Layer-2 doc (/home/user/fleet-manager/docs/repos/spider-bot/README.md, '## Threads' at line 54, '78 tests' at lines 43, 58, 104), not to the repo. The reading attributed a hub document's structure and figure to the repository's own front door. Only two counts exist in documents (116 repo, 78 hub), not three."
+   },
+   {
+    "claim": "contradictions[1] authoritative: \"UNRESOLVED ... not one I can resolve without running the suite\"",
+    "what_you_checked": "Fetched all 16 blobs under tests/ at the pinned SHA and counted `^\\s*(?:async )?def test_` = 217 and `@pytest.mark.parametrize` = 9 (test_ui.py 46, test_chat.py 28, test_tester.py 19, conftest.py 0, etc.).",
+    "why_it_fails": "The stated reason for UNRESOLVED is wrong. Parametrize and shared fixtures can only hold collected items at or ABOVE the def count, never below it, so 217 is a hard floor on pytest's collected count without running anything. That settles the direction: the repo README's '116 tests' is stale-low and the hub's '78' staler. The reading manufactured irresolvability from a misunderstanding of how pytest collection relates to def count, and a seed session would carry 'unresolved' where 'both documents are stale, floor is 217' is derivable."
+   },
+   {
+    "claim": "successor_seed[4]: extraction ledger \"has grown from 6 rows at 2026-08-24 registration to 14 rows as of this pinned SHA\"",
+    "what_you_checked": "Fetched blob 51ad768d320adda5522b1d1afccb984f4d90b2cd (docs/extraction-ledger.md) at the pinned SHA: 14 lines beginning with '|', of which line 1 is the header (# | Source | What | Decision | Where it landed) and line 2 the separator. Last data row is numbered 12.",
+    "why_it_fails": "12 data rows, not 14 \u2014 the reading counted markdown table lines including header and separator. The '6 rows at registration' half was not re-derivable within budget and has no primary source in the reading either."
+   },
+   {
+    "claim": "contradictions[0]: \"commits bc4f998 'Migrate Spider Bot to Railway IaC and Railpack' and bf4d752 'Preserve Railway build watch patterns in IaC' landed 2026-08-25, before the pinned SHA\" (also successor_seed[1] wording and docs_agree_with_source: \"PRs #1 and #2, both landed 2026-08-25, before this SHA\")",
+    "what_you_checked": "commits?sha=main&per_page=5 over live API: bf4d75278a74 = 'Merge pull request #2 from menno420/codex/preserve-railway-watch-patterns' (2026-08-25T22:42:55Z); 2aacade5a509 = 'Preserve Railway build watch patterns in IaC'; bc4f99857b89 = 'Merge pull request #1 from menno420/codex/railpack-iac-migration'; cc930e266860 = 'Migrate Spider Bot to Railway IaC and Railpack'.",
+    "why_it_fails": "Both SHA-to-message pairings are wrong \u2014 the quoted messages belong to the branch commits (cc930e2, 2aacade), not the merge commits named. And bf4d7527 IS the pinned SHA, so PR #2 landed AT the pinned SHA rather than 'before' it. The conclusion (Railpack is live at the pinned SHA) is unaffected, but the citation a seed session would carry forward is wrong."
+   }
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "number of invariants in spider-bot's CLAUDE.md",
+    "hub_says": "fleet-manager/docs/ESTATE.md line 67: canonical entry is \"`README.md` \u2192 `CLAUDE.md` (the 12 invariants)\"",
+    "repo_says": "CLAUDE.md@bf4d7527 numbers a single list 1..21 under '## Invariants'; 21 invariants",
+    "authoritative": "repo"
+   },
+   {
+    "subject": "pytest test count \u2014 the direction is resolvable, not unresolved",
+    "hub_says": "fleet-manager/docs/repos/spider-bot/README.md: 78 tests (lines 43, 58, 104); repo README.md Status: 116 tests",
+    "repo_says": "217 `def test_` definitions across tests/ at the pinned SHA plus 9 parametrize decorators \u2014 a floor on collected items",
+    "authoritative": "repo"
+   },
+   {
+    "subject": "Railway region / service identity is independently checkable in IaC, not only in README prose",
+    "hub_says": "repo README.md Deployment: region europe-west4, project spider-bot, service worker, start `python -m spiderbot`",
+    "repo_says": ".railway/railway.ts: service(\"worker\"), replicas {\"europe-west4-drams3a\": 1}, project(\"spider-bot\"), start \"python -m spiderbot\", env preserve() for ANTHROPIC_API_KEY/DISCORD_TOKEN/GUILD_ID \u2014 agrees with README on every point except builder",
+    "authoritative": "repo"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed[3] (deploy trap) is certainty MEASURED and asserts CI \"is not wired as a required status check\" \u2014 neither the reading nor this audit read /repos/menno420/spider-bot/rulesets or /branches/main/protection. The ci.yml header comment saying it does not gate anything is the workflow author's prose, not the branch's configuration. That half is REASONED from a document, not measured off the enforcement surface.",
+   "successor_seed[0] (identity and live status) is MEASURED and asserts \"live in production on Railway\". Nothing in this audit or the reading touched the Railway API; the deployment claim traces to README.md's own Status/Deployment prose. Repo metadata (public, not archived, default main, HEAD bf4d7527) IS measured; \"live in production\" is REASONED-from-doc.",
+   "dependencies[] asserts \"ANTHROPIC_API_KEY confirmed as a set Railway variable per README\" \u2014 'confirmed' overstates 'the README says so'. .railway/railway.ts corroborates that the key is declared with preserve(), which is a declaration that a value exists in Railway, not an observation of it.",
+   "current_work_state gives pushed_at as 2026-09-04T12:57:19Z; the live repo object read minutes later returns 2026-09-04T13:17:43Z. Not an error, but pushed_at is a moving field and was presented as a fixed measurement supporting an inference about PR #3.",
+   "prior_evidence_verdict says the Layer-2 doc's dated banner \"already didn't cover a change that happened hours-to-a-day later\" \u2014 correct, but it then reads that as a defect in the doc. The doc's own header explicitly says \"when it disagrees with the repo, the repo is right and this file is stale\" (lines 8-11), which the reading quotes nowhere; the doc is behaving exactly as it declares, not silently misleading."
+  ],
+  "repo": "menno420/spider-bot",
+  "seed_items_to_drop": [
+   {
+    "subject": "canonical entry points (successor_seed[2])",
+    "reason": "unverified"
+   },
+   {
+    "subject": "unresolved test-count discrepancy (successor_seed[5])",
+    "reason": "unverified"
+   },
+   {
+    "subject": "dependency relationship: superbot / superbot-next \u2014 the row-count half (successor_seed[4])",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "deploy trap \u2014 the \"not wired as a required status check\" clause (successor_seed[3])",
+    "reason": "unverified"
+   },
+   {
+    "subject": "identity and live status \u2014 the \"live in production on Railway\" clause (successor_seed[0])",
+    "reason": "no_primary_source"
+   }
+  ],
+  "survived": [
+   "contradictions[0] Railway build system \u2014 SURVIVES IN FULL. .railway/railway.ts (blob 179b206f918e8d45d10a048e6fc17c713cb52f5f, 713 bytes, matches tree.json) at bf4d7527 declares `builder: \"RAILPACK\"`. README.md at the same SHA, Deployment section, says \"region europe-west4, NIXPACKS build\". fleet-manager/docs/repos/spider-bot/README.md line 61 repeats \"NIXPACKS checks `requirements.txt` first, verified in its source, so the Railway build path cannot change\" \u2014 a confident claim that the live IaC refutes. Both documents are stale on this point; repo is authoritative. This is the reading's strongest finding and it holds exactly as stated (modulo the commit-SHA mislabelling above).",
+   "successor_seed[1] \"Railway build system is RAILPACK, not NIXPACKS\" \u2014 SURVIVES, MEASURED is correct, and it is the one seed item that earns its place: it corrects an error the hub would otherwise propagate.",
+   "docs_agree_with_source claim 1 (CI is informational only) \u2014 SURVIVES on the workflow's own content. .github/workflows/ci.yml (blob 7576a6e929..., 786 bytes) opens \"# Informational quality gate... It does NOT gate anything yet - pushes to main still auto-deploy to Railway\", triggers on `push:` and `pull_request:` with a single `quality` job running ruff / pytest / compileall. Matches README's \"CI is informational only\". (The separate \"not a required status check\" inference is flagged above.)",
+   "current_work_state \u2014 SURVIVES. commits?sha=main returns bf4d75278a74 as HEAD, dated 2026-08-25T22:42:55Z; 0 commits since the pinned SHA. pulls?state=open returns exactly one: #3 \"AI operations: one intake path, one moderation path, and the game-knowledge seam\", head claude/spider-bot-ai-ops-sthix0, created 2026-09-04T12:19:06Z.",
+   "repo identity facts \u2014 SURVIVE. /repos/menno420/spider-bot: full_name menno420/spider-bot, private false, archived false, default_branch main. tree at the pinned SHA is untruncated, 66 entries; all five cited blob shas/sizes match the tree, so no cross-repo file mixup occurred.",
+   "The 217 `def test_` count \u2014 SURVIVES and is genuinely measured. Independently re-derived across all 16 files under tests/ at the pinned SHA: exactly 217, plus 9 parametrize decorators. The reading's conclusion drawn from it was wrong (see kills), but the number is real.",
+   "purpose_plain, front_door content inventory (identity, app surface, layering rule, Discord app id 1541449715932205187 / guild id 1541447750628147351, secrets-by-name, the serviceConnect deploy trap, 5 numbered README invariants) \u2014 SURVIVES; all present verbatim in README.md at the pinned SHA.",
+   "hub_agrees: PARTIAL \u2014 SURVIVES as a verdict. Both hub files were opened by this audit: ESTATE.md line 67 and the Layer-2 README. The Layer-2 doc does correctly describe purpose, stack, Railway shape and the superbot/superbot-next relationship, does self-date \"true as of 2026-08-24\", and does carry both the stale NIXPACKS claim and \"78 tests\". The verdict is right even though the reading's supporting attribution was partly wrong."
+  ],
+  "verdict": "PARTIAL"
+ },
+ {
+  "repo": "menno420/creator-kit",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "canonical_state_source = docs/current-state.md",
+    "why_it_fails": "That file is 972 bytes of unrendered substrate-kit template \u2014 it opens with the kit's UNRENDERED-SLOTS banner and its four sections are three parenthetical instructions plus a bare ${review_ritual}. It contains zero project state. Naming it the canonical state source is also internally inconsistent with the reading's own seed item 3, which calls it an unrendered template. The only file at this SHA that states real state is control/status.md (phase/check/engaged/last-shipped/blockers).",
+    "what_you_checked": "contents/docs/current-state.md?ref=741f429a2e96587aa27075085b85df889531d2a7 \u2192 blob 073d2110de, 972 bytes, sha+size matched tree.json; contents/control/status.md \u2192 blob 9aa89ce717, 1533 bytes, matched tree.json"
+   },
+   {
+    "claim": "Seed item 3: 'Both files [current-state.md and reading-path.md] carry the unrendered-slot banner and every section body is an empty ${...} placeholder or a parenthetical instruction, not real content'",
+    "why_it_fails": "True for current-state.md, FALSE for reading-path.md. reading-path.md is 3894 bytes and its \u00a7 0 'The standing authorization' is real prose guidance (read-only cross-repo access is standing-authorized; sanctioned mechanics: raw.githubusercontent fetch, git clone, git ls-remote; set a real User-Agent; MCP scoping boundaries). Only ${fleet_dark_repos} is unfilled. The banner it carries says in terms: 'Prose without ${...} tokens is live guidance already' \u2014 so the reading read the banner and not the body.",
+    "what_you_checked": "contents/docs/reading-path.md?ref=741f429a\u2026d2a7 \u2192 blob 70410c5550, 3894 bytes; read the first ~1400 chars"
+   },
+   {
+    "claim": "'The repository is exactly one commit deep \u2014 the 2026-08-25T21:14:50Z seed push'",
+    "why_it_fails": "21:14:50Z is the repository's created_at, not a push. The single commit's author date is 2026-08-25T21:16:27Z and pushed_at is 21:16:29Z. The reading elsewhere quotes pushed_at correctly, so this is a mislabel of the creation timestamp as a push timestamp inside a MEASURED-toned sentence.",
+    "what_you_checked": "GET /repos/menno420/creator-kit (no trailing slash) \u2192 created_at 2026-08-25T21:14:50Z, pushed_at 2026-08-25T21:16:29Z; GET /commits?sha=741f429a\u2026 \u2192 exactly 1 commit, 741f429a, 2026-08-25T21:16:27Z, 0 parents"
+   },
+   {
+    "claim": "Seed item 4: 'No fleet-manager Layer 2 folder exists for creator-kit, so the hub's per-repo Layer-2 entry point is missing for this repo \u2026 blocker: none \u2014 creating it is a normal hub task'",
+    "why_it_fails": "The absence is deliberate and already recorded, not a gap. ESTATE.md's creator-kit row (line 69) sets its Layer-2 column to the literal value 'on demand' \u2014 the documented convention for a repo that does not warrant a folder \u2014 rather than a broken link. The reading treated a stated convention as a defect and seeded it as work.",
+    "what_you_checked": "/home/user/fleet-manager/docs/ESTATE.md line 69 (Layer-2 column reads 'on demand'); ls /home/user/fleet-manager/docs/repos/ (11 folders, no creator-kit)"
+   },
+   {
+    "claim": "hub_agrees: 'AGREE' with contradictions: []",
+    "why_it_fails": "The hub row contradicts the reading's own state verdict \u2014 see missed_contradictions. A reader that opened ESTATE.md and still reported AGREE either did not read the state cell or did not compare it to its own state_word.",
+    "what_you_checked": "/home/user/fleet-manager/docs/ESTATE.md line 69, full row text; compared to the reading's state_word field"
+   }
+  ],
+  "survived": [
+   "8 named parts, each with STEP + STL + OBJ exports \u2014 tree.json at 741f429a\u2026 lists freecad/exports/{bracket,handle,hole-gauge,pin,ring,rounded-box,tray,tube}.{step,stl} and godot/assets/freecad/{same 8}.obj. (A 9th pair, creator-shapes-showcase.step/.stl, exists with no .obj; it does not break the claim.) README.md names exactly those eight parts.",
+   "bootstrap.py is 1,423,703 bytes at this SHA \u2014 exact match in tree.json.",
+   "substrate-kit v1.21.0 vendored \u2014 substrate.config.json carries \"kit_version\": \"1.21.0\"; control/status.md carries kit: v1.21.0.",
+   "control/status.md quotes are verbatim: 'phase: adopted \u2014 first session not yet run', 'check: red', 'engaged: no', 'last-shipped: none'.",
+   ".sessions/ holds only its README \u2014 tree.json contains exactly ['.sessions', '.sessions/README.md']. .session-journal.md is 761 bytes.",
+   "0 open PRs \u2014 pulls?state=open&per_page=100 returned an empty array.",
+   "111 blobs at this SHA \u2014 tree.json, truncated=false, 148 entries of which 111 are blobs.",
+   "repo object values: archived=false, private=false, default_branch=main, pushed_at 2026-08-25T21:16:29Z.",
+   "current_work_state's core substance \u2014 one commit, nothing since, product usable but unworked.",
+   "front_door_adequate: PARTIAL \u2014 README.md (2112 bytes) is concrete and genuinely usable (launchers, dimensions.txt edit loop, 1 Godot unit = 1 metre, 'Where the truth lives'), but points at no state or next-step surface. PARTIAL is the right call.",
+   "docs_agree_with_source: PARTIAL \u2014 justified by the unrendered current-state.md.",
+   "prior_evidence_verdict STILL_HOLDS \u2014 created 21:14:50Z, pushed 21:16:29Z (99 s), 111 files: all three re-derived."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "State word for creator-kit",
+    "hub_says": "docs/ESTATE.md line 69: '**active, brand new and barely recorded**'",
+    "repo_says": "One commit (2026-08-25T21:16:27Z), no sessions, no PRs, control/status.md 'first session not yet run / check: red / engaged: no / last-shipped: none', nothing in 10 days \u2014 the reading's own state_word is 'dormant'",
+    "authoritative": "The repository. 'dormant' (or 'unworked') is what the tree supports; 'active' in ESTATE.md reads as recency-of-creation, not activity. Either way the reading must not report hub_agrees: AGREE and contradictions: [] while carrying a state_word the hub row does not use."
+   },
+   {
+    "subject": "Layer-2 coverage for creator-kit",
+    "hub_says": "docs/ESTATE.md line 69 Layer-2 column: 'on demand' \u2014 an explicit convention value",
+    "repo_says": "n/a (hub-side)",
+    "authoritative": "ESTATE.md. The reading's seed item 4 frames the missing docs/repos/creator-kit/ folder as an unstated gap needing a hub task; the hub has already stated the disposition."
+   },
+   {
+    "subject": "Kit version as recorded truth",
+    "hub_says": "ESTATE.md and the reading both assert 'substrate-kit v1.21.0'",
+    "repo_says": "control/status.md warns in its own notes that the kit: line 'is a self-report, not version truth \u2014 self-reports chronically lag; the kit repo's generated docs/adopters.md and your committed tree are the version truth'",
+    "authoritative": "substrate.config.json + the committed tree (which do say 1.21.0 here, so the value is right) \u2014 but copying the self-report into a hub seed reproduces exactly the lag the repo warns about."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "Owner vocabulary for this repo ('the creator kit', 'the FreeCAD thing')",
+    "reason": "no_primary_source"
+   },
+   {
+    "subject": "No fleet-manager Layer 2 folder exists for creator-kit",
+    "reason": "not_needed_for_routing"
+   },
+   {
+    "subject": "substrate-kit v1.21.0 is vendored whole",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "No first session has run yet (control/status.md verbatim quotes)",
+    "reason": "product_truth_duplicated"
+   }
+  ],
+  "overclaimed_certainty": [
+   "Seed item 3 is marked MEASURED but its claim about docs/reading-path.md was not measured against that file's body \u2014 the body contains real live guidance, so the MEASURED label covers a statement the source refutes.",
+   "current_work_state states 'the 2026-08-25T21:14:50Z seed push' in a MEASURED register; that timestamp is created_at, not a push. Precision presented as measurement where the underlying reading was of a different field (or of ESTATE.md's 'created' line).",
+   "hub_agrees: 'AGREE' is asserted flatly with contradictions: [] despite the ESTATE.md row using a different state word \u2014 a confidence level the reading's own evidence does not license.",
+   "purpose_plain: 'driven entirely by Windows double-click launchers'. README.md names freecad/src/ as 'the repeatable generator and verifier' and freecad/dimensions.txt as the edited surface; 'entirely' overstates.",
+   "Seed item 4's blocker: 'none \u2014 creating docs/repos/creator-kit/README.md is a normal hub task' is stated as fact where ESTATE.md's 'on demand' says the opposite.",
+   "Dependency bullet 'Built on the owner's Windows laptop' is correctly hedged REASONED and correctly attributed to the hub \u2014 no inflation here; noted so the tally is not read as blanket condemnation."
+  ],
+  "corrected_fields": "canonical_state_source: control/status.md (not docs/current-state.md, which is an unrendered kit template with no project content). hub_agrees: PARTIAL (ESTATE.md line 69 calls the repo 'active, brand new and barely recorded'; the reading's state_word is 'dormant'). contradictions: should carry the state-word disagreement rather than being empty. state_word: 'dormant' is defensible against the tree (1 commit, 0 sessions, 0 PRs, 10 days idle) but must be recorded as differing from the hub, not as agreeing with it. current_work_state: the seed commit is 2026-08-25T21:16:27Z, pushed 21:16:29Z; 21:14:50Z is repository creation. Seed item 3's fact should be narrowed to docs/current-state.md alone, or restated as 'both files carry the unrendered-slot banner; current-state.md has no real content, reading-path.md has real guidance with one unfilled slot (${fleet_dark_repos})'. Everything else re-derived at 741f429a2e96587aa27075085b85df889531d2a7 held."
+ },
+ {
+  "repo": "menno420/shiftlife",
+  "verdict": "PARTIAL",
+  "killed": [
+   {
+    "claim": "front_door_adequate: YES \u2014 \"A cold agent can orient from it alone without the hub.\"",
+    "what_you_checked": "Fetched contents/README.md?ref=33d9064b376f657fd91e487c66ecb3e626ae3fb9 to disk, blob sha 77e1142be7c8b6da564d47073b0026067b43239c size 1893 \u2014 matched the tree.json entry exactly. Then grepped the decoded file for current-state|plan-conformance|reading-path|paused|OQ-.",
+    "why_it_fails": "Zero matches. The README names NEITHER of the reading's own declared canonical state sources (docs/current-state.md, docs/plan-conformance.md), nor docs/reading-path.md, nor any paused/stopped state, nor any open blocker. Its repo map reads as live work in progress ('apps/mobile \u2705 phase 1 shell', 'apps/api phase 1') with no hint that pushes stopped 2026-07-27, that reminders delivery is unbuilt, or that apps/api is undeployed. A cold agent orienting from README alone gets the pitch, the product law and a quickstart, and cannot reach the state ledger. Correct verdict: PARTIAL \u2014 good product front door, no state route."
+   },
+   {
+    "claim": "unresolved_owner_items: []",
+    "what_you_checked": "grep -nE 'OQ-SHIFTLIFE-PHASE0|OQ-SHIFTLIFE-PRO-DRIFT|OQ-RAILWAY-SHIFTLIFE-SCOPE' /home/user/fleet-manager/docs/owner-queue.md; and grep -n -i shiftlife /home/user/fleet-manager/docs/ESTATE.md.",
+    "why_it_fails": "Three live owner-queue entries exist: OQ-SHIFTLIFE-PRO-DRIFT (line 1081), OQ-SHIFTLIFE-PHASE0 (line 1099), OQ-RAILWAY-SHIFTLIFE-SCOPE (line 1608). The reading cites the first two by slug in its own open_work and still returns an empty unresolved_owner_items \u2014 self-contradictory. The third (OQ-RAILWAY-SHIFTLIFE-SCOPE, 'does keep only bot things cover shiftlife?') is named in the ESTATE.md shiftlife row the reading quotes as matching, and appears nowhere in the reading at all."
+   },
+   {
+    "claim": "\"pushed_at (2026-07-27T21:11:07Z) matches the pinned SHA's commit timestamp exactly, confirming zero commits on main since the classification baseline.\"",
+    "what_you_checked": "GET /repos/menno420/shiftlife (no trailing slash \u2014 the trailing-slash form in the task recipe returns 404 'Not Found') \u2192 pushed_at 2026-07-27T21:11:07Z. GET commits/33d9064b\u2026 \u2192 committer date 2026-07-27T21:11:05Z.",
+    "why_it_fails": "The two timestamps are two seconds apart, not 'exactly' equal, and pushed_at equality would in any case only bound pushes to any ref, not commits on main. The conclusion happens to be true \u2014 I confirmed it properly via GET branches/main, whose tip IS 33d9064b376f657fd91e487c66ecb3e626ae3fb9 \u2014 but the reading's stated evidence does not establish its stated claim. Evidence misdescribed; conclusion survives on a check the reader did not run."
+   },
+   {
+    "claim": "docs_agree_with_source: AGREE, presented as a live-current 7/8 scorecard",
+    "what_you_checked": "Fetched contents/docs/plan-conformance.md?ref=SHA (blob 3841878b, 17134 bytes, matches tree). Read its header and rows 5, 6 and the score line.",
+    "why_it_fails": "Not a kill of the content \u2014 rows 5/6 and 'Free-core score: 7 done, 1 half' are verbatim as claimed, and the no-expo-notifications check independently holds (apps/mobile/package.json blob 933a8951: expo, expo-document-picker, expo-file-system, expo-sharing, expo-sqlite, expo-status-bar \u2014 no notification dep). The kill is on the certainty: the file's own header stamps 'Last verified against code: 2026-07-26', while the repo's final commits land 2026-07-27T21:11:05Z. Its own instruction is 're-verify against the code, never against this file'. The reading verified exactly one of eight rows against code and reports the rest as MEASURED current state."
+   }
+  ],
+  "survived": [
+   "state_word 'paused' and sha_verified 33d9064b376f657fd91e487c66ecb3e626ae3fb9 \u2014 GET branches/main returns that exact SHA as the tip; repo object: private true, archived FALSE, default_branch main, pushed_at 2026-07-27T21:11:07Z. Note archived=false, so 'paused' is a hub/OD-15 word and a README 'Status: reference' word, not a GitHub state.",
+   "current_work_state: 'No open PRs (0 of 0)' \u2014 GET pulls?state=open&per_page=100 returns an empty array.",
+   "The reminders half-built claim, independently re-derived from source rather than from docs: tree.json at the pinned SHA contains packages/domain/src/reminders.ts (10088 b) and packages/domain/test/reminders.test.ts (8922 b), and apps/mobile/package.json (blob 933a8951, matched against tree) carries no expo-notifications and no notification dependency of any kind. Delivery genuinely does not exist.",
+   "hub_agrees on ESTATE.md: line 87 of /home/user/fleet-manager/docs/ESTATE.md matches the repository's own state including 'free core 7/8', 'reminders delivery unbuilt (OQ-SHIFTLIFE-PHASE0)' and the apps/api code\u2194live gap. Also confirmed: /home/user/fleet-manager/docs/repos/shiftlife/ does not exist (ls: No such file or directory), so ESTATE.md is indeed the only hub-side pointer.",
+   "prior_evidence_verdict STILL_HOLDS: docs/current-state.md at the pinned SHA (blob 5aa23c1f) line 14 carries '27/27 tests green at birth \u2026 Known-good; re-audit only on reported regression' verbatim, and /home/user/fleet-manager/docs/planning/2026-08-22-repo-dispositions.md line 80 carries the 'rework \u2026 only he knows which' row verbatim. Nothing in the repo since the baseline resolves it \u2014 main tip is still the baseline commit.",
+   "purpose_plain \u2014 README.md at the pinned SHA states the household framing, the free-forever/one-time-Pro model and the binnenvaart-first community list; the repo description on the live repo object says the same."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "OQ-RAILWAY-SHIFTLIFE-SCOPE",
+    "hub_says": "ESTATE.md line 87 and owner-queue.md line 1608 carry an open one-letter owner call: does 'keep only bot things' cover shiftlife \u2014 i.e. whether the Railway service backing apps/api stays at all.",
+    "repo_says": "Nothing. The repo has railway.json and an apps/api deployed on Railway and no awareness that its hosting is under an open scope decision.",
+    "authoritative": "hub \u2014 it is an owner-queue item, and it materially conditions the 'resume vs archive' framing the reading treats as the only open owner decision."
+   },
+   {
+    "subject": "README status vs README repo map",
+    "hub_says": "n/a (intra-repo contradiction the reader did not flag).",
+    "repo_says": "README.md declares 'Status: reference' at the top while its repo map presents apps/mobile and apps/api as in-progress phase-1 work with no stop date, and never links docs/current-state.md, which says reminders is the only remaining free-core gap and that apps/api is undeployed.",
+    "authoritative": "docs/current-state.md + docs/plan-conformance.md \u2014 the README's map is the stale surface, which is precisely why front_door_adequate cannot be YES."
+   },
+   {
+    "subject": "plan-conformance.md verification stamp vs the repo's last commits",
+    "hub_says": "ESTATE.md points at docs/plan-conformance.md as a canonical state source without qualification.",
+    "repo_says": "The file stamps 'Last verified against code: 2026-07-26' yet describes 2026-07-27 changes throughout, and the repo's final commit is 2026-07-27T21:11:05Z \u2014 the scorecard's own code-verification predates the last day of work on the repo.",
+    "authoritative": "source code at 33d9064b \u2014 the file itself says so ('re-verify against the code, never against this file')."
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "Free-core completion state",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Repo identity and purpose",
+    "reason": "product_truth_duplicated"
+   },
+   {
+    "subject": "Dependencies",
+    "reason": "not_needed_for_routing"
+   }
+  ],
+  "overclaimed_certainty": [
+   "Seed 'Free-core completion state' is marked MEASURED, but its apps/api half (/versionz=fe2fbbf vs main=b8f4a3b) was read off docs/plan-conformance.md's 2026-07-26 audit, never off the live service. No /versionz call appears in paths_opened. That half is MEASURED-PRIOR at best; the reading's own blocker field concedes 'apps/api deploy status needs a live check' while the certainty field still says MEASURED. Also note b8f4a3b is not the pinned SHA (33d9064b), so even the 'main' side of that comparison is a stale number.",
+   "The same seed's '7 of 8 items done' is MEASURED only of the document. Exactly one of eight rows (item 6) was checked against code (apps/mobile/package.json). The other seven inherit the file's own 2026-07-26 stamp, which predates the repo's last commits \u2014 REASONED from a document, not measured off source.",
+   "docs_agree_with_source claim (2) \u2014 'verified via the live repo object's pushed_at, which matches the pinned commit's own timestamp exactly, confirming no further pushes'. The timestamps differ (21:11:07Z vs 21:11:05Z) and pushed_at bounds pushes, not commits on main. The proper check (GET branches/main \u2192 tip = 33d9064b) was not run by the reader; I ran it and it passes, so the claim is right for the wrong reason.",
+   "current_work_state asserts 'The repo's own README declares Status: reference, i.e. not actively worked, consistent with the hub's OD-15 paused/not active.' The README string is real; the gloss equating substrate-kit's 'reference' status token with OD-15's 'paused' is an inference with no cited source and is presented as fact.",
+   "hub_agrees: AGREE is stated as exact-match ('matches the repository's own state exactly'), while the reading silently drops the third element of the very ESTATE.md row it quotes (Railway scope = OQ-RAILWAY-SHIFTLIFE-SCOPE) and returns unresolved_owner_items: []."
+  ],
+  "corrected_fields": "front_door_adequate \u2192 \"PARTIAL \u2014 README.md (blob 77e1142b @33d9064b) is an adequate PRODUCT front door (status token, pitch, link to the owner-approved plan in fleet-manager, docs/PRODUCT.md, design directions, repo map, quickstart) but not a STATE front door: it names neither docs/current-state.md nor docs/plan-conformance.md nor docs/reading-path.md, carries no paused marker and no open blocker, and its repo map still reads as live phase-1 work. A cold agent cannot reach the state ledger from it.\"; unresolved_owner_items \u2192 [\"OQ-SHIFTLIFE-PHASE0 \u2014 Expo account/token + beta names (owner-queue.md:1099)\", \"OQ-SHIFTLIFE-PRO-DRIFT \u2014 verlof-advies shipped free though the plan assigned it to Pro (owner-queue.md:1081)\", \"OQ-RAILWAY-SHIFTLIFE-SCOPE \u2014 does 'keep only bot things' cover shiftlife (owner-queue.md:1608, also on the ESTATE.md row)\", \"resume vs archive (2026-08-22-repo-dispositions.md:80, 'rework')\"]; current_work_state \u2192 replace the pushed_at reasoning with the direct check: GET branches/main returns tip 33d9064b376f657fd91e487c66ecb3e626ae3fb9 = the pinned SHA, so zero commits on main since the baseline is MEASURED; archived=false, private=true; and mark the apps/api deploy gap MEASURED-PRIOR (2026-07-26 doc, never live-checked). contradictions \u2192 should not be empty; see missed_contradictions."
+ },
+ {
+  "corrected_fields": "state_word: \"dormant\" -> \"on-demand, at rest (not archived; OD-4 keep)\". docs_agree_with_source: PARTIAL stands but for a stronger reason than given (README's tag-versioning claim is unsatisfied, and current-state.md's own Stability baseline is stale on kit version). canonical_state_source: docs/current-state.md -> \"docs/current-state.md, banner section only (lines 1-56); everything below it is self-declared 2026-07-13 seat-era record\". successor_seed[0].certainty: MEASURED -> MIXED (OD-4/OD-10 quotes MEASURED off the file; the couch-legend centre-of-gravity claim is REASONED by the source's own label). successor_seed[0].contradiction_resolution: add that README also carries an unsatisfied factual claim, not only stale vocabulary. walls: [] -> should record that GET /repos/menno420/sim-lab/ (trailing slash, the command as issued in the prompt) returns 404 and the trailing slash must be dropped.",
+  "killed": [
+   {
+    "claim": "state_word: \"dormant\"",
+    "what_you_checked": "GET /repos/menno420/sim-lab (no trailing slash): archived=false, private=false, pushed_at=2026-08-23T17:01:26Z, default_branch=main. docs/current-state.md@c62360042d17 lines 15-31 quote OD-4 verbatim: \"idea-engine + sim-lab remain active - standing assets\" and close with \"It is a keep under OD-4 until he says otherwise.\" docs/ESTATE.md:94 says \"on-demand, at rest\".",
+    "why_it_fails": "No source uses \"dormant\" or anything equivalent. OD-10 actively directs other repos to run their features through a sim-lab simulation, so the repo is a live consumable, not inert. A seed session reading state_word=dormant would plausibly stop routing work to the harness and would be closer to the archive/hollow action current-state.md explicitly forbids pre-empting."
+   },
+   {
+    "claim": "successor_seed[0].certainty: MEASURED",
+    "what_you_checked": "docs/current-state.md@c62360042d17, heading at line 33: \"### The part that is an observation, not a directive\", then \"`REASONED`, and flagged as such rather than stated as settled: the method has started running inside target repos rather than here.\"",
+    "why_it_fails": "The seed fact bundles the OD quotes (measurable off the file) with the couch-legend centre-of-gravity claim, which its own source labels REASONED and which was never checked against couch-legend's tree in this audit. Stamping the bundle MEASURED launders a REASONED inference into a measured fact - exactly the certainty inflation the legend exists to prevent."
+   },
+   {
+    "claim": "contradiction_resolution: \"README.md is stale framing on a live-but-unchanged contract file\"",
+    "what_you_checked": "README.md@4e1e587db152 Layout section: harness/ is \"Versioned by tags\". GET /repos/menno420/sim-lab/tags returned []. docs/current-state.md line 223 records OA-004: \"refs/tags/* push is 403-walled; harness-v0.1.0 un-pushed\".",
+    "why_it_fails": "The README's defect is not only retired vocabulary. It states a mechanism (tag versioning) that has zero instances in the repo and that the repo's own state doc records as blocked. \"Stale framing\" understates it; a consuming repo told to pin a harness tag has nothing to pin."
+   },
+   {
+    "claim": "canonical_state_source: docs/current-state.md (as a whole)",
+    "what_you_checked": "docs/current-state.md@c62360042d17 lines 45-56 (\"The sections that follow were refreshed 2026-07-13 and are written in the retired seat-era coordination vocabulary\") and line 70 (\"kit v1.7.0\") against substrate.config.json@58070b8dd608 which reads \"kit_version\": \"1.15.0\".",
+    "why_it_fails": "Only the 2026-08-23 banner (lines 1-56) is current; the file itself disclaims the rest, and its Stability baseline carries a measurably wrong kit version. Naming the whole file as the canonical state source hands a seed session ~43 KB of self-declared history as if it were truth."
+   },
+   {
+    "claim": "paths_opened includes \"repo (object)@72ed751e657e\" and walls: []",
+    "what_you_checked": "The command form given for this stage, GET https://api.github.com/repos/menno420/sim-lab/ (trailing slash), returns {\"message\":\"Not Found\",\"status\":\"404\"}. Only after dropping the slash did archived/private/pushed_at resolve.",
+    "why_it_fails": "Either the object was fetched by a different path than the one recorded, or a 404 was recorded as an opened path. Nothing in the reading reports archived, private, or pushed_at, which is what that object exists to supply, and the 404 belonged in walls. Cannot be re-derived as reported."
+   }
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "substrate-kit version of sim-lab",
+    "hub_says": "docs/ESTATE.md:94 - \"kit v1.15.0 and absent from the kit's scan roster\"",
+    "repo_says": "docs/current-state.md@c62360042d17 line 70 - \"kit v1.7.0; python3 bootstrap.py check --strict exits 0\" (README.md also says \"kit v1.7.0\" in its seed provenance line)",
+    "authoritative": "hub - and the tiebreaker is neither doc: substrate.config.json@58070b8dd608 reads \"kit_version\": \"1.15.0\", so ESTATE.md matches machine truth and both repo docs are stale prose"
+   },
+   {
+    "subject": "harness/ release mechanism",
+    "hub_says": "not addressed in ESTATE.md",
+    "repo_says": "README.md@4e1e587db152 - harness \"Versioned by tags; other Projects consume via raw/copy\"; but GET /tags returns [] and current-state.md OA-004 records refs/tags/* push as 403-walled with harness-v0.1.0 un-pushed",
+    "authoritative": "repo source (the empty tag list) - consumers can only raw/copy at a SHA, never at a tag"
+   },
+   {
+    "subject": "Whether the repo's own state doc is uniformly current",
+    "hub_says": "reading treats docs/current-state.md as the authoritative refreshed-2026-08-23 source",
+    "repo_says": "docs/current-state.md@c62360042d17 lines 8-13 stamp itself \"Refreshed 2026-07-13T22:29Z\" and lines 45-56 declare everything below the banner seat-era record",
+    "authoritative": "repo - only the banner is 2026-08-23; the reading's \"refreshed 2026-08-23\" describes a section, not the file"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed[0] stamped MEASURED while its own source labels the couch-legend half REASONED (docs/current-state.md line 33ff).",
+   "\"docs/current-state.md (same repo, refreshed 2026-08-23)\" - the file header says refreshed 2026-07-13; only the top banner is 2026-08-23.",
+   "\"hub_agrees: AGREE\" reported without surfacing the kit-version disagreement between ESTATE.md:94 and the same repo's current-state.md line 70 - a straightforward AGREE that a single grep would have qualified.",
+   "walls: [] alongside a paths_opened entry for the repo object whose documented URL 404s.",
+   "seed[4].verifier says the four harness files match \"README's description of harness v0.1\"; README.md never says v0.1 - that string is in current-state.md line 70. The tree check is real, the attribution is not.",
+   "\"No further work in flight; last substantive activity was the 2026-08-23 self-audit commit\" - open PRs and commit list support \"no work in flight\"; \"substantive\" is a judgment, and the commit list shows the prior commit (f54ec219, 2026-08-14) was a real reproduction sim, so the repo's dormancy window is ~3 weeks, not months."
+  ],
+  "repo": "menno420/sim-lab",
+  "seed_items_to_drop": [
+   {
+    "subject": "sim-lab has zero open PRs and no active work in flight",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "No unconsumed owner comments/feedback pending for sim-lab",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "harness/ (the reusable library) exists as documented, 4 files",
+    "reason": "product_truth_duplicated"
+   }
+  ],
+  "survived": [
+   "[survived] sha_verified 72ed751e657edfbadd115a6e2c47adade9cb84b1 resolves: git/trees/<SHA>?recursive=1 returned 2158 entries; README.md blob 4e1e587db152/5369 B and docs/current-state.md blob c62360042d17/43464 B fetched via contents?ref=<SHA> match their tree entries exactly - no cross-repo filename collision.",
+   "[survived] Zero open PRs: GET /pulls?state=open&per_page=100 returned [].",
+   "[survived] Exactly one commit since the prior audit base: /commits shows 72ed751e (2026-08-23T17:01:25Z, \"State the current role: OD-4 standing asset, OD-10 on-demand (#360)\") sitting directly on f54ec219 (2026-08-14T10:09:37Z, PROPOSAL 246 reproduction mirror). The reading's characterisation of that commit as a self-documentation banner is correct.",
+   "[survived] README.md is unchanged since repo birth: /commits?path=README.md returns a single commit, 32dc75d7 2026-07-10T19:17:25Z (\"seed: born-right repo birth\"). The reading's \"unchanged since 2026-07-10\" is exact.",
+   "[survived] The stated contradiction is real and verbatim on both sides: README.md carries \"Pipeline position (Q-0264): idea-engine generates/probes (even hours) -> sim-lab reproduces evidence + finalizes (odd hours)\", the control/ bus section with \"pull status: sim-ready entries ... every wake\", and no on-demand framing anywhere; docs/current-state.md lines 15-31 state \"A standing asset, used on demand. Nothing here runs on a loop\" and lines 50-56 explain the README-era vocabulary was deliberately left. authoritative: repo is right.",
+   "[survived] The owner-open scope question is quoted accurately: \"What follows from that is the owner's call, not a session's: whether this still needs to be its own repository is an open question he has not answered, and no session should pre-empt it by folding, archiving, or hollowing this repo out.\" (docs/current-state.md lines 40-44).",
+   "[survived] harness/ contains exactly harness/README.md, harness/REPORT_TEMPLATE.md, harness/selftest.py, harness/simharness.py at the pinned SHA (tree listing).",
+   "[survived] No fleet-manager docs/repos/sim-lab folder exists (ls: No such file or directory), and docs/ESTATE.md:94 does cite README.md + CONVENTIONS.md as the entry - CONVENTIONS.md is present in the tree (42a6cba7f561, 1533 B).",
+   "[survived] docs/owner-comments/sim-lab/README.md reads \"## Unconsumed (0)\" and \"## Consumed history (0)\" - the count is right, even though the fact should not be seeded.",
+   "[survived] purpose_plain and owner_vocabulary are accurate transcriptions: the verdict-grammar and gate lines quoted are verbatim in README.md, and the OD-4/OD-10 strings are verbatim in docs/current-state.md."
+  ],
+  "verdict": "PARTIAL"
+ },
+ {
+  "repo": "menno420/idea-engine",
+  "verdict": "PARTIAL",
+  "corrected_fields": "open_work / dependencies / successor_seed[6]: sim-lab #344 is CLOSED and MERGED (2026-08-14T10:09:40Z) \u2014 remove it from open_work and from the \"live edge of the dependency\" framing. open_work item 3 (sim-lab heartbeat stale at P225/V237) is unverified sibling-repo doc truth \u2014 drop or mark UNVERIFIED. current_work_state \"0 pending\" should read \"no un-verdicted proposal at the high-water, but control/status.md itself names four open pulls below it (V137/P124, V225/P212, V132/P119, V126/P113)\". \".sessions/ has 504 cards\" \u2192 503 dated cards + .sessions/README.md = 504 blobs. front_door_adequate should say WHICH HANDOFF.md: the stale pointer is the 625-byte root kit-generated file that self-declares \"regenerated by substrate-kit at every session boot; untracked by design\"; the substantive revival record current-state.md actually points a session to is docs/HANDOFF.md (4337 bytes), which the reading never opened.",
+  "killed": [
+   {
+    "claim": "dependencies + open_work + successor_seed[6]: 'sim-lab PR #344 (P246 Gordon-growth reproduction mirror) is open and undecided \u2014 land or close' / 'one open PR (#344) referenced as still pending'",
+    "what_you_checked": "Live API GET repos/menno420/sim-lab/pulls/344 (--noproxy '*', PAT): state=closed, merged=true, updated_at 2026-08-14T10:09:40Z, title 'PROPOSAL 246 reproduction mirror: Gordon growth dividend-discount present value D1/(r-g)'.",
+    "why_it_fails": "It is merged, not open. The reading carried an idea-engine document's July assertion forward as a live fact and stamped the seed item MEASURED \u2014 exactly the failure this stage exists to catch. It is the only concrete 'open work' the reading offered besides R6, and a seed session would chase a dead PR."
+   },
+   {
+    "claim": "open_work[2]: \"sim-lab's control/status.md heartbeat is stale at P225/V237 though reproduction mirrors have landed through P261 on its main\"",
+    "what_you_checked": "No sim-lab source path is in paths_opened \u2014 the only sim-lab evidence cited is idea-engine's docs/PROJECT-CLOSEOUT.md. I did not re-derive it either, and its sibling claim (#344 open) is already refuted by the live API.",
+    "why_it_fails": "no_primary_source for the repo being audited: a claim about sim-lab's committed state read off a July idea-engine document, presented in an idea-engine audit's open_work with no live check. Its neighbour in the same sentence turned out false."
+   },
+   {
+    "claim": "successor_seed[3] / front_door_adequate: HANDOFF.md's stale pointer is a front-door defect a cold agent would trip on, worth seeding as an estate 'practices' item",
+    "what_you_checked": "Fetched HANDOFF.md at df6b027 (blob 518699b461b7, 625 bytes) \u2014 content is a kit stub whose own second line reads 'regenerated by substrate-kit at every session boot; untracked by design \u2014 read it, never commit or edit it'. tree.json also shows a SEPARATE docs/HANDOFF.md (422df57fde, 4337 bytes), which docs/current-state.md names as 'the revival record \u2014 routine record, revival path, parked list, duplication ledger'.",
+    "why_it_fails": "The stale pointer is literally true but load-bearing on nothing: a live session regenerates the file at boot, so only an API reader ever sees the committed copy \u2014 and it is not the HANDOFF a session is routed to. The reading never opened docs/HANDOFF.md and never distinguished the two files, so its front-door verdict rests on the wrong one."
+   },
+   {
+    "claim": "current_work_state: 'The proposal/verdict loop is caught up (P261/V274, 0 pending)'",
+    "what_you_checked": "control/status.md at df6b027 (blob ebe13271279b, 12316 bytes), fetched and decoded. Header does say 'loop caught up / at rest\u2026 no un-verdicted proposal pending', but the loop: and proposal: lines say 'Open pulls below high-water: V137 (P124) the known gap directly below the top run, V225 (P212), V132 (P119), V126 (P113)' and 'high-water non-contiguous BELOW the top'.",
+    "why_it_fails": "'0 pending' is the header's own summary read past its qualifier. Four proposals below the high-water are recorded open in the same file. Not a fatal error, but the reading quoted the flattering half of a document that contradicts itself two lines down."
+   },
+   {
+    "claim": "successor_seed[3] supporting fact: 'the actual newest of 504 committed cards'",
+    "what_you_checked": "tree.json at df6b027: 504 blobs under .sessions/, of which one is .sessions/README.md \u2192 503 dated cards. 258 of them postdate 2026-07-16.",
+    "why_it_fails": "Off by one and stated as MEASURED. Small, but the count was presented as a measured tree figure."
+   }
+  ],
+  "survived": [
+   "566 idea files \u2014 EXACT. tree.json at df6b027 (untruncated, 1421 entries): 580 *.md under ideas/, 14 named README.md, 566 remaining. Matches OD-4's figure and ESTATE.md row 93 precisely.",
+   "sha_verified df6b027372b046678491e9ae306fc36cef61c01f resolves; repo live state confirmed: archived=false, private=false, default_branch=main, pushed_at 2026-08-23T08:53:34Z, open_issues_count 0; GET pulls?state=open returns [] \u2192 0 open PRs (live, 2026-09-04).",
+   "commits_since=1 \u2014 verified independently: GET commits?sha=main gives df6b0273 (2026-08-23, 'Correct the front door: two owner directives supersede the shutdown\u2026') sitting directly on 320acabd (2026-08-13, kit v1.20.1\u2192v1.21.0 #899). Exactly one commit since the kit-upgrade baseline, and it is the front-door-supersession commit the reading names.",
+   "Contradiction 1 (Stability baseline stale) \u2014 CONFIRMED and stronger than reported. docs/current-state.md (blob 7b60f84d3827) \u00a7 Stability baseline says 'substrate-kit v1.10.0, python3 bootstrap.py check --strict exit 0 at HEAD' with no dated-snapshot caveat, while the adjacent 'In flight' and 'Recently shipped' sections both carry one. .substrate/backup/last-upgrade.json (809275f07774) records 1.20.1\u21921.21.0 on 2026-08-13.",
+   "Contradiction 3 (current-state.md, not PROJECT-CLOSEOUT.md, carries the current status) \u2014 holds. current-state.md self-declares 'living-ledger\u2026 read it second\u2026 keep it current' and carries the 2026-08-23 supersession banner; PROJECT-CLOSEOUT.md's canonical HEAD cbd964a7 is a real commit dated 2026-07-21T16:47:44Z, two commits behind actual HEAD.",
+   "hub side verified firsthand: ESTATE.md row 93 reads exactly as reported (566 idea files, 'on-demand standing asset (OD-4/OD-10) \u2014 at rest', canonical entry docs/PROJECT-CLOSEOUT.md, 'HANDOFF.md is the older layer'), and /home/user/fleet-manager/docs/repos/idea-engine/ does not exist \u2014 no Layer-2 folder, confirmed.",
+   "OD-4 and OD-10 quotes match consolidation-program.md lines 29 and 35 verbatim (OD-10 is truncated \u2014 the directive continues '\u2026when building a new feature or improving an existing one, run it through a dedicated sim-lab simulation (the 4-gate method) before/while building' \u2014 but nothing is misquoted).",
+   "R6 still open \u2014 consolidation-program.md line 297 carries the R6 row with the exact wording current-state.md quotes, and no done-mark; current-state.md calls its own banner 'a first slice of exactly that'.",
+   "0 unconsumed owner comments \u2014 docs/owner-comments/idea-engine/README.md shows 'Unconsumed (0)' and 'Consumed history (0)'."
+  ],
+  "missed_contradictions": [
+   {
+    "subject": "substrate-kit version, INSIDE idea-engine at the same SHA",
+    "hub_says": "N/A (repo-internal)",
+    "repo_says": "docs/current-state.md \u00a7 Stability baseline: 'substrate-kit v1.10.0'. control/status.md at the SAME SHA df6b027, line 'kit:': 'v1.21.0'.",
+    "authoritative": "repo \u2014 control/status.md (and .substrate/backup/last-upgrade.json) over current-state.md"
+   },
+   {
+    "subject": "Which HANDOFF.md a session is routed to",
+    "hub_says": "ESTATE.md row 93: resume recipe is PROJECT-CLOSEOUT.md \u00a73, 'HANDOFF.md is the older layer' \u2014 unqualified, no path",
+    "repo_says": "Two files exist at df6b027: root HANDOFF.md (518699b461b7, 625 B, a kit-generated boot pointer marked 'untracked by design') and docs/HANDOFF.md (422df57fde, 4337 B), which docs/current-state.md names as 'the revival record \u2014 routine record, revival path, parked list, duplication ledger'",
+    "authoritative": "repo \u2014 docs/HANDOFF.md is the substantive one; the reading attacked the root stub and never opened either the docs/ file or checked which ESTATE.md meant"
+   },
+   {
+    "subject": "Whether the proposal/verdict loop is actually clear",
+    "hub_says": "ESTATE.md row 93: 'the closed 4-gate math-verify loop (P261/V274)'",
+    "repo_says": "control/status.md header 'no un-verdicted proposal pending', but the same file's loop:/proposal: lines list four open pulls below the high-water (V137/P124, V225/P212, V132/P119, V126/P113) and state 'high-water non-contiguous BELOW the top'",
+    "authoritative": "repo \u2014 the detail lines over the header summary; 'closed' is true only at the high-water"
+   }
+  ],
+  "seed_items_to_drop": [
+   {
+    "subject": "HANDOFF.md's newest-session-card pointer cannot be trusted literally in this snapshot",
+    "reason": "not_needed_for_routing"
+   },
+   {
+    "subject": "Repo is at rest: 0 open PRs, no unconsumed owner comments, one doc-fix commit since the last real work",
+    "reason": "stale_on_copy"
+   },
+   {
+    "subject": "Pipeline dependency: idea-engine \u2192 sim-lab \u2192 fleet-manager (with sim-lab #344 as the live pending edge)",
+    "reason": "unverified"
+   },
+   {
+    "subject": "The idea corpus is exactly 566 non-README files",
+    "reason": "product_truth_duplicated"
+   }
+  ],
+  "overclaimed_certainty": [
+   "successor_seed[6] 'Pipeline dependency' is stamped certainty MEASURED with verification_point df6b027@2026-09-04, but its live-state half (sim-lab #344 open) was read off idea-engine's docs/PROJECT-CLOSEOUT.md, never off sim-lab. It is REASONED at best, and its factual half is now refuted (merged 2026-08-14). This is the run's headline defect: a document-derived claim wearing a MEASURED stamp.",
+   "open_work[2] (sim-lab heartbeat stale at P225/V237) is presented as fact with no sim-lab path in paths_opened at all.",
+   "successor_seed[3] (HANDOFF pointer) is MEASURED on the tree listing \u2014 correct as far as the string goes \u2014 but its stated consequence ('a cold session trusting HANDOFF.md literally would miss the Aug-23 status correction') is REASONED, and contradicted by the file's own line saying it is regenerated at every boot and must never be committed or read as durable.",
+   "current_work_state's '0 pending' is stated flatly where control/status.md qualifies it four pulls' worth.",
+   "owner_vocabulary presents OD-10 in quotation marks as if complete; the directive in consolidation-program.md line 35 continues past the quoted text with the run-it-through-sim-lab clause.",
+   "'504 cards' is a MEASURED-shaped count that is actually 503 cards plus a README."
+  ]
+ }
+]
