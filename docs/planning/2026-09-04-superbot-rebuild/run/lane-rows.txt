@@ -1,0 +1,14 @@
+RAW  strengths 110  defects 127
+PASS survival rule (pre-verification): strengths 108 (98%)  defects 125 (98%)
+
+why strengths died:
+     1  evidence_class=TEST-PROVEN effect=F
+     1  locus=documentation_only
+
+surviving STRENGTHS by disposition:
+    62  PRESERVE_PATTERN
+    32  PRESERVE_BEHAVIOR
+    11  PRESERVE_CONTRACT
+     3  ADAPT
+
+rows carrying an explicit CONTRADICTION: 157

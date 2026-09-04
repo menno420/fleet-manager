@@ -123,6 +123,18 @@ MODELS      : readers/mappers/census/inventory → sonnet
               · challengers A–F → opus · final critic (last look) → opus
               · fable: none — the owner has not asked for Fable on this run, and
                 D-0040 as amended 2026-09-02 makes Fable his call, never the session's.
+AGGREGATE DEFECT, MEASURED AGAINST THE REAL POPULATION 2026-09-04T14:45Z — the rule
+              above passed **108 of 110 strengths and 125 of 127 defects (98 %)** across the
+              13 lanes returned. A rule that kills 2 of 237 is not filtering. Cause: the
+              SHARED prompt block PUBLISHED this predicate to the agents that wrote the
+              rows, converting a filter into a template (108/110 carry a non-empty
+              `prevents_failure`; median `consumers` is 2, the threshold itself).
+              `fleet-preflight` § 1b's fixture test passed (4 kill / 2 survive, exit 0) and
+              was necessary-not-sufficient. What is used instead: the adversarial
+              verification lane as the real filter, plus a stricter post-hoc cut over
+              fields the rule never read together — 110 → 73 (66 %). Full derivation and
+              the proposed fourth check for the skill: `independent-findings.md` § I-15.
+
 INSTRUMENT DEFECT FOUND BY THE FLEET, 2026-09-04T14:40Z — recorded here rather than
               quietly fixed, because the sheet is frozen at launch and this is what the
               freeze is for:

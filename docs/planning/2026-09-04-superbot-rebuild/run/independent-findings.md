@@ -580,3 +580,82 @@ hubs at 0–5 of their children — inverted, since a seam user *should* name no
 button count over the actual view classes settled it. Two of the three numbers a
 proxy produced here were wrong in opposite directions, which is why the table
 above is AST-derived and the proxy is recorded rather than quietly dropped.
+
+## I-15 · The survival rule passed 98 % of the fleet's rows — because it was published to the agents that wrote them — `MEASURED`
+
+**The number first.** Across the 13 lanes returned at 14:45Z: **110 strengths,
+127 defects**. Applying the AGGREGATE rule from
+[`CONTRACTS.md`](CONTRACTS.md) / [`survival_rule.py`](survival_rule.py):
+
+| | raw | passes the rule |
+|---|---|---|
+| strengths | 110 | **108 (98 %)** |
+| defects | 127 | **125 (98 %)** |
+
+Exactly **two** strengths died — one `TEST-PROVEN` with `effect_asserted=false`,
+one `documentation_only`.
+
+**A rule that kills 2 of 237 is doing almost no work, and the cause is mine.**
+`fleet-preflight` § 1b requires a fixture that dies and a fixture that survives;
+mine passed (4 kill, 2 survive, exit 0). What it does **not** require, and what
+this run needed, is a check that the rule still discriminates *on the real
+population*. It does not — because the SHARED prompt block published the
+predicate to the agents:
+
+> *"THE SURVIVAL RULE your rows are scored against. Write rows that can clear it;
+> do not inflate."*
+
+**Publishing a filter to the population being filtered converts it from a filter
+into a template.** The field distributions show exactly that shape: 108 of 110
+rows carry a non-empty `prevents_failure`, `enforcement_locus` is `ci_check` or
+`source_guard` on 95 of 110, and the median `consumers` is 2 — the rule's own
+threshold. Every one of those is a field the agents knew was read.
+
+**This is not evidence the rows are bad.** Spot-checks hold: M9's escape-hatch
+claim reproduces exactly (218 of 314 panels carry a non-null `renderer_override`;
+`docs/planning/escape-hatch-baseline.json` is verbatim `"per_subsystem": {},
+"total": 0`; `check_escape_hatches.py` → `clean`, EXIT=0). It is evidence that
+**the survival rule cannot be cited as what filtered them**, which is what the
+contract sheet claims it does.
+
+### What is used instead
+
+1. **The adversarial verification lane is the real filter**, not the rule. It was
+   designed as a second pass and is now the first one that can actually remove a
+   row. Its refutation rate is the number to report, and the survival rule's is
+   not.
+2. **A stricter cut the agents had no reason to target**, since the rule never
+   read these fields together: `evidence_class` in
+   {`PRODUCTION-PROVEN`, `LIVE-TESTED`, `SOURCE-ENFORCED`} **and**
+   `enforcement_locus` in {`source_guard`, `ci_check`} **and** `consumers >= 2`
+   **and** a named `prevents_failure` **and** a non-empty verbatim `quote`
+   **and** a real `line_span`. That cuts **110 → 73 (66 %)** — a rate that
+   discriminates. Its composition is also the more honest headline of this whole
+   review: **`superbot` 40 · `superbot-next` 32 · `spider-bot` 1**, dispositioned
+   `PRESERVE_PATTERN` 41 · `PRESERVE_BEHAVIOR` 26 · `PRESERVE_CONTRACT` 5 ·
+   `ADAPT` 1.
+3. **`guard_population` is the tell worth keeping.** The rule never read it, so
+   nobody had a reason to fill it — and **86 of 110** rows did anyway. A field
+   nobody was scored on, answered five times out of six, is better evidence the
+   lanes engaged with the question than any field the rule touched.
+
+### The generalisation, which is this run's own contribution to the method
+
+The estate's `fleet-preflight` § 1 requires *"at least one fixture must die AND
+at least one must survive"* and warns that *"a rule no fixture can kill will not
+kill anything at scale."* This run satisfied that and still produced a vacuous
+filter — so the skill's check is **necessary and not sufficient**, and the
+missing half has a name:
+
+> **Never publish the survival rule to the agents whose rows it scores.** If they
+> must know the standard, give them the *evidence* standard (cite file:line,
+> quote verbatim, count don't estimate, name the failure) and keep the
+> *predicate* out of the prompt. Then measure the pass rate on the real
+> population as well as on fixtures: **a rule passing ~98 % is not a strict
+> rule, it is a rule the population was written against.**
+
+That is the same defect the whole review is about, one level up: **a correct
+instrument pointed at a population that was shaped by knowing the instrument.**
+It belongs in `fleet-preflight` § 1 as a fourth check, and this session's
+proposal for it is recorded here rather than shipped, since the kit is
+owner-paced.
