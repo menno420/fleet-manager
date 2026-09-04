@@ -67,9 +67,10 @@ deployment's `meta.commitHash` equals HEAD (the repo README documents the
 instance running while the Railway worker is up — that is two live bots
 answering in the real server.
 
-One more Railway fact, and it is not a failure when you see it: `railway.json`
+One more Railway fact, and it is not a failure when you see it: `.railway/railway.ts`
 sets build **watch patterns** (`spiderbot/**`, `requirements.txt`,
-`railway.json`, `.python-version`), so a docs- or tests-only commit
+`.python-version` — the `railway.json` this line used to name was replaced by
+the IaC file in spider-bot#1/#2 on 2026-08-25), so a docs- or tests-only commit
 deliberately does **not** deploy and the live `commitHash` will lag HEAD.
 Preserve them — without watch patterns a scheduled commit once restarted a
 donor's production worker ~293 times in one billing cycle.
@@ -122,6 +123,22 @@ last-known-good fallback) → run-evidence import.
 GitHub path is fail-closed until a credential exists. What turns each
 enforcement class on is evidence, defined in the plan, not the fact that the
 code compiles.
+
+**Where it stands, 2026-09-04 evening (the review session):**
+[spider-bot#3](https://github.com/menno420/spider-bot/pull/3) is **open,
+deliberately unmerged, waiting on the owner's word** — the bot is live and
+`main` deploys straight to production. The review pushed one more commit
+(`8937191`) for what reading the docs against the tree and the live Railway
+project found: the owner page named `#mod-cases` where the bot resolves
+`#case-state`; four docs said `railway.json` holds the watch patterns when only
+`.railway/railway.ts` exists; and the IaC declared `preserve()` for only the
+three live variables while Railway IaC is *omit means delete* — measured
+read-only with `railway config plan` — so the six rollout switches are now
+declared `preserve()` (a no-op until each is set, also measured). The binding
+rollout is the repo's `docs/rollout.md`; the plain-language page is
+`docs/what-changed.md`; his six setup steps and the open questions live there,
+not here. **Live worker: `bc4f9985`**, one commit behind `main` by design
+(`bf4d7527` touched only the IaC file). Merging #3 will deploy.
 
 ### Thread: plan transplant — **open, and now partly moot**
 

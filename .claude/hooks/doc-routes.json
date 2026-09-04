@@ -1262,6 +1262,18 @@
         "docs/CAPABILITIES.md"
       ],
       "says": "Railway's GraphQL API has two shapes you will otherwise find by probing. (1) urllib gets 403 'error code: 1010' from backboard.railway.com and curl --noproxy '*' gets 200 on the identical request — Cloudflare rejecting the CLIENT, not Railway rejecting your key, so switch clients rather than concluding the key is wrong. (2) `me { projects }` returns an EMPTY LIST for this account: projects hang off `me { workspaces { team { projects } } }`. Both, with the deployments/meta.commitHash and variables queries, are under 'Railway's GraphQL API — the query shapes' in docs/CAPABILITIES.md. And when you read `variables(...)`, print sorted keys only — never the value map."
+    },
+    {
+      "id": "railway-cli-project",
+      "when": [
+        "\\brailway\\s+(config|status|link|redeploy|deploy|service|environment)\\b",
+        "@railway/cli",
+        "RAILWAY_API_TOKEN"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "STOP and read the Project line before trusting any `railway` CLI output: this container's RAILWAY_PROJECT_ID / RAILWAY_ENVIRONMENT_ID / RAILWAY_SERVICE_ID point at superbot-production and the CLI honours them OVER `railway link`. MEASURED 2026-09-04: an unoverridden `railway config plan` against spider-bot's IaC file previewed 24 variable deletions plus the Postgres on superbot-production. Override all three ids on the command line for the project you mean. `plan` is read-only; never run `apply` from a session. Recipe and the two measured IaC facts (omit means delete; preserve() on an absent variable is a no-op): docs/CAPABILITIES.md § Railway's GraphQL API — the query shapes."
     }
   ]
 }
