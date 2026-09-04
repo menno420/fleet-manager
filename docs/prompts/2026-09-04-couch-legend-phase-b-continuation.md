@@ -36,11 +36,9 @@ WHERE THINGS STAND
 - Branch `claude/couch-legend-design-arch-iwpo96` still exists at `d790461`.
   It is **merged and finished** — do not stack on it. New work restarts from
   `main` on a fresh branch.
-- fleet-manager `origin/main` was `aef2429` when this was written and moves
-  often; PR #1026 (`66f1b4e`) carried the Couch Legend routes into the hub.
-- fleet-manager PR #1028 was open at `8a75072` with `substrate-gate` red on
-  the born-red card hold **only** — that is the designed hold, not a defect.
-  Believed merged by the time you read this; confirm.
+- fleet-manager `origin/main` was `2462f52` when this was written and moves
+  often; PR #1026 (`66f1b4e`) carried the Couch Legend routes into the hub and
+  #1028 (`2462f52`) carried this handoff. Both merged — verified, not believed.
 - What phase A shipped, measured by re-running the census instrument at
   `4934955` (`pnpm exec tsx tools/stage-evolution.ts`, exit 0):
     18 stages · **14 introduce a new mechanic** · **3 deepen an existing
