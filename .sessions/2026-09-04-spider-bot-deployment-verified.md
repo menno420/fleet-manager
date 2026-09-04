@@ -1,7 +1,8 @@
 # 2026-09-04 — The deployment the last three cards handed forward, verified
 
-> **Status:** `in-progress` — branch `claude/spider-bot-ai-ops-sthix0`, restarted
-> from `main` because its previous PR (fm #1038) merged. Born red; flipped last.
+> **Status:** `complete` — merged path: fm #1041, branch
+> `claude/spider-bot-ai-ops-sthix0`, restarted from `main` because its previous
+> PR (fm #1038) merged. Born red; flipped here as the last step.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -60,4 +61,14 @@ the uncertain line was three sentences and returned a production defect.
 
 ## Close-out
 
-Pending — this card is the merge hold.
+**Landed as fm #1041**, alongside spider-bot#4 (green, `quality` ×2 success at
+`10289e0`) which carries the same record in that repo's own card.
+
+`check --strict` held red on the born-red hold as the only finding, read from
+the finding lines. The force-push hook named four files; every one was `main`
+moving forward, established by blob comparison, and `comm -23` over the
+discarded head's `guard-fires.jsonl` returned **0** lines absent at HEAD.
+
+**Still open, and correctly so:** the six owner-only setup steps in
+`spider-bot/docs/rollout.md`, and the behaviour that no deploy check can prove.
+Rollout step 1 is done; step 2 needs a channel only he can create.
