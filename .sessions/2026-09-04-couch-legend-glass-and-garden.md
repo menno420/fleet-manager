@@ -76,3 +76,14 @@ every prestige and reads whatever was unspent when the clock stopped. Two
 documents quoted it from the same fixtures and disagreed by an order of
 magnitude, and a change that did not touch the late game moved it 12×.
 Peak-over-a-window survives the timing; the sim record § 3 now says why.
+
+## Post-merge correction (second PR — exception to the one-PR guideline, D-0024)
+
+The owner-review Stop hook asked what established "a Work shelf ~30× the
+garden"; the answer was nothing — inferred from the 0.14 % reading. Measured
+by instrumenting couch-legend `4934955` at the first Collective buy: Work base
+3.47 × 10⁸ vs garden 3.45 × 10⁴ — ~10 000×, its 10 % ~1 000× the garden,
+reproducing 0.138 %. Corrected in the Layer-2 thread here and in
+couch-legend's sim record and DESIGN (its correction PR). Exception reason:
+a wrong published number on `main` is the drift the records rule exists to
+prevent; it does not wait for a next session.
