@@ -40,7 +40,8 @@ COLUMNS = [
     "canonical_owner", "estate_role", "disposition", "transform_required",
     "links_that_must_survive", "blocker", "verifier", "contradicted_by",
     "contradiction_resolution", "refuted", "stale_on_copy",
-    "only_source_is_hub_summary", "fact", "origin_lane", "survives", "killed_by",
+    "only_source_is_hub_summary", "certainty_overclaimed", "fact", "origin_lane",
+    "survives", "killed_by",
 ]
 
 
@@ -175,19 +176,41 @@ def assign_drops(items: list, drops_by_lane: dict) -> dict:
                 score = max(inter / len(sk), inter / len(ck))
                 if score >= 0.6:
                     pairs.append((score, cand, reason, id(it)))
-        pairs.sort(reverse=True, key=lambda t: t[0])
-        used_drop, used_item = set(), set()
-        for score, cand, reason, iid in pairs:
-            if cand in used_drop or iid in used_item:
-                continue
-            rivals = [q for q in pairs if q[1] == cand and q[3] not in used_item
-                      and q[3] != iid and abs(q[0] - score) < 0.15]
+        # Maximum one-to-one matching, not greedy edge order. Committing the
+        # highest-scoring edge first can consume the only viable subject for a
+        # more specific drop and strand a legitimate refutation; augmenting paths
+        # find an assignment of maximum size instead. Sets here are tiny (a
+        # repository's drops against its own rows), so the simple algorithm is
+        # the right one.
+        edges: dict[str, list] = {}
+        for score, cand, reason, iid in sorted(pairs, reverse=True, key=lambda t: t[0]):
+            edges.setdefault(cand, []).append((score, iid, reason))
+
+        match_item: dict[int, str] = {}     # item -> drop
+
+        def augment(cand: str, seen: set) -> bool:
+            for _score, iid, _reason in edges.get(cand, []):
+                if iid in seen:
+                    continue
+                seen.add(iid)
+                if iid not in match_item or augment(match_item[iid], seen):
+                    match_item[iid] = cand
+                    return True
+            return False
+
+        for cand in edges:
+            augment(cand, set())
+
+        # Ambiguity is judged on the COMPLETED assignment: a drop whose chosen
+        # subject is within 0.15 of another still-unmatched subject is refused.
+        for iid, cand in list(match_item.items()):
+            chosen = next(s_ for s_, i_, _ in edges[cand] if i_ == iid)
+            rivals = [s_ for s_, i_, _ in edges[cand]
+                      if i_ != iid and match_item.get(i_) != cand
+                      and abs(s_ - chosen) < 0.15]
             if rivals:
-                used_drop.add(cand)      # ambiguous: spend it on nobody
-                continue
-            out[iid] = reason
-            used_drop.add(cand)
-            used_item.add(iid)
+                continue                    # ambiguous: spend it on nobody
+            out[iid] = next(r_ for s_, i_, r_ in edges[cand] if i_ == iid)
     return out
 
 
@@ -410,15 +433,23 @@ def main() -> int:
     refuted_repos = {str(x.get("repo", "")).split("/")[-1] for x in refutations}
     unrefuted = sorted(seen_repos - refuted_repos)
     disposed = {str(a.get("area", "")) for a in areas}
-    enumerated = {str(x.get("area", "")) for x in items if False}  # areas carry their own
+    # Every area whose candidates reached the item list must also have been
+    # disposed; an omitted disposition silently drops that area's rows from the
+    # canonical manifest (measured: removing `planning` published 165 of 183 at
+    # exit 0). The lanes are named by the origin_lane of the items themselves.
+    seen_areas = {it["origin_lane"].split(":", 1)[1] for it in items
+                  if it["origin_lane"].startswith("area:")}
+    undisposed = sorted(seen_areas - disposed - {"run1-four-areas"})
+    if undisposed:
+        print("NOTE — area candidates present with no disposition lane:", undisposed)
     if unrefuted:
         print("NOTE — read but never refuted (the adversarial lane is incomplete):", unrefuted)
     if unaudited:
         print("NOTE — in the re-audit slice but with no reading in these journals:", unaudited)
-    if (unaudited or unrefuted) and True:
+    if unaudited or unrefuted or undisposed:
         if not args.allow_partial:
             print("build_manifest: FAILED — refusing to report success over an incomplete "
-                  "manifest (a missing reading OR a missing refutation); pass "
+                  "manifest (a missing reading, refutation OR area disposition); pass "
                   "--allow-partial to publish one deliberately", file=sys.stderr)
             return 1
     return 0

@@ -42,7 +42,9 @@ UNIT = [
 # Positives: default branch moved after the anchor (independently visible in
 # the repository's own commit dates).  Negatives: it had not, AT THE SNAPSHOT.
 #
-# The negatives are snapshot-relative and the estate keeps moving, so a fresh
+# BOTH lists are snapshot-relative, and doubly so now that anchors carry the SHA
+# the audit read: from that point a repository that has not moved SINCE reads
+# UNCHANGED, which is the instrument working. The estate keeps moving, so a fresh
 # delta legitimately reclassifies one the day it receives a commit. Asserting
 # UNCHANGED against a fresh run would turn ordinary movement into a red test —
 # and the finding tells a seed session to run exactly that. So a negative is
@@ -83,17 +85,26 @@ def main() -> int:
               "run delta.py first — unit fixtures alone are not a positive control")
         return 1
 
+    fresh = pathlib.Path(path).resolve() != (REPO / SNAPSHOT).resolve()
     hits = 0
     for repo in sorted(POSITIVE):
         row = rows.get(repo)
         if row is None:
             failures.append(f"positive control missing from output: {repo}")
+        elif fresh:
+            # Positives are snapshot-relative in BOTH directions once anchors carry
+            # the audited SHA: a repository that has not moved SINCE THE AUDIT now
+            # correctly reads UNCHANGED, so asserting CHANGED against a fresh delta
+            # would fail on correct behaviour. Same reasoning as the negatives.
+            if row["delta_status"] == "INACCESSIBLE":
+                failures.append(f"positive control unreadable: {repo} — {row['note']}")
+            else:
+                hits += 1
         elif row["delta_status"] != "CHANGED_REAUDIT":
             failures.append(f"positive control inert: {repo} -> {row['delta_status']} "
                             f"(commits_since={row['commits_since']})")
         else:
             hits += 1
-    fresh = pathlib.Path(path).resolve() != (REPO / SNAPSHOT).resolve()
     for repo in sorted(NEGATIVE):
         row = rows.get(repo)
         if row is None:

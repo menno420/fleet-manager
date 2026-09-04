@@ -11,37 +11,43 @@
 #
 # repo	baseline_utc	evidence_ref	prior_certainty	baseline_sha
 #
-# baseline_sha is the commit the 2026-09-04 audit ACTUALLY read, recorded so a
-# later delta compares against it rather than re-deriving it from the branch's
-# current history. Re-derivation is not equivalent: if a default branch is reset
-# to a commit older than baseline_utc, both ends of the comparison resolve to the
-# same commit, `base == head` short-circuits, and a rewritten repository reads
-# UNCHANGED_REUSABLE. Caught by Codex on fm #1020 round 2.
-Substrate-kit-app	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	86a8501d5c3c
-codetool-lab-fable5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	7bd6307a2274
-codetool-lab-opus4.8	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	2071c7b4b0c1
-codetool-lab-sonnet5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	420c6580eadc
-couch-legend	2026-08-22T00:00:00Z	repos/couch-legend/README.md	MEASURED	43bc12865786
-creator-kit	2026-08-26T00:00:00Z	findings/2026-08-26-cross-session-visibility.md	WEAK	741f429a2e96
-curious-research	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	353cb4d035f4
-estate-backups	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED	c1439abb3597
-fleet-manager	2026-09-01T00:00:00Z	findings/2026-09-01-fleet-manager-measured.md	MEASURED	23a6b56e6a8e
-gba-homebrew	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	7a4977bb06fc
-idea-engine	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	320acabd9317
-pokemon-mod-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	086dde68d5e2
-product-forge	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED	7a53b2667b29
-proxybench	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	d06694f7e6f6
-shiftlife	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	33d9064b376f
-sim-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	f54ec219aff6
-spider-bot	2026-08-28T00:00:00Z	repos/spider-bot/README.md	MEASURED	bf4d75278a74
-spider-swing	2026-08-28T00:00:00Z	repos/spider-swing/README.md	MEASURED	fc64a3fbb25f
-substrate-kit	2026-08-28T00:00:00Z	findings/2026-08-28-kit-tree-truth-pass.md	MEASURED	8ae419971edd
-superbot	2026-08-21T00:00:00Z	repos/superbot/README.md	MEASURED	5e3a667b2a55
-superbot-games	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	933240093b11
-superbot-idle	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	8cea5bf88a2c
-superbot-mineverse	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	9f8047f9e0f4
-superbot-next	2026-08-21T00:00:00Z	repos/superbot-next/README.md	MEASURED	d5f66dc27768
-superbot-plugin-hello	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	abd91334dc55
-trading-strategy	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	b5eba0303226
-venture-lab	2026-08-21T00:00:00Z	repos/venture-lab/README.md	MEASURED	a7220b1d348a
-websites	2026-09-03T00:00:00Z	repos/websites/README.md	MEASURED	9ba7df41cbc0
+# baseline_sha is THIS RUN'S measurement point — the commit the 2026-09-04 audit
+# actually read (a re-audited repository's own `sha_verified`, otherwise the
+# pinned tip it was classified against). A later delta compares FROM here.
+#
+# It is deliberately NOT the old date-derived baseline. Two rounds were needed to
+# get this right: round 2 added the column, round 3 caught that it had been filled
+# from `delta.tsv`'s `baseline_commit` — the point the PRIOR evidence measured —
+# so `couch-legend` read 43bc12865786 where the audit had read d877ed0b6114. That
+# would leave every later run comparing from an obsolete point: an unchanged tip
+# reads CHANGED_REAUDIT forever, and a reset back to the old baseline reads
+# UNCHANGED_REUSABLE. `baseline_utc` and `evidence_ref` still describe the PRIOR
+# evidence; this column describes what replaced it.
+Substrate-kit-app	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	ffd452451d05dab84d6a21ecc9fe2b1baa3b48ad
+codetool-lab-fable5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	e615b375be9240f786e730536af6fb85dee0bc3c
+codetool-lab-opus4.8	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	59f0b82fef8f2c225e6fa8fd3d1ca3de92dc57aa
+codetool-lab-sonnet5	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	ef3b60097f6a2bd46dd27794d03fb120c1d6c36a
+couch-legend	2026-08-22T00:00:00Z	repos/couch-legend/README.md	MEASURED	d877ed0b611418f35ad9e578785b012a844d1992
+creator-kit	2026-08-26T00:00:00Z	findings/2026-08-26-cross-session-visibility.md	WEAK	741f429a2e96587aa27075085b85df889531d2a7
+curious-research	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	353cb4d035f48762924511a03a5d61e2f94c53d9
+estate-backups	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED	c1439abb35976ca706c19f7817823d09b443a8e0
+fleet-manager	2026-09-01T00:00:00Z	findings/2026-09-01-fleet-manager-measured.md	MEASURED	caa6cd2ab6591794258b68b3c385a8378a55c8d3
+gba-homebrew	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	7a4977bb06fcb87ca72950f97f26c43a991c001b
+idea-engine	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	df6b027372b046678491e9ae306fc36cef61c01f
+pokemon-mod-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	086dde68d5e2ad6f1dfe9cc90d093487505d459f
+product-forge	2026-08-23T00:00:00Z	findings/2026-08-23-active-repo-intent-audit.md	UNRATED	7a53b2667b29ac13817821bad6fe62eccf512ed7
+proxybench	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	88d5d1723561f790d0ea1cf9e0857738de5a6b89
+shiftlife	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	33d9064b376f657fd91e487c66ecb3e626ae3fb9
+sim-lab	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	72ed751e657edfbadd115a6e2c47adade9cb84b1
+spider-bot	2026-08-28T00:00:00Z	repos/spider-bot/README.md	MEASURED	bf4d75278a74147aaf9c7f19e2da2c7abb1939cb
+spider-swing	2026-08-28T00:00:00Z	repos/spider-swing/README.md	MEASURED	fc64a3fbb25ff8be21a7bbeceb1d5c8275d614f0
+substrate-kit	2026-08-28T00:00:00Z	findings/2026-08-28-kit-tree-truth-pass.md	MEASURED	ff06fb902c6922272f2a338a3a60b528255d57e5
+superbot	2026-08-21T00:00:00Z	repos/superbot/README.md	MEASURED	5e3a667b2a55bae98a7863dd66492f477dd19546
+superbot-games	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	c3b2e83d918958b2455dafd8c4217851763bffbd
+superbot-idle	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	0062182c28c311c3811a6cea3bd1a6a51fd0fb51
+superbot-mineverse	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	0bcb864dde06df7347e96c532e480f918bb646de
+superbot-next	2026-08-21T00:00:00Z	repos/superbot-next/README.md	MEASURED	d5f66dc27768d49b2755f368c6a2d0ecca66a1af
+superbot-plugin-hello	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	abd91334dc554c26098eb4af4fac0ec3478437d9
+trading-strategy	2026-08-22T00:00:00Z	planning/2026-08-22-repo-dispositions.md	MEASURED	54e1461232de4fcd689975b3c950640b08093cb6
+venture-lab	2026-08-21T00:00:00Z	repos/venture-lab/README.md	MEASURED	a7220b1d348a7045acda828c52e47f51ee2844c8
+websites	2026-09-03T00:00:00Z	repos/websites/README.md	MEASURED	48b75de8fd305a9ab658d18a3fa8962ec63b8fea

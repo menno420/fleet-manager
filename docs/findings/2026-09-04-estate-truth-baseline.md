@@ -518,8 +518,18 @@ carried forward from the earlier state instead of read off the output. The
 provenance critic called this *"the run's central methodological self-criticism,
 inverted against its own artifact"*, and it was right.
 
-**Two aggregation defects the external round found, both now fixed, both
-measured before and after:**
+**The external round ran to its three-round cap and found something in every
+round — 9 · 6 · 5 — and in two of the three, the new findings were fresh
+evidence that the *previous* round's fixes did not hold.** That pattern is the
+finding, more than any single defect: the ambiguity guard that could not fire
+because each lookup saw one candidate; the rewind guard that was unreachable
+because the baseline was still re-derived; the completeness check that grew to
+cover readings, then refutations, then area dispositions, failing at a different
+lane each time. **A single review round would have left this artifact broken in
+ways its own author had already declared fixed.**
+
+**The aggregation defects it found, all now fixed, all measured before and
+after:**
 
 - **The drop join lost 19 of 44 adversary verdicts.** `build_manifest.py` joined
   a refuter's `seed_items_to_drop[].subject` to a reader's item by exact
@@ -810,10 +820,20 @@ findings.
     repository in `repo-readings.json`; adding it to the artifact is a seed-time
     requirement, not a correction to this run.
 11c. **The drop matcher is a heuristic and is documented as one.** Containment
-    with an ambiguity guard, scoped per audited reading. It refuses rather than
-    guesses when two drops score within 0.15 of each other, so its failure mode
-    is a missed kill rather than a false one — the safer direction, and the
-    reason 43 rather than 44.
+    scored per audited reading, resolved as a **maximum one-to-one matching** so
+    a drop is spent at most once and greedy edge order cannot strand a more
+    specific verdict, with ambiguity judged on the completed assignment. It
+    refuses rather than guesses, so its failure mode is a missed kill rather than
+    a false one — and that is the reason 43 rather than 44.
+11d. **The three-round cap was reached, and the run stopped there rather than
+    asking for a fourth.** Round 3 returned 5 findings, all fixed and verified
+    without Codex: the delta instrument re-run against both the snapshot and a
+    fresh file (exit 0 each), the rule's field audit still 0 unread / 0
+    undefined, the fixtures at 14 cases, and the manifest regenerated. **What
+    that cannot tell you is whether a fourth round would have found a fourth
+    layer.** On this evidence — three rounds, three non-empty — the honest prior
+    is that it would. The cap is the owner's, the residue is disclosed here, and
+    the verdict is `PARTIAL` partly because of it.
 12. **The manifest covers 13 of 28 repositories plus fleet-manager.** The nine
     archived contribute provenance prose and no rows, by design; the five unmoved
     contribute none because their prior evidence is not reusable. Anyone reading

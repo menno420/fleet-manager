@@ -1,0 +1,155 @@
+{
+ "Substrate-kit-app": {
+  "sha": "ffd452451d05dab84d6a21ecc9fe2b1baa3b48ad",
+  "committed": "2026-08-23T07:01:03Z",
+  "open_prs": []
+ },
+ "codetool-lab-fable5": {
+  "sha": "e615b375be9240f786e730536af6fb85dee0bc3c",
+  "committed": "2026-08-23T07:02:18Z",
+  "open_prs": []
+ },
+ "codetool-lab-opus4.8": {
+  "sha": "59f0b82fef8f2c225e6fa8fd3d1ca3de92dc57aa",
+  "committed": "2026-08-23T07:02:20Z",
+  "open_prs": []
+ },
+ "codetool-lab-sonnet5": {
+  "sha": "ef3b60097f6a2bd46dd27794d03fb120c1d6c36a",
+  "committed": "2026-08-23T07:02:15Z",
+  "open_prs": []
+ },
+ "couch-legend": {
+  "sha": "d877ed0b611418f35ad9e578785b012a844d1992",
+  "committed": "2026-08-23T10:00:25Z",
+  "open_prs": []
+ },
+ "creator-kit": {
+  "sha": "741f429a2e96587aa27075085b85df889531d2a7",
+  "committed": "2026-08-25T21:16:27Z",
+  "open_prs": []
+ },
+ "curious-research": {
+  "sha": "353cb4d035f48762924511a03a5d61e2f94c53d9",
+  "committed": "2026-08-07T19:02:31Z",
+  "open_prs": []
+ },
+ "estate-backups": {
+  "sha": "c1439abb35976ca706c19f7817823d09b443a8e0",
+  "committed": "2026-08-20T22:34:31Z",
+  "open_prs": []
+ },
+ "fleet-manager": {
+  "sha": "caa6cd2ab6591794258b68b3c385a8378a55c8d3",
+  "committed": "2026-09-03T21:42:38Z",
+  "open_prs": []
+ },
+ "gba-homebrew": {
+  "sha": "7a4977bb06fcb87ca72950f97f26c43a991c001b",
+  "committed": "2026-08-14T05:58:15Z",
+  "open_prs": []
+ },
+ "idea-engine": {
+  "sha": "df6b027372b046678491e9ae306fc36cef61c01f",
+  "committed": "2026-08-23T08:53:34Z",
+  "open_prs": []
+ },
+ "pokemon-mod-lab": {
+  "sha": "086dde68d5e2ad6f1dfe9cc90d093487505d459f",
+  "committed": "2026-07-21T18:07:39Z",
+  "open_prs": []
+ },
+ "product-forge": {
+  "sha": "7a53b2667b29ac13817821bad6fe62eccf512ed7",
+  "committed": "2026-08-20T20:06:39Z",
+  "open_prs": []
+ },
+ "proxybench": {
+  "sha": "88d5d1723561f790d0ea1cf9e0857738de5a6b89",
+  "committed": "2026-08-23T07:01:04Z",
+  "open_prs": []
+ },
+ "shiftlife": {
+  "sha": "33d9064b376f657fd91e487c66ecb3e626ae3fb9",
+  "committed": "2026-07-27T21:11:05Z",
+  "open_prs": []
+ },
+ "sim-lab": {
+  "sha": "72ed751e657edfbadd115a6e2c47adade9cb84b1",
+  "committed": "2026-08-23T17:01:25Z",
+  "open_prs": []
+ },
+ "spider-bot": {
+  "sha": "bf4d75278a74147aaf9c7f19e2da2c7abb1939cb",
+  "committed": "2026-08-25T22:42:55Z",
+  "open_prs": []
+ },
+ "spider-swing": {
+  "sha": "fc64a3fbb25ff8be21a7bbeceb1d5c8275d614f0",
+  "committed": "2026-08-23T20:17:00Z",
+  "open_prs": [
+   "#180 ci(deps): bump chickensoft-games/setup-godot from 2.4.1 to 2"
+  ]
+ },
+ "substrate-kit": {
+  "sha": "ff06fb902c6922272f2a338a3a60b528255d57e5",
+  "committed": "2026-09-01T18:25:00Z",
+  "open_prs": [
+   "#590 Adoption profiles: one declared shape, and the five hub prer"
+  ]
+ },
+ "superbot": {
+  "sha": "5e3a667b2a55bae98a7863dd66492f477dd19546",
+  "committed": "2026-08-20T23:17:52Z",
+  "open_prs": [
+   "#2453 chore(deps): bump the python-minor-patch group across 1 dire",
+   "#2451 chore(deps): update uvicorn requirement from <1.0,>=0.52.1 t",
+   "#2447 chore(deps): bump uvicorn from 0.52.1 to 0.52.4 in /dashboar",
+   "#2402 chore(deps): bump the github-actions-all group across 1 dire",
+   "#2401 chore(deps): update anthropic requirement from <1.0,>=0.117.",
+   "#2400 chore(deps): update aiohttp requirement from >=3.14.1 to >=3",
+   "#2399 chore(deps): update prometheus-client requirement from >=0.2",
+   "#2398 chore(deps): update openai requirement from <3.0,>=2.46.0 to"
+  ]
+ },
+ "superbot-games": {
+  "sha": "c3b2e83d918958b2455dafd8c4217851763bffbd",
+  "committed": "2026-08-23T07:00:51Z",
+  "open_prs": []
+ },
+ "superbot-idle": {
+  "sha": "0062182c28c311c3811a6cea3bd1a6a51fd0fb51",
+  "committed": "2026-08-23T07:01:08Z",
+  "open_prs": []
+ },
+ "superbot-mineverse": {
+  "sha": "0bcb864dde06df7347e96c532e480f918bb646de",
+  "committed": "2026-08-23T07:02:59Z",
+  "open_prs": []
+ },
+ "superbot-next": {
+  "sha": "d5f66dc27768d49b2755f368c6a2d0ecca66a1af",
+  "committed": "2026-08-13T15:21:11Z",
+  "open_prs": []
+ },
+ "superbot-plugin-hello": {
+  "sha": "abd91334dc554c26098eb4af4fac0ec3478437d9",
+  "committed": "2026-07-15T15:29:41Z",
+  "open_prs": []
+ },
+ "trading-strategy": {
+  "sha": "54e1461232de4fcd689975b3c950640b08093cb6",
+  "committed": "2026-08-23T07:01:11Z",
+  "open_prs": []
+ },
+ "venture-lab": {
+  "sha": "a7220b1d348a7045acda828c52e47f51ee2844c8",
+  "committed": "2026-08-13T18:58:29Z",
+  "open_prs": []
+ },
+ "websites": {
+  "sha": "48b75de8fd305a9ab658d18a3fa8962ec63b8fea",
+  "committed": "2026-09-03T20:49:56Z",
+  "open_prs": []
+ }
+}

@@ -69,8 +69,11 @@ RETAIN      : per repository — repo · default branch · live SHA · fetch ins
               new commits_since; the seed manifest carries a source SHA per row.
               follow-up "would this claim have survived a stricter rule?" answerable: YES —
               killed rows are published with the branch that fired, not dropped.
-BASE        : all 28 repos pinned at 2026-09-04T11:34Z; the per-repo table is
-              launch-shas.json. fleet-manager@caa6cd2ab659 · substrate-kit@ff06fb902c69 ·
+BASE        : all 28 repos pinned at 2026-09-04T11:34Z; the per-repo table is retained at
+              docs/findings/data/2026-09-04-estate-truth-baseline/launch-shas.json (full
+              40-char SHAs, committed after Codex round 3 found the contract naming a file
+              that had never been retained). classification.json carries the same SHAs per
+              repository alongside each row's delta status. fleet-manager@caa6cd2ab659 · substrate-kit@ff06fb902c69 ·
               websites@48b75de8fd30 · spider-swing@fc64a3fbb25f · superbot@5e3a667b2a55.
               open PRs at launch (state=open, per_page=100 — not a default page size):
               substrate-kit #590 (K1–K5, the CONCURRENT session — out of scope) ·
