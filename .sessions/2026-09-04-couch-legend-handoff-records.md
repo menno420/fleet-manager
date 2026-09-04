@@ -1,6 +1,6 @@
-# 2026-09-04 — Two findings the Couch Legend session left in the chat
+# 2026-09-04 — The Couch Legend session's handoff: two records, one route, one continuation prompt
 
-> **Status:** `in-progress` — branch `claude/couch-legend-docs-handoff-iwpo96`.
+> **Status:** `complete` — merged via fm #1028, branch `claude/couch-legend-docs-handoff-iwpo96`.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -41,7 +41,36 @@ applies rather than filing it and hoping.
   already claim `docs/traps.md` at that moment), so the instruction was folded
   into `card-status-write`, which demonstrably does. Proven by feeding the hook
   a synthetic `.sessions/*.md` edit and grepping the delivered text.
+- `docs/prompts/2026-09-04-couch-legend-phase-b-continuation.md` — the
+  continuation prompt for the next Couch Legend session, `continuation-prompt`
+  shape, registered in the live banner of `docs/prompts/README.md` (seven LIVE
+  files → eight). It branches rather than assumes: phase B is the owner's feel
+  pass and gates C and D, so the receiving session's first step is to read
+  `docs/owner-comments/couch-legend/README.md` and take the ungated lanes if
+  his verdict has not arrived.
 
 ## Close-out
 
-*(filled at the flip)*
+**Landed.** Three records plus the route that delivers one of them, and the
+handoff prompt that carries the rest.
+
+Every state claim in the prompt was verified at HEAD rather than carried from
+the conversation: couch-legend `origin/main` = `4934955` with 0 open PRs and
+#19 merged; the old branch `claude/couch-legend-design-arch-iwpo96` still
+present at `d790461` and finished; all 16 cited couch-legend paths and 4
+fleet-manager paths present at HEAD; and the census numbers **re-derived by
+running the instrument** (`pnpm exec tsx tools/stage-evolution.ts` at
+`4934955`, exit 0 → 14/18 introduce · 3/18 deepen · 17/18 deliver something
+new · 2/18 gate content · 3/18 have scene art · 17 keepsakes into 6 places)
+rather than quoted from a summary.
+
+`python3 tools/check_doc_routes.py` → 72 routes · 37 docs routed · 0 errors ·
+0 notes. `python3 bootstrap.py check --strict --added-card
+.sessions/2026-09-04-couch-legend-handoff-records.md` held red on the born-red
+hold alone — confirmed against the CI job log for check run 101096302012,
+which reported the same two findings and nothing else — and is expected green
+at this flip.
+
+One deviation, stated: a merge of `origin/main` was needed mid-PR
+(`.substrate/guard-fires.jsonl` conflicted). Resolved as a union of both
+sides in main-then-ours order, all 42,526 lines re-validated as JSON.
