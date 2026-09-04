@@ -490,3 +490,63 @@ still ships a bot whose owner cannot find setup.
   non-ref handlers), and `layout.pages` was checked and holds **only** `rows` of
   action-id strings — a layout over actions already counted, contributing no
   edges. So no edge class is silently dropped.
+
+## I-14 · `superbot`'s hub coverage: the shared seam guarantees it, hand-rolling gets it right 8 times in 15 — `MEASURED`
+
+The pilot's two agents contradicted each other on `superbot`'s navigation: P1
+found reachability CI-enforced with a mutation-tested guard, 0 orphans, max 2
+clicks; P2 found the Moderation hub declaring 6 children and rendering none.
+Both were right, because the guard checks a **model** of the hub registry and P2
+opened the **rendered view**. This is that contradiction measured across all
+eight hubs, by AST, rather than left as one agent's report.
+
+**Declared:** `disbot/utils/hub_registry.py` — **8 hubs, 34 primary children**
+(games 10 · community 7 · moderation 6 · admin 6 · economy 3 · utility 2 ·
+btd6 0 · project_moon 0).
+
+**Rendered:** three hubs use the shared child-discovery seam
+(`discover_hub_children` / `HubChildButton`): **games, community, utility**.
+Their children are discovered from the registry, so coverage is guaranteed by
+construction. The other five hand-roll. Counting `@button`-decorated methods on
+each hand-roller's view class:
+
+| hub | declared | mechanism | children with a button | missing |
+|---|---|---|---|---|
+| `games` | 10 | **shared seam** | 10 (by construction) | — |
+| `community` | 7 | **shared seam** | 7 (by construction) | — |
+| `utility` | 2 | **shared seam** | 2 (by construction) | — |
+| `admin` | 6 | hand-rolled, 15 buttons | **6** | — |
+| `economy` | 3 | hand-rolled, 8 buttons | **2** | `leaderboard` |
+| `moderation` | 6 | hand-rolled, **7 buttons, all actions** | **0** | all six |
+| `btd6` · `project_moon` | 0 | — | — | — |
+
+**27 of 34 declared children have a button on their parent hub; 7 do not** — the
+six under `moderation` plus `economy`'s `leaderboard`.
+
+`ModPanelView` is the whole story in one class: its seven buttons are
+`warn_btn`, `timeout_btn`, `kick_btn`, `ban_btn`, `unban_btn`, `modlogs_btn`,
+`clearwarn_btn` — every one an **action**, none a **route**. And five of its six
+declared children (`automod`, `image_moderation`, `logging`, `proof_channel`,
+`security`) have **zero** mentions anywhere under `disbot/views/moderation/`. A
+server admin who opens *🛡️ Moderation & Safety* to switch on spam protection
+gets a panel that can ban people and cannot reach automod.
+
+### The finding is narrower and more useful than "hand-rolling is broken"
+
+`admin` hand-rolls and gets **6 of 6 right**. So hand-rolling is not
+automatically wrong — it is *unguaranteed*, and the failure rate is what matters:
+**the seam is 19 for 19; hand-rolling is 8 for 15.** That is the argument for the
+successor making child rendering a property of the framework rather than of the
+hub author, stated as a measurement instead of a preference.
+
+**And a correction to this session's own intermediate pass, kept because it is
+the same error class the review is about.** A first cut measured coverage by
+grepping each hub's view code for its children's registry names, and scored
+`admin` at **2 of 6**. That was wrong: the button methods are `channels_btn`,
+`uxlab_btn`, `diagnostics_btn` for children named `channel`, `ux_lab`,
+`diagnostic`, so a name-match proxy misses them. It also scored the seam-using
+hubs at 0–5 of their children — inverted, since a seam user *should* name none.
+**The proxy measured naming and was read as measuring coverage**; only the AST
+button count over the actual view classes settled it. Two of the three numbers a
+proxy produced here were wrong in opposite directions, which is why the table
+above is AST-derived and the proxy is recorded rather than quietly dropped.
