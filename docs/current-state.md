@@ -127,6 +127,40 @@ copy product architecture or internal product state. Canonical intent:
   this hub** ([back-link audit](findings/2026-08-23-front-door-audit.md)), which
   is a real return-path gap but **does not size D2** — presence is not truth.
   This is orientation work, so **OD-13** is satisfied rather than overridden.
+- **Spider Bot has a purpose, from him, and it is newer than every record here
+  (2026-09-04, fm #1021 + spider-bot #3 + spider-swing #181).** *"Spider Bot
+  exists to manage the Slingy Spider server and help during testing of the game.
+  It should become a reliable automoderator with heavy AI integration. People
+  should be able to talk naturally to it for guidance, complaints, bugs,
+  feedback and improvement ideas. Those reports should become durable, easy for
+  the developer to find and act on — preferably through GitHub or an equally
+  clear developer-facing system."* That closes the four ❓ slots
+  [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) had carried as
+  *"DRAFT, awaiting his words"* since 2026-08-28, closes
+  **`OQ-GCB-REVIEW-SCOPE`** (open since 2026-08-23), and **narrows** the
+  [game-community-bot plan](planning/2026-08-21-game-community-bot/README.md)
+  out of its multi-game breadth. The four rules it generates are
+  **[D-0042]**, the sharpest being that *heavy AI integration* means the AI
+  supplies **judgement** while deterministic code supplies **authority** —
+  spider-bot's invariant 5 refined, never deleted.
+  **Implemented the same session, all of it OFF on arrival:** one intake service
+  behind every entry point including conversational filing · durable report
+  storage · idempotent GitHub projection into `spider-swing` ·
+  deterministic-first privacy classification · the AI moderation pipeline with
+  shadow mode, a data-driven policy table and one case model · a run-evidence
+  reader · and a **versioned cross-repo support feed**, producer in
+  `spider-swing` (fail-closed in both its required checks) and consumer in the
+  bot. spider-bot went 246 → 539 tests.
+  **Three counts in this repo's own records were wrong and are corrected:**
+  spider-bot had **20 commits, not 5**; **246 tests, not 78**; and the `/home`
+  panel the Layer-2 entry point still listed as a *candidate* had shipped
+  eleven days earlier.
+  **`MEASURED` and worth carrying past this session:** backslash-escaping does
+  **not** neutralise `@mentions` or `#refs` in a GitHub issue body — `\@name`
+  still renders as a live user-mention. Verified against GitHub's own stateless
+  renderer (`POST /markdown`) with four positive controls; a zero-width space
+  does neutralise all four. The obvious mitigation is the one that silently
+  fails.
 - **The next Discord bot's shape is set (OD-19):** a small, review-oriented
   game-server bot **first**, built cog-portable so existing cogs can be added or
   lightly adapted — and **the bots stay separated**. Repository consolidation of
@@ -355,6 +389,22 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
+- **Spider Bot becomes the AI operations bot of the Slingy Spider test server**
+  (2026-09-04, fm #1021 · spider-bot #3 · spider-swing #181). Owner direction,
+  recorded in [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) and
+  **[D-0042]**; `OQ-GCB-REVIEW-SCOPE` closed by his own words rather than by a
+  session picking from the menu it offered (A and C are **not mentioned** —
+  absence, not refusal, and the closure says so).
+  **The method note worth keeping:** the ultracode design pilot was aimed at
+  checking a design and instead read the code the session had already
+  committed, returning **seven reproducible defects in it** — including silent
+  data loss in the store (a bug report quoting a crash log round-tripped to
+  `{}`, because the record envelope rides in a ```json fence and the decoder
+  split on the next one) and an anti-hallucination check that passed on a
+  one-character quote. All seven were confirmed by running them and fixed with
+  regression tests. Reading committed code beat designing against it, which is
+  why the second fleet was re-aimed from more design lanes to adversarial
+  review of the implementation.
 - **The estate activity log — a cloud session can now see what ran on the
   laptop** (2026-08-26, fm #947). `docs/activity/` + `tools/estate_activity.py`,
   wired into the boot table, `MAP.md`, `README.md`, the card protocol, the
