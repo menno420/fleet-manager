@@ -38,7 +38,8 @@ built the kit, what "done" means, and what would make him stop, from the
 
 ### Thread: K1–K5 (the `estate` pre-seed prerequisites) — **LANDED on kit `main`, UNRELEASED**
 
-**`MEASURED` 2026-09-04.** [D-0035]'s step 2 is built and merged:
+**`MEASURED` 2026-09-04.** The accepted `estate` build order's step 2 is
+built and merged:
 **[kit #590](https://github.com/menno420/substrate-kit/pull/590), squash-merged
 as `8a83c733eded4af06281dcbe1d01f05d3da98a94`.** `main` re-verified after the
 merge, not trusted from the PR's green: 2,277 passed / 1 skipped, dist byte-pin
@@ -66,7 +67,8 @@ loaded config) honour it with no second orchestration path;
   *working* — before the profile filter reached `check_skill_grounds`, every
   one passed silently as "grounded by construction", a false green in the
   checker whose job is dead pointers. The gap is a hub-compatible skill set:
-  the **skills channel**, which [D-0035] defers past the first cold test. A
+  the **skills channel**, which the build order defers past the first cold
+  test. A
   test pins its exact shape rather than asserting zero.
 - **Doctrine prose is reported, not forked.** `CONSTITUTION.md` and the working
   agreement still name omitted docs in prose outside the boot sections;
@@ -79,7 +81,7 @@ loaded config) honour it with no second orchestration path;
   `origin/main` dist, so it is pre-existing and belongs in its own PR.
 
 **Review cost, for the next session's calibration:** three Codex rounds (the
-[D-0039] cap) returned **21** findings — 4 P1 + 6 P2, then 5 P2, then 2 P1 + 4
+per-PR review cap) returned **21** findings — 4 P1 + 6 P2, then 5 P2, then 2 P1 + 4
 P2 — alongside an independent 43-agent adversarial pass whose 37 raw findings
 were each handed to a separate agent instructed to refute them (**14**
 survived, 8 distinct). **40 mutants applied, 40 killed.** Two findings were

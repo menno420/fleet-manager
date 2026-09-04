@@ -2,7 +2,7 @@
 
 > **Status:** `complete`
 
-- **📊 Model:** opus-5 · xhigh · feature
+- **📊 Model:** opus-5 · xhigh · feature build
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_01Y3DjrdYmx4ahPkvdZnWNNm](https://claude.ai/code/session_01Y3DjrdYmx4ahPkvdZnWNNm) · "Fleet Manager substrate-kit implementation"
 
@@ -65,13 +65,13 @@ failed that check before they passed — the useful half of the exercise.
   lands"* sequences the charter rewrite and the doc-surface sweep first;
   neither has landed. `OQ-KIT-V1-21-RELEASE`'s adopter half is still open.
   Three merged-unreleased kit PRs now wait: #587, #588, #590.
-- **`estate` is NOT seeded.** [D-0035] makes seed creation the step *after*
+- **`estate` is NOT seeded.** The accepted build order makes seed creation the step *after*
   the folder contracts and migration manifest. The next executable step is
   step 3, not the seed.
 - **The hub has no skill pack** (26 advisories over 8 paths) and the kit's
   doctrine prose is *reported* rather than forked per shape. Both deliberate,
   both pinned by tests rather than left as prose.
-- **The merged head carries no review verdict.** Round 3 was the [D-0039] cap
+- **The merged head carries no review verdict.** Round 3 was the per-PR cap
   and its six findings were fixed after it. Verified by the suite, every CI
   leg, the cold-adoption smoke and the mutation pass — not by a fourth round,
   because there is not one.

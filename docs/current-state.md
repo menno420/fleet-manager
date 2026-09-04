@@ -75,7 +75,7 @@ copy product architecture or internal product state. Canonical intent:
   for whichever session next works the mail with him. It went through
   seventeen Codex rounds; the three-round cap that followed is
   [`traps.md`](traps.md) TRAP-009 (its decision is stamped there).
-- **[D-0035]'s step 2 is DONE: substrate-kit K1–K5 are merged, unreleased
+- **The accepted `estate` build order's step 2 is DONE: substrate-kit K1–K5 are merged, unreleased
   (2026-09-04).** [kit #590](https://github.com/menno420/substrate-kit/pull/590),
   squash-merged `8a83c733eded4af06281dcbe1d01f05d3da98a94`. Built as **one
   reusable adoption profile** (`bootstrap.py adopt --profile hub`) rather than
@@ -92,7 +92,7 @@ copy product architecture or internal product state. Canonical intent:
   paths previously passed silently as grounded-by-construction; the fix is the
   skills channel, which the build order defers), and the kit's doctrine prose
   is *reported* rather than forked per shape. Cost, for calibration: three
-  Codex rounds under the [D-0039] cap returned 21 findings, an independent
+  Codex rounds (the per-PR review cap) returned 21 findings, an independent
   43-agent adversarial pass returned 37 of which 14 survived refutation, and 40
   mutants were applied with 40 killed. Full thread, including the two latent
   defects (telemetry containment parsed rather than resolved; an upgrade
@@ -103,7 +103,7 @@ copy product architecture or internal product state. Canonical intent:
   batch lands"* sequences the charter rewrite and the doc-surface sweep first
   — neither has landed — and `OQ-KIT-V1-21-RELEASE`'s adopter half is open.
   Three merged-unreleased kit PRs now wait: #587, #588, #590.
-  **The next executable step on this track is [D-0035] step 3** — the seed-set
+  **The next executable step on this track is that order's step 3** — the seed-set
   folder READMEs and the migration manifest — then the thin `estate` seed and
   the blind cold test. The seed is NOT this step.
 - **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
