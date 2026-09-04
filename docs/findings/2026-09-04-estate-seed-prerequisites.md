@@ -156,12 +156,12 @@ citation are in the generator, not in prose here.
 and a cell-by-cell comparison of the 22 pre-existing columns against the
 committed file before regeneration finds **0 differing cells** (`git diff
 --stat` shows every line changed because every line gained a column). Values
-are the readers' verbatim text — `docs/current-state.md` for eight repositories
-and the hub, `control/status.md` for substrate-kit and product-forge,
+are the readers' verbatim text — `docs/current-state.md` plain for 5 repositories
+(couch-legend, creator-kit, sim-lab, spider-swing, websites) and the hub, `control/status.md` for substrate-kit and product-forge,
 `README.md (Status section); CLAUDE.md for the 12 invariants` for spider-bot,
 `docs/repos/estate-backups/README.md (in fleet-manager; …)` for estate-backups,
-and annotated `current-state.md` pointers for superbot, superbot-next,
-shiftlife and idea-engine. Fixture: `test_manifest.py` asserts the column, its
+and annotated `current-state.md` pointers for 4 (idea-engine, shiftlife, superbot, superbot-next) —
+5 + 2 + 1 + 1 + 4 = 13 readings. (An earlier draft said "eight" plain, a tally error.) Fixture: `test_manifest.py` asserts the column, its
 value for a reading that names one, and the empty cell for a reading that does
 not.
 
