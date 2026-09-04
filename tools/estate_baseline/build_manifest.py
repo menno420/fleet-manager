@@ -63,8 +63,9 @@ COLUMNS = [
 ]
 
 # The hub's own canonical ledger. Each repository reading records its
-# `canonical_state_source`; fleet-manager was read by five AREA lanes that record
-# none, so the hub's value is taken from the file that declares itself the
+# `canonical_state_source`, and a row carries the value of the reading that
+# produced it (its origin lane); fleet-manager was read by five AREA lanes that
+# record none, so the hub's value is taken from the file that declares itself the
 # ledger: `docs/current-state.md` opens with `Status: living-ledger` and *"It
 # carries live hub state"*, and `.claude/CLAUDE.md`'s deep read path names it
 # *"the living ledger"*. Finding § 7 explains why the column exists: a consumer
@@ -304,6 +305,7 @@ def main() -> int:
     items, drops, refutations, readings, areas = [], {}, [], [], []
     overclaims: dict[str, list[str]] = {}           # free text, per audited repo
     overclaims_by_subject: dict[str, dict[str, str]] = {}   # {repo: {subject: reason}}
+    overclaims_malformed: list[str] = []                      # objects with no subject — never silently dropped
     state_source: dict[str, str] = {"fleet-manager": HUB_STATE_SOURCE}
     for jpath in args.journal:
         for line in open(jpath, encoding="utf-8", errors="replace"):
@@ -347,6 +349,12 @@ def main() -> int:
                         overclaims_by_subject.setdefault(who, {})[
                             str(oc["subject"]).strip().lower()] = str(
                             oc.get("reason") or oc.get("why") or "certainty overclaimed by refuter")
+                    elif isinstance(oc, dict):
+                        # An object with a missing or blank subject is a dissent that
+                        # cannot reach any row — the very defect the object form exists
+                        # to expose. Dropping it here would let the flagged claim
+                        # survive with the builder reporting success (Codex, fm #1036).
+                        overclaims_malformed.append(f"{who}: {json.dumps(oc, ensure_ascii=False)[:160]}")
                     elif isinstance(oc, str) and oc.strip():
                         overclaims.setdefault(who, []).append(oc.strip())
 
@@ -439,9 +447,17 @@ def main() -> int:
         if k not in merged or (dies(it) and not dies(merged[k])):
             merged[k] = it
     rows = sorted(merged.values(), key=lambda r: (r["estate_role"], r["source_repo"], r["subject"]))
+    # Key by the repository whose reading PRODUCED the row (its origin lane), not by
+    # source_repo: a repository reading that cites a hub file leaves source_repo ==
+    # "fleet-manager" while the row's truth belongs to the audited repository, and
+    # keying on source_repo stamped the hub ledger on 12 of 183 committed rows —
+    # masked wherever both ledgers happen to be named docs/current-state.md
+    # (Codex, fm #1036). Area lanes are the hub's own reading.
     for r in rows:
-        r["canonical_state_source"] = state_source.get(r["source_repo"], "")
-    no_state_source = sorted({r["source_repo"] for r in rows if not r["canonical_state_source"]})
+        owner_repo = audited_of(r) if r["origin_lane"].startswith("repo:") else "fleet-manager"
+        r["canonical_state_source"] = state_source.get(owner_repo, "")
+    no_state_source = sorted({(audited_of(r) if r["origin_lane"].startswith("repo:") else "fleet-manager")
+                              for r in rows if not r["canonical_state_source"]})
 
     out = pathlib.Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -471,9 +487,12 @@ def main() -> int:
     print(f"certainty overclaims (free text): {n_free} flags · applied to {oc_applied} row(s) · "
           f"{oc_ineligible_only} reach only rows outside MEASURED/OWNER · "
           f"{oc_no_row} reach no row (the schema residual)")
-    print(f"certainty overclaims (by subject): {n_subj} flags · applied to {oc_by_subject_applied} row(s)")
+    print(f"certainty overclaims (by subject): {n_subj} flags · applied to {oc_by_subject_applied} row(s)"
+          f" · {len(overclaims_malformed)} malformed object(s) with no subject")
+    for m in overclaims_malformed:
+        print("  MALFORMED overclaim, reaches no row:", m)
     print(f"canonical_state_source: {sum(1 for r in rows if r['canonical_state_source'])} of {len(rows)} rows carry one"
-          + (f"; none recorded for source_repo {no_state_source}" if no_state_source else ""))
+          + (f"; none recorded for the reading of {no_state_source}" if no_state_source else ""))
     print("by disposition:", dict(collections.Counter(r["disposition"] for r in survivors)))
     print("by estate role:", dict(collections.Counter(r["estate_role"] for r in survivors)))
     print("kill branches :", dict(collections.Counter(
@@ -514,10 +533,11 @@ def main() -> int:
         print("NOTE — read but never refuted (the adversarial lane is incomplete):", unrefuted)
     if unaudited:
         print("NOTE — in the re-audit slice but with no reading in these journals:", unaudited)
-    if unaudited or unrefuted or undisposed:
+    if unaudited or unrefuted or undisposed or overclaims_malformed:
         if not args.allow_partial:
             print("build_manifest: FAILED — refusing to report success over an incomplete "
-                  "manifest (a missing reading, refutation OR area disposition); pass "
+                  "manifest (a missing reading, refutation OR area disposition) or over a "
+                  "malformed dissent (an overclaim object with no subject); pass "
                   "--allow-partial to publish one deliberately", file=sys.stderr)
             return 1
     return 0

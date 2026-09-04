@@ -30,22 +30,52 @@ sys.path.insert(0, str(HERE))
 from row_delta import classify_path, classify_row, paths_of, shas_of  # noqa: E402
 
 # --- 1a · provenance shapes, each taken from a live manifest cell ------------------
+N = None
 PATHS = [
-    # (source_path cell, expected paths, expected shape, why)
-    ("docs/ESTATE.md", ["docs/ESTATE.md"], "path", "the clean case"),
-    ("owner/intent-workbooks/", ["owner/intent-workbooks/"], "path", "a directory is a path"),
-    ("docs/ESTATE.md (cross-reference line)", ["docs/ESTATE.md"], "path+annotation",
+    # (source_path cell, expected (repo hint, path) pairs, expected shape, why)
+    ("docs/ESTATE.md", [(N, "docs/ESTATE.md")], "path", "the clean case"),
+    ("owner/intent-workbooks/", [(N, "owner/intent-workbooks/")], "path", "a directory is a path"),
+    ("docs/ESTATE.md (cross-reference line)", [(N, "docs/ESTATE.md")], "path+annotation",
      "a parenthetical is annotation, the path is recovered and the annotation is reported"),
     ("tools/gen_owner_index.py; tools/gen_workbook_progress.py",
-     ["tools/gen_owner_index.py", "tools/gen_workbook_progress.py"], "paths:2", "a semicolon list"),
+     [(N, "tools/gen_owner_index.py"), (N, "tools/gen_workbook_progress.py")], "paths:2", "a semicolon list"),
     (".github/workflows/dump.yml, .github/workflows/sizing.yml",
-     [".github/workflows/dump.yml", ".github/workflows/sizing.yml"], "paths:2", "a comma list"),
-    ("owner/intent-workbooks/ (agents/, estate/, folders/)", ["owner/intent-workbooks/"],
+     [(N, ".github/workflows/dump.yml"), (N, ".github/workflows/sizing.yml")], "paths:2", "a comma list"),
+    ("owner/intent-workbooks/ (agents/, estate/, folders/)", [(N, "owner/intent-workbooks/")],
      "path+annotation", "a directory with its children listed in parentheses"),
-    ("products/x/README.md; GitHub release page", ["products/x/README.md"], "path+annotation",
+    ("products/x/README.md; GitHub release page", [(N, "products/x/README.md")], "path+annotation",
      "a non-path token is dropped and reported, never resolved as a path"),
     ("(live PR list)", [], "narration", "the § 12 item 10 case: passes the rule, has no path"),
     ("", [], "narration", "empty is narration, not a crash"),
+    # the forms Codex found misread on the committed corpus (fm #1036 round 1)
+    ("docs/operations/ (runbooks, present in tree) + fleet-manager docs/repos/superbot/README.md",
+     [("runbooks", "docs/operations/"), ("fleet-manager", "docs/repos/superbot/README.md")],
+     "paths:2+qualified+annotation",
+     "a ` + ` join with the second path qualified by its repository; without a census the "
+     "parenthetical's first word is a CANDIDATE hint too — CENSUS_CASES shows it filtered"),
+    ("(repo API object) + README.md", [(N, "README.md")], "path+annotation",
+     "an annotation joined to a path is still a path"),
+    ("docs/repos/ (absence) + docs/ESTATE.md creator-kit row", [("absence", "docs/repos/"), (N, "docs/ESTATE.md")],
+     "paths:2+qualified+annotation",
+     "trailing words after a path are annotation, never a hint; a parenthetical's first word is a "
+     "candidate until the census says otherwise"),
+    ("git/trees (harness/*)", [], "api-reference", "the git data API is not a tree path"),
+    ("live API: pulls?state=open", [], "api-reference", "a query string names a live surface"),
+    ("live-api:pulls?state=open", [], "api-reference", "same, glued"),
+    ("releases API (tag postgres-botsite-final-2026-08-16)", [], "api-reference", "the releases API"),
+    ("README.md (what it fails to say) + docs/repos/estate-backups/README.md (fleet-manager, which does say it)",
+     [(N, "README.md"), ("fleet-manager", "docs/repos/estate-backups/README.md")],
+     "paths:2+qualified+annotation", "a repository named as the first word of the parenthetical after a path"),
+]
+# With a census, a hint the census does not know is annotation — `runbooks` is a
+# word; `fleet-manager` is a repository. Expected outcome written before the run.
+CENSUS_CASES = [
+    ("docs/operations/ (runbooks, present in tree) + fleet-manager docs/repos/superbot/README.md",
+     {"fleet-manager", "superbot"}, [(N, "docs/operations/"), ("fleet-manager", "docs/repos/superbot/README.md")]),
+    ("docs/ESTATE.md (cross-reference line)", {"fleet-manager"}, [(N, "docs/ESTATE.md")]),
+    ("x docs/a.md", {"fleet-manager"}, [(N, "docs/a.md")]),
+    ("docs/repos/ (absence) + docs/ESTATE.md creator-kit row", {"fleet-manager", "creator-kit"},
+     [(N, "docs/repos/"), (N, "docs/ESTATE.md")]),
 ]
 
 # --- 1b · verification-point forms, each taken from a live manifest cell -----------
@@ -108,8 +138,10 @@ NEGATIVE = [
     ("couch-legend", "README.md"),
     ("shiftlife", "docs/current-state.md"),
 ]
-# A row whose provenance is narration must be UNCHECKABLE, never classified.
+# A row whose provenance is narration must be UNCHECKABLE, never classified —
+# and an API reference must be named as one, not reported as a file not found.
 UNCHECKABLE_SUBJECT_FRAGMENT = "live PR list"
+API_REFERENCE_FRAGMENT = "git/trees"
 SNAPSHOT = "docs/findings/data/2026-09-04-estate-truth-baseline/row-delta.tsv"
 MANIFEST = "docs/planning/2026-09-04-estate-seed-manifest.csv"
 
@@ -122,6 +154,10 @@ def main() -> int:
         if got_paths != want_paths or got_shape != want_shape:
             failures.append(f"paths_of({cell!r}) -> {got_paths}, {got_shape!r}; "
                             f"expected {want_paths}, {want_shape!r} ({why})")
+    for cell, census, want in CENSUS_CASES:
+        got, _shape = paths_of(cell, census)
+        if got != want:
+            failures.append(f"paths_of({cell!r}, census) -> {got}; expected {want}")
     for cell, want_shas, want_shape, why in SHAS:
         got_shas, got_shape = shas_of(cell)
         if got_shas != want_shas or got_shape != want_shape:
@@ -186,8 +222,12 @@ def main() -> int:
         if not cands:
             failures.append(f"negative control missing from output: {repo} {file}")
             continue
-        if any(r["row_status"].startswith("INACCESSIBLE") for r in cands):
-            failures.append(f"negative control unreadable: {repo} {file}")
+        if any(r["row_status"].startswith(("INACCESSIBLE", "UNCHECKABLE")) for r in cands):
+            # A negative control has clean provenance by selection, so UNCHECKABLE on
+            # one is a resolution regression, not an honest null — it fails on a
+            # fresh file too (Codex, fm #1036 round 1: the fresh branch accepted it).
+            failures.append(f"negative control unreadable: {repo} {file} -> "
+                            f"{sorted({r['row_status'] for r in cands})}")
         elif fresh:
             hits += 1   # against a fresh file, movement is legitimate; only a wall fails
         else:
@@ -208,12 +248,21 @@ def main() -> int:
     else:
         hits += 1
 
-    total = len(POSITIVE) + len(NEGATIVE) + 1
+    apiref = [r for r in rows if API_REFERENCE_FRAGMENT in src.get((r["subject"], r["source_repo"]), "")]
+    if not apiref:
+        failures.append(f"api-reference control missing: no row whose source_path carries {API_REFERENCE_FRAGMENT!r}")
+    elif any(r["row_status"] != "UNCHECKABLE:api-reference-not-a-path" for r in apiref):
+        failures.append("an API-reference provenance must read UNCHECKABLE:api-reference-not-a-path, got "
+                        + "; ".join(r["row_status"] for r in apiref))
+    else:
+        hits += 1
+
+    total = len(POSITIVE) + len(NEGATIVE) + 2
     print(f"unit fixtures  : {len(PATHS)} provenance shapes · {len(SHAS)} verification forms · "
           f"{len(PATH_CASES)} path cases ({kills} kill / {survivals} survival) · "
           f"{len(ROW_CASES)} row-precedence cases")
     print(f"real-slice     : {hits}/{total} controls correct ({len(POSITIVE)} positive, "
-          f"{len(NEGATIVE)} negative, 1 uncheckable"
+          f"{len(NEGATIVE)} negative, 1 uncheckable, 1 api-reference"
           f"{', snapshot-relative' if not fresh else ', fresh file — negatives checked for readability only'})"
           f" over {len(rows)} rows in {path}")
     for f in failures:

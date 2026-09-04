@@ -34,12 +34,18 @@ Row status vocabulary (one per row; `paths_checked` carries the per-path detail)
   SOURCE_MISSING_AT_VERIFICATION   a cited path did not exist at the SHA the row
                                    claims to have read it at — a provenance defect
   SOURCE_NOT_FOUND                 the path exists at neither point
-  UNCHECKABLE:<reason>             provenance that cannot be resolved (no path,
-                                   no SHA, SHA not in the source repository, …)
+  SOURCE_UNVERIFIED_CROSS_REPO     a path qualified with ANOTHER repository
+                                   (`fleet-manager docs/repos/x/README.md`) — the
+                                   row's SHA belongs to its source repository, so
+                                   that path has no verification point to compare
+  UNCHECKABLE:<reason>             provenance that cannot be resolved (no path, an
+                                   API reference, no SHA, SHA not in the source
+                                   repository, …)
   INACCESSIBLE:<reason>            an API wall — recorded, never classified
 
 Precedence when a row cites several paths: GONE > MOVED > MISSING_AT_VERIFICATION
-> NOT_FOUND > UNCHANGED, because the worst case is the one a `carry` must hear.
+> NOT_FOUND > UNVERIFIED_CROSS_REPO > UNCHANGED, because the worst case is the one
+a `carry` must hear, and a path nobody could compare is never reported unchanged.
 
 Usage
 -----
@@ -86,42 +92,85 @@ COLUMNS = [
 
 # --- provenance parsing ----------------------------------------------------------
 
-_PATH_TOKEN = re.compile(r"^[A-Za-z0-9_./@+\-]+$")
+_PATH_TOKEN = re.compile(r"^[A-Za-z0-9_./@\-]+$")
+_REPO_WORD = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._\-]*$")
+# An API reference, not a tree path: the git data API, a query string, or an
+# explicit `api` marker. Readers wrote `git/trees (harness/*)` and
+# `live API: pulls?state=open` as provenance; both name a live surface, and
+# neither is a path a tree can be asked for.
+_API_WORD = re.compile(r"(^git/|\?|^(live-?)?api\b|^releases\b|^pulls\b)", re.I)
 _PAREN = re.compile(r"\([^)]*\)")
 _HEX = re.compile(r"(?<![0-9A-Za-z])([0-9a-f]{7,40})(?![0-9A-Za-z])")
 _INSTANT = re.compile(r"\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}Z?)?")
 _CANON_VP = re.compile(r"^\s*[0-9a-f]{7,40}@\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}Z?)?\s*$")
 
 
-def paths_of(source_path: str) -> tuple[list[str], str]:
-    """Path tokens in a `source_path` cell, and the SHAPE of the cell.
+def _is_path(word: str) -> bool:
+    return bool(_PATH_TOKEN.match(word)) and ("/" in word or "." in word) \
+        and not word.lower().startswith("http") and not _API_WORD.search(word)
 
-    Readers wrote this field four ways on live data: one path; several joined
-    by `;` or `,`; a path followed by a parenthetical annotation (`docs/ESTATE.md
-    (cross-reference line)`); and pure narration (`(live PR list)`). Parenthetical
-    groups are stripped, the remainder split, and only tokens that look like a
-    repository path are kept. Anything dropped is reported in the shape, so a
-    reader can see that the cell was not a clean path even when a path was
+
+_PAREN_HINT = re.compile(r"(\S+)\s*\(([A-Za-z0-9][A-Za-z0-9._\-]*)\s*[,)]")
+
+
+def paths_of(source_path: str, census: set[str] | None = None) -> tuple[list[tuple[str | None, str]], str]:
+    """(repo hint, path) pairs in a `source_path` cell, and the SHAPE of the cell.
+
+    Readers wrote this field six ways on live data: one path; several joined by
+    `;`, `,` or ` + `; a path followed by a parenthetical annotation
+    (`docs/ESTATE.md (cross-reference line)`); a path qualified by the repository
+    that holds it (`fleet-manager docs/repos/superbot/README.md`); an API
+    reference that is not a tree path at all (`git/trees (harness/*)`,
+    `live API: pulls?state=open`); and pure narration (`(live PR list)`).
+
+    Parenthetical groups are stripped, the remainder split on the joiners, and
+    each piece read word by word: a path-shaped word is a path, and the word just
+    before it — when there is one and it is name-shaped — is kept as a repository
+    HINT; so is a name that opens a parenthetical right after a path
+    (`docs/repos/x/README.md (fleet-manager, which does say it)`). With `census`
+    given, a hint the census does not know is annotation, not a repository. API
+    words make the cell `api-reference` when no path survives, so an honest null
+    is not mistaken for a missing file. Anything dropped is reported in the
+    shape, so a reader can see the cell was not a clean path even when one was
     recovered from it.
     """
     raw = source_path or ""
+    paren_hints = {m.group(1).strip("`'\""): m.group(2) for m in _PAREN_HINT.finditer(raw)
+                   if _is_path(m.group(1).strip("`'\"")) and not _is_path(m.group(2))}
     stripped = _PAREN.sub(" ", raw)
     had_annotation = stripped != raw
-    paths, dropped = [], []
-    for tok in re.split(r"[;,]", stripped):
-        t = tok.strip().strip("`'\"")
-        if not t:
+    pairs: list[tuple[str | None, str]] = []
+    dropped, api = [], False
+    for tok in re.split(r"[;,]|\s\+\s", stripped):
+        words = [w.strip("`'\"") for w in tok.split()]
+        words = [w for w in words if w]
+        if not words:
             continue
-        if _PATH_TOKEN.match(t) and ("/" in t or "." in t) and not t.lower().startswith("http"):
-            paths.append(t)
-        else:
-            dropped.append(t)
-    if dropped:
+        consumed = set()
+        for i, w in enumerate(words):
+            if _API_WORD.search(w):
+                api = True
+                consumed.add(i)
+            elif _is_path(w):
+                hint = None
+                if i > 0 and (i - 1) not in consumed and _REPO_WORD.match(words[i - 1]) \
+                        and not _is_path(words[i - 1]) and "." not in words[i - 1]:
+                    hint = words[i - 1]
+                    consumed.add(i - 1)
+                hint = hint or paren_hints.get(w)
+                if census is not None and hint is not None and hint not in census:
+                    hint = None          # a word, not a repository: annotation
+                pairs.append((hint, w))
+                consumed.add(i)
+        dropped += [w for i, w in enumerate(words) if i not in consumed]
+    if dropped or api:
         had_annotation = True
-    if not paths:
-        return [], "narration"
-    shape = "path" if len(paths) == 1 else f"paths:{len(paths)}"
-    return paths, shape + ("+annotation" if had_annotation else "")
+    if not pairs:
+        return [], ("api-reference" if api else "narration")
+    shape = "path" if len(pairs) == 1 else f"paths:{len(pairs)}"
+    if any(h for h, _ in pairs):
+        shape += "+qualified"
+    return pairs, shape + ("+annotation" if had_annotation else "")
 
 
 def shas_of(verification_point: str) -> tuple[list[str], str]:
@@ -167,7 +216,8 @@ def classify_path(base_blob: str | None, tip_blob: str | None) -> str:
     return "UNCHANGED" if base_blob == tip_blob else "MOVED"
 
 
-_PRECEDENCE = ["GONE", "MOVED", "MISSING_AT_VERIFICATION", "NOT_FOUND", "UNCHANGED"]
+_PRECEDENCE = ["GONE", "MOVED", "MISSING_AT_VERIFICATION", "NOT_FOUND",
+               "UNVERIFIED_CROSS_REPO", "UNCHANGED"]
 
 
 def classify_row(path_statuses: list[str]) -> str:
@@ -283,13 +333,21 @@ def main() -> int:
         return 2
     try:
         census = set(json.load(open(args.classification, encoding="utf-8")))
-        rows_in = list(csv.DictReader(open(args.manifest, encoding="utf-8", newline="")))
+        reader = csv.DictReader(open(args.manifest, encoding="utf-8", newline=""))
+        rows_in = list(reader)
     except (OSError, ValueError) as exc:
         print(f"row_delta: cannot read inputs: {exc}", file=sys.stderr)
         return 2
+    # Validate the HEADER, not the first row: an empty or truncated manifest has
+    # no rows, and an instrument that wrote a header-only snapshot over the
+    # evidence at exit 0 would look like success (Codex, fm #1036).
     need = {"subject", "source_repo", "source_path", "verification_point"}
-    if rows_in and not need <= set(rows_in[0]):
-        print(f"row_delta: manifest lacks {sorted(need - set(rows_in[0]))}", file=sys.stderr)
+    have = set(reader.fieldnames or [])
+    if not need <= have:
+        print(f"row_delta: manifest lacks {sorted(need - have)} (header: {reader.fieldnames})", file=sys.stderr)
+        return 2
+    if not rows_in:
+        print("row_delta: manifest has a header and no rows — refusing to write an empty snapshot", file=sys.stderr)
         return 2
     delta: dict[str, dict] = {}
     if args.delta:
@@ -310,7 +368,7 @@ def main() -> int:
         if repo in delta:
             row["repo_delta_status"] = delta[repo].get("delta_status", "")
             row["repo_commits_since"] = delta[repo].get("commits_since", "")
-        paths, pshape = paths_of(r.get("source_path", ""))
+        paths, pshape = paths_of(r.get("source_path", ""), census)
         shas, vshape = shas_of(r.get("verification_point", ""))
         row["provenance_shape"], row["verification_shape"] = pshape, vshape
         notes: list[str] = []
@@ -324,7 +382,8 @@ def main() -> int:
             finish(f"UNCHECKABLE:source_repo-not-in-census ({repo or 'empty'})")
             continue
         if not paths:
-            finish("UNCHECKABLE:no-path-in-source_path")
+            finish("UNCHECKABLE:api-reference-not-a-path" if pshape.startswith("api-reference")
+                   else "UNCHECKABLE:no-path-in-source_path")
             continue
         if not shas:
             finish("UNCHECKABLE:no-sha-in-verification_point")
@@ -360,7 +419,16 @@ def main() -> int:
         row["sha_on_default_branch"] = gh.on_branch(repo, ver["sha"], tip["sha"])
 
         statuses, detail, wall = [], [], None
-        for p in paths:
+        for hint, p in paths:
+            if hint and hint != repo:
+                if hint in census:
+                    # The reader qualified this path with another repository. The
+                    # row's verification SHA is a commit of `repo`, not of `hint`, so
+                    # there is no point in `hint`'s history to compare against: name
+                    # that rather than compare the path at a SHA it never had.
+                    statuses.append("UNVERIFIED_CROSS_REPO")
+                    detail.append(f"{hint}:{p}=UNVERIFIED_CROSS_REPO")
+                    continue
             b, wb = gh.object_sha(repo, p, ver["sha"])
             t, wt = gh.object_sha(repo, p, tip["sha"])
             if wb or wt:

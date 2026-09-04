@@ -22,32 +22,37 @@
 
 ## 1 · The delta, re-run
 
-`MEASURED` 2026-09-04 ≈ 18:27Z — `delta.py` against the committed
-`anchors.tsv`, output retained as
+`MEASURED` 2026-09-04T19:02Z — `delta.py` against the committed `anchors.tsv`
+(run twice: at ≈18:27Z, and again at 19:02Z after the review round, because the
+estate moved in between), output of the second run retained as
 [`data/2026-09-04-estate-truth-baseline/delta-rerun-2026-09-04.tsv`](data/2026-09-04-estate-truth-baseline/delta-rerun-2026-09-04.tsv);
 `test_delta.py` over that file: 7 unit cases, 11 of 11 live controls readable,
 exit 0.
 
-**The moved set is unchanged from the handoff:** four repositories read
-`CHANGED_REAUDIT` — couch-legend, fleet-manager, spider-swing, substrate-kit —
-and the other twenty-four read exactly as the audit left them (9
-`ARCHIVED_OR_NONACTIVE`, 15 `UNCHANGED_REUSABLE`). Commits since the SHA each
-audit read: fleet-manager 16, couch-legend 3, substrate-kit 2, spider-swing 1
-(couch-legend took a fourth, `254531ba`, at 18:36:58Z — after this file was
-written and before the row-level snapshot in § 2 was taken, which is why the
-two committed files name different couch-legend tips).
+**The moved set grew by one during this session.** At ≈18:27Z four
+repositories read `CHANGED_REAUDIT` — the handoff's couch-legend, fleet-manager,
+spider-swing, substrate-kit. At 19:02Z **five** do: **spider-bot** joined when
+its AI-operations tranche merged (`5a7f8a2`, 18:42Z) and two deployment-record
+PRs followed. The other twenty-three read exactly as the audit left them (9
+`ARCHIVED_OR_NONACTIVE`, 14 `UNCHANGED_REUSABLE`). Commits since the SHA each
+audit read, at 19:02Z: spider-bot 27, fleet-manager 20, couch-legend 4,
+substrate-kit 2, spider-swing 1. The handoff said that if this set grew, the
+new repository's manifest rows were the first thing to re-check; § 2 does that
+with an instrument rather than a reading.
 
 What those commits touched, from `GET …/compare/{base}...{head}` per repository:
 
-| repo | commits | files | touches a file a surviving manifest row cites? |
+| repo | commits (first run → 19:02Z) | files at the first run | touches a file a surviving manifest row cites? |
 |---|--:|--:|---|
-| fleet-manager | 16 | 90 | **yes** — see § 2 |
-| couch-legend | 3 | 88 | no — `README.md` (the one surviving row's source) is not among them |
+| spider-bot | 0 → 27 | — | **yes** — every one of its six rows, one a survivor; see § 2 |
+| fleet-manager | 16 → 20 | 90 | **yes** — see § 2 |
+| couch-legend | 3 → 4 | 88 | no — `README.md` (the one surviving row's source) is not among them |
 | substrate-kit | 2 | 31 | no — `docs/NEXT-TASKS.md` is not among them |
 | spider-swing | 1 | 6 | no — `docs/current-state.md` is not among them |
 
 A repository-level delta says "re-audit"; the file-level answer for three of the
-four is "nothing this manifest relies on moved". That gap is the reason for § 2.
+five is "nothing this manifest relies on moved", and for the other two it is a
+list of files. That gap is the reason for § 2.
 
 ## 2 · What moved at ROW level — the instrument, and what it says
 
@@ -72,19 +77,26 @@ moved since 2026-07-27) and 1 uncheckable control. **8 of 8 controls correct,
 exit 0** against the committed snapshot. The three satellite negatives are the
 discriminating case: their repositories moved, their files did not.
 
-**The snapshot.** `MEASURED` 2026-09-04T18:38Z, 331 API calls, exit 0 —
+**The snapshot.** `MEASURED` 2026-09-04T18:59Z — fleet-manager tip `e7e7c0e`,
+spider-bot tip `25cd1a1`; the delta re-run three minutes later saw one more
+commit on each, which is the estate moving, not a disagreement — 337 API calls,
+exit 0 —
 [`data/2026-09-04-estate-truth-baseline/row-delta.tsv`](data/2026-09-04-estate-truth-baseline/row-delta.tsv),
 183 rows. Read from the file with `csv.DictReader`:
 
 | | all 183 rows | the 119 survivors |
 |---|--:|--:|
-| `SOURCE_UNCHANGED` | 130 | **99** |
-| `SOURCE_MOVED` | 19 | **17** |
-| `SOURCE_NOT_FOUND` | 1 | 0 |
-| `UNCHECKABLE` | 33 | **3** |
+| `SOURCE_UNCHANGED` | 125 | **98** |
+| `SOURCE_MOVED` | 25 | **18** |
+| `SOURCE_UNVERIFIED_CROSS_REPO` | 2 | 0 |
+| `UNCHECKABLE` | 31 | **3** |
 
-**The 17 survivors whose source moved are all fleet-manager rows**, and the
-files behind them are ten:
+**Of the 18 survivors whose source moved, 17 are fleet-manager rows and one is
+spider-bot's** — *Railway build system is RAILPACK, not NIXPACKS* (`distill`,
+`.railway/railway.ts`, rewritten by the AI-operations tranche; the distillation
+must be redone from the live file). spider-bot's five killed rows moved too
+(`README.md`, `CLAUDE.md`, `docs/extraction-ledger.md`). The fleet-manager files
+behind the other 17 are ten:
 
 `docs/current-state.md` · `docs/ESTATE.md` · `docs/decisions.md` ·
 `docs/owner-queue.md` · `docs/CAPABILITIES.md` · `docs/traps.md` ·
@@ -94,7 +106,7 @@ files behind them are ten:
 
 By disposition: 6 `archive_only` (the copy in the archive would be of an older
 version — acceptable by that verb's own meaning, and the seed should copy at
-seed time, not from the audit), 9 `distill` (the distillation must be written
+seed time, not from the audit), 10 `distill` (the distillation must be written
 from the live file, which is what `distill` already means), and **2 `carry`**,
 which are the ones that matter:
 
@@ -117,14 +129,25 @@ baseline's § 12 item 10:
 | *Cross-repo dependency: Android release signing* (fleet-manager, MEASURED-PRIOR) | `live-api@2026-09-04 (…)` — an instant with no commit |
 | *sim-lab's canonical entry points are README.md + CONVENTIONS* (fleet-manager, MEASURED) | `local-read@2026-09-04` — an instant with no commit |
 
-The 30 uncheckable killed rows split 17 with no path in `source_path` — 9 the
-disposition judges' synthesised `(killed before a source was recorded)` and 8
-readers' narration (`(live PR list)`, `live API: pulls?state=open`,
-`releases API (tag …)`, `docs/repos/ (absence) + …`) — and 13 with no SHA in
-`verification_point` (`live-api@…`, `live-file@…`, `live-repo-tree@…`,
-`local-read@…`). The one `SOURCE_NOT_FOUND` is a killed sim-lab row whose
-`source_path` reads `git/trees`. Counted from the snapshot joined to the
-manifest on (subject, source_repo).
+All three are rows a satellite's reading emitted about a hub file — the same
+rows whose `canonical_state_source` § 3's re-keying corrected.
+
+The 28 uncheckable killed rows split 10 with no path in `source_path` — 9 the
+disposition judges' synthesised `(killed before a source was recorded)` and one
+reader's `(live PR list)` — 14 with no SHA in `verification_point`
+(`live-api@…`, `live-file@…`, `live-repo-tree@…`, `local-read@…`), and **4 API
+references named as such** (`git/trees (harness/*)`, `live API:
+pulls?state=open`, `live-api:pulls?state=open`, `releases API (tag …)`). The
+two `SOURCE_UNVERIFIED_CROSS_REPO` rows cite a second path qualified with
+`fleet-manager`; the row's SHA belongs to its own repository, so that path has
+no verification point to compare and is named rather than compared at a SHA it
+never had. **The first cut of the parser got seven of these wrong** — it read
+three `+`-joined cells as narration, the four API references as narration or,
+for `git/trees`, as a file not found — and Codex round 1 caught it; the parser
+now splits on ` + `, honours a repository named before a path or as the first
+word of the parenthetical after it (only when the census knows the name), and
+names API references. Counted from the snapshot joined to the manifest on
+(subject, source_repo).
 
 **A fact about the survivors' verification points the audit did not state.**
 `sha_on_default_branch` is `no` for **84 of 119 survivors**: their SHAs
@@ -145,9 +168,15 @@ step with the re-read of the three uncheckable rows.
 
 Added to `build_manifest.py::COLUMNS`, last, so the 22 pre-existing columns
 keep their positions. Stamped per row from the `canonical_state_source` field of
-the reading that audited the row's `source_repo` (13 repositories), and for
-fleet-manager — which was read by five area lanes that record no such field —
-from the file that declares itself the ledger: `docs/current-state.md` opens
+the reading that **produced** the row — its origin lane — never from its
+`source_repo`: a repository reading that cites a hub file leaves `source_repo ==
+fleet-manager` while the truth is the satellite's. The first cut keyed on
+`source_repo` and stamped the hub ledger on 12 of 183 rows (Codex round 1);
+8 of the 12 were masked because both ledgers happen to be named
+`docs/current-state.md`, and 4 changed value on the fix (two substrate-kit rows
+→ `control/status.md`, one estate-backups row, one shiftlife row). Area lanes
+are the hub's own reading, and for fleet-manager — read by five area lanes that
+record no such field — the value is the file that declares itself the ledger: `docs/current-state.md` opens
 with `Status: living-ledger` and *"It carries live hub state"*, and the boot
 file's deep read path calls it *"the living ledger"*. The constant and its
 citation are in the generator, not in prose here.
@@ -162,8 +191,9 @@ are the readers' verbatim text — `docs/current-state.md` plain for 5 repositor
 `docs/repos/estate-backups/README.md (in fleet-manager; …)` for estate-backups,
 and annotated `current-state.md` pointers for 4 (idea-engine, shiftlife, superbot, superbot-next) —
 5 + 2 + 1 + 1 + 4 = 13 readings. (An earlier draft said "eight" plain, a tally error.) Fixture: `test_manifest.py` asserts the column, its
-value for a reading that names one, and the empty cell for a reading that does
-not.
+value for a reading that names one, the empty cell for a reading that does not,
+and — with a fixture ledger the hub cannot share (`STATUS.md`) — that a row a
+reading emitted about a hub file carries the reading's ledger.
 
 ## 4 · The overclaim schema — a consumer, and the residual decomposed
 
@@ -177,9 +207,14 @@ form, and the builder still applies it exactly as before — 10 rows):
    joins them **exactly** on the case-folded subject within the audited reading —
    no threshold, no heuristic — publishing the refuter's reason in `blocker` as
    `adversary (by subject): …`. The module docstring states the required shape.
-   Fixture: the aggregation journal now carries one subject-form overclaim on a
-   `MEASURED` item (killed through the rule's overclaim branch, asserted) and one
-   free-text flag that names nothing (counted, never applied, asserted).
+   An object with a missing or blank subject — the schema defect the object form
+   exists to expose — is counted and printed as malformed, and the builder
+   refuses success over it unless `--allow-partial` is passed (the first cut
+   dropped it silently; Codex round 1). Fixture: the aggregation journal carries
+   one subject-form overclaim on a `MEASURED` item (killed through the rule's
+   overclaim branch, asserted), one free-text flag that names nothing (counted,
+   never applied, asserted), and one object with no subject (counted, and the
+   strict build refused, both asserted).
 2. **"63 of 73" was two numbers.** The builder now prints the split, read from
    the same data: **59 flags reach no row** by any join — the schema defect —
    and **4 reach only rows whose certainty is not `MEASURED`/`OWNER`**, where the
@@ -195,6 +230,9 @@ field earlier.
 
 ## 5 · What this leaves for the seed session, exactly
 
+- **Re-read spider-bot's six rows** — its repository took 27 commits after the
+  audit (the AI-operations tranche) and every row it contributed cites a file
+  that changed; the one survivor is a `distill` of `.railway/railway.ts`.
 - **Re-read the three uncheckable survivors** (§ 2) with a path and a commit
   each; regenerate.
 - **Re-anchor the 84 PR-branch verification points** to `049b112` where the
@@ -216,13 +254,13 @@ Every command below was run at the head this record was written at; exit codes
 are the process's own, never read after a pipe.
 
 ```
-python3 tools/estate_baseline/delta.py --anchors docs/findings/data/2026-09-04-estate-truth-baseline/anchors.tsv --out <tsv>   → exit 0, 28 rows
+python3 tools/estate_baseline/delta.py --anchors docs/findings/data/2026-09-04-estate-truth-baseline/anchors.tsv --out <tsv>   → exit 0, 28 rows, 5 CHANGED_REAUDIT at 19:02Z
 python3 tools/estate_baseline/test_delta.py <that tsv>                                                                    → exit 0, 11/11
 python3 tools/estate_baseline/build_manifest.py --journal run1 --journal run2 --journal run3-repos --classification … --out docs/planning/2026-09-04-estate-seed-manifest.csv
                                                                                                                           → exit 0, 183 rows, 119 / 64
-python3 tools/estate_baseline/row_delta.py --manifest … --classification … --delta <tsv> --out data/…/row-delta.tsv        → exit 0, 331 calls
-python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, 8/8
-python3 tools/estate_baseline/test_manifest.py                                                                            → exit 0, 4 cases
+python3 tools/estate_baseline/row_delta.py --manifest … --classification … --delta <tsv> --out data/…/row-delta.tsv        → exit 0, 337 calls, 98 / 18 / 3 over the 119 survivors
+python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, 9/9 live controls, 17 provenance shapes
+python3 tools/estate_baseline/test_manifest.py                                                                            → exit 0, 4 cases; the strict build refused over the malformed object
 python3 tools/estate_baseline/seed_rule.py                                                                                → exit 0, 0 unread / 0 undefined, 14 fixtures
 ```
 

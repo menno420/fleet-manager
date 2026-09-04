@@ -69,7 +69,14 @@ OVERCLAIM_BRANCH = "an adversary showed the MEASURED tag is not earned"
 # The reading names its canonical ledger; the manifest must carry it per row so a
 # consumer of the CSV alone can tell the ledger from whichever file supplied a
 # claim (finding § 7, § 12 item 11b). `other-repo`'s reading names none.
-STATE_SOURCE = {"demo": "docs/current-state.md", "other-repo": ""}
+STATE_SOURCE = {"demo": "STATUS.md", "other-repo": ""}
+
+# A repository reading that cites a HUB file leaves source_repo == "fleet-manager";
+# the column must still carry the AUDITED repository's ledger, because the row's
+# truth belongs to it. Keying on source_repo stamped the hub ledger on 12 of 183
+# committed rows and the error was masked wherever both ledgers were named
+# docs/current-state.md — so the fixture gives demo a ledger the hub cannot share.
+CROSS_SOURCE = ("Cross-source hub citation", "fleet-manager", "STATUS.md")
 
 
 def main() -> int:
@@ -87,7 +94,19 @@ def main() -> int:
             return 1
         rows = list(csv.DictReader(out.open(encoding="utf-8")))
 
+    # Without --allow-partial the same journal must be REFUSED: it carries a
+    # malformed dissent, and reporting success over one is the drop this test exists for.
+    strict = subprocess.run(
+        [sys.executable, str(HERE / "build_manifest.py"), "--journal", str(FIXTURE),
+         "--classification", str(REPO / "docs/findings/data/2026-09-04-estate-truth-baseline/classification.json"),
+         "--out", str(pathlib.Path(tempfile.gettempdir()) / "manifest-strict-probe.csv")],
+        capture_output=True, text=True, cwd=REPO)
+
     bad = []
+    if strict.returncode == 0:
+        bad.append("the builder reported success over a journal carrying a malformed overclaim object")
+    elif "malformed dissent" not in strict.stderr:
+        bad.append(f"the refusal must name the malformed dissent, got stderr {strict.stderr[-200:]!r}")
     for subject, want in EXPECTED.items():
         cands = [r for r in rows if r["subject"] == subject and r["source_repo"] != "other-repo"]
         got = cands[0]["survives"] if cands else None
@@ -125,6 +144,18 @@ def main() -> int:
             got = sorted({r["canonical_state_source"] for r in rows if r["source_repo"] == repo})
             if got != [want]:
                 bad.append(f"canonical_state_source for {repo}: {got}, expected [{want!r}]")
+    subj, srepo, want_src = CROSS_SOURCE
+    xs = [r for r in rows if r["subject"] == subj]
+    if not xs:
+        bad.append("cross-source case missing from output")
+    elif xs[0]["source_repo"] != srepo:
+        bad.append(f"cross-source case: source_repo {xs[0]['source_repo']!r}, expected {srepo!r}")
+    elif xs[0]["canonical_state_source"] != want_src:
+        bad.append(f"a row produced by demo's reading must carry demo's ledger {want_src!r}, "
+                   f"got {xs[0]['canonical_state_source']!r} (keyed by source_repo, not by the audited reading)")
+    if proc.stdout and "1 malformed object(s) with no subject" not in proc.stdout:
+        bad.append("the builder must count an overclaim object that has no subject, never drop it "
+                   f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")
     if proc.stdout and "1 reach no row" not in proc.stdout:
         bad.append("the builder must count the free-text flag that reaches no row "
                    f"(stdout: {[l for l in proc.stdout.splitlines() if 'overclaims' in l]})")
