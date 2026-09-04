@@ -1,21 +1,26 @@
 # 2026-09-04 — the `estate` seed's own prerequisites: row-level source drift, a provenance validator, the canonical-state column
 
-> **Status:** `in-progress` — **What is about to happen:** the merged estate truth
-> baseline (fm #1020, verdict `PARTIAL`) is re-read at HEAD and the seed-time
-> requirements its § 11/§ 12 name are worked inside fleet-manager — not the
-> seed itself (gated on the kit release cut, [D-0025] + the build order), not
-> substrate-kit (another session's K1–K5), not E1 (the program's NOW pointer,
-> the owner's). First step, already run: the delta against `anchors.tsv`; the
-> moved set is the same four repositories the handoff named (couch-legend,
-> fleet-manager, spider-swing, substrate-kit) — and by 19:02Z a fifth,
-> spider-bot, had joined it (finding § 1). Next: a row-level instrument
-> that says for each manifest row whether the FILE it cites moved since the SHA
-> it was verified at (the handoff's "every carry row's source SHA" re-check,
-> made mechanical), which doubles as the path/instant provenance validator
-> § 12 item 10 says is missing; the `canonical_state_source` column § 12 item
-> 11b names as a seed-time requirement, added through the generator and the
-> manifest REGENERATED; the refute lane's overclaim schema given a consumer
-> that joins on a named subject (§ 12 item 11).
+> **Status:** `complete` — landed on green via the server-side lander after this flip.
+> **Reviewed SHA `90bbeb7`** (Codex round 3 of 3, 4 findings, all fixed); **after it,
+> `55abe0b`** (the round-3 fixes, verified without Codex — the suites re-run at exit 0
+> and a free-key Gemini pass reading F1–F4 FIXED, no new defects) **and this flip**,
+> which changes the badge and this card's close-out text and nothing reviewable. Real
+> exit code of `python3 bootstrap.py check --strict --added-card <this card>` before
+> the flip: **1**, sole findings this card's own born-red hold; after the flip: **0**.
+> **What was:** the merged estate truth baseline (fm #1020, verdict `PARTIAL`) re-read
+> at HEAD and the seed-time requirements its § 11/§ 12 name worked inside fleet-manager
+> — not the seed itself (gated on the kit release cut, decision 25 in `docs/decisions.md`
+> + the build order), not substrate-kit (another session's K1–K5), not E1 (the program's
+> NOW pointer, the owner's). The delta re-run first: the handoff's four moved repositories
+> (couch-legend, fleet-manager, spider-swing, substrate-kit), joined by a fifth —
+> spider-bot — at 19:02Z (finding § 1). Then a row-level instrument that says, for each
+> manifest row, whether the FILE it cites moved since the SHA it was verified at (the
+> handoff's "every carry row's source SHA" re-check made mechanical, doubling as the
+> path/instant provenance validator § 12 item 10 lacked); the `canonical_state_source`
+> column § 12 item 11b named, added through the generator with the manifest REGENERATED;
+> a consumer for the subject-bearing overclaim schema (§ 12 item 11). Three Codex rounds
+> — 5 · 5 · 4 findings, all fourteen conceded and fixed — each found the previous round's
+> fixes one case short.
 
 - **📊 Model:** withheld · xhigh · feature build
 - **⚑ Model-slot note:** this session carries an instruction against a model
