@@ -204,5 +204,8 @@ Recorded so the absence reads as a decision rather than an oversight:
   are kept, demoted to rendering stability, in
   [`08-verification.md`](08-verification.md) § 0.
 - **The first slice.** Determined by the measurements: navigation and
-  first-run access, because both bots independently lose the setup journey to
-  the navigation graph. It is a finding, not a choice.
+  first-run access. `superbot` reaches setup only through an ephemeral
+  out-of-graph launcher message with no route back into the help graph;
+  `superbot-next` reaches 39 of its 40 setup panels not at all. Two different
+  failures, one root — **setup was never a first-class destination in either
+  route graph.** It is a finding, not a choice.

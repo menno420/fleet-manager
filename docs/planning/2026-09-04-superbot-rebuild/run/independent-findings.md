@@ -462,13 +462,29 @@ concentrated in the operator surface:
 
 `setup` at 39 of 40 is the one that matters most: **first-run onboarding is the
 single most important operator journey, and 39 of its 40 panels cannot be reached
-from any declared entry point.** That is the same shape the pilot found
-independently in `superbot` — where `"setup"` appears zero times as a key in
-`subsystem_registry.py`, so the Help dropdown can never reach it, and every
-operator-tier command is exempt from the per-command reachability guard by
-construction. **Both bots lose the setup journey to the navigation graph, for
-different reasons.** A successor that fixes only one of those two mechanisms
-still ships a bot whose owner cannot find setup.
+from any declared entry point.**
+
+**And `superbot` fails the same journey differently — the difference matters, and
+a first cut of this paragraph flattened it.** `superbot` *does* have a first-run
+entry: `disbot/views/setup/launcher.py`'s `SetupLauncherView` carries seven
+buttons including `_start`, `_repost_launcher` and `_dismiss`, posted on join with
+a DM-the-owner fallback when no channel can be made. So setup is reachable — **from
+a posted message, not from the navigation graph.** Once that message is dismissed,
+cleaned up, or simply old, there is no route back: `"setup"` is not one of the 43
+`SUBSYSTEMS` keys (AST-checked, with `moderation` as the positive control), so the
+Help dropdown can never list it; `_AdminPanelView` carries 15 `@button` methods and
+none is Setup; and `check_command_reachability.py:372` exempts every
+operator/owner-tier command from the guard by construction, so nothing would ever
+have flagged it. **The `_repost_launcher` button is the tell** — someone met this,
+and the fix that shipped was a way to re-post the message rather than a route to
+the flow.
+
+So the honest form is not *"both bots lose setup"*. It is: **`superbot` reaches
+setup only through an ephemeral out-of-graph message, and `superbot-next` reaches
+39 of its 40 setup panels not at all.** Two different failures with one root —
+**setup was never a first-class destination in either route graph** — and a
+successor that fixes only one of the two mechanisms still ships a bot whose owner
+cannot find setup after the first day.
 
 ### Honest nulls, and the first is load-bearing
 
