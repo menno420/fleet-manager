@@ -56,6 +56,37 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
+- **`OQ-SUPERBOT-SUCCESSOR-SCOPE` 🟡 OPEN — one question decides the successor's
+  size; the other five have defaults the work can proceed under.** (added
+  2026-09-04, the SuperBot rebuild review.) The full statement of each, with the
+  evidence behind it and the default this plan proceeds on if you say nothing,
+  is [`planning/2026-09-04-superbot-rebuild/12-owner-decisions.md`](planning/2026-09-04-superbot-rebuild/12-owner-decisions.md).
+  **The one that is genuinely blocking design-lock is the first:**
+  **(A) One server, or many?** Is the successor a tool for *your* server, or a
+  product other servers install? Both readings are consistent with everything
+  you have said on record. It is not a question about ambition — it decides
+  whether the whole ~40-panel per-guild setup surface exists at all, which is
+  the single largest simplification available anywhere in the plan.
+  *Default if unanswered:* **many servers, one guild at a time** — chosen on
+  asymmetric cost (per-guild scoping is cheap to build in and expensive to
+  retrofit), not on a guess about scale. A one-sentence answer either way is
+  worth more here than anything else you could give this plan.
+  **(B) Does the successor promise to replace the live bot?** *Default: no —
+  it coexists, and the live bot is never a migration deadline.*
+  **(C) Third repository, or grow `spider-bot`?** *Default: a third repository;
+  your 2026-09-04 statement narrowed `spider-bot` to the Slingy Spider AI
+  operations bot, which is a different product.*
+  **(D) The middle feature set** — starboard, karma, tickets, counting,
+  logging. *Default: optional modules, off by default, none in slice one.*
+  **(E) Import nothing?** *Default: yes — no production data migration, ever,
+  in any slice.*
+  **(F) AI authority on day one?** *Default: AI proposes, deterministic code
+  decides, from the first commit — the pipeline your 2026-09-04 spider-bot
+  decision already describes.*
+  **VERIFY:** an answer to (A) is enough to unblock design-lock; the other five
+  can ride along or be left on their defaults. Nothing here needs a click — it
+  is six sentences at most.
+
 - **`OQ-FM-FRESH-START-CONFIRMS` ✅ FULLY ANSWERED 2026-08-30 — all three words
   given; nothing owed.** The name landed later the same day as [D-0026]:
   **`estate`**, on his own weighing plus his assent to the recommendation. (added 2026-08-30, the redirect sitting; answered the
