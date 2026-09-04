@@ -84,6 +84,43 @@ copy product architecture or internal product state. Canonical intent:
   Corrected 2026-09-04 (fm #1020) against the program's NOW pointer and the
   queue entry, both of which already said ANSWERED. The withdrawal it describes
   is real history and is kept: a
+- **The accepted `estate` build order's step 2 is DONE: substrate-kit K1–K5 are merged, unreleased
+  (2026-09-04).** [kit #590](https://github.com/menno420/substrate-kit/pull/590),
+  squash-merged `8a83c733eded4af06281dcbe1d01f05d3da98a94`. Built as **one
+  reusable adoption profile** (`bootstrap.py adopt --profile hub`) rather than
+  five conditionals, so `upgrade`/`render` honour it with no second
+  orchestration path. `main` was re-verified after the merge rather than
+  trusted from the PR's green: 2,277 passed / 1 skipped, dist byte-pin exit 0,
+  and a hub adoption driven through **`main`'s own artifact** into an empty git
+  repo produced the tree K1–K5 specify — no `control/`, no `docs/`, a visible
+  `sessions/`, the ledger gitignored and capped, the owner-context pointer
+  slot present. Existing adopters are unchanged by construction: `default`
+  omits and overrides nothing, and a config predating the change loads as
+  `default`. **Deferred and named, not left to be found:** the hub has no skill
+  pack (26 advisories over 8 paths — they are the change *working*, since those
+  paths previously passed silently as grounded-by-construction; the fix is the
+  skills channel, which the build order defers), and the kit's doctrine prose
+  is *reported* rather than forked per shape. Cost, for calibration: three
+  Codex rounds (the per-PR review cap) returned 21 findings, an independent
+  43-agent adversarial pass returned 37 of which 14 survived refutation, and 40
+  mutants were applied with 40 killed. Full thread, including the two latent
+  defects (telemetry containment parsed rather than resolved; an upgrade
+  refusal that fired only after writes had begun):
+  [`repos/substrate-kit/README.md`](repos/substrate-kit/README.md)
+  § *Thread: K1–K5*.
+  **NOT released, and not this session's call:** his *"cut when the next fix
+  batch lands"* sequences the charter rewrite and the doc-surface sweep first
+  — neither has landed — and `OQ-KIT-V1-21-RELEASE`'s adopter half is open.
+  What waits for that cut, measured rather than recalled: kit `main` is **10 commits ahead of the
+  `v1.21.0` tag** (`GET /compare/v1.21.0...main`, 2026-09-04) — five records/
+  registry-regen commits (#582–#586) and five substantive PRs: #587, #588,
+  #589, #590, #591. An earlier draft of this line said "three", which was the
+  two named in the 2026-08-28 record plus mine; it undercounted because it was
+  composed rather than measured.
+  **The next executable step on this track is that order's step 3** — the seed-set
+  folder READMEs and the migration manifest — then the thin `estate` seed and
+  the blind cold test. The seed is NOT this step.
+- **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
   repository choice — which is why the 08-28 answer was verified against the
@@ -100,6 +137,41 @@ copy product architecture or internal product state. Canonical intent:
   this hub** ([back-link audit](findings/2026-08-23-front-door-audit.md)), which
   is a real return-path gap but **does not size D2** — presence is not truth.
   This is orientation work, so **OD-13** is satisfied rather than overridden.
+- **Spider Bot has a purpose, from him, and it is newer than every record here
+  (2026-09-04, fm #1021 + spider-bot #3 + spider-swing #181).** *"Spider Bot
+  exists to manage the Slingy Spider server and help during testing of the game.
+  It should become a reliable automoderator with heavy AI integration. People
+  should be able to talk naturally to it for guidance, complaints, bugs,
+  feedback and improvement ideas. Those reports should become durable, easy for
+  the developer to find and act on — preferably through GitHub or an equally
+  clear developer-facing system."* That closes the four ❓ slots
+  [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) had carried as
+  *"DRAFT, awaiting his words"* since 2026-08-28, closes
+  **`OQ-GCB-REVIEW-SCOPE`** (open since 2026-08-23), and **narrows** the
+  [game-community-bot plan](planning/2026-08-21-game-community-bot/README.md)
+  out of its multi-game breadth. The four rules it generates are
+  the rules stamped at [`repos/spider-bot/README.md`](repos/spider-bot/README.md),
+  the sharpest being that *heavy AI integration* means the AI
+  supplies **judgement** while deterministic code supplies **authority** —
+  spider-bot's invariant 5 refined, never deleted.
+  **Implemented the same session, all of it OFF on arrival:** one intake service
+  behind every entry point including conversational filing · durable report
+  storage · idempotent GitHub projection into `spider-swing` ·
+  deterministic-first privacy classification · the AI moderation pipeline with
+  shadow mode, a data-driven policy table and one case model · a run-evidence
+  reader · and a **versioned cross-repo support feed**, producer in
+  `spider-swing` (fail-closed in both its required checks) and consumer in the
+  bot. spider-bot went 246 → 539 tests.
+  **Three counts in this repo's own records were wrong and are corrected:**
+  spider-bot had **20 commits, not 5**; **246 tests, not 78**; and the `/home`
+  panel the Layer-2 entry point still listed as a *candidate* had shipped
+  eleven days earlier.
+  **`MEASURED` and worth carrying past this session:** backslash-escaping does
+  **not** neutralise `@mentions` or `#refs` in a GitHub issue body — `\@name`
+  still renders as a live user-mention. Verified against GitHub's own stateless
+  renderer (`POST /markdown`) with four positive controls; a zero-width space
+  does neutralise all four. The obvious mitigation is the one that silently
+  fails.
 - **The next Discord bot's shape is set (OD-19):** a small, review-oriented
   game-server bot **first**, built cog-portable so existing cogs can be added or
   lightly adapted — and **the bots stay separated**. Repository consolidation of
@@ -110,6 +182,16 @@ copy product architecture or internal product state. Canonical intent:
   [`repos/spider-bot/`](repos/spider-bot/README.md)). `OQ-GCB-REVIEW-SCOPE`
   (the review-loop letters) stays open, now as spider-bot's next-phase
   direction.
+  **UPDATE 2026-09-04: the SuperBot successor has an evidence-backed plan, a
+  separate thread from spider-bot** —
+  [`planning/2026-09-04-superbot-rebuild/`](planning/2026-09-04-superbot-rebuild/00-README.md),
+  read-only on both repos, **superseding the comparative and architectural
+  halves of the 2026-08-21 plan.** Verdict `PARTIAL — EVIDENCE GAPS`: the gaps
+  block design-lock, not the first slice. The two bots failed **differently** —
+  debt from non-local feature cost, versus instruments pointed at models — and a
+  successor avoiding one fails the other. Open: `OQ-SUPERBOT-SUCCESSOR-SCOPE`
+  (A), one server or many. **Nothing in `superbot`, its Railway worker, its
+  Postgres or any Discord surface was touched.**
 - **Cross-session visibility now has a surface: [`activity/`](activity/README.md)**
   (2026-08-26, fm #947). Owner ask: *"how well does a cloud session understand
   what the local sessions have been doing?"* `MEASURED` answer: barely — in the
@@ -354,54 +436,15 @@ copy product architecture or internal product state. Canonical intent:
   it can be seeded** (2026-09-04, fm #1020). The fresh-start sequence's **step
   2**, and the **migration manifest** the build order names as a prerequisite:
   [the finding](findings/2026-09-04-estate-truth-baseline.md) ·
-  [the manifest](planning/2026-09-04-estate-seed-manifest.csv) (183 rows,
-  generated) · `tools/estate_baseline/` (the reproducible delta, the survival
-  rule, the builder, three fixture suites).
-  **Census: 28 repositories**, live-reconciled against `ESTATE.md`, each with one
-  disposition. **The manifest's own counts are deliberately not repeated here** —
-  they changed four times as the external round landed, and a total copied into a
-  front door is a total that goes stale in a front door. `python3
-  tools/estate_baseline/build_manifest.py` prints them; the finding's § 8 carries
-  them with their provenance.
-  **The finding that changes the plan:** of the five repositories whose trees did
-  **not** move, only one is reusable — the rest anchor to a disposition table
-  whose own header disclaims internal state. *Zero commits proves the source did
-  not move; it cannot make evidence reusable that never asked the question.*
-  **Verdict `PARTIAL`, deliberately** — three independent critics returned
-  PARTIAL/BLOCKED/BLOCKED with eleven P1s, **every one correct**, including that
-  the finding's own § 8 described a manifest that no longer existed and that the
-  aggregation had lost 19 of 44 adversary drops (the 2026-08-29 defect,
-  reproduced by the run built to prevent it). All fixed and re-measured; the
-  residue is disclosed. **Four defects in this file and `ESTATE.md` were found
-  and fixed on the way** — including that this file never said the repository is
-  being replaced.
-
-- **The estate activity log — a cloud session can now see what ran on the
-  laptop** (2026-08-26, fm #947). `docs/activity/` + `tools/estate_activity.py`,
-  wired into the boot table, `MAP.md`, `README.md`, the card protocol, the
-  session-close skill and two doc-routes. Measurement:
-  [`findings/2026-08-26-cross-session-visibility.md`](findings/2026-08-26-cross-session-visibility.md).
-  **Three gaps, three fixes:** no aggregation (the cards existed and were
-  unreachable from the router whose job is routing) · no venue on any card ·
-  and work outside every repository leaving nothing at all, which is what his
-  question was actually about. **`@codex` returned 46 findings over five rounds —
-  35 `[conceded]`, 1 `[partial]`, 10 `[survived]`** (the survivors all
-  re-emissions of fixes already in the tree). Three were P1, two were arithmetic
-  in this very entry (the reachable split was 43/31 and is 54/20; the card
-  baseline counted the directory README), and the sharpest pair **contradicted
-  each other on one predicate** — an open born-red PR must not report itself as
-  unexplained movement, and must not excuse every other push either. Rounds 3
-  and 4 then found the same three bugs twice in a second near-parallel code
-  path, so that path was **removed rather than patched**. **`creator-kit` registered the same
-  PR** —
-  created 2026-08-25, absent from an index whose header promised *"every
-  repository the account holds"*; the baseline was 27 and the account held 28.
-  **Four non-archived repositories still have no card protocol**, so no session
-  in them can ever appear in the derived lane — `curious-research`, `estate-backups`,
-  `spider-bot`, `superbot-plugin-hello`; `spider-bot` is the notable one, live
-  in production with **20 commits** in two days and no `.sessions/` at all
-  (corrected 2026-08-26 after merge; the figure first published here was *8*,
-  which was the requested page size, not a count).
+  [the manifest](planning/2026-09-04-estate-seed-manifest.csv) ·
+  `tools/estate_baseline/`. **Census: 28 repositories**, each with one
+  disposition. Counts live in the finding, not here.
+  **What changes the plan:** of the five repositories whose trees did **not**
+  move, only one is reusable — *zero commits proves the source did not move; it
+  cannot make evidence reusable that never asked the question.*
+  **Verdict `PARTIAL`, deliberately** — three internal critics and three Codex
+  rounds (9 · 6 · 5, all conceded) found real defects, twice against its own
+  earlier fixes. **Four defects here and in `ESTATE.md` were fixed on the way.**
 
 - **Owner direction captured — and the session's own D2 conclusion withdrawn on
   review** (2026-08-23, fm #937). He asked for oversight into the active projects

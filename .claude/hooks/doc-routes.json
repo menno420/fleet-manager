@@ -1102,7 +1102,7 @@
       "docs": [
         "docs/traps.md"
       ],
-      "says": "TRAP-006 (card lifecycle) — a session card's Status is a merge control, not paperwork. Commit it `in-progress` as the FIRST commit and push it red; flip to `complete` as the deliberate LAST commit, after review has answered. A card that reaches the remote already complete opens the PR green and it auto-merges unreviewed (fm #915: 37 seconds, 0 reviews). If a review is outstanding, apply do-not-automerge BEFORE PUSHING THE COMPLETED CARD — the push, not the request, is the merge-eligibility event. Register: docs/traps.md TRAP-006 + TRAP-007. ALSO TRAP-007 (the neighbour this route did not name): the other losing flip is flipping to complete while a review you REQUESTED is still unanswered. The lander sees card=complete + gate=green and cannot see a pending re-review, so it merges the head it has and later findings land against a PR that no longer exists. MEASURED 2026-08-23 fm #937: merged at 775f1c8; the round-2 commits 4a80bf6/4ea3962 reached main in neither, so main carried five known-wrong statements. Before flipping, confirm the verdict exists AT THE CURRENT HEAD on BOTH surfaces (/pulls/{n}/reviews AND /issues/{n}/comments — a clean pass creates no review object). If you re-request after flipping, apply do-not-automerge BEFORE pushing the request.",
+      "says": "TRAP-006 (card lifecycle) — a session card's Status is a merge control, not paperwork. Commit it `in-progress` as the FIRST commit and push it red; flip to `complete` as the deliberate LAST commit, after review has answered. A card that reaches the remote already complete opens the PR green and it auto-merges unreviewed (fm #915: 37 seconds, 0 reviews). If a review is outstanding, apply do-not-automerge BEFORE PUSHING THE COMPLETED CARD — the push, not the request, is the merge-eligibility event. Register: docs/traps.md TRAP-006 + TRAP-007. ALSO TRAP-007 (the neighbour this route did not name): the other losing flip is flipping to complete while a review you REQUESTED is still unanswered. The lander sees card=complete + gate=green and cannot see a pending re-review, so it merges the head it has and later findings land against a PR that no longer exists. MEASURED 2026-08-23 fm #937: merged at 775f1c8; the round-2 commits 4a80bf6/4ea3962 reached main in neither, so main carried five known-wrong statements. Before flipping, confirm the verdict exists AT THE CURRENT HEAD on BOTH surfaces (/pulls/{n}/reviews AND /issues/{n}/comments — a clean pass creates no review object). If you re-request after flipping, apply do-not-automerge BEFORE pushing the request.\n\nAND BEFORE YOU PUSH IT — TRAP-010: the gate CI runs is NOT the one you run locally. `python3 bootstrap.py check --strict` does not fire the checkers that only run when a card is passed as the ADDED card, so its green says nothing about CI's. Run the lane CI runs:\n    python3 bootstrap.py check --strict --added-card <this card>\nand read its real exit code (never after a pipe). MEASURED 2026-09-04, couch-legend #19: local --strict exited 0 while substrate-gate exited 1 on an off-taxonomy `Model:` task class, costing a red required check on an otherwise-ready head. The nine PL-004 classes: docs-only · mechanical refactor · test writing · runtime bugfix · kernel/architecture design · review/verify · research · idea/planning · feature build.",
       "path_when": [
         "(^|/)\\.sessions/[^/]*\\.md$"
       ],
@@ -1246,6 +1246,22 @@
         "\\b\\d+\\s+files?\\s+named\\b"
       ],
       "says": "STOP — TRAP-008. You located something; you have not necessarily read it. A listing or matching command (ls, find -name, grep -l, head -1, git ls-tree) yields NAMES AND COUNTS, never contents — it can locate a thing, it cannot characterise one. Same for a label: read to the end of the unit you are quoting, the whole cell, the whole row, the whole file. docs/ESTATE.md:85 is 869 chars on one line, one cell 673: it opens 'the ground-up bot rebuild' and puts 'parity != ported' ~400 chars later IN THE SAME CELL. Six instances in one session on 2026-09-01, one of them committed inside the document written to describe this trap. A pointer is not its document: when the boot file NAMES a doc, open the doc. Cite the line you actually read, not the path."
+    },
+    {
+      "id": "railway-graphql",
+      "tools": [
+        "Bash",
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "backboard\\.railway\\.com",
+        "RAILWAY_API_KEY"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "Railway's GraphQL API has two shapes you will otherwise find by probing. (1) urllib gets 403 'error code: 1010' from backboard.railway.com and curl --noproxy '*' gets 200 on the identical request — Cloudflare rejecting the CLIENT, not Railway rejecting your key, so switch clients rather than concluding the key is wrong. (2) `me { projects }` returns an EMPTY LIST for this account: projects hang off `me { workspaces { team { projects } } }`. Both, with the deployments/meta.commitHash and variables queries, are under 'Railway's GraphQL API — the query shapes' in docs/CAPABILITIES.md. And when you read `variables(...)`, print sorted keys only — never the value map."
     }
   ]
 }

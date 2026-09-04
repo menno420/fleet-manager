@@ -1,6 +1,6 @@
 # substrate-kit — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-28**
+> **Status:** `living-ledger` · true as of **2026-09-04**
 >
 > **What this is:** fleet-manager's entry point for `menno420/substrate-kit` —
 > where the last session left off and where the next one should look.
@@ -36,6 +36,77 @@ built the kit, what "done" means, and what would make him stop, from the
 
 ## Threads
 
+### Thread: K1–K5 (the `estate` pre-seed prerequisites) — **LANDED on kit `main`, UNRELEASED**
+
+**`MEASURED` 2026-09-04.** The accepted `estate` build order's step 2 is
+built and merged:
+**[kit #590](https://github.com/menno420/substrate-kit/pull/590), squash-merged
+as `8a83c733eded4af06281dcbe1d01f05d3da98a94`.** `main` re-verified after the
+merge, not trusted from the PR's green: 2,277 passed / 1 skipped, dist byte-pin
+exit 0, and a hub adoption driven through **`main`'s own artifact** into an
+empty git repo produced the tree K1–K5 specify.
+
+**The shape, not five flags.** `engine/lib/profiles.py` names what the kit had
+no name for — which shape an install was born in. `Config.adoption_profile`
+persists it, so `upgrade`/`render` (which already re-run `adopt` with the
+loaded config) honour it with no second orchestration path;
+`adopt.adoption_plan(config)` is the one accessor every consumer reads.
+
+| | proven against `main`'s artifact |
+|---|---|
+| K1 | `adopt --profile hub` plants no `control/` tree; the bus checkers are input-gated, so they quiet by construction, not by an allowlist entry |
+| K2 | no `docs/` at all, no seat-digest render; the boot list follows the shape in both agreement homes |
+| K3 | `sessions/README.md` present, `.sessions/` absent, `sessions_dir: "sessions"` in the planted config |
+| K4 | `owner_context` renders one pointer plus the repo's own two slots; undeclared installs render byte-identically |
+| K5 | ledger gitignored from birth, `tracked: false`, `max_records: 2000`; the KF-11 tracked-and-uncapped default is untouched for every existing adopter |
+
+**Deliberately deferred, and named rather than left to be discovered:**
+
+- **The hub has no skill pack.** A fresh hub emits **26** skill-ground
+  advisories over **8** distinct paths. Those advisories are the change
+  *working* — before the profile filter reached `check_skill_grounds`, every
+  one passed silently as "grounded by construction", a false green in the
+  checker whose job is dead pointers. The gap is a hub-compatible skill set:
+  the **skills channel**, which the build order defers past the first cold
+  test. A
+  test pins its exact shape rather than asserting zero.
+- **Doctrine prose is reported, not forked.** `CONSTITUTION.md` and the working
+  agreement still name omitted docs in prose outside the boot sections;
+  `adopt` reports every surviving route, by file, on every pass instead of the
+  kit forking its most important document per shape.
+- **The generated CI gate's `control_only` fast lane stays in**, on a hub too.
+  Every step in the planted `substrate-gate.yml` carries an
+  `if: steps.lane.outputs.control_only != 'true'` condition, and the lane's own
+  detect step greps the diff for `control/` paths. On a bus-less tree that grep
+  never matches, so `control_only` is always false and every step runs normally
+  — the branches are inert, not broken. Removing them would touch every step's
+  condition and endanger the gate's three-way carve-out compare (the mechanism
+  that keeps a host's hand-added jobs through a kit-owned regen), which is a
+  much larger blast radius than the few lines of dead YAML it would save. The
+  cost is dead conditions inside a tool-required root, not a dead room at the
+  repo root, and K1's requirement is about the latter. **Recorded here because
+  it lived only in kit #590's PR body**, where a future session would not find
+  it and would re-propose the removal.
+- **K6/K7** untouched, per the build order.
+- **Found, not fixed:** `[boot-section-missing]` on `.claude/CLAUDE.md` after
+  any `adopt --include-claude` — the staged agreement's heading does not match
+  `check_boot_path`'s regex. Reproduced identically on the **pre-change**
+  `origin/main` dist, so it is pre-existing and belongs in its own PR.
+
+**Review cost, for the next session's calibration:** three Codex rounds (the
+per-PR review cap) returned **21** findings — 4 P1 + 6 P2, then 5 P2, then 2 P1 + 4
+P2 — alongside an independent 43-agent adversarial pass whose 37 raw findings
+were each handed to a separate agent instructed to refute them (**14**
+survived, 8 distinct). **40 mutants applied, 40 killed.** Two findings were
+latent rather than cosmetic: telemetry-path containment was *parsed* rather
+than resolved (an intermediate symlink had `check` writing the ledger outside
+the repository), and `upgrade` refused an unknown profile only at step 6,
+*after* archiving state and replacing the vendored bootstrap — a refusal over a
+partially-upgraded repo. **The merged head carries no review verdict**: round 3
+reviewed the previous head and its findings were fixed after it, which the cap
+makes the designed exit.
+
+
 ### Thread: the owner-directed review round — **session 4 DONE (the sitting ran; every letter that was ASKED is answered); session 5 named below from his own words**
 
 > **Still open after the sitting, so no session reads "answered" as "finished":**
@@ -63,7 +134,8 @@ dispositions table (recommendations only, execution owner-gated).
   verification + Codex R1 5/5 and R2 6/6 conceded-and-fixed; R3's 4
   verified and deferred as worklist **row 35** under the two-re-review cap
   — tally 5→6→4, measured non-convergent). Fixes ride kit `main`
-  unreleased; the cut stays owner-paced.
+  unreleased; the cut stays owner-paced. **kit #590 (K1–K5) joins them there
+  2026-09-04** — three merged, none released.
 - **The item-4 audit:**
   [the router band re-read](../../findings/2026-08-28-router-band-reread.md)
   — all 208 body sections superbot:Q-0063–Q-0272, 59/59 quotes
@@ -179,7 +251,10 @@ session 5 is a **kit-venue records session**, and its two halves are both his:
 
 **Then the release**, per his timing answer: kit #587 and #588 ride `main`
 unreleased and go out **with** this session's work in one cut, not before it.
-The adopter half stays open — he answered timing only.
+The adopter half stays open — he answered timing only. **kit #590 (K1–K5) is a
+third unreleased passenger as of 2026-09-04**, and does not itself unlock the
+cut: his *"cut when the next fix batch lands"* sequences the charter rewrite
+and the doc-surface sweep **first**, and neither has landed.
 
 **Explicitly NOT session 5's:** Move 1 or anything Move-1-shaped (held, and it
 is a stage with an exit condition — do not re-ask him before the mapping is

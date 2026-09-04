@@ -7,11 +7,11 @@
 > canonical in each repository's own `.sessions/` card — this file is a
 > pointer index, never a copy.
 >
-> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-09-04 12:20Z.
+> **Window:** the last **7 calendar days** (UTC). **Generated:** 2026-09-04 17:50Z.
 > **Scope: the 19 NON-ARCHIVED repositories** — 9 archived ones are excluded, so every count here is
 > non-archived-only and is not a total for the estate's whole history.
-> **Cards:** 51 across 4 repositories, of which **3 are in flight** on an open PR.
-> **Venue stated:** 43 of 51.
+> **Cards:** 61 across 6 repositories, of which **4 are in flight** on an open PR.
+> **Venue stated:** 53 of 61.
 
 ## In flight right now — cards on open PR branches
 
@@ -20,7 +20,8 @@ session collides with, so read it before starting work in these repos.
 
 | repo | PR | venue | card |
 |---|---|---|---|
-| `fleet-manager` | [#1021](https://github.com/menno420/fleet-manager/pull/1021) | `cloud-container` | 2026-09-04-spider-bot-ai-ops.md |
+| `couch-legend` | [#20](https://github.com/menno420/couch-legend/pull/20) | `cloud-container` | 2026-09-04-the-glass-and-the-garden.md |
+| `fleet-manager` | [#1032](https://github.com/menno420/fleet-manager/pull/1032) | `cloud-container` | 2026-09-04-couch-legend-glass-and-garden.md |
 | `fleet-manager` | [#1020](https://github.com/menno420/fleet-manager/pull/1020) | `cloud-container` | 2026-09-04-estate-truth-baseline.md |
 | `spider-bot` | [#3](https://github.com/menno420/spider-bot/pull/3) | `cloud-container` | 2026-09-04-ai-operations-tranche-1.md |
 
@@ -28,7 +29,7 @@ session collides with, so read it before starting work in these repos.
 
 | venue | cards |
 |---|--:|
-| `cloud-container` | 37 |
+| `cloud-container` | 47 |
 | `unstated` | 8 |
 | `local-desktop` | 3 |
 | `chatgpt-work` | 2 |
@@ -44,9 +45,11 @@ and nothing else. This is the split that made the log necessary.
 
 | repo | cards | reachable from a fleet-manager session without this log |
 |---|--:|---|
-| `fleet-manager` | 46 | yes |
+| `fleet-manager` | 53 | yes |
 | `substrate-kit` | 2 | **no** |
+| `couch-legend` | 2 | **no** |
 | `websites` | 2 | **no** |
+| `spider-swing` | 1 | **no** |
 | `spider-bot` | 1 | **no** |
 
 ## Sessions, newest first
@@ -54,9 +57,19 @@ and nothing else. This is the split that made the log necessary.
 | date | repo | venue | model | status | card |
 |---|---|---|---|---|---|
 | 2026-09-04 | `substrate-kit` | `cloud-container` | opus-5 | `complete` | [2026-09-04-adoption-profiles-k1-k5.md](https://github.com/menno420/substrate-kit/blob/HEAD/.sessions/2026-09-04-adoption-profiles-k1-k5.md) |
-| 2026-09-04 ⏳ | `spider-bot` | `cloud-container` | opus-5 | `in-progress` | [2026-09-04-ai-operations-tranche-1.md](https://github.com/menno420/spider-bot/pull/3/files) |
-| 2026-09-04 ⏳ | `fleet-manager` | `cloud-container` | opus-5 | `in-progress` | [2026-09-04-spider-bot-ai-ops.md](https://github.com/menno420/fleet-manager/pull/1021/files) |
-| 2026-09-04 ⏳ | `fleet-manager` | `cloud-container` | withheld | `in-progress` | [2026-09-04-estate-truth-baseline.md](https://github.com/menno420/fleet-manager/pull/1020/files) |
+| 2026-09-04 | `spider-swing` | `cloud-container` | opus-5 | `complete` | [2026-09-04-spider-bot-support-feed.md](https://github.com/menno420/spider-swing/blob/HEAD/.sessions/2026-09-04-spider-bot-support-feed.md) |
+| 2026-09-04 ⏳ | `spider-bot` | `cloud-container` | opus-5 | `complete` | [2026-09-04-ai-operations-tranche-1.md](https://github.com/menno420/spider-bot/pull/3/files) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | Opus 5 | `complete` | [2026-09-04-continuation-prompt-state-fix.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-continuation-prompt-state-fix.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | Opus 5 | `complete` | [2026-09-04-couch-legend-handoff-records.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-couch-legend-handoff-records.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | Opus 5 | `complete` | [2026-09-04-couch-legend-long-form-route.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-couch-legend-long-form-route.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-09-04-spider-bot-ai-ops.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-spider-bot-ai-ops.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | Opus 5 | `complete` | [2026-09-04-spider-bot-handoff.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-spider-bot-handoff.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-09-04-substrate-kit-k1-k5-landed.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-substrate-kit-k1-k5-landed.md) |
+| 2026-09-04 | `fleet-manager` | `cloud-container` | opus-5 | `complete` | [2026-09-04-superbot-rebuild-comparative-review.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-04-superbot-rebuild-comparative-review.md) |
+| 2026-09-04 ⏳ | `fleet-manager` | `cloud-container` | fable-5 | `in-progress` | [2026-09-04-couch-legend-glass-and-garden.md](https://github.com/menno420/fleet-manager/pull/1032/files) |
+| 2026-09-04 ⏳ | `fleet-manager` | `cloud-container` | withheld | `complete` | [2026-09-04-estate-truth-baseline.md](https://github.com/menno420/fleet-manager/pull/1020/files) |
+| 2026-09-04 | `couch-legend` | `cloud-container` | Opus 5 | `complete` | [2026-09-04-the-couch-keepsakes.md](https://github.com/menno420/couch-legend/blob/HEAD/.sessions/2026-09-04-the-couch-keepsakes.md) |
+| 2026-09-04 ⏳ | `couch-legend` | `cloud-container` | fable-5 | `in-progress` | [2026-09-04-the-glass-and-the-garden.md](https://github.com/menno420/couch-legend/pull/20/files) |
 | 2026-09-03 | `websites` | `chatgpt-work` | GPT | `complete` | [2026-09-03-live-walkthrough-chatgpt-work.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-09-03-live-walkthrough-chatgpt-work.md) |
 | 2026-09-03 | `websites` | `cloud-container` | Claude Fable 5 | `complete` | [2026-09-03-review-site-navigation-examples.md](https://github.com/menno420/websites/blob/HEAD/.sessions/2026-09-03-review-site-navigation-examples.md) |
 | 2026-09-03 | `fleet-manager` | `cloud-container` | Fable 5.1 | `complete` | [2026-09-03-final-eap-mail-draft.md](https://github.com/menno420/fleet-manager/blob/HEAD/.sessions/2026-09-03-final-eap-mail-draft.md) |
@@ -116,7 +129,6 @@ commit is a perfectly good reason to appear here.
 | repo | last push | why it is here |
 |---|---|---|
 | `superbot` | 2026-08-31 | newest card is 2026-08-13 — pushed 18 days later with no card for it |
-| `spider-swing` | 2026-08-31 | newest card is 2026-08-13 — pushed 18 days later with no card for it |
 
 ## Repositories with no card protocol at all
 

@@ -542,3 +542,40 @@ because no file was written. Closing that would need a different mechanism than
 a `PreToolUse` hook — the owner-review Stop hook is the surface that already
 reads replies, and pointing it at this register is a candidate next slice, not a
 claim that it works today.
+
+---
+
+## TRAP-010 · The local gate and the CI gate are not the same command
+
+- **TRIGGER** — you are about to push a session card (or any change a kit
+  adopter's `substrate-gate` inspects) having run `python3 bootstrap.py check
+  --strict` locally and seen exit 0.
+- **WHY** — CI does not run that command. It runs the **added-card lane**:
+  `python3 bootstrap.py check --strict --session-log <heartbeat> --added-card
+  "$card"`. Several checkers only fire when a card is passed as the added card,
+  so a plain local `--strict` is silent on exactly the class of defect the gate
+  exists to catch. The local run is not a weaker version of CI's; it is a
+  different query, and its green is not evidence about CI's.
+- **REQUIRED PREVENTION** — before pushing a card, run the lane CI runs:
+  ```bash
+  python3 bootstrap.py check --strict --added-card .sessions/<your-card>.md
+  ```
+  Read its real exit code (never after a pipe — TRAP-002).
+- **VERIFY** — the exit code you quote came from a command containing
+  `--added-card`, naming the card this PR adds.
+- **ORIGIN** — `MEASURED` 2026-09-04, couch-legend #19. `check --strict` exited
+  **0** on the landing head; CI's `substrate-gate` exited **1** on the same tree
+  with `[session-card-grammar] … an off-taxonomy 📊 Model: task-class 'design +
+  feature build' … does not prefix-match any of the 9 PL-004 classes`. It cost a
+  red required check on a head that was otherwise ready to merge, and a second
+  push. Re-run locally with `--added-card` after the fix: exit 0, and CI agreed.
+  The nine classes are enumerated in the checker's own message: docs-only ·
+  mechanical refactor · test writing · runtime bugfix · kernel/architecture
+  design · review/verify · research · idea/planning · feature build.
+- **ROUTE** — `card-status-write`, whose `says` was extended in the same commit
+  as this entry rather than adding a competing route. A separate
+  `added-card-lane` route was written first and **measured not to fire**: the
+  hook delivers a bounded set per write, `card-status-write` and
+  `card-flip-to-complete` already claim `docs/traps.md` at that moment, and the
+  new route stayed silent behind them. Extending the route that demonstrably
+  fires is the delivery; a second route pointing at the same doc is not.

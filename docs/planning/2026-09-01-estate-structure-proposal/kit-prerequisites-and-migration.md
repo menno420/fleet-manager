@@ -1,6 +1,8 @@
 # Kit prerequisites, what carries over, and the acceptance test (2026-09-01)
 
-> **Status:** `plan` · plan input under OD-26 § 13 — nothing here is built. Written 2026-09-01 by the first Fable 5.1 session on the owner's laptop from a fresh clone at `cb3fc9a`; the owner chose all six defaults the same evening (A–F, see [`../../findings/2026-09-01-owner-direction.md`](../../findings/2026-09-01-owner-direction.md) § 7; four decisions in `docs/decisions.md` dated 2026-09-01). The laptop-hub copy of this folder is `OneDrive\Hub
+> **Status:** `plan` · plan input under OD-26 § 13 — **K1–K5 ARE NOW BUILT
+> (kit #590, `8a83c73`, 2026-09-04, unreleased; see the update under the
+> table). Everything else here is still plan input.** Written 2026-09-01 by the first Fable 5.1 session on the owner's laptop from a fresh clone at `cb3fc9a`; the owner chose all six defaults the same evening (A–F, see [`../../findings/2026-09-01-owner-direction.md`](../../findings/2026-09-01-owner-direction.md) § 7; four decisions in `docs/decisions.md` dated 2026-09-01). The laptop-hub copy of this folder is `OneDrive\Hub
 ecords6-09-01 estate-successor-planning\`.
 >
 
@@ -23,6 +25,27 @@ adopt produces today. Its tree shows what `estate` would inherit on day one.
 K1–K5 shape the tree at birth and cost renames later, so they belong before
 the seed under your no-renames condition. K6–K7 can follow the first cold
 test (question E). All of it is plan input; mechanisms wait (OD-26 § 13).
+
+> **UPDATE 2026-09-04 — K1–K5 are BUILT and MERGED, not released.** All five
+> landed on substrate-kit `main` as
+> [kit #590](https://github.com/menno420/substrate-kit/pull/590),
+> squash-merged `8a83c73`, as one reusable **adoption profile** rather than
+> five conditionals: `bootstrap.py adopt --profile hub`. Verified against
+> `main`'s own artifact after the merge, not from the PR's green. The rows
+> above are the requirement as written on 2026-09-01 and are kept verbatim;
+> what was actually built, what is proven, and what is deliberately deferred
+> (the hub has no skill pack; doctrine prose is reported rather than forked)
+> are in [`../../repos/substrate-kit/README.md`](../../repos/substrate-kit/README.md)
+> § *Thread: K1–K5*. K6–K7 remain untouched, per the build order.
+>
+> **The cut did not happen and is not this session's to make.** His
+> *"cut when the next fix batch lands"* sequences the charter rewrite and the
+> doc-surface sweep first (neither has landed), and `OQ-KIT-V1-21-RELEASE`'s
+> adopter half is still open. What waits for that cut, measured rather than
+> recalled: kit `main` is **10 commits ahead of the `v1.21.0` tag**
+> (`GET /compare/v1.21.0...main`, 2026-09-04) — five records/registry-regen
+> commits (#582–#586) and five substantive PRs: #587, #588, #589, #590,
+> #591.
 
 ## Carry · distill · archive — fleet-manager's living core mapped
 
@@ -73,9 +96,14 @@ short ones in `estate`, and a thousand stay behind as the archive.
 
 ## Recommended order (question E, option 1)
 
-1. Your letters on A–F; the eleven names stand.
-2. K1–K5 in substrate-kit, one release.
-3. Write the folder READMEs and the migration manifest for the seed set only.
+*(Progress marked 2026-09-04; the order itself is unchanged.)*
+
+1. ~~Your letters on A–F~~ — **answered 2026-09-01, all defaults.** The eleven
+   names stand.
+2. **K1–K5 in substrate-kit — BUILT AND MERGED 2026-09-04 (`8a83c73`); the
+   release is NOT cut and is owner-paced.**
+3. **← THE NEXT EXECUTABLE STEP.** Write the folder READMEs and the migration
+   manifest for the seed set only.
 4. Seed `estate` from the manifest; the seed PR is the first session card.
 5. Blind cold test; fix what fails; repeat once.
 6. Absolute write cutover; fleet-manager's boot file and README get a

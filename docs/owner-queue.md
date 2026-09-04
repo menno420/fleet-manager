@@ -56,6 +56,37 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
 > the same day — see their notes). Answers given in the sitting come back here
 > as entry updates; the agenda feeds this queue, it does not replace it.
 
+- **`OQ-SUPERBOT-SUCCESSOR-SCOPE` 🟡 OPEN — one question decides the successor's
+  size; the other five have defaults the work can proceed under.** (added
+  2026-09-04, the SuperBot rebuild review.) The full statement of each, with the
+  evidence behind it and the default this plan proceeds on if you say nothing,
+  is [`planning/2026-09-04-superbot-rebuild/12-owner-decisions.md`](planning/2026-09-04-superbot-rebuild/12-owner-decisions.md).
+  **The one that is genuinely blocking design-lock is the first:**
+  **(A) One server, or many?** Is the successor a tool for *your* server, or a
+  product other servers install? Both readings are consistent with everything
+  you have said on record. It is not a question about ambition — it decides
+  whether the whole ~40-panel per-guild setup surface exists at all, which is
+  the single largest simplification available anywhere in the plan.
+  *Default if unanswered:* **many servers, one guild at a time** — chosen on
+  asymmetric cost (per-guild scoping is cheap to build in and expensive to
+  retrofit), not on a guess about scale. A one-sentence answer either way is
+  worth more here than anything else you could give this plan.
+  **(B) Does the successor promise to replace the live bot?** *Default: no —
+  it coexists, and the live bot is never a migration deadline.*
+  **(C) Third repository, or grow `spider-bot`?** *Default: a third repository;
+  your 2026-09-04 statement narrowed `spider-bot` to the Slingy Spider AI
+  operations bot, which is a different product.*
+  **(D) The middle feature set** — starboard, karma, tickets, counting,
+  logging. *Default: optional modules, off by default, none in slice one.*
+  **(E) Import nothing?** *Default: yes — no production data migration, ever,
+  in any slice.*
+  **(F) AI authority on day one?** *Default: AI proposes, deterministic code
+  decides, from the first commit — the pipeline your 2026-09-04 spider-bot
+  decision already describes.*
+  **VERIFY:** an answer to (A) is enough to unblock design-lock; the other five
+  can ride along or be left on their defaults. Nothing here needs a click — it
+  is six sentences at most.
+
 - **`OQ-FM-FRESH-START-CONFIRMS` ✅ FULLY ANSWERED 2026-08-30 — all three words
   given; nothing owed.** The name landed later the same day as [D-0026]:
   **`estate`**, on his own weighing plus his assent to the recommendation. (added 2026-08-30, the redirect sitting; answered the
@@ -351,7 +382,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   owner-only — product direction. *(The kit hop for pml stays owner-paced
   per `OQ-KIT-V1-21-RELEASE`.)*
 
-- **`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
+- **`OQ-GCB-REVIEW-SCOPE` — ✅ CLOSED 2026-09-04, by him, in his own words rather
+  than by picking a letter.** He was never given this entry's A–D menu; he stated
+  the purpose directly: *"Spider Bot exists to manage the Slingy Spider server
+  and help during testing of the game. It should become a reliable automoderator
+  with heavy AI integration. People should be able to talk naturally to it for
+  guidance, complaints, bugs, feedback and improvement ideas. Those reports
+  should become durable, easy for the developer to find and act on — preferably
+  through GitHub or an equally clear developer-facing system."*
+  **Mapped onto the menu, honestly:** **B** (bug/feedback intake) and **D**
+  (feedback triage) are squarely in it, and he adds **two things the menu did
+  not offer** — AI-assisted moderation of the server, and natural-language
+  guidance as a first-class route. **A** (playtest capture) and **C** (build
+  handoff) are **not mentioned** — that is absence, not refusal, and a later
+  session must not read this closure as him ruling them out. Canonical:
+  [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) · rules:
+  the rules it generates, stamped at spider-bot's entry point:
+  [`repos/spider-bot/README.md`](repos/spider-bot/README.md) · the plan it narrows:
+  [the GCB plan's 2026-09-04 note](planning/2026-08-21-game-community-bot/README.md).
+  *The original entry is preserved below unchanged, because the menu is what his
+  answer was given against.*
+
+- ~~**`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
   unblocks the roadmap re-sequencing and the first slice's definition — **not** the
   whole track: `GCB-1` is a second, separate owner gate and repository creation
   still waits on it (2026-08-23, owner live).**
@@ -383,7 +435,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **HOW:** letters in the hub chat, e.g. "B and D first".
   **UNBLOCKS:** re-sequencing the roadmap, and the first slice's exit gate.
   **NOTE the separation constraint is already settled** (OD-19) — this asks only
-  what the *first* bot does, not whether the bots merge. They do not.
+  what the *first* bot does, not whether the bots merge. They do not.~~
 
 - **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
   ingestion history (last activity 27 min before the probe) — prune
@@ -833,6 +885,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the owner explicitly reserved the choice.
 
 - **`OQ-KIT-V1-21-RELEASE` ◐ HALF-ANSWERED 2026-08-28 — the CUT is timed; the ADOPTERS are not.**
+  **UPDATE 2026-09-04:** a third PR now rides `main` unreleased — [kit
+  #590](https://github.com/menno420/substrate-kit/pull/590) (`8a83c73`), the
+  K1–K5 adoption-profile work the accepted build order puts before the
+  `estate` seed. It
+  does **not** unlock the cut on its own: his timing answer sequences the
+  charter rewrite and the doc-surface sweep first, and neither has landed. The
+  smallest action that would release it, when he wants it, is one
+  `workflow_dispatch` of `release.yml` with the version input, after
+  `scripts/cut_release.py --write --rebuild-dist` bumps the three version homes
+  and opens the CHANGELOG section.
   Owner, live (§ 12 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"Cut when the next fix batch lands"* — so
   kit #587 and #588 wait on `main` and ride out with the charter rewrite and the
   doc-surface sweep in **one** release rather than their own cut. **Still his and

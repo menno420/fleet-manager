@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-03T21:25:03Z
+> generated-at 2026-09-04T17:10:28Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -34,16 +34,16 @@ worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/P
 
 ## Decide — open items in the owner queue
 
-38 open of 69 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
+38 open of 70 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
 own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
 **Open (35)**
 
+- **`OQ-SUPERBOT-SUCCESSOR-SCOPE`** — 🟡 OPEN — one question decides the successor's
 - **`OQ-INTENT-WRITE-UP`** — write your intent, against the questions prepared for
 - **`OQ-KIT-RENAME`** — the kit's published name: you ruled it changes, and the
 - **`OQ-GBA-NEXT-PICKS`** — 🎮 gba-homebrew: the letter pick + playtest verdicts
 - **`OQ-PML-EMERALD-LETTER`** — 🎮 pokemon-mod-lab: the B/A/Q letter — the one
-- **`OQ-GCB-REVIEW-SCOPE`** — 🤖 what must the review bot actually DO? Answering this
 - **`OQ-BOT-DB-BTD6-PRUNE`** — ⚑ the bot DB is 97.5 % accumulated BTD6
 - **`OQ-RG-ORPHAN-VOLUMES`** — 🧹 reliable-grace holds 4 volumes for its 1
 - **`OQ-GEMINI-NOTEBOOKS`** — 🧪 you want to start creating notebooks in Gemini
@@ -86,17 +86,15 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
 ## Answer — questions written to you, inside the intent files
 
-10 question(s) across 3 file(s). These are the
+8 question(s) across 3 file(s). These are the
 documents you went looking for: each states what the estate can prove
 about a repo and marks every line `OWNER` (your words) or `DERIVED`
 (a session's inference, revisable). They are thin on purpose.
 
 ### [`docs/repos/spider-bot/intent.md`](../docs/repos/spider-bot/intent.md)
 
-- ❓ Is this a **tool for the game** — its job is to run the tester funnel and feedback loop, and it is done when that works — or a **community thing in its own right** that keeps growing as long as the server does?
-- ❓ The AI replies on mention anywhere public and takes initiative only in `general`. What do you want people to *feel* about it — a useful utility that stays out of the way, or a character that belongs in the server? That judgment is yours and nothing else in the record implies it.
-- ❓ This one is unusually concrete: if the game's closed test ends and the community doesn't grow, does the bot keep running? It costs a Railway worker continuously and has real users today.
-- ❓ It is the only repo where a careless push reaches real people within minutes, and it has the *lightest* gate in the estate (informational CI, no PR requirement). Is that deliberate — you want to be able to fix the live bot fast — or is it just how it ended up?
+- ❓ the draft carried is closed below; none was deleted, so the question and its answer stay side by side.
+- ❓ If the closed test ends and the community does not grow, does the bot keep running? It costs a Railway worker continuously. His 2026-09-04 direction makes the bot's job *the test*, which means the honest reading is that its job has an end date — but he has not said so, and inferring a shutdown condition from a purpose statement would be manufacturing product intent.
 
 ### [`docs/repos/spider-swing/intent.md`](../docs/repos/spider-swing/intent.md)
 
