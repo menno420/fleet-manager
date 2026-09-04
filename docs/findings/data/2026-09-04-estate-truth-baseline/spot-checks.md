@@ -18,11 +18,26 @@ GET /repos/menno420/superbot/git/trees/5e3a667b2a55…
 → 35 root entries · files matching ^readme: NONE · docs/ present
 ```
 
-**STILL HOLDS** at the pinned SHA. The hub's stated entry route
-(`docs/AGENT_ORIENTATION.md`) is reachable, so the row is not merely accurate —
-it is load-bearing, because a cold agent arriving at this repository has no
-front door of its own and depends on the hub for one. That is a
-**routing-critical** fact and belongs in the seed.
+**STILL HOLDS** at the pinned SHA — and the second half of the row was checked
+too, rather than assumed from the first:
+
+```
+GET /repos/menno420/superbot/contents/docs/AGENT_ORIENTATION.md?ref=5e3a667b2a55…
+→ present · 32,059 bytes · blob 40407de15112
+```
+
+So state it precisely, because the imprecise version is worse than useless
+here. **superbot is not a repository without a front door — it is a repository
+whose front door is not at root.** `docs/AGENT_ORIENTATION.md` is real,
+substantial and exactly where `ESTATE.md` says. What is missing is any root-level
+signpost pointing at it, so the door exists and is undiscoverable by the one
+convention every agent tries first.
+
+That is what makes the hub row **routing-critical** and what belongs in the
+seed: not *"this repo is empty"* (false) but *"open `docs/AGENT_ORIENTATION.md`;
+there is no root README and you will otherwise find nothing."* A seed row
+carrying the first version would send a session looking for content that is
+already there.
 
 ## B · `product-forge`'s inbox still advertises four seat-era ORDERs as live
 
