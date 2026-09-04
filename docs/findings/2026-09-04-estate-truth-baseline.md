@@ -279,9 +279,55 @@ above at launch — they are the first entry in the handoff's re-check list (§ 
 
 *(completed from the blind-scored test)*
 
-## 11 · Verdict
+## 11 · Verdict, and the exact handoff
 
-*(completed)*
+### The verdict
+
+*(completed from the fleet's returned evidence and the blind score)*
+
+### What a future `estate` creation session can now safely do
+
+1. **Work from [the manifest](../planning/2026-09-04-estate-seed-manifest.csv)
+   rather than re-auditing the estate.** Every row carries a subject, a source
+   repository and path, a source SHA or live-API verification point, a certainty
+   tag, the canonical owner of that truth, one destination role, one disposition,
+   whether transformation is required, the links that must survive, any blocker,
+   and a verifier. Rows the survival rule killed are present with `survives=no`
+   and the branch that fired, so the seed session can argue with the rule rather
+   than rediscover its casualties.
+2. **Treat the census as settled and each repository as dispositioned once.**
+   28 repositories, reconciled live against `ESTATE.md`.
+3. **Seed the eighteen `repositories/<repo>/` folders that have no Layer-2
+   folder today** using § 5's re-audit for the eight non-active-but-live ones and
+   a README-only row for the nine archived, per the structure proposal.
+4. **Carry the one answered intent worksheet as owner-authored truth** —
+   `owner/intent-workbooks/estate/why-this-estate-exists.md`, his words of
+   2026-08-31 on why the successor exists. The other 73 worksheets carry
+   questions, not answers, and seed as forms.
+5. **Take the three fixed hub defects as fixed** (§ 6) and the two fixed
+   review § 7 findings as fixed — all re-verified at this run's HEAD.
+
+### What it MUST re-check at launch, and why
+
+| Re-check | Why it cannot be inherited |
+|---|---|
+| **Re-run `delta.py` against `anchors.tsv`** | The estate moves; this baseline is a snapshot at 2026-09-04T11:34Z. The command is one line and the anchors are committed. |
+| **The four Substrate Kit rows in § 9** | K1–K5 were an open PR at this measurement. Published release, kit `main`, PR #590's state and what the hub vendors all change without notice. |
+| **Every `carry` row's source SHA** | A carry copies bytes. If the source moved, the copy is a stale fork of a live document — the exact failure the fresh start exists to end. |
+| **`fleet-manager`'s own HEAD** | It moved 23 commits between its prior evidence and this run, and it is the substantive seeding source. |
+| **The open-PR inventory** | Taken at one instant with `per_page=100`; `superbot` alone carried 8 open dependabot PRs, and dependabot churn is continuous. |
+| **Any row whose `certainty` is `MEASURED-PRIOR`** | Someone else measured it, dated. That is provenance, not currency. |
+
+### What remains dependent on the separate Substrate Kit implementation
+
+Only the **shape the kit plants**, never the truth the manifest carries:
+the `hub` adoption profile (no `control/` bus, no generic `docs/` set, a visible
+`sessions/`, a pointer-shaped owner profile, untracked guard telemetry). Until
+kit #590 merges, a release is cut and the new hub adopts it, a seed will be born
+into the default shape and will need those five things undone by hand — which is
+exactly the cost `[D-0035]` sequenced K1–K5 before the seed to avoid. **The
+manifest is consumable either way**; what changes is how much hand-work the seed
+commit carries.
 
 ## 12 · What this run did NOT establish
 
