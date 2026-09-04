@@ -382,7 +382,28 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   owner-only — product direction. *(The kit hop for pml stays owner-paced
   per `OQ-KIT-V1-21-RELEASE`.)*
 
-- **`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
+- **`OQ-GCB-REVIEW-SCOPE` — ✅ CLOSED 2026-09-04, by him, in his own words rather
+  than by picking a letter.** He was never given this entry's A–D menu; he stated
+  the purpose directly: *"Spider Bot exists to manage the Slingy Spider server
+  and help during testing of the game. It should become a reliable automoderator
+  with heavy AI integration. People should be able to talk naturally to it for
+  guidance, complaints, bugs, feedback and improvement ideas. Those reports
+  should become durable, easy for the developer to find and act on — preferably
+  through GitHub or an equally clear developer-facing system."*
+  **Mapped onto the menu, honestly:** **B** (bug/feedback intake) and **D**
+  (feedback triage) are squarely in it, and he adds **two things the menu did
+  not offer** — AI-assisted moderation of the server, and natural-language
+  guidance as a first-class route. **A** (playtest capture) and **C** (build
+  handoff) are **not mentioned** — that is absence, not refusal, and a later
+  session must not read this closure as him ruling them out. Canonical:
+  [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) · rules:
+  the rules it generates, stamped at spider-bot's entry point:
+  [`repos/spider-bot/README.md`](repos/spider-bot/README.md) · the plan it narrows:
+  [the GCB plan's 2026-09-04 note](planning/2026-08-21-game-community-bot/README.md).
+  *The original entry is preserved below unchanged, because the menu is what his
+  answer was given against.*
+
+- ~~**`OQ-GCB-REVIEW-SCOPE` — 🤖 what must the review bot actually DO? Answering this
   unblocks the roadmap re-sequencing and the first slice's definition — **not** the
   whole track: `GCB-1` is a second, separate owner gate and repository creation
   still waits on it (2026-08-23, owner live).**
@@ -414,7 +435,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   **HOW:** letters in the hub chat, e.g. "B and D first".
   **UNBLOCKS:** re-sequencing the roadmap, and the first slice's exit gate.
   **NOTE the separation constraint is already settled** (OD-19) — this asks only
-  what the *first* bot does, not whether the bots merge. They do not.
+  what the *first* bot does, not whether the bots merge. They do not.~~
 
 - **`OQ-BOT-DB-BTD6-PRUNE` — ⚑ the bot DB is 97.5 % accumulated BTD6
   ingestion history (last activity 27 min before the probe) — prune

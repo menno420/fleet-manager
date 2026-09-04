@@ -1220,3 +1220,62 @@ verdict below, as provenance.)*
   2026-09-01 owner-direction records, the playbook) and holds no earlier
   statement of it — only the verbatim-with-typos convention it replaces —
   so this is the first written home.
+
+## [D-0042] Spider Bot is the AI operations bot of ONE server — the Slingy Spider test server — and its AI supplies judgement while deterministic code supplies authority
+
+- status: decided
+- date: 2026-09-04
+- verdict: Owner, live: *"Spider Bot exists to manage the Slingy Spider server
+  and help during testing of the game. It should become a reliable automoderator
+  with heavy AI integration. People should be able to talk naturally to it for
+  guidance, complaints, bugs, feedback and improvement ideas. Those reports
+  should become durable, easy for the developer to find and act on — preferably
+  through GitHub or an equally clear developer-facing system."* Four things
+  follow and each is a rule a session can be held to:
+  **(1) Scope is one server and one game's testing process.** The
+  [game-community-bot plan](planning/2026-08-21-game-community-bot/README.md)'s
+  multi-game platform breadth is **narrowed**, not extended — that plan remains
+  the architecture research and stops being the description of what this bot is
+  for. `OQ-GCB-REVIEW-SCOPE` is answered by this: the review-oriented bot is the
+  testing-and-feedback loop plus moderation of the server that runs it.
+  **(2) "Heavy AI integration" is not a model with Discord permissions.** The AI
+  supplies judgement; deterministic code supplies authority. The repo's
+  invariant 5 (*"the AI never performs side effects"*) is **refined, never
+  deleted**: event → deterministic pre-check → optional AI analysis → **typed,
+  schema-validated verdict** → deterministic policy engine → permission/risk
+  gate → typed operation → Discord API → audit + case. Free-form prose is never
+  parsed into a moderation action; invalid or incomplete model output means no
+  automatic action.
+  **(3) Conversation is a first-class route, not a fallback.** Buttons and forms
+  stay, but nobody needs to know a command or a form name. There is ONE intake
+  implementation with many entry points.
+  **(4) Reports are durable first and projected second.** A confirmed report
+  enters durable private storage with a stable id BEFORE any GitHub call;
+  GitHub is a projection and a sink, never a reason to lose data, and never a
+  place private or interpersonal material is published.
+- why: the record this repo held was 2026-08-24's, written the day the repo was
+  created, and it said in as many words that *"what the bot does next is the
+  OWNER's pick"* — so every session since had a purpose-shaped hole and filled
+  it from an older multi-game roadmap that was never about this bot. He has now
+  said what it is for, and the four rules above are what a session can be held
+  to; without them "reliable automoderator with heavy AI integration" reads as
+  licence to give a model moderation permissions, which is the one reading his
+  own word *reliable* forbids.
+- rules out: re-broadening spider-bot into the multi-game community platform
+  because an older roadmap says so; giving a model raw moderation calls because
+  "heavy AI integration" sounds like it; making GitHub the primary store;
+  publishing a complaint about a member as a public issue; treating a
+  plausible-sounding moderation paragraph as a decision.
+- consequences already accepted in the same breath: the bot now owes
+  `spider-swing` a **consumer** relationship for game truth (spider-swing stays
+  canonical; the seam carries a pinned versioned contract per that repo's own
+  `CONSTITUTION.md`), and new autonomous moderation starts in **shadow mode**
+  with a staff review surface, because *reliable* is his word and an
+  unfalsifiable classifier cannot earn it.
+- provenance: owner, live, 2026-09-04, quoted above. It answers the four ❓
+  slots that [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) had
+  carried as *"DRAFT, awaiting his words"* since 2026-08-28; that file is the
+  canonical intent surface and now carries the answers beside the questions.
+  It does **not** supersede his 2026-08-28 *"one real well functioning bot …
+  without architectural debt"* direction — that one governs the shape this
+  input must be in; this one governs what it is for.
