@@ -20,16 +20,49 @@
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_01UDjg5xQNdu1pwTBaagELz4](https://claude.ai/code/session_01UDjg5xQNdu1pwTBaagELz4) · "Estate truth baseline for successor"
 
-## What is about to happen
+## What shipped
 
-The run is contracted before it launches — `fleet-preflight`'s ten lines are
-filled in `docs/findings/data/2026-09-04-estate-truth-baseline/CONTRACTS.md`
-and quoted verbatim in the finding.
+- **[The baseline finding](../docs/findings/2026-09-04-estate-truth-baseline.md)** — corpus, method,
+  census, delta, re-audit, contradictions, manifest, kit dependency, cold test, verdict, handoff,
+  and what was not established.
+- **[The seed manifest](../docs/planning/2026-09-04-estate-seed-manifest.csv)** — 183 rows, 21
+  columns, GENERATED. The artifact the build order names as a prerequisite of the seed.
+- **`tools/estate_baseline/`** — `delta.py` (the reproducible changed/unchanged test), `seed_rule.py`
+  (the survival rule + its field audit + 12 fixtures), `build_manifest.py`, and two fixture suites.
+- **Evidence** — `docs/findings/data/2026-09-04-estate-truth-baseline/`: the contract sheet, anchors,
+  delta, classification, three raw journals, the extracted readings/refutations/dispositions, the
+  reuse and archived-provenance lanes, the pilot log, the session's own spot-checks, and the
+  pre-registered cold-session rubric.
+- **Four inline fixes to fleet-manager's own live truth**, each of which blocked the baseline:
+  `current-state.md`'s three states for one open question · `current-state.md` never saying this
+  repository is being replaced · `ESTATE.md`'s stale deletion clearance · the findings index.
+- **Capability delta** — two entries appended to `docs/CAPABILITIES.md`: measuring fan-out
+  concurrency by demand test (peak 2 here against a documented 16), and a `Workflow` schema refused
+  for size, with the flattening route around it. Both `CAN`, neither a wall.
+
+Layer-2 handoff: null (this session audited the hub itself and read thirteen satellites read-only;
+no repository's own thread state changed).
 
 ## ⟲ Previous-session review
 
-*(written at close)*
+`.sessions/2026-09-03-final-eap-mail-rewrite-after-reviews.md` (fm #1019) left the estate in the
+state this session had to establish from scratch: it did its own job well — the mail rewritten from
+the owner's edits and an independent review — and, like every session before it, it had no way to
+answer *"has anything changed since the evidence that measured it?"* because the 2026-08 audit wave
+recorded almost no SHAs. That is not a criticism of any one card; it is the gap this session's
+`delta.py` closes, and the reason the next one is cheaper.
+
+What it did right and this session copied: the two-round Codex discipline with the reviewed SHA
+named in the card, and correcting the owner's own words only for spelling.
 
 ## 💡 Session idea
 
-*(written at close)*
+**A `stamp-at-one-home` check at write time, not at gate time.** This session added 29 second
+citing homes across eleven decisions before `bootstrap.py check --strict` caught them in one
+batch — and the fix was mechanical in every case, because the estate already has an idiom for a
+non-home reference (*"decision 25 in `docs/decisions.md`"*). A `PostToolUse` route on a write
+containing `[D-0` that is not the decision's home would deliver the idiom at the moment the
+citation is typed, which is the estate's own stated preference: a mechanism that delivers the rule
+at the moment it applies, never another statement of it. Deduped against `docs/traps.md` (nine
+entries, none covers citation stamping) and the skill/rule reuse map. Cheap: the home is derivable
+from `docs/decisions.md` plus one grep.
