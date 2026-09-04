@@ -100,7 +100,7 @@ which are the ones that matter:
 
 | `carry` row | file | what moved since verification |
 |---|---|---|
-| *The decision ledger's own specification for how `estate` must be built* (OWNER) | `docs/decisions.md` | decisions 40, 41 and 42 in `docs/decisions.md` landed on 2026-09-04 (the ledger's last three entries at this head) |
+| *The decision ledger's own specification for how `estate` must be built* (OWNER) | `docs/decisions.md` | one entry appended since `14ea77e`: decision 42 in `docs/decisions.md` (Spider Bot), 59 lines, 1,222 → 1,281 — measured by diffing the file at both refs; an earlier draft of this cell said "decisions 40, 41 and 42" from the ledger's tail, which was an inference |
 | *`tools/estate_baseline/` — this seeding run's own tooling* (MEASURED) | `tools/estate_baseline/seed_rule.py` | verified at the PR-branch head `7ccc88a`; the Codex round-3 fixes and this PR's own changes came after |
 
 Neither is a surprise and neither invalidates the row — a `carry` of a file that
@@ -117,11 +117,14 @@ baseline's § 12 item 10:
 | *Cross-repo dependency: Android release signing* (fleet-manager, MEASURED-PRIOR) | `live-api@2026-09-04 (…)` — an instant with no commit |
 | *sim-lab's canonical entry points are README.md + CONVENTIONS* (fleet-manager, MEASURED) | `local-read@2026-09-04` — an instant with no commit |
 
-The 30 uncheckable killed rows are the disposition judges' synthesised
-`(killed before a source was recorded)` provenance (17), `live-api@…`
-verification points with no SHA (12), and one foreign SHA — none of them
-survivors, and the one `SOURCE_NOT_FOUND` is a killed sim-lab row whose
-`source_path` reads `git/trees`.
+The 30 uncheckable killed rows split 17 with no path in `source_path` — 9 the
+disposition judges' synthesised `(killed before a source was recorded)` and 8
+readers' narration (`(live PR list)`, `live API: pulls?state=open`,
+`releases API (tag …)`, `docs/repos/ (absence) + …`) — and 13 with no SHA in
+`verification_point` (`live-api@…`, `live-file@…`, `live-repo-tree@…`,
+`local-read@…`). The one `SOURCE_NOT_FOUND` is a killed sim-lab row whose
+`source_path` reads `git/trees`. Counted from the snapshot joined to the
+manifest on (subject, source_repo).
 
 **A fact about the survivors' verification points the audit did not state.**
 `sha_on_default_branch` is `no` for **84 of 119 survivors**: their SHAs
