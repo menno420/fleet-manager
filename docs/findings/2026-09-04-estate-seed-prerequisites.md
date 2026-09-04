@@ -73,10 +73,15 @@ because a `carry` copies bytes.
 
 Fixtures: `tools/estate_baseline/test_row_delta.py` — the counts below are what
 the suite prints, and the suite is the record: **18 provenance shapes** and
-**10 verification-point forms** taken from live cells, **5 binding cases** (which
-SHA binds, and the unresolved re-read that must not fall back), **5 path cases**
-(4 kill / 1 survival) including the branch that must not fire, **8
-row-precedence cases**, and live controls: 3 positives (fleet-manager rows citing
+**12 verification-point forms** taken from live cells (a digit-free hex run glued
+to `@<date>` is a SHA; the same run in bare narration is a word — round 3),
+**5 binding cases** (which SHA binds, and the unresolved re-read that must not
+fall back), **4 TSV-cell cases** (no CR, LF or tab survives into the snapshot —
+round 3), **5 path cases** (4 kill / 1 survival) including the branch that must
+not fire, **8 row-precedence cases**, a **coverage assertion** that the snapshot
+carries exactly the manifest's 183 row keys before any control is read (round 3:
+a truncated snapshot holding the control rows would otherwise pass), and live
+controls: 3 positives (fleet-manager rows citing
 `docs/current-state.md`, `docs/ESTATE.md`, `docs/decisions.md` — all modified
 in the first sixteen commits), 4 negatives (the three satellite survivors above
 plus shiftlife, which has not moved since 2026-07-27), 1 uncheckable control and
@@ -221,16 +226,21 @@ form, and the builder still applies it exactly as before — 10 rows):
    no threshold, no heuristic — publishing the refuter's reason in `blocker` as
    `adversary (by subject): …`. The module docstring states the required shape.
    An object with a missing or blank subject — the schema defect the object form
-   exists to expose — is counted and printed as malformed, and so is an object
-   whose subject reaches **no row of its reading** (a typo, a stale subject): both
-   are a lost dissent, and the builder refuses success over either unless
-   `--allow-partial` is passed (the first cut dropped the blank case silently,
-   Codex round 1; the second covered only the blank case, round 2). Fixture: the
-   aggregation journal carries one subject-form overclaim on a `MEASURED` item
-   (killed through the rule's overclaim branch, asserted), one free-text flag that
-   names nothing (counted, never applied, asserted), one object with no subject
-   and one with a typo'd subject (each counted, neither reaching the near-miss
-   row, and the strict build refused — all asserted).
+   exists to expose — is counted and printed as malformed; so is an object whose
+   subject reaches **no row of its reading** (a typo, a stale subject); and so is
+   any entry that is neither a non-empty string nor an object at all (a `null`, a
+   number, a list, an empty string). Each is a lost dissent, and the builder
+   refuses success over any of them unless `--allow-partial` is passed. Three
+   review rounds each found the previous cut one case short — the blank subject
+   (round 1), the unmatched subject (round 2), the non-string non-object (round 3)
+   — which is the argument for the rule being "anything not read is refused"
+   rather than a list of shapes. Fixture: the aggregation journal carries one
+   subject-form overclaim on a `MEASURED` item (killed through the rule's
+   overclaim branch, asserted), one free-text flag that names nothing (counted,
+   never applied, asserted), and five malformed entries — an object with no
+   subject, a typo'd subject, a `null`, a number, a list and an empty string —
+   each counted, none reaching the near-miss row, the strict build refused (all
+   asserted).
 2. **"63 of 73" was two numbers.** The builder now prints the split, read from
    the same data: **59 flags reach no row** by any join — the schema defect —
    and **4 reach only rows whose certainty is not `MEASURED`/`OWNER`**, where the
@@ -275,8 +285,8 @@ python3 tools/estate_baseline/test_delta.py <that tsv>                          
 python3 tools/estate_baseline/build_manifest.py --journal run1 --journal run2 --journal run3-repos --classification … --out docs/planning/2026-09-04-estate-seed-manifest.csv
                                                                                                                           → exit 0, 183 rows, 119 / 64
 python3 tools/estate_baseline/row_delta.py --manifest … --classification … --delta <tsv> --out data/…/row-delta.tsv        → exit 0, 339 calls, 98 / 18 / 3 over the 119 survivors
-python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, 9/9 live controls, 18 provenance shapes, 5 binding cases
-python3 tools/estate_baseline/test_manifest.py                                                                            → exit 0, 4 cases; the strict build refused over the malformed object
+python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, coverage 183/183 keys identical, 9/9 live controls, 18 shapes · 12 forms · 5 binding · 4 cell cases
+python3 tools/estate_baseline/test_manifest.py                                                                            → exit 0, 4 cases; the strict build refused over five malformed entries
 python3 tools/estate_baseline/seed_rule.py                                                                                → exit 0, 0 unread / 0 undefined, 14 fixtures
 ```
 

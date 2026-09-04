@@ -86,7 +86,8 @@ python3 tools/estate_baseline/test_row_delta.py                                 
 python3 tools/estate_baseline/test_manifest.py                                   exit 0 · 4 cases, 3 kill / 1 survival · strict build refused over the malformed object
 python3 tools/estate_baseline/seed_rule.py                                       exit 0 · 0 unread / 0 undefined · 14 fixtures
 python3 tools/gen_findings_index.py --check                                      exit 0 · 78 listed, current
-python3 bootstrap.py check --strict --added-card <this card>                     exit 1 · sole findings: this card's born-red hold (+ the preflight lane echoing it)
+python3 bootstrap.py check --strict --added-card <this card>                     exit 1 · sole findings: this card's born-red hold (+ the preflight lane echoing it) — before the flip
+Gemini pass (free key, gemini-3.1-flash-lite) over the round-3 diff              F1–F4 FIXED · NEW DEFECTS: none · 5,613 tokens
 ```
 
 The `stamp` checker caught one real finding before commit — this finding cited decisions
@@ -114,8 +115,24 @@ fixtures · `[conceded]` P2 a wildcard path (`tests/*.py`) was dropped as annota
 expanded against the listing at both points, `SOURCE_UNRESOLVED_GLOB` for what cannot be ·
 `[conceded]` P2 the finding's fixture paragraph carried round-1 counts → rewritten to what the
 suite prints · `[conceded]` P2 a JSON null ledger became the string `None` → type-checked,
-fixture with a null. Snapshot re-taken (same 98 / 18 / 3). Round 3 — the last the cap allows —
-requested on the head carrying these fixes; its findings are fixed and verified without Codex.
+fixture with a null. Snapshot re-taken (same 98 / 18 / 3).
+
+**Codex round 3 (on `90bbeb7`, the last the cap allows): 4 findings — 4 fixed, 0 refuted, 0 open.**
+`[conceded]` P1 an `overclaimed_certainty` entry that is neither a string nor an object (null,
+number, list, empty string) fell through uncounted → every unsupported entry is malformed and
+refuses the strict build; fixture now carries five malformed entries · `[conceded]` P2 the TSV
+writer left a bare `\r` → `tsv_cell()` strips CR, LF and tab; four cell fixtures · `[conceded]` P2
+a digit-free canonical SHA (`deadbee@2026-09-04`) was rejected as a word → a hex run glued to
+`@<date>` is a SHA whatever its letters, bare narration keeps the digit rule; two fixtures ·
+`[conceded]` P2 the live-control suite never checked the snapshot covers the manifest → cardinality
+and the (subject, source_repo) multiset asserted before any control (183/183, keys identical).
+**Verified without Codex, as the cap requires:** direct — `test_manifest.py` exit 0 (the strict
+build refused over the five malformed entries), `test_row_delta.py` exit 0 (coverage line + 9/9 +
+the new unit cases), `seed_rule.py` exit 0, the committed manifest byte-identical after the
+generator change; then the free-key Gemini pass over the round-3 diff with the four findings:
+**F1–F4 FIXED, NEW DEFECTS: none** (`gemini-3.1-flash-lite` — `gemini-3.6-flash`'s 20-a-day free
+cap was already spent by other sessions today, HTTP 429; the Lite model on the same free key
+answered, so the paid key was not touched).
 
 ## ⚑ Decide-and-flag
 

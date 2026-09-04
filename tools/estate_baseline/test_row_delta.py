@@ -27,7 +27,7 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 sys.path.insert(0, str(HERE))
-from row_delta import bind_verification, classify_path, classify_row, paths_of, shas_of  # noqa: E402
+from row_delta import bind_verification, classify_path, classify_row, paths_of, shas_of, tsv_cell  # noqa: E402
 
 # --- 1a · provenance shapes, each taken from a live manifest cell ------------------
 N = None
@@ -96,7 +96,19 @@ SHAS = [
     ("06dbbfe@2026-09-04; judge ls docs/x.md -> present, 6451 bytes @2026-09-04",
      ["06dbbfe"], "sha+instant", "one SHA amid narration; `6451` is too short to be one"),
     ("defaced by nobody", [], "narration", "hex-letter English words are not SHAs"),
+    ("deadbee@2026-09-04", ["deadbee"], "sha@instant",
+     "a digit-free hex run glued to @<date> is the canonical form, not a word (round 3)"),
+    ("abcdefa, headers read", [], "narration",
+     "a digit-free hex run in bare narration stays a word — only the glued form is exempt"),
     ("", [], "narration", "empty is narration, not a crash"),
+]
+
+# --- 1b'' · a TSV cell never carries a record or field boundary ---------------------
+CELLS = [
+    ("plain", "plain", "unchanged"),
+    ("a\r\nb", "a  b", "a CRLF from a quoted CSV field: neither half survives (round 3)"),
+    ("a\rb", "a b", "a bare CR is a record boundary to most TSV readers"),
+    ("a\tb", "a b", "a tab is the field boundary"),
 ]
 
 # --- 1b' · which verification SHA binds — the later one, and only if all resolved ----
@@ -181,6 +193,10 @@ def main() -> int:
         if got_shas != want_shas or got_shape != want_shape:
             failures.append(f"shas_of({cell!r}) -> {got_shas}, {got_shape!r}; "
                             f"expected {want_shas}, {want_shape!r} ({why})")
+    for raw, want, why in CELLS:
+        got = tsv_cell(raw)
+        if got != want:
+            failures.append(f"tsv_cell({raw!r}) -> {got!r}, expected {want!r} ({why})")
     for cands, resolved, want, why in BIND:
         got, _note = bind_verification(cands, resolved)
         got_sha = got["sha"] if got else None
@@ -214,6 +230,18 @@ def main() -> int:
               "run row_delta.py first — unit fixtures alone are not a positive control")
         return 1
     fresh = pathlib.Path(path).resolve() != (REPO / SNAPSHOT).resolve()
+    # Coverage before controls: a truncated snapshot that still holds the control rows
+    # would pass every control below (Codex, round 3). The output must carry exactly
+    # the manifest's rows — same count, same (subject, source_repo) multiset.
+    from collections import Counter
+    key = lambda r: (r["subject"], r["source_repo"])  # noqa: E731
+    want_keys, got_keys = Counter(map(key, manifest)), Counter(map(key, rows))
+    if len(rows) != len(manifest):
+        failures.append(f"coverage: snapshot has {len(rows)} rows, manifest {len(manifest)}")
+    if want_keys != got_keys:
+        missing = list((want_keys - got_keys).elements())[:5]
+        extra = list((got_keys - want_keys).elements())[:5]
+        failures.append(f"coverage: row keys differ — missing {missing} extra {extra}")
     # Join back to the manifest by (subject, source_repo) to reach source_path,
     # which the output deliberately does not repeat.
     src = {(m["subject"], m["source_repo"]): m["source_path"] for m in manifest}
@@ -282,9 +310,11 @@ def main() -> int:
 
     total = len(POSITIVE) + len(NEGATIVE) + 2
     print(f"unit fixtures  : {len(PATHS)} provenance shapes · {len(SHAS)} verification forms · "
-          f"{len(BIND)} binding cases · "
+          f"{len(BIND)} binding cases · {len(CELLS)} cell cases · "
           f"{len(PATH_CASES)} path cases ({kills} kill / {survivals} survival) · "
           f"{len(ROW_CASES)} row-precedence cases")
+    print(f"coverage       : {len(rows)} snapshot rows against {len(manifest)} manifest rows, keys "
+          f"{'identical' if want_keys == got_keys else 'DIFFER'}")
     print(f"real-slice     : {hits}/{total} controls correct ({len(POSITIVE)} positive, "
           f"{len(NEGATIVE)} negative, 1 uncheckable, 1 api-reference"
           f"{', snapshot-relative' if not fresh else ', fresh file — negatives checked for readability only'})"

@@ -361,6 +361,13 @@ def main() -> int:
                         overclaims_malformed.append(f"{who}: {json.dumps(oc, ensure_ascii=False)[:160]}")
                     elif isinstance(oc, str) and oc.strip():
                         overclaims.setdefault(who, []).append(oc.strip())
+                    else:
+                        # Neither a non-empty string nor a subject-bearing object: a
+                        # null, a number, a nested list, an empty string. Each is an
+                        # entry the refuter emitted and nothing can read — the same
+                        # lost dissent as a blank subject (Codex, round 3).
+                        overclaims_malformed.append(
+                            f"{who}: unsupported entry {json.dumps(oc, ensure_ascii=False)[:160]}")
 
             # A disposition judge's output for a fleet-manager area.
             if "items" in r and "killed" in r:
@@ -503,7 +510,7 @@ def main() -> int:
           f"{oc_no_row} reach no row (the schema residual)")
     print(f"certainty overclaims (by subject): {n_subj} flags · applied to {oc_by_subject_applied} row(s)"
           f" · {len(overclaims_unmatched_subject)} subject-form flag(s) reach no row"
-          f" · {len(overclaims_malformed)} malformed object(s) with no subject")
+          f" · {len(overclaims_malformed)} malformed entr(y/ies) (no subject, or not a string/object)")
     for m in overclaims_unmatched_subject:
         print("  UNMATCHED subject-form overclaim, reaches no row:", m)
     for m in overclaims_malformed:

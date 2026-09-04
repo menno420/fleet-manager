@@ -164,8 +164,12 @@ def main() -> int:
         bad.append("the unmatched subject-form flag must be printed by subject so it can be found")
     if "Survivor fact" in "".join(r["blocker"] for r in rows if r["subject"] == "Survivor fact"):
         bad.append("the typo'd subject must not reach the near-miss row by any fuzzy join")
-    if proc.stdout and "1 malformed object(s) with no subject" not in proc.stdout:
-        bad.append("the builder must count an overclaim object that has no subject, never drop it "
+    # Five malformed entries in the fixture: an object with no subject (round 1), and a
+    # null, a number, a nested list and an empty string (round 3) — every one must be
+    # counted, because each is a dissent the refuter emitted that nothing can read.
+    if proc.stdout and "5 malformed entr" not in proc.stdout:
+        bad.append("the builder must count EVERY unsupported overclaim entry (blank-subject object, "
+                   "null, number, list, empty string), never drop one "
                    f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")
     if proc.stdout and "1 reach no row" not in proc.stdout:
         bad.append("the builder must count the free-text flag that reaches no row "

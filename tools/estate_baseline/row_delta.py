@@ -204,7 +204,11 @@ def shas_of(verification_point: str) -> tuple[list[str], str]:
     seen: list[str] = []
     for m in _HEX.finditer(cleaned):
         h = m.group(1)
-        if re.search(r"\d", h) and h not in seen:
+        # The digit rule keeps English words spelt in hex letters out of bare
+        # narration. A run glued to `@<date>` is the canonical form whatever its
+        # letters — `deadbee@2026-09-04` is a SHA, not a word (Codex, round 3).
+        glued = cleaned[m.end():m.end() + 6]
+        if (re.search(r"\d", h) or re.match(r"@\d{4}-", glued)) and h not in seen:
             seen.append(h)
     # The shape is judged on the SAME candidates the caller will resolve: an
     # earlier draft tested the raw hex regex here and called `defaced by nobody`
@@ -232,6 +236,12 @@ def bind_verification(candidates: list[str], resolved: dict[str, dict | None]) -
         return None, "unresolved candidate(s): " + ", ".join(missing)
     ver = max((resolved[c] for c in candidates), key=lambda c: c["date"])
     return ver, ("several SHAs; the latest-dated is the verification point" if len(candidates) > 1 else "")
+
+
+def tsv_cell(value) -> str:
+    """One TSV cell: no tab, no CR, no LF survive — a quoted manifest field may carry
+    CRLF, and a bare `\r` is a record boundary to most TSV readers (Codex, round 3)."""
+    return str(value).replace("\r", " ").replace("\n", " ").replace("\t", " ")
 
 
 # --- classification (pure; the part the fixtures exercise) -------------------------
@@ -509,7 +519,7 @@ def main() -> int:
         row["paths_checked"] = " | ".join(detail)
         finish(classify_row(statuses))
 
-    text = "\n".join("\t".join(str(r[c]).replace("\t", " ").replace("\n", " ") for c in COLUMNS)
+    text = "\n".join("\t".join(tsv_cell(r[c]) for c in COLUMNS)
                      for r in [dict(zip(COLUMNS, COLUMNS))] + out_rows) + "\n"
     if args.out:
         pathlib.Path(args.out).parent.mkdir(parents=True, exist_ok=True)
