@@ -1797,6 +1797,33 @@ The bot token, `RAILWAY_API_KEY`, etc. are provisioned in the env. Confirm **pre
 only** (names, not values) — **never echo full secret values into logs, files, or
 transcripts**. Use them via the env var (`$DISCORD_TOKEN`, header injection, etc.).
 
+### Railway's GraphQL API — the query shapes (MEASURED 2026-09-04, spider-bot)
+**The client half of this was already known and I re-measured it anyway**, which
+is the useful part: `backboard.railway.com/graphql/v2` returns `403 error code:
+1010` to Python `urllib` and **200 to `curl --noproxy '*'`** with the identical
+key, headers and body — Cloudflare rejecting the client, not Railway rejecting
+the token. That was recorded 2026-08-05 as *trap (1)* inside a **Gemini/Vertex
+delegation** entry, so a session reaching for Railway does not find it. Filed
+here under its own heading, and routed (`.claude/hooks/doc-routes.json`), so the
+next one does.
+
+New, and what actually cost the detour — **projects hang off the WORKSPACE**:
+`{ me { projects { … } } }` returns an empty list for this account.
+
+```bash
+curl -sS --noproxy '*' -X POST https://backboard.railway.com/graphql/v2 \
+  -H "Authorization: Bearer $RAILWAY_API_KEY" -H "Content-Type: application/json" \
+  -d '{"query":"{ me { workspaces { name team { projects { edges { node { id name } } } } } } }"}'
+```
+
+Then `project(id:)` carries `services`, `environments`, and
+`deployments(first:N){edges{node{status createdAt meta}}}` — `meta.commitHash`
+is what a post-merge deploy check compares against HEAD, and a deployment can
+read **`SKIPPED`** when the commit misses the service's build watch patterns
+(measured on spider-bot: the live worker was one commit behind `main` for ten
+days, correctly). `variables(projectId:, environmentId:, serviceId:)` returns a
+name→value map: **print `sorted(v)` only, never the map** — presence, not values.
+
 ### First commit to an empty repo
 `git push` to a truly empty repo fails through the proxy tooling. Make the first commit
 via the **Contents API** (`create_or_update_file` / `push_files`) — that creates `main`,
