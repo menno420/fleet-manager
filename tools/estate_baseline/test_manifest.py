@@ -31,7 +31,16 @@ FIXTURE = HERE / "fixtures" / "journal-aggregation.jsonl"
 EXPECTED = {
     "Survivor fact": "yes",              # survival: full provenance, hub-owned
     "Dropped by the adversary": "no",    # kill: the refuter dropped it
+    "Killed by the judge": "no",         # kill: a disposition judge applied the rule
 }
+
+# A judge that already applied the rule NAMED the branch that fired. The
+# manifest must publish that branch, not one this script re-derives from the
+# blank fields it synthesised for the row — the first version of the builder
+# reported every judge-killed row as "no source path · no verification point ·
+# certainty UNVERIFIED", three artefacts of its own normalisation, burying the
+# real reason. Measured on live fleet output before it was fixed.
+JUDGE_BRANCH = "stale_on_copy and disposition == 'carry'"
 
 
 def main() -> int:
@@ -58,6 +67,10 @@ def main() -> int:
         bad.append(f"expected {len(EXPECTED)} rows, got {len(rows)}")
     if rows.get("Dropped by the adversary", {}).get("killed_by", "") == "":
         bad.append("a killed row must publish the branch that fired, not just a flag")
+    judged = rows.get("Killed by the judge", {}).get("killed_by", "")
+    if judged != JUDGE_BRANCH:
+        bad.append(f"a judge-killed row must publish the JUDGE's branch, got {judged!r} "
+                   f"expected {JUDGE_BRANCH!r}")
 
     kills = sum(1 for v in EXPECTED.values() if v == "no")
     survivals = sum(1 for v in EXPECTED.values() if v == "yes")

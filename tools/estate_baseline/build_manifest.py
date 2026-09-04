@@ -62,6 +62,7 @@ def normalise(item: dict, lane: str) -> dict | None:
         else:
             v = "" if v is None else str(v)
         out[f] = v
+    out["judge_branch"] = str(item.get("judge_branch", ""))
     out.setdefault("contradiction_resolution", "none")
     if not out["contradiction_resolution"]:
         out["contradiction_resolution"] = "none"
@@ -121,15 +122,24 @@ def main() -> int:
                     if n:
                         items.append(n)
                 for k in r.get("killed") or []:
-                    if k.get("subject"):
-                        n = {"subject": k["subject"], "fact": k.get("why", ""),
-                             "refuted": True, "source_path": "", "verification_point": "",
-                             "certainty": "UNVERIFIED", "canonical_owner": "hub",
-                             "estate_role": "archive/", "disposition": "archive_only"}
-                        nn = normalise(n, f"area:{r.get('area', '?')}")
-                        if nn:
-                            nn["blocker"] = f"killed by the survival rule: {k.get('branch', '')}"
-                            items.append(nn)
+                    if not k.get("subject"):
+                        continue
+                    # A judge already applied the rule and named the branch that
+                    # fired. Do NOT re-derive it from synthesised empty fields:
+                    # blanking source_path and certainty to force a kill makes
+                    # every judge-killed row report "no source path · no
+                    # verification point · certainty UNVERIFIED", burying the
+                    # real reason under three artefacts of this function.
+                    n = {"subject": k["subject"], "fact": k.get("why", ""),
+                         "refuted": True, "source_path": "(killed before a source was recorded)",
+                         "verification_point": "(killed at disposition)",
+                         "certainty": "REVIEWED", "canonical_owner": "hub",
+                         "estate_role": "archive/", "disposition": "archive_only"}
+                    nn = normalise(n, f"area:{r.get('area', '?')}")
+                    if nn:
+                        nn["judge_branch"] = k.get("branch", "").strip()
+                        nn["blocker"] = f"killed at disposition: {nn['judge_branch']}"
+                        items.append(nn)
 
     # An adversary's drop is applied here, in aggregation, where it can actually
     # decide something. The 2026-08-29 fleet collected exactly this signal and
@@ -159,9 +169,12 @@ def main() -> int:
         w.writeheader()
         for r in rows:
             d = dies(r)
+            # A judge's stated branch is the authoritative reason and outranks
+            # anything this script can recompute about a row it did not read.
+            reason = r.get("judge_branch") or "; ".join(why(r))
             w.writerow({**{c: flatten(r.get(c, "")) for c in COLUMNS},
                         "survives": "no" if d else "yes",
-                        "killed_by": "; ".join(why(r)) if d else ""})
+                        "killed_by": reason if d else ""})
 
     survivors = [r for r in rows if not dies(r)]
     killed = [r for r in rows if dies(r)]
@@ -172,7 +185,7 @@ def main() -> int:
     print("by disposition:", dict(collections.Counter(r["disposition"] for r in survivors)))
     print("by estate role:", dict(collections.Counter(r["estate_role"] for r in survivors)))
     print("kill branches :", dict(collections.Counter(
-        b for r in killed for b in why(r))))
+        (r["judge_branch"] or "; ".join(why(r))) for r in killed)))
     print(f"lanes         : {len(readings)} repository readings · {len(refutations)} refutations · "
           f"{len(areas)} area dispositions")
 
