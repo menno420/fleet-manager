@@ -74,6 +74,19 @@ loaded config) honour it with no second orchestration path;
   agreement still name omitted docs in prose outside the boot sections;
   `adopt` reports every surviving route, by file, on every pass instead of the
   kit forking its most important document per shape.
+- **The generated CI gate's `control_only` fast lane stays in**, on a hub too.
+  Every step in the planted `substrate-gate.yml` carries an
+  `if: steps.lane.outputs.control_only != 'true'` condition, and the lane's own
+  detect step greps the diff for `control/` paths. On a bus-less tree that grep
+  never matches, so `control_only` is always false and every step runs normally
+  — the branches are inert, not broken. Removing them would touch every step's
+  condition and endanger the gate's three-way carve-out compare (the mechanism
+  that keeps a host's hand-added jobs through a kit-owned regen), which is a
+  much larger blast radius than the few lines of dead YAML it would save. The
+  cost is dead conditions inside a tool-required root, not a dead room at the
+  repo root, and K1's requirement is about the latter. **Recorded here because
+  it lived only in kit #590's PR body**, where a future session would not find
+  it and would re-propose the removal.
 - **K6/K7** untouched, per the build order.
 - **Found, not fixed:** `[boot-section-missing]` on `.claude/CLAUDE.md` after
   any `adopt --include-claude` — the staged agreement's heading does not match
