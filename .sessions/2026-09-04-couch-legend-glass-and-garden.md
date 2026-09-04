@@ -1,6 +1,6 @@
 # 2026-09-04 · Couch Legend after phase A — B has not arrived; the rail breach settled, the next scenes written
 
-> **Status:** `in-progress`
+> **Status:** `complete`
 
 - **📊 Model:** fable-5 · xhigh · feature build
 - **📍 Venue:** cloud-container
@@ -44,11 +44,18 @@ wall), and this card.
 
 ## Product side, for the reader who only sees this card
 
-[couch-legend #20](https://github.com/menno420/couch-legend/pull/20): the
+[couch-legend #20](https://github.com/menno420/couch-legend/pull/20) —
+**merged, squash `22c8737cab153a3753695a954f0606892a9d1684`** (read from
+the merge response and the branch's check-runs, not from the PR page): the
 cross-wire ceiling (the one rail breach #19 stated, closed by tuning; 27 runs
 regenerated, 0 of 27 below the floor), two wrong published numbers corrected,
-and the arc-2 scene prompts for chapters 4–6. Its own card carries the
-evidence and the verify tails.
+and the arc-2 scene prompts for chapters 4–6. Two Codex rounds on pushed
+heads (`3fa9785`, `dc590ec`): 5 findings, all P2, `[conceded]` × 5,
+`[survived]` × 0; the flip head carried one copy-only commit past the last
+reviewed head, disclosed on the PR. All four checks green on the flip head
+(`ci` · `substrate-gate` · `debug apk` · `android merge check`, 18:08Z).
+Its own card, `.sessions/2026-09-04-the-glass-and-the-garden.md` there,
+carries the evidence and the verify tails.
 
 ## Verify
 

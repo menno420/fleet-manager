@@ -41,7 +41,7 @@ painted scene pairs live.
 
 ## Threads
 
-### Thread: after phase A — B not arrived; the one breach closed; chapters 4–6 prompted (couch-legend #20, 2026-09-04)
+### Thread: after phase A — B not arrived; the one breach closed; chapters 4–6 prompted — **LANDED 2026-09-04** (couch-legend #20, squash `22c8737`)
 
 The session the #19 handoff asked for. It re-ran the census at `4934955`
 before trusting the handoff (14/18 · 3/18 · 17/18, exit 0), read this repo's
@@ -59,10 +59,16 @@ pays its share **up to a ceiling times what the receiving shelf makes
 itself** (the glass 1×, The First Follower 3×, Earth in the Window 1×), so a
 first Grow purchase's dilution is bounded at `1 + ceiling` by construction.
 Threaded through the engine, the purchase preview (which now says "the garden
-is the ceiling" instead of promising nugs the cap withholds), the Couch tab
-and ten new pins; 27 runs regenerated: **0 of 27 below 2 %**, seed-23 rows at
-139–163 %, story close 12.0 d, dead time 38.0 m, check-ins ≥ 96.9 %, rebuild
-unchanged. **Two published numbers were wrong and are corrected:** DESIGN
+is the ceiling" instead of promising nugs the cap withholds, and promises the
+receiver-side lift when a Grow row raises it), the Couch tab and thirteen new
+pins; 27 runs regenerated: **0 of 27 below 2 %**, seed-23 rows at 139–163 %,
+story close 12.0 d, dead time 38.0 m, check-ins ≥ 96.9 %, rebuild unchanged.
+Reviewed in two Codex rounds on pushed heads — **5 findings, 5 conceded, 0
+survived**, all P2 (supersession must mirror the ceiling tie-break, with a
+Pareto pin on the table; the receiver-side lift must reach the preview; three
+surface lines named the wrong trigger; a one-seed caveat on a three-seed
+result; a stale test count) — the third round kept in reserve, the copy-only
+residue disclosed on the PR. **Two published numbers were wrong and are corrected:** DESIGN
 said the optimiser ends with "2.3× the nugs and 1 690× the cash", the sim
 record said 4.52× / 0.29×, from the same fixtures — both horizon-balance
 snapshots, which reset at every Wake & Bake; on a peak-of-last-3-days measure
