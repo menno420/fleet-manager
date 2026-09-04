@@ -1,6 +1,6 @@
 # 2026-09-04 — The handoff prompt said one thing in chat and another in the repo
 
-> **Status:** `in-progress` — branch `claude/couch-legend-docs-handoff-iwpo96`.
+> **Status:** `complete` — merged via fm #1030, branch `claude/couch-legend-docs-handoff-iwpo96`.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -38,4 +38,18 @@ copies say the same thing.
 
 ## Close-out
 
-*(filled at the flip)*
+**Landed.** Two lines, and the reason they were wrong is worth more than the
+lines: a prompt's state section ages between being written and being merged,
+and the copy that ages is the one nobody re-reads.
+
+Checked before the force-push rather than after: the branch's previous PR had
+merged, so it was restarted from `main` (`git checkout -B … origin/main`). The
+force-push hook flagged that the discarded head differed from `main` in
+`.substrate/guard-fires.jsonl`; `comm -23` over the two sorted blobs returned
+**0** lines present in the old head and absent from `main`, so nothing was
+lost.
+
+`python3 bootstrap.py check --strict --added-card
+.sessions/2026-09-04-continuation-prompt-state-fix.md` held red on the born-red
+hold as the only finding — established by grepping the finding lines, not by
+reading the exit code alone — and is expected green at this flip.
