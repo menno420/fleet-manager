@@ -171,6 +171,30 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-04 · capability · `any` · **The paid Gemini key's prepay balance is a
+  state, not a wall — and today it is EMPTY. Every `GEMINI_API_KEY_PAID` call
+  returns 429 until the owner refills it; the free key keeps serving text, and
+  image models stay `limit: 0` on the free tier.** · evidence: `POST
+  /v1beta/models/gemini-3.1-flash-image:generateContent` with two reference
+  images and a scene prompt, paid key, 17:35Z → `429 RESOURCE_EXHAUSTED "Your
+  prepayment credits are depleted. Please go to AI Studio at
+  https://ai.studio/projects to manage your project and billing."` — exactly
+  the third prerequisite the 2026-08-05 entry names, now the live state. Same
+  minute, `GEMINI_API_KEY` (free) on `gemini-2.5-flash-image` → `429 "Quota
+  exceeded for metric: …generate_content_free_tier_requests, limit: 0, model:
+  gemini-2.5-flash-preview-image"` — a hard 0, not a daily cap. The paid key's
+  `/models` list still reads fine (54 models, six image-capable:
+  `gemini-2.5-flash-image`, `gemini-3-pro-image[-preview]`,
+  `gemini-3.1-flash-image[-preview]`, `gemini-3.1-flash-lite-image`) — listing
+  is free, generation is not. · workaround: the owner tops up the prepay
+  (`docs/owner-queue.md` `OQ-GEMINI-PREPAY`); until then image work goes to
+  the owner's ChatGPT project as paste-ready prompts (the route that produced
+  the delivered arc-1 art). Script that made the call, reusable once funded:
+  a session's `gen_scene.py` — reads the prompt out of the design doc,
+  attaches the anchors as `inline_data` parts, asks `imageConfig
+  {aspectRatio: "3:4", imageSize: "2K"}`, decodes `inlineData` to disk.
+  — LAST-VERIFIED: 2026-09-04
+
 - 2026-09-03 · capability · `owner-live` · **Gmail `create_draft` + `list_drafts`
   persistence — a session can create a draft in the owner's mailbox and read it
   back; `update_draft` then replaces its subject and body in place, same draft

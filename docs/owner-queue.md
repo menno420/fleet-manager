@@ -1463,6 +1463,49 @@ fleet-wide merges/ready-flips live in
   designed. ↩️ reversible (tuning is one constant + pins, with the sim as the instrument).
   VERIFIED-NEEDED: your verdict on (a) the chapter-turn moment, (b) late-game rebuild feel.
 
+- **`OQ-CL-COUCH-FEEL` — couch-legend: does ARRANGING the couch feel interesting? (phase B
+  of the long-form redesign — it gates phases C and D).** OPEN (2026-09-04, the session after
+  #19). WHAT: #19 gave every chapter after the first a permanent keepsake and the couch fewer
+  places than objects; 27 simulated runs prove it fair, reachable and idle-safe, and cannot
+  say whether choosing what sits on the couch is *interesting*. That is a feel pass, and it is
+  yours. WHERE: <https://menno420.github.io/couch-legend/> → the **Couch** tab (chapter 2
+  leaves the first object at ~4 minutes; chapter 5 is the first real choice, ~1.5 h — or
+  import a later save code). HOW: play to chapter 5 or beyond, take something OFF the
+  couch and put something else on, then say in one line: *yes, keep going* / *no, it is a
+  chore* / *it needs X*. Either in the chat, or as a record under
+  `docs/owner-comments/couch-legend/` (`python3 tools/owner_comments.py add couch-legend …`).
+  WHY-IT-MATTERS: C (the Morning Routine — Clarity as a choice) is designed only as a
+  sketch until this answers; a "no" on arranging changes what C should be. UNBLOCKS: phases
+  C and D of `couch-legend:docs/planning/2026-09-04-long-form-redesign.md` § 8. ↩️ reversible
+  (nothing is built on a guess). VERIFIED-NEEDED: your one-line verdict, in words.
+
+- **`OQ-CL-SCENES-4-6` — couch-legend: run the three arc-2 scene prompts (chapters 4–6) and
+  QA the pairs.** OPEN (2026-09-04). WHAT: paste-ready prompts for The Couch, Rituals of the
+  Room and The Long Sunday — lucid state plus the baked-state edit — anchored on the delivered
+  arc-1 art, in `couch-legend:docs/design/2026-09-04-arc-2-scene-prompts.md` §§ 1–5, with
+  the acceptance questions in § 7. WHERE/HOW, two routes, your pick: **(a)** the "Couch
+  Legend" ChatGPT project, the route that made the arc-1 pairs — attach `couch-lucid.jpg`
+  and `cousins-couch-lucid.jpg` as references, paste § 1 + one chapter block, one image per
+  message, then § 5 on the accepted lucid; **(b)** top up the Gemini prepay balance
+  (`OQ-GEMINI-PREPAY` below) and a session runs the same prompts on `gemini-3.1-flash-image`
+  — the script exists and was tried 2026-09-04 (429, balance depleted). WHY-IT-MATTERS:
+  15 of 18 chapters still ride the anchor pair; these three are the ones every player sees
+  inside four hours. UNBLOCKS: the `STAGE_PRESENTATION` entries for three more chapters
+  (phase E, pair by pair). ↩️ reversible. VERIFIED-NEEDED: three accepted pairs at
+  ≥ 900 × 1200, or a "no" with what to change in the prompt.
+
+- **`OQ-GEMINI-PREPAY` — the paid Gemini key's prepay balance is EMPTY (measured
+  2026-09-04 17:36Z: every paid call returns 429 *"Your prepayment credits are depleted"*).**
+  OPEN, optional. WHAT: [D-0011] authorises sessions to spend the paid key, and today there is
+  nothing to spend — image generation, Pro and Search grounding are all off until the balance
+  is refilled (the free key still serves text; image models are `limit: 0` on it, re-measured
+  the same minute). WHERE: <https://ai.studio/projects> → the paid project → billing → prepay.
+  HOW: add a small balance (≈ $0.10–0.25 per generated scene state at 2K; six images for
+  three chapters ≈ $1–1.50). WHY-IT-MATTERS: only if you want sessions to generate art
+  candidates for you rather than run the prompts yourself in ChatGPT — route (a) of
+  `OQ-CL-SCENES-4-6` costs nothing. UNBLOCKS: session-side image generation. ↩️ reversible.
+  VERIFIED-NEEDED: a paid call returning 200 (a session verifies the moment it is asked).
+
 - **`OQ-CL-CHATGPT-REPASTE` — couch-legend: one paste refresh of the ChatGPT project
   instructions.** OPEN (2026-08-21, the kit-seed session). WHAT: the kit seed
   (couch-legend #5) made three lines of the pasted instructions stale — "no kit
