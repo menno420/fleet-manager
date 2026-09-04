@@ -1,8 +1,22 @@
 # Continuation prompt — Spider Bot AI operations, review and continue
 
-> **Status:** `reference` · written 2026-09-04 at the close of the AI-operations
-> tranche. Paste-ready, verbatim, no editing. The copy below is byte-identical
-> to the one handed to the owner in chat (fm #1030's lesson).
+> **Status:** `reference` · **CONSUMED 2026-09-04, ~1 h after it was written.**
+> Kept verbatim as the record; do not paste it at a fresh session — its subject
+> is finished. `session_01XtUDb1BxPVdjkGryVWCKVu` (Claude Fable 5.1) acted on it
+> at 18:32Z, pushing `8937191c`, and **the owner merged spider-bot#3 at 18:42Z
+> as `5a7f8a2`**; the deployment is verified in that repo's session card.
+>
+> **What it was for, and what it actually bought.** Everything in its DECIDED and
+> REJECTED sections was carried so it would not be re-litigated, and none of it
+> was. The line that produced new truth was the one admitting ignorance — the
+> `preserve()` question marked *NEW, and in no document yet* — which a different
+> model went and measured, finding that the IaC would have deleted the rollout
+> switches. A handoff's value is in naming what it does not know.
+>
+> Written at the close of the AI-operations tranche. The copy below is
+> byte-identical to the one handed to the owner in chat (fm #1030's lesson);
+> the state annotations dated `8937191c` were added in fm #1038, before it
+> merged.
 
 ```text
 CONTINUE: spider-bot#3 is built, green and open, deliberately unmerged. Review
