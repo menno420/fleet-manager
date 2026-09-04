@@ -1,5 +1,7 @@
 # Run material
 
+> **Status:** `reference` — run material, not conclusions.
+
 | file | what it is |
 |---|---|
 | [`CONTRACTS.md`](CONTRACTS.md) | the `fleet-preflight` contract sheet, filled **before** the first review agent spawned and quoted verbatim by the plan |

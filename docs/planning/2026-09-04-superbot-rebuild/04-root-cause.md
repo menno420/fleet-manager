@@ -1,5 +1,8 @@
 # Root cause — two different failures, and the one mechanism that produces both
 
+> **Status:** `reference` — the evidence half of the plan; the dispositions it
+> feeds are in the matrices.
+>
 > Evidence for every claim: [`run/independent-findings.md`](run/independent-findings.md)
 > (this session's own measurements) and the fleet lanes recorded in
 > [`run/`](run/README.md). Where a claim comes from the 2026-08-05 live audit

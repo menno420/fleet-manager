@@ -1,5 +1,8 @@
 # CONTRACTS — SuperBot rebuild comparative review fan-out
 
+> **Status:** `reference` — a preflight contract sheet, frozen at launch. It is
+> not revised to match what the run later found; that is the point of it.
+>
 > **Run:** fm session `claude/superbot-rebuild-review-20f9hq`, 2026-09-04.
 > Written **before** the first review agent spawned, per
 > [`.claude/skills/fleet-preflight/SKILL.md`](../../../../.claude/skills/fleet-preflight/SKILL.md).

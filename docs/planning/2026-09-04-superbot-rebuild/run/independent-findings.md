@@ -1,5 +1,7 @@
 # Independent findings — measured by the session itself, not by the fleet
 
+> **Status:** `reference` — measurements, each with the command that produced it.
+>
 > Every row here was produced by a command run in this session against the pinned
 > clones (`superbot` @ `5e3a667b`, `superbot-next` @ `d5f66dc2`), at
 > 2026-09-04T11:52Z–13:30Z. They are separate from the fleet's rows so that the
