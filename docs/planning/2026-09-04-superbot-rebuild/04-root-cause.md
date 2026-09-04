@@ -197,12 +197,34 @@ Four instances, four repositories, all in the estate's own committed record:
 | `superbot-next` | the navigation-completeness golden | the panel registry, emptied by the suite's own autouse fixture (I-2) | "every declared node reachable" |
 | `superbot-next` | 533/533 golden parity | the captured **bytes** of the old bot's output | "49/49 subsystems ported, zero unmapped" |
 | `superbot` | `test_help_reachability` + its mutation test | `scheme_live()`, a hand-built model of the hub registry | "every Help subsystem is reachable from the menu" |
-| `superbot-games` | the `substrate-gate` CI step | **73 of 121 tests** — 48 exploration tests invisible to collection | "the gate now runs the test suite" |
-| `venture-lab` | the Stripe checkout suite, 13/13 green | synthetic events from a hand-rolled helper that always set `customer_email` | "Stripe Checkout + webhook, pre-wired, ready to sell" — the live path had `customer_email: null` |
+| `superbot-games` | the `substrate-gate` CI step | `pytest tests/ -q` collects **73 of 121** — `games/exploration/tests/`'s 48 invisible | "the gate now enforces the suite" |
 
-The last two are not this session's findings; they are the estate's own
-[false-done ledger](../../findings/2026-09-02-eap-mail-evidence-report.md) § 3
-(rows L03/FD-01 and L02), verified there under adversarial review.
+**Three, not four, and the third is read at its source rather than retold.**
+The `superbot-games` row is quoted from
+[`findings/night-review-2026-07-10.md:344-347`](../../findings/night-review-2026-07-10.md),
+the primary measurement — not from the two fleet-manager retellings the estate's
+own [false-done ledger](../../findings/2026-09-02-eap-mail-evidence-report.md)
+§ 3 (FD-01) flags as *"two corroborating retellings of the same primary
+measurement, not independent evidence"* whose source *"no reader in this pass
+opened."* Opening it repays the trip, because the primary carries a clause
+neither retelling does, and it is the sharpest sentence in this whole section:
+
+> *"the card's own arithmetic ("mining 62 + encounters 11 + exploration = 73")
+> papers over it — **62+11 is already 73**."*
+
+The card did not merely fail to notice the missing 48 tests. It wrote an
+equation whose third term contributes nothing, and shipped. The population was
+wrong *on the face of the sentence claiming it was right*.
+
+**A fourth candidate was dropped rather than counted.** `venture-lab`'s
+Stripe false-green (13/13 green on synthetic events from a helper that always
+set `customer_email`, against a live path where it was `null`) is the same
+shape and would have made the pattern tidier — but it is the ledger's pilot row
+**L02**, and that ledger records that its underlying claim *"never entered the
+full run's claim pool at all."* Its standing is unsettled in its own source, so
+it is named here as a candidate and excluded from the count. Three measured
+instances make the point; a fourth borrowed at unsettled provenance would only
+make it easier to dismiss.
 
 **So the mechanism in § 3 is not a fix for one rebuild's mistake.** It is the
 answer to the failure this estate keeps paying for: *a green instrument whose
