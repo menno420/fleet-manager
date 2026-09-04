@@ -65,7 +65,9 @@ without re-running the fleet.
 
 `12-owner-decisions.md` **OD-A** — is the successor one server's tool, or a
 product for many servers? Both readings are consistent with every owner statement
-on record; `[D-0042]` narrows *spider-bot* and is explicit that it does not narrow
+on record; the 2026-09-04 spider-bot purpose decision
+([`run/in-flight-direction.md`](run/in-flight-direction.md)) narrows *spider-bot*
+and is explicit that it does not narrow
 the successor. The recommended default (many servers, one guild at a time) is
 chosen on asymmetric cost, not on a guess about ambition: per-guild scoping is
 cheap to build in and expensive to retrofit.

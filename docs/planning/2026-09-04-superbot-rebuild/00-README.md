@@ -85,7 +85,7 @@ Four standing constraints from the directive table, all still live:
 - **OD-13 (2026-08-08):** methods and enforcement come before high-value product
   work. **This plan is method work about a product**, not an execution order —
   nothing here authorises implementation.
-- **[D-0025] (2026-08-30):** the estate's plan executes in a **fresh hub
+- **The fresh-start redirect ([`2026-08-30-fresh-start-redirect.md`](../2026-08-30-fresh-start-redirect.md), 2026-08-30):** the estate's plan executes in a **fresh hub
   repository**; this repo becomes the read-only archive. This document is placed
   forward-only under `docs/planning/` and carries no relative links outside
   its own folder that a carry step would have to rewrite, except the four named

@@ -25,7 +25,8 @@ indefinitely."* His 2026-09-04 statement (in flight at
 [#1021](https://github.com/menno420/fleet-manager/pull/1021), recorded at
 [`run/in-flight-direction.md`](run/in-flight-direction.md)) says `spider-bot`
 *"exists to manage the Slingy Spider server and help during testing of the
-game"* — and `[D-0042]` is careful that this narrows **spider-bot**, not the
+game"* — and the spider-bot purpose decision recorded in
+[`run/in-flight-direction.md`](run/in-flight-direction.md) is careful that this narrows **spider-bot**, not the
 successor: *"that one governs the shape this input must be in; this one governs
 what it is for."* The 2026-08-21 plan's *"clean, multi-game Discord bot
 repository"* headline is narrowed for spider-bot and left standing for nothing
@@ -162,7 +163,8 @@ exercise rather than a schema port.
 
 ## OD-F · How much authority may the AI hold on day one?
 
-**What is known, and it is more than a question usually gets.** `[D-0042]`
+**What is known, and it is more than a question usually gets.** That same
+decision
 already gives the pipeline in his own direction — *AI supplies judgement,
 deterministic code supplies authority*; a **typed, schema-validated verdict**;
 free-form prose is never parsed into an action; invalid or incomplete model

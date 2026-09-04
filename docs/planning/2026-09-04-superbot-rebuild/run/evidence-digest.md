@@ -1,3 +1,12 @@
+# Evidence digest — the fleet's retained rows, compacted
+
+> **Status:** `reference` — a mechanical compaction of
+> [`raw/lane-results.json`](raw/lane-results.json) into one line per row, built
+> so the writing step could hold all 24 lanes at once. **It is transcription,
+> not judgement**: every row here is `lane-claimed` until re-derived, and where
+> it disagrees with [`independent-findings.md`](independent-findings.md), that
+> file wins. Regenerate rather than edit.
+
 # EVIDENCE DIGEST — 24 lanes, superbot @5e3a667b / superbot-next @d5f66dc2 / spider-bot @bf4d7527
 
 
@@ -192,7 +201,7 @@ D|M9-D12|superbot-next|documentation at the compiler entry point|MEASURED|DROP| 
 ## M10 - superbot-next SYSTEM: AI gateway/tools/authority, config, DB, migrations
 HEADLINE: The AI kernel's own internal seams (redaction, routing, audit-spine, fallback, task registry) are genuinely well-built and well-tested — but the two boundaries this lane exists to verify are both true only by absence of a counter-example, not by enforcement: (1) zero direct provider-SDK imports exist outside sb/kernel/ai/providers/ today, yet no checker (unlike the config/egress/no-skip AST fences that already exist in this exact repo) would catch a new one; and (2) the AIScope authority lattice is real and tested in isolation but is never actually fed from a live user's real Discord permissions — every production call site sits at the USER floor by default, and the entire registered tool catalogue (8 rows) is read-only, so the rebuild's headline question ("does an AI side effect reuse the same typed operation a button uses?") currently has no code to answer it with — there are zero side
 
-S|M10-S1|superbot-next|typed config seam|SOURCE-ENFORCED|ci_check|cons=44|eff=True|PRESERVE_CONTRACT| check_config_usage.py is a real, stdlib-only AST pass that bans os.getenv/os.environ everywhere under sb/ except sb/kernel/config/ (plus one explicit, ledgered carve-out for sb/adapters/parity/boot.py, D-0028) — 2 allowlist entries total. Verified clean (exit 0) against the live 44-field CONFIG_FIELDS registry (sb/spec << tools/check_config_usage.py:17-26
+S|M10-S1|superbot-next|typed config seam|SOURCE-ENFORCED|ci_check|cons=44|eff=True|PRESERVE_CONTRACT| check_config_usage.py is a real, stdlib-only AST pass that bans os.getenv/os.environ everywhere under sb/ except sb/kernel/config/ (plus one explicit, ledgered carve-out for sb/adapters/parity/boot.py, superbot-next's own ledger entry 0028) — 2 allowlist entries total. Verified clean (exit 0) against the live 44-field CONFIG_FIELDS registry (sb/spec << tools/check_config_usage.py:17-26
 S|M10-S2|superbot-next|migration integrity|SOURCE-ENFORCED|ci_check|cons=57|eff=True|PRESERVE_CONTRACT| Migration checksum integrity is enforced twice, independently: tools/check_migrations.py (CI, sha256 byte-identity of all 57 .sql files against the committed checksums.json manifest + contiguous 0001-0057 numbering) and sb/kernel/db/migrations.py's verify_applied_checksums() (boot-time, re-hashes every applied migratio << sb/kernel/db/migrations.py:192-198
 S|M10-S3|superbot-next|prompt-injection containment|TEST-PROVEN|source_guard|cons=5|eff=True|PRESERVE_BEHAVIOR| wrap_untrusted_text() (safety.py) disarms forged containment-delimiter substrings inside untrusted text before it is folded into a prompt, with 5 real call sites in instructions.py (system-band text, data blocks, recent channel turns, retrieved facts, current user message) and a test that proves the containment survive << tests/unit/ai/test_k10_safety_socket.py:47-51
 S|M10-S4|superbot-next|eval-harness network isolation (NEW, not ported)|TEST-PROVEN|source_guard|cons=1|eff=True|PRESERVE_PATTERN| socket_guard.deny_sockets() patches socket.socket/create_connection/getaddrinfo at the transport layer so the required-CI deterministic eval suite is structurally incapable of a live network call; confirmed absent anywhere in the original /home/user/superbot tree (0 grep hits for deny_sockets/SocketDenied), wired into  << sb/kernel/ai/socket_guard.py:39-50 >> CONTRADICTS: This is a genuine, attributable ADDITION over the shipped disbot pipeline (the M10 brief specifically asked what superbot-next added vs inherited for 

@@ -96,7 +96,8 @@ BASE        : fleet-manager @ caa6cd2ab6591794258b68b3c385a8378a55c8d3 (SHALLOW 
               spider-bot @ bf4d75278a74147aaf9c7f19e2da2c7abb1939cb (20 commits, full)
               at t0 = 2026-09-04T11:52:55Z
               open PRs — superbot #2453 #2451 #2447 #2402 #2401 #2400 #2399 #2398
-                (ALL 8 dependabot; D-0017 parks them; zero product changes pending)
+                (ALL 8 dependabot; the third-party-automation exemption in
+                `docs/decisions.md` parks them; zero product changes pending)
               superbot-next 0 · spider-bot 0
               NOTE: superbot and superbot-next are at the EXACT pins the 2026-08-21 GCB
                 plan reviewed (5e3a667b / d5f66dc2). Neither product tree has moved in
@@ -113,16 +114,19 @@ SIZE        : limit 2 — MEASURED by DEMAND TEST 2026-09-04T11:54Z, not quoted.
               number here is measured.
               REVISED AFTER PILOT: 33 agents × ~1,100s ÷ 2 ≈ 5.0 h floor.
               (Pre-pilot estimate was 52 × 420s ÷ 2 ≈ 3.0 h — wrong on both terms.)
-EXTERNAL    : @codex on the plan PR — HARD CAP 3 rounds (D-0039, enforced by
+EXTERNAL    : @codex on the plan PR — HARD CAP 3 rounds (the round-cap entry in
+              `docs/decisions.md`, enforced by
               .claude/hooks/codex_round_guard.py). Mid-run verification of intermediate
               fixes goes to the free-key Gemini route (gemini-3.6-flash), not to Codex
-              (D-0019 as amended 2026-08-29). The fleet's own adversarial lanes do NOT
+              (the Codex-cadence entry in `docs/decisions.md`, as amended
+              2026-08-29). The fleet's own adversarial lanes do NOT
               substitute for the external round.
 MODELS      : readers/mappers/census/inventory → sonnet
               · judges, verify, root-cause, product-value, architecture → opus
               · challengers A–F → opus · final critic (last look) → opus
               · fable: none — the owner has not asked for Fable on this run, and
-                D-0040 as amended 2026-09-02 makes Fable his call, never the session's.
+                the model-choice entry in `docs/decisions.md`, as amended
+                2026-09-02, makes Fable his call, never the session's.
 AGGREGATE DEFECT, MEASURED AGAINST THE REAL POPULATION 2026-09-04T14:45Z — the rule
               above passed **108 of 110 strengths and 125 of 127 defects (98 %)** across the
               13 lanes returned. A rule that kills 2 of 237 is not filtering. Cause: the
