@@ -1,6 +1,14 @@
 # 2026-09-04 — the successor-ready estate truth baseline: a change-only re-audit and the `estate` seed manifest
 
-> **Status:** `in-progress` — born red. **What is about to happen:** the
+> **Status:** `complete` — **verdict `PARTIAL`**, deliberately, not
+> `READY_FOR_THIN_SEED`. Codex ran to the three-round cap and every round was
+> non-empty (**9 · 6 · 5 findings, 20 in all — every one conceded and fixed**);
+> in two of the three, the new findings were fresh evidence that the previous
+> round's fixes had not held. Three independent internal critics before that
+> returned PARTIAL/BLOCKED/BLOCKED with eleven P1s, all correct. **Reviewed SHA
+> `5fff76d`; after it, the round-3 fixes and this flip.** Landed on green.
+> Real exit code of `python3 bootstrap.py check --strict` before the flip: **1**,
+> sole finding this card's own born-red hold. **What was:** the
 > owner's fresh-start sequence step 2 (*"establish a baseline of trustworthy
 > information … but only if the information has changed so far"*) is executed
 > as an ultracode run: an authoritative 28-repository census reconciled
