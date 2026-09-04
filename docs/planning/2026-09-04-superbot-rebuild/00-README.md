@@ -43,6 +43,11 @@
 Run material — the preflight contract sheet, the instruments, this session's own
 measurements, and the fleet's raw output — is in [`run/`](run/README.md).
 
+**One piece of it is not optional if you are going to quote a number from these
+files:** [`run/refutation-pass.md`](run/refutation-pass.md). The fan-out's
+adversarial pass **refuted 62 of 196 lane strengths**, and 34 of those are cited
+here — always as `lane-claimed`, never as `MEASURED`. The ledger says which.
+
 ## The measurement snapshot
 
 Everything here was measured against these pins at **2026-09-04T11:52:55Z**:

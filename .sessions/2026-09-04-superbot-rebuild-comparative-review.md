@@ -8,7 +8,10 @@
 > 13 addressed at `d28d16a`, replied on the PR), and the gate is down to this
 > hold alone. Flipping this line is the last act of the session.
 
-- **📊 Model:** opus-5 · ultracode · research + planning
+- **📊 Model:** opus-5 · max · research + planning
+  *(run as an ultracode fan-out — 24 evidence lanes + 6 adversarial challenges
+  in one workflow, then 8 writing agents in a second; `ultracode` is the
+  invocation, not an effort tier, which is what the card grammar caught.)*
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_01AUDjqtyW5mkBPg9M2Yrgnr](https://claude.ai/code/session_01AUDjqtyW5mkBPg9M2Yrgnr) · "SuperBot rebuild design review"
 

@@ -46,7 +46,7 @@ This is not a formality. It means:
 **Closed by:** a boot of `superbot-next` in a test guild with a test app, driving
 the help tree and the setup flow. About an hour, per the audit's own recipe.
 
-### 2 · The fan-out's adversarial verification did not run before this landed
+### 2 · ~~The fan-out's adversarial verification did not run before this landed~~ — **IT RAN, AND IT REFUTED 62 OF 196 LANE STRENGTHS**
 
 `run/CONTRACTS.md`'s AGGREGATE contract designed a refutation pass as the second
 filter. It had not completed when this package was committed, and — worse — I-15
@@ -62,9 +62,28 @@ the honest summary — **9 exact, 3 differing denominators, 0 flipped
 conclusions** — and it also records two of the session's own over-corrections and
 one finding (I-22) where a challenge lane refuted the session's headline claim.
 
-**Closed by:** running the refutation pass over the retained rows in
-`run/raw/lane-results.json`, which is committed precisely so it can be done
-without re-running the fleet.
+> **CLOSED — and not the way this section expected.** The refutation pass
+> completed after the package was written, and its result is
+> [`run/refutation-pass.md`](run/refutation-pass.md): **196 verdicts, 62
+> refuted (31.6 %)**, against the survival rule's 98 % pass. **34 of the 62 are
+> cited in these deliverables, across 60 sites**, every one already marked
+> `lane-claimed` at the point of use — the ledger names them so a reader can
+> check any figure before relying on it.
+>
+> **Read what kind of error they are before discounting the package.** Almost
+> none is a fabrication: the dominant shapes are overstated scope (`M3-S1`'s
+> *every*), a wrong enforcement locus (`M2-S6` declared `ci_check` for a
+> `continue-on-error` step), a wrong denominator (`M4-S1`: three vendor SDK
+> importers, not two), and a quote that does not support its claim. **Every one
+> of those is a population or denominator defect** — this package's own subject,
+> appearing in its own evidence base, which is the most useful thing the pass
+> could have found.
+>
+> **What this changes in the verdict:** the gap is closed, and the package is
+> *better* evidenced than when it was written, not worse — because the 22
+> `MEASURED` findings were never lane rows, and the `lane-claimed` tag now
+> resolves to a specific ledger instead of a general warning. **What it does not
+> change:** the verdict stays `PARTIAL`, on gaps 1, 3 and 4.
 
 ### 3 · One owner decision materially changes the architecture
 
