@@ -766,3 +766,41 @@ Cheap, and the evidence says it pays: of the six lane figures re-derived so far,
 **five reproduced exactly** (R2's four in I-16, plus R3's `views→cogs` = 1) and
 **one was off by 5 %**. That is a good lane hit-rate and precisely the reason the
 rule is about *publication* rather than about trust.
+
+## I-18 · The re-derivation ledger — every lane number this plan publishes, re-run here — `MEASURED`
+
+The rule adopted in I-17 needs an artifact, not a promise. This is it: every
+lane-produced figure headed for a matrix, a headline or the executive assessment,
+re-run by this session against the pinned clones. **Conclusion column is what
+matters** — a differing denominator with an intact conclusion is a different
+thing from a claim that does not hold.
+
+| lane figure | re-derived here | verdict |
+|---|---|---|
+| R2: required Postgres leg green over zero tests | `pytest tests/integration -q` → `14 skipped`, EXIT=0 | **exact** |
+| R2: e2e tier likewise | `pytest tests/e2e -q` → `11 skipped`, EXIT=0 | **exact** |
+| R2: `register_hub()` never called in production | `sb/` → **1** (the def) · `tests/` → **3** | **exact** |
+| R2: escape-hatch `ui/` glob matches nothing | `ls sb/domain/*/ui/*.py` → **0** across **49** dirs | **exact** |
+| R3: `views→cogs` warnings the strict run emits | `check_architecture.py --mode strict` → **1**, EXIT=0 | **exact** |
+| M9: panels declaring `renderer_override` | **218 of 314** | **exact** |
+| M9: escape-hatch baseline | `{"per_subsystem": {}, "total": 0}` | **exact** |
+| M4: `sb/kernel/ai/` files naming a `disbot/` source in their first 12 lines | **24 of 30** | **exact** |
+| R3: `from cogs.<x>` imports inside `cogs/` — claimed 134 | **128** module-level, AST, 51 files | *denominator differs, conclusion intact* |
+| M8: cross-layer imports — claimed 977 forward / 0 reverse | **1174 forward / 0 reverse** | *denominator differs (layer-set assumption), **the load-bearing zero is exact*** |
+| R2: excuse-row expiry — claimed 1 of 27 checkers | **2 of the 10 that carry exemptions** | *corrected in the plan; conclusion intact and sharper* |
+| M9: central audit spine — claimed 1 call site vs superbot's 49 across 28 files | `emit_central_audit` → **4 sites / 3 files**; `audit_events` → **37 refs / 27 files** | *shape reproduces, both numbers differ* |
+
+**Score: 8 exact · 4 with a differing denominator · 0 where the conclusion
+flipped.** No lane claim re-derived so far has been wrong about *what it found* —
+only about how much of it there was.
+
+**And one methodological catch worth keeping.** The first attempt at the audit
+row guessed the API names (`record_audit|audit_emit|emit_audit|write_audit`) and
+produced 24-vs-10 — numbers that matched neither the lane nor reality, because
+the query had no positive control. Finding the real symbols first
+(`sb/kernel/workflow/audit.py::emit_central_audit`,
+`disbot/services/audit_events.py::emit_audit_action`) produced the row above.
+**A re-derivation with an unvalidated instrument is not a re-derivation**, and
+recording that 24-vs-10 as a refutation would have been the same defect as the
+one this whole review is about — one level up again, and this time in the
+correction machinery rather than the thing being corrected.
