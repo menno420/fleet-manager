@@ -121,3 +121,54 @@ here.**
 | `R6-S04` | no | The gate is near-vacuous and the row's own anti-vacuity defence is false |
 | `R6-S06` | no | Consumers inflated and prevents_failure names something the mechanism does not do |
 | `R6-S09` | no | The measurements are true; the inference to the owner's requirement is not |
+
+
+## The tagging audit — 29 of 67 citation sites carry NO `lane-claimed` tag
+
+**Written because the first version of this file claimed otherwise.** It said the
+34 refuted rows were "already marked `lane-claimed` at the point of use", which
+was asserted rather than counted. Counted:
+
+```
+citation sites for the 34 refuted rows : 67
+   tagged `lane-claimed` on the line   : 38
+   NOT tagged                          : 29
+```
+
+So for those 29 the reader gets no signal at the point of use, and **this ledger
+is the only thing covering them.** They are listed below rather than
+retrospectively tagged, because rewriting 29 inline citations after the review
+had closed would be a bigger edit than the evidence justifies — and a table
+someone can check beats 29 edits nobody reviewed.
+
+| file | line | refuted row cited without a `lane-claimed` tag |
+|---|---|---|
+| `02-product-matrix.md` | 112 | `M2-S5` |
+| `02-product-matrix.md` | 114 | `M3-S4` |
+| `02-product-matrix.md` | 116 | `M3-S4` |
+| `02-product-matrix.md` | 118 | `M6-S5` |
+| `02-product-matrix.md` | 128 | `M4-S5` |
+| `02-product-matrix.md` | 129 | `M2-S6` |
+| `02-product-matrix.md` | 147 | `M10-S4` |
+| `02-product-matrix.md` | 147 | `M10-S5` |
+| `02-product-matrix.md` | 147 | `M4-S1` |
+| `02-product-matrix.md` | 147 | `M4-S9` |
+| `02-product-matrix.md` | 149 | `M4-S5` |
+| `02-product-matrix.md` | 157 | `M3-S1` |
+| `02-product-matrix.md` | 227 | `D-S02` |
+| `02-product-matrix.md` | 287 | `M12-S01` |
+| `03-architecture-matrix.md` | 71 | `M8-S03` |
+| `03-architecture-matrix.md` | 90 | `M10-S4` |
+| `03-architecture-matrix.md` | 90 | `M10-S5` |
+| `03-architecture-matrix.md` | 90 | `M4-S1` |
+| `03-architecture-matrix.md` | 90 | `M4-S9` |
+| `03-architecture-matrix.md` | 99 | `R4-S03` |
+| `03-architecture-matrix.md` | 99 | `R4-S04` |
+| `03-architecture-matrix.md` | 135 | `R6-S07` |
+| `03-architecture-matrix.md` | 146 | `M8-S03` |
+| `06-architecture.md` | 754 | `M12-S01` |
+| `07-feature-contract.md` | 66 | `R3-S6` |
+| `07-feature-contract.md` | 545 | `R3-S6` |
+| `13-verdict.md` | 74 | `M3-S1` |
+| `13-verdict.md` | 75 | `M2-S6` |
+| `13-verdict.md` | 76 | `M4-S1` |
