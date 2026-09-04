@@ -684,3 +684,47 @@ instrument pointed at a population that was shaped by knowing the instrument.**
 It belongs in `fleet-preflight` § 1 as a fourth check, and this session's
 proposal for it is recorded here rather than shipped, since the kit is
 owner-paced.
+
+## I-16 · Four of R2's hardest claims, re-run by this session rather than relayed — all reproduce — `MEASURED`
+
+Lane R2 (the vacuous-guard hunt) reported **19 of 77 executable guards
+vacuous-capable by measurement**. Because the adversarial verification lane has
+not run yet, and because I-15 established that the survival rule is not filtering,
+its four most consequential claims were re-executed here directly:
+
+| claim | command | result |
+|---|---|---|
+| the **required** Postgres concurrency leg passes with zero tests run | `python3 -m pytest tests/integration -q` | `14 skipped in 0.04s`, **EXIT=0** |
+| the **required** in-process adapter e2e tier does the same | `python3 -m pytest tests/e2e -q` | `11 skipped in 0.04s`, **EXIT=0** |
+| the navigation golden's roots are empty even in a booted process | `grep -rn "[^_]register_hub(" sb/` | **1** (the definition) · `tests/` → **3** |
+| the escape-hatch gate scans a glob matching nothing | `ls sb/domain/*/ui/*.py` | **0 files** across **49** domain directories |
+
+**All four reproduce.** Three consequences, and the first is the sharpest thing
+either repo yielded:
+
+1. **Two of `superbot-next`'s required CI legs are green over zero executed
+   tests** — and they sit in `named-gates.yml`'s single job that provisions
+   Postgres and the full runtime lock *precisely so they cannot skip*. The job's
+   own comment says so. `pytest` exits 0 on an all-skipped run, and nothing
+   asserts a collected-count floor. The 12 money-race regression files that exist
+   to prove crash-safety are among the skipped. This is the population contract
+   ([`../08-verification.md`](../08-verification.md) § 1) in its purest form: the
+   assertion is right, the population is empty, and the exit code is 0.
+2. **I-2 was correct and incomplete.** I found the navigation golden vacuous
+   because its `autouse` conftest clears the registry. R2 found an *independent
+   second* reason: `register_hub()` is never called in production at all, so
+   `walk_navigation`'s root set is empty **in a fully-booted process too**. That
+   refutes the docstring's *"arms automatically as port bands register real
+   panels"* on its own terms — removing the conftest would not arm it. Two
+   independent causes for one vacuity, and the deeper one is the one I missed.
+3. **The escape-hatch ratchet does not merely under-count** (I-9's reading, that
+   it counts tier-3 and misses tier-2's 218 panels). Its `sb/domain/<x>/ui/`
+   sweep — the *"also red"* clause in its own docstring — globs **zero files
+   across all 49 domain directories.** A required, `NO EXPIRY`, CODEOWNERS-flagged
+   gate whose baseline is `{"per_subsystem": {}, "total": 0}` is scanning a
+   directory shape the repository does not use.
+
+**Status of the rest.** The other 15 of R2's 19, and every row from the other 14
+lanes, remain **lane-claimed and unverified** until the adversarial refutation
+pass runs. That distinction is now load-bearing rather than procedural: with the
+survival rule not filtering (I-15), verification is the only filter this run has.
