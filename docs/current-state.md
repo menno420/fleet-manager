@@ -243,6 +243,28 @@ copy product architecture or internal product state. Canonical intent:
   (*"Records work can go now"*): a kit-venue **records** session (charter
   rewrite + the truth pass's 23-file sweep), then the release. Everything
   owner-gated stayed gated.
+- **THIS REPOSITORY IS SCHEDULED TO BE REPLACED. The plan's execution target is
+  a fresh hub named `estate`; fleet-manager becomes the read-only archive**
+  ([D-0025] and [D-0026], owner-live 2026-08-30;
+  [the redirect](planning/2026-08-30-fresh-start-redirect.md) is the design
+  home). Nothing is created or moved yet, and forward-only placement discipline
+  governs the meantime. **His sequence:** finish the plan → establish a
+  trustworthy baseline (re-audit only where information changed; every seeded
+  claim carries a certainty tag or it does not seed) → build the skills, hooks
+  and gates → seed the new hub → consolidation passes from birth. Settled since:
+  the archive shape, the file-length caps, hooks-in-the-hub-only, and the build
+  order — **thin seed → blind cold test → write cutover → deeper machinery, with
+  only kit changes K1–K5 before the seed** ([D-0033]–[D-0035], [D-0038]). The
+  tree, the boot budget and the carry · distill · archive table are in
+  [the structure proposal](planning/2026-09-01-estate-structure-proposal/README.md).
+  **This entry exists because the decision was absent from this file.** Until
+  2026-09-04 the only match for "successor" here was a line about `superbot`;
+  a session reading the mandatory third read learned nothing about the hub's own
+  replacement, and would have distilled a successor state document that never
+  mentioned the cutover. Found and added by the estate truth baseline (fm #1020);
+  it is the fourth instance of the defect the boot file's read-path entries 0,
+  1b and 2b already record — *a decision that exists, and is not on the path
+  that would deliver it*.
 - **The cold-boot context cost is measured, and the owner has ruled it worth
   paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
   experiment — *"to find out exactly how much context a cold boot would
