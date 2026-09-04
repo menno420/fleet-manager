@@ -135,6 +135,32 @@ GitHub path is fail-closed until a credential exists. What turns each
 enforcement class on is evidence, defined in the plan, not the fact that the
 code compiles.
 
+**Where it stands, 2026-09-04 evening (the review session):**
+[spider-bot#3](https://github.com/menno420/spider-bot/pull/3) **MERGED at the
+owner's word** (`5a7f8a28`, 18:42Z) and **verified live by hash** — Railway
+deployment `6f5c7648` SUCCESS with `meta.commitHash == main HEAD`; the `ready`
+event listed six channels, `intake=false`, `moderation="off"`,
+`support_feed="feed"`. Everything new is off; the next steps are his (the two
+private channels, the PAT — now scoped to **both** repositories). His live
+answers: publication consent as built · **a report about the bot goes to
+spider-bot's own tracker** (built as
+[spider-bot#5](https://github.com/menno420/spider-bot/pull/5)) · tester ideas
+do reach spider-swing's tracker. Before the merge, the review pushed one commit
+(`8937191`) for what reading the docs against the tree and the live Railway
+project found: the owner page named `#mod-cases` where the bot resolves
+`#case-state`; four docs said `railway.json` holds the watch patterns when only
+`.railway/railway.ts` exists; and the IaC declared `preserve()` for only the
+three live variables while Railway IaC is *omit means delete* — measured
+read-only with `railway config plan` — so the six rollout switches are now
+declared `preserve()` (a no-op until each is set, also measured). The binding
+rollout is the repo's `docs/rollout.md`; the plain-language page is
+`docs/what-changed.md`; his six setup steps and the open questions live there,
+not here. **Live worker: `c81f39fe`** (spider-bot#5 merged 19:26Z, deployment
+`ec59b97f` verified by hash; `5a7f8a28` before it from 18:43Z, `bc4f9985`
+before that). Both merges were pressed by the review session with the account
+PAT at his word — `merged_by` cannot show that (spider-bot#6), so the cards
+say it. 689 tests collected at `main`.
+
 ### Thread: plan transplant — **open, and now partly moot**
 
 The GCB plan's own README says that on repo creation the plan is copied into the

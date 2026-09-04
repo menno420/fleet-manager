@@ -486,13 +486,16 @@ demonstrated on itself.
 | TRAP-007 | **2 routes** — `card-flip-to-complete` (Edit/Write/MultiEdit, matches the completion transition) + `card-flip-before-push`, now `repeat: true` so it is never spent | not yet — a checker would have to know a review was *requested*, which is PR state, not tree state |
 | TRAP-008 | **1 route** — `listing-is-not-reading` (Bash/Edit/Write, `repeat: true`); reaches instances 1, 3, 6. Instances 2 and 5 are `read_before_write.py`'s; instance 4 is **undelivered** | not yet — a checker would have to know which claims are inherited |
 | TRAP-009 | **no route — a denying hook**, `.claude/hooks/codex_round_guard.py` (PreToolUse on the MCP comment tools + Bash POSTs to a comments endpoint) | ✅ the hook **is** the deterministic check — a per-PR count, no judgement; suite `tools/test_codex_round_guard.py` |
+| TRAP-010 | **1 route** — `card-status-write`, extended (its own entry says why a second route was measured not to fire) | not yet — the lane exists; a checker would have to know which command the session actually ran |
+| TRAP-011 | **1 route** — `railway-cli-project` (Bash, `railway config|status|link|…`, `@railway/cli`, `RAILWAY_API_TOKEN`); fired on this session's own next command | not yet — a checker would have to compare the CLI's resolved project with the one the file names, which is what the route tells the session to do by eye |
 
-**The honest state of this register: nine entries — seven delivered by route (TRAP-006
+**The honest state of this register: eleven entries — nine delivered by route (TRAP-006
 and TRAP-007 by two each — they share `card-flip-before-push`), one (TRAP-009) delivered
 by a denying hook with no route at all, one (TRAP-005) undelivered — and two complete
 through the full § 5.4 lifecycle, TRAP-002 by checker and TRAP-009 by the hook itself**
-*(re-counted 2026-09-02 when TRAP-009 was added; the sentence below records why the
-count is re-read rather than incremented)*
+*(re-counted 2026-09-04 when TRAP-011 was added — it read "nine" with TRAP-010 already
+above it and no table row for it, the third time this sentence has lagged an addition;
+the sentence below records why the count is re-read rather than incremented)*
 
 *(This sentence read "seven entries, six delivered" until 2026-09-01, when
 TRAP-008 was added directly above it and the count was not re-read. Corrected
@@ -579,3 +582,43 @@ claim that it works today.
   `card-flip-to-complete` already claim `docs/traps.md` at that moment, and the
   new route stayed silent behind them. Extending the route that demonstrably
   fires is the delivery; a second route pointing at the same doc is not.
+
+## TRAP-011 · The Railway CLI resolves to a project you did not name
+
+- **TRIGGER** — you are about to run any `railway` CLI command in a fleet-manager
+  container — `railway config plan`, `railway status`, `railway variables`,
+  `railway link`, anything — for a project other than superbot-production.
+- **WHY** — this container's environment carries `RAILWAY_PROJECT_ID`,
+  `RAILWAY_ENVIRONMENT_ID` and `RAILWAY_SERVICE_ID` for **superbot-production**,
+  and the CLI honours those three over the directory link: `railway link` wrote
+  spider-bot's ids to `~/.railway/config.json` for the working directory, exit 0,
+  and `railway status` still answered superbot-production. The authoring file
+  names `project("spider-bot")`; the CLI did not care. So a plan or an apply is
+  silently computed against the live SuperBot, and the diff between spider-bot's
+  file and superbot's service is total: every variable, the Postgres, the source
+  repo, the start command.
+- **REQUIRED PREVENTION** — set all three ids on the command line for the project
+  you mean, and read the `Project` / `Project ID` lines of the output before
+  believing anything below them:
+  ```bash
+  RAILWAY_PROJECT_ID=<project> RAILWAY_ENVIRONMENT_ID=<env> RAILWAY_SERVICE_ID=<service> \
+    railway config plan --verbose --detailed-exit-code
+  ```
+  `plan` is read-only. **Never run `railway config apply` from a session** — the
+  owner applies, on his machine, with the plan in front of him (spider-bot#1/#2).
+- **VERIFY** — the output you quote carries a `Project` line naming the project
+  the file names, and you read it before the diff.
+- **ORIGIN** — `MEASURED` 2026-09-04, the spider-bot#3 review session. The first
+  `railway config plan` against spider-bot's `.railway/railway.ts` printed
+  `Project superbot-production` and `Plan: 0 to add, 3 to change, 24 to destroy`
+  — 23 variables and the Postgres of the live production bot. A plan; nothing was
+  applied; the same command with the three ids overridden printed `Project
+  spider-bot` and "already up to date", matching the record spider-bot#2 left.
+  The estate's hardest rail (`docs/repos/superbot/README.md`: never stop, scale,
+  disconnect or delete that worker) was one `--yes --confirm-destructive` away
+  from a command whose text never mentioned superbot.
+- **ROUTE** — `railway-cli-project` (Bash), added in the same commit as this
+  entry and measured to fire on the session's own next `railway config` command.
+  The existing `railway` route matches the GraphQL host and `railway
+  variables|run|up|link|logs`; it did not match `config` or `status`, which is
+  why a second route rather than an extension.
