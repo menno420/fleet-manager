@@ -81,9 +81,9 @@ SIZE        : limit 2 via PROBE (demand test: 8 barrier agents dispatched at one
               is slot-limiting, not provisioning-limiting. The documented min(16, CPUs−2)
               is 8× the measured figure and is NOT used.
               ~46 agents × ~200s ÷ 2 ≈ 4,600s ≈ 1.3 h floor.
-EXTERNAL    : @codex at flip-readiness, HARD CAP 3 rounds ([D-0039],
+EXTERNAL    : @codex at flip-readiness, HARD CAP 3 rounds (decision 39 in `docs/decisions.md`,
               .claude/hooks/codex_round_guard.py DENIES the fourth). Mid-run verification of
-              intermediate fixes goes to the free-key Gemini route, not to Codex ([D-0019]
+              intermediate fixes goes to the free-key Gemini route, not to Codex (decision 19 in `docs/decisions.md`
               as amended 2026-08-29). Budgeted BEFORE the internal lanes were sized: the
               2026-08-29 run's entire yield was its external round.
 MODELS      : census/anchor-discovery → sonnet · repository readers → sonnet ·
@@ -92,7 +92,7 @@ MODELS      : census/anchor-discovery → sonnet · repository readers → sonne
               refute lenses → opus · blind scorer → opus · final critic → opus
               reasons: adjudication, disposition and refutation each decide what survives.
               reviews last: the final critic, on opus.
-              fable: none — [D-0040] as amended live 2026-09-02 ("Fable should only be used
+              fable: none — decision 40 in `docs/decisions.md` as amended live 2026-09-02 ("Fable should only be used
               when I explicitly request it"). He has not asked for it for this run, so the
               last look runs on opus.
 UNCONTRACTED: none.

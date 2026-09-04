@@ -245,7 +245,7 @@ copy product architecture or internal product state. Canonical intent:
   owner-gated stayed gated.
 - **THIS REPOSITORY IS SCHEDULED TO BE REPLACED. The plan's execution target is
   a fresh hub named `estate`; fleet-manager becomes the read-only archive**
-  ([D-0025] and [D-0026], owner-live 2026-08-30;
+  (decision 25 in `docs/decisions.md` and decision 26 in `docs/decisions.md`, owner-live 2026-08-30;
   [the redirect](planning/2026-08-30-fresh-start-redirect.md) is the design
   home). Nothing is created or moved yet, and forward-only placement discipline
   governs the meantime. **His sequence:** finish the plan → establish a
@@ -254,7 +254,7 @@ copy product architecture or internal product state. Canonical intent:
   and gates → seed the new hub → consolidation passes from birth. Settled since:
   the archive shape, the file-length caps, hooks-in-the-hub-only, and the build
   order — **thin seed → blind cold test → write cutover → deeper machinery, with
-  only kit changes K1–K5 before the seed** ([D-0033]–[D-0035], [D-0038]). The
+  only kit changes K1–K5 before the seed** (decision 33 in `docs/decisions.md`–decision 35 in `docs/decisions.md`, decision 38 in `docs/decisions.md`). The
   tree, the boot budget and the carry · distill · archive table are in
   [the structure proposal](planning/2026-09-01-estate-structure-proposal/README.md).
   **This entry exists because the decision was absent from this file.** Until

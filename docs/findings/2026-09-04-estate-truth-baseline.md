@@ -9,7 +9,7 @@
 > **Why this exists, in the owner's words** (2026-08-30, live): *"we need to
 > perform multiple audits again, but only if the information has changed so
 > far."* His five-step sequence puts a **trustworthy baseline** between the plan
-> and the seed, and the build order he chose on 2026-09-01 ([D-0035]) makes the
+> and the seed, and the build order he chose on 2026-09-01 (decision 35 in `docs/decisions.md`) makes the
 > **migration manifest** a named prerequisite: *"the migration manifest has one
 > verb per candidate with a verifier's name."* Neither existed. This finding and
 > [the manifest](../planning/2026-09-04-estate-seed-manifest.csv) are them.
@@ -26,14 +26,14 @@
 Stated first so the reader can see what this run added rather than re-derived.
 
 **Settled, and not reopened here:** the fresh start itself and this repository
-becoming the read-only archive ([D-0025]) · the name `estate` ([D-0026]) · the
+becoming the read-only archive (decision 25 in `docs/decisions.md`) · the name `estate` (decision 26 in `docs/decisions.md`) · the
 three carry verbs — **carry whole · distill · archive only** · the absolute
 write cutover with a lagging archive flag · the eleven role names · the
-findability contract ([D-0032]) · the archive shape ([D-0033]) · file-length
-caps ([D-0034]) · the build order, **thin seed → blind cold test → write
-cutover → deeper machinery, with only K1–K5 before the seed** ([D-0035]) ·
-hooks in the hub repository only, by design ([D-0038]) · the fan-out model tiers
-([D-0040]) and the three-round Codex cap ([D-0039]).
+findability contract (decision 32 in `docs/decisions.md`) · the archive shape (decision 33 in `docs/decisions.md`) · file-length
+caps (decision 34 in `docs/decisions.md`) · the build order, **thin seed → blind cold test → write
+cutover → deeper machinery, with only K1–K5 before the seed** (decision 35 in `docs/decisions.md`) ·
+hooks in the hub repository only, by design (decision 38 in `docs/decisions.md`) · the fan-out model tiers
+(decision 40 in `docs/decisions.md`) and the three-round Codex cap (decision 39 in `docs/decisions.md`).
 
 **Genuinely unverified before this run, which is what made it the correct next
 step:**
@@ -43,7 +43,7 @@ step:**
    almost no SHAs — the 2026-08-21 estate review that built `ESTATE.md` from 26
    repositories records **zero**, the 2026-08-23 intent audit **two** — so
    "has it changed" was not answerable from the record at all.
-2. **No migration manifest existed**, though [D-0035] makes it a prerequisite of
+2. **No migration manifest existed**, though decision 35 in `docs/decisions.md` makes it a prerequisite of
    the seed and the acceptance test names it.
 3. **Five repositories were `unrated` by the last intent audit** — a deliberate
    refusal to decide, never revisited — and two more (`spider-bot`,
@@ -89,7 +89,7 @@ its `UNCONTRACTED` line is empty. Three of its lines did real work:
   blob sha and size against the tree listing — is kept, because it catches
   either cause and would have caught this one at the moment it happened.
 
-**Model staffing was chosen per stage, never inherited** ([D-0040] as amended
+**Model staffing was chosen per stage, never inherited** (decision 40 in `docs/decisions.md` as amended
 2026-09-02): Sonnet 5 read, mapped and enumerated; Opus 5 refuted, adjudicated
 disposition, scored blind and took the last look. **Fable 5.1: none** — the
 owner's amendment reserves it for runs he asks for in words, and he did not ask
@@ -372,7 +372,7 @@ files — so all three were fixed inline with the reason stated in the diff.
 2. **`docs/current-state.md` never said this repository is being replaced.**
    The mandatory third read answers *"what is true now"*, and its only match for
    "successor" was a line about `superbot`'s successor bot. No mention of the
-   fresh-start redirect, the name `estate`, the build order, or [D-0025]/[D-0026].
+   fresh-start redirect, the name `estate`, the build order, or decision 25 in `docs/decisions.md`/decision 26 in `docs/decisions.md`.
    A successor state document distilled from it would have described a hub with
    no cutover. Added, with provenance.
 3. *(further hub-level defects from the area lanes are recorded in § 7.)*
@@ -387,7 +387,7 @@ independent review named in its § 7 and which reproduced here twice more.
 Two of that review's four § 7 findings are **now fixed** and were re-verified
 at this run's HEAD: `docs/MAP.md` does route to `owner/` (a CORE-tier row), and
 `docs/planning/README.md` records the hard cut, the carry set and the name as
-answered rather than open. One is fixed by [D-0025]'s own ANSWERED paragraph.
+answered rather than open. One is fixed by decision 25 in `docs/decisions.md`'s own ANSWERED paragraph.
 The fourth — current-state naming an older action — is finding 2 above, and it
 was **wider than the review stated**.
 
@@ -446,7 +446,7 @@ occurring **within one file**:
 journals. Re-running it reproduces the file; re-running it against a fresh fleet
 at seed time shows what moved.
 
-**Twenty-one columns per row**, which is what `[D-0035]`'s acceptance test asks
+**Twenty-one columns per row**, which is what `decision 35 in `docs/decisions.md``'s acceptance test asks
 for (*"one verb per candidate with a verifier's name"*) plus the provenance the
 fresh-start directive requires (*no certainty tag, no seed*): subject · source
 repository · source path · verification point · certainty · canonical owner ·
@@ -514,7 +514,7 @@ current state**; it solves nothing here and proposes no kit change.
 | What fleet-manager vendors | `kit_version 1.21.0` (`substrate.config.json`), and `bootstrap.py` self-reports `1.21.0` | read at HEAD |
 
 **The dependency stated exactly, so the seed session does not have to infer it.**
-`[D-0035]` puts *"K1–K5 in substrate-kit, one release"* **before** the seed. As of
+`decision 35 in `docs/decisions.md`` puts *"K1–K5 in substrate-kit, one release"* **before** the seed. As of
 this measurement K1–K5 are **not released, not on kit `main`, and exist only in
 an open pull request**. So a seed item that requires the `hub` adoption profile
 is blocked on three events in order — #590 merges · a release is cut (the cut is
@@ -581,7 +581,7 @@ the `hub` adoption profile (no `control/` bus, no generic `docs/` set, a visible
 `sessions/`, a pointer-shaped owner profile, untracked guard telemetry). Until
 kit #590 merges, a release is cut and the new hub adopts it, a seed will be born
 into the default shape and will need those five things undone by hand — which is
-exactly the cost `[D-0035]` sequenced K1–K5 before the seed to avoid. **The
+exactly the cost `decision 35 in `docs/decisions.md`` sequenced K1–K5 before the seed to avoid. **The
 manifest is consumable either way**; what changes is how much hand-work the seed
 commit carries.
 

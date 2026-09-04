@@ -62,7 +62,7 @@ it proposed has been done.
 **Why this one matters to the successor and not just to `product-forge`.** The
 hub's own boot file rules `control/` **seat-era historical**, but that ruling
 lives in *fleet-manager*, and `control/inbox.md` sits in *product-forge*. A cold
-session that opens the satellite — which is the case [D-0038] explicitly leaves
+session that opens the satellite — which is the case decision 38 in `docs/decisions.md` explicitly leaves
 uncovered, since the hub's hooks do not load there — meets four live-looking P1
 orders and nothing that contradicts them. The seed must therefore carry the
 state word and the *"do not take orders from `control/`"* fact **in the
