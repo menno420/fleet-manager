@@ -19,7 +19,25 @@ Usage
         --out docs/planning/2026-09-04-estate-seed-manifest.csv \
         --evidence-out docs/findings/data/2026-09-04-estate-truth-baseline/
 
-Exit: 0 built · 2 usage/input error.
+Refute-lane schema for `overclaimed_certainty` (added 2026-09-04, finding § 12
+item 11)
+------------------------------------------------------------------------------
+The 2026-09-04 fleet collected 73 certainty overclaims as FREE TEXT — *"claims
+tagged MEASURED that are actually REASONED, and why"* — and only 10 resolved to
+a row by content-word containment; the other 63 named no seed subject any join
+could reach. That is a schema defect, not a matching one, so the next run's
+refute lane MUST emit each overclaim as an object naming the subject it judges:
+
+    {"subject": "<the seed item's subject, verbatim>", "reason": "<why the tag is not earned>"}
+
+Objects join EXACTLY on the case-folded subject within the audited reading —
+no heuristic, no threshold. Bare strings are still read, by the containment
+join, so the retained 2026-09-04 journals reproduce the committed manifest
+unchanged; the builder prints how many strings matched a kill-eligible row, a
+row of some other certainty, or no row at all, so the residual is a number
+rather than a sentence.
+
+Exit: 0 built · 1 incomplete manifest without --allow-partial · 2 usage/input error.
 """
 
 from __future__ import annotations
@@ -41,8 +59,18 @@ COLUMNS = [
     "links_that_must_survive", "blocker", "verifier", "contradicted_by",
     "contradiction_resolution", "refuted", "stale_on_copy",
     "only_source_is_hub_summary", "certainty_overclaimed", "fact", "origin_lane",
-    "survives", "killed_by",
+    "survives", "killed_by", "canonical_state_source",
 ]
+
+# The hub's own canonical ledger. Each repository reading records its
+# `canonical_state_source`; fleet-manager was read by five AREA lanes that record
+# none, so the hub's value is taken from the file that declares itself the
+# ledger: `docs/current-state.md` opens with `Status: living-ledger` and *"It
+# carries live hub state"*, and `.claude/CLAUDE.md`'s deep read path names it
+# *"the living ledger"*. Finding § 7 explains why the column exists: a consumer
+# of the CSV alone must be able to tell a repository's canonical ledger from
+# whichever file supplied a claim, or the seed imports stale front doors.
+HUB_STATE_SOURCE = "docs/current-state.md"
 
 
 CENSUS: set[str] = set()
@@ -274,7 +302,9 @@ def main() -> int:
     CENSUS.update(classification)
 
     items, drops, refutations, readings, areas = [], {}, [], [], []
-    overclaims: dict[str, list[str]] = {}
+    overclaims: dict[str, list[str]] = {}           # free text, per audited repo
+    overclaims_by_subject: dict[str, dict[str, str]] = {}   # {repo: {subject: reason}}
+    state_source: dict[str, str] = {"fleet-manager": HUB_STATE_SOURCE}
     for jpath in args.journal:
         for line in open(jpath, encoding="utf-8", errors="replace"):
             try:
@@ -290,6 +320,9 @@ def main() -> int:
             # A repository reading: its seed items, its contradictions, its walls.
             if "successor_seed" in r:
                 readings.append(r)
+                who_read = str(r.get("repo", "")).split("/")[-1]
+                if str(r.get("canonical_state_source", "")).strip():
+                    state_source[who_read] = str(r["canonical_state_source"]).strip()
                 for it in r.get("successor_seed") or []:
                     n = normalise(it, f"repo:{r.get('repo', '?')}")
                     if n:
@@ -308,8 +341,14 @@ def main() -> int:
                         drops.setdefault(who, {})[d["subject"].strip().lower()] = \
                             d.get("reason", "dropped by refuter")
                 for oc in r.get("overclaimed_certainty") or []:
-                    if isinstance(oc, str) and oc.strip():
-                        overclaims.setdefault(str(r.get("repo", "")).split("/")[-1], []).append(oc.strip())
+                    # The subject-bearing form joins exactly; the free-text form
+                    # falls through to the containment heuristic below.
+                    if isinstance(oc, dict) and str(oc.get("subject", "")).strip():
+                        overclaims_by_subject.setdefault(who, {})[
+                            str(oc["subject"]).strip().lower()] = str(
+                            oc.get("reason") or oc.get("why") or "certainty overclaimed by refuter")
+                    elif isinstance(oc, str) and oc.strip():
+                        overclaims.setdefault(who, []).append(oc.strip())
 
             # A disposition judge's output for a fleet-manager area.
             if "items" in r and "killed" in r:
@@ -344,9 +383,16 @@ def main() -> int:
     # keyed its survival rule only on `refuted`, discarding 815 of 925 dissents.
     # An overclaim names a claim inside one repository's reading; attach it to
     # that repository's rows whose subject the flag text mentions.
-    oc_applied = 0
+    oc_applied = oc_by_subject_applied = 0
     for it in items:
-        audited = it["origin_lane"].split(":", 1)[1].split("/")[-1] if ":" in it["origin_lane"] else ""
+        audited = audited_of(it)
+        reason = overclaims_by_subject.get(audited, {}).get(it["subject"].strip().lower())
+        if reason is not None and it["certainty"] in ("MEASURED", "OWNER"):
+            it["certainty_overclaimed"] = True
+            it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
+                            f"adversary (by subject): {reason[:160]}"
+            oc_by_subject_applied += 1
+            continue
         for flag in overclaims.get(audited, []):
             if match_drop(it["subject"], {flag: flag}) and it["certainty"] in ("MEASURED", "OWNER"):
                 it["certainty_overclaimed"] = True
@@ -354,6 +400,19 @@ def main() -> int:
                                 f"adversary: {flag[:160]}"
                 oc_applied += 1
                 break
+    # Where the free-text residual actually is. "10 of 73 applied" conflated two
+    # different failures: a flag that names no row any join can reach (the
+    # schema defect) and a flag that reaches a row whose certainty the rule does
+    # not kill on (working as designed). Count them apart.
+    oc_no_row = oc_ineligible_only = 0
+    for audited, flags in overclaims.items():
+        pool = [it for it in items if audited_of(it) == audited]
+        for flag in flags:
+            hit = [it for it in pool if match_drop(it["subject"], {flag: flag})]
+            if not hit:
+                oc_no_row += 1
+            elif not any(it["certainty"] in ("MEASURED", "OWNER") for it in hit):
+                oc_ineligible_only += 1
 
     # Scope by the AUDITED reading (origin_lane), not by the claim's own
     # source_repo: a repository reading that cites a hub file leaves
@@ -380,6 +439,9 @@ def main() -> int:
         if k not in merged or (dies(it) and not dies(merged[k])):
             merged[k] = it
     rows = sorted(merged.values(), key=lambda r: (r["estate_role"], r["source_repo"], r["subject"]))
+    for r in rows:
+        r["canonical_state_source"] = state_source.get(r["source_repo"], "")
+    no_state_source = sorted({r["source_repo"] for r in rows if not r["canonical_state_source"]})
 
     out = pathlib.Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -404,8 +466,14 @@ def main() -> int:
     print(f"refuter drops applied in aggregation: {applied} of {total_drops}"
           + ("  <-- OVER-APPLIED, a drop matched more than its own reading"
              if applied > total_drops else ""))
-    print(f"certainty overclaims applied: {oc_applied} of "
-          f"{sum(len(v) for v in overclaims.values())}")
+    n_free = sum(len(v) for v in overclaims.values())
+    n_subj = sum(len(v) for v in overclaims_by_subject.values())
+    print(f"certainty overclaims (free text): {n_free} flags · applied to {oc_applied} row(s) · "
+          f"{oc_ineligible_only} reach only rows outside MEASURED/OWNER · "
+          f"{oc_no_row} reach no row (the schema residual)")
+    print(f"certainty overclaims (by subject): {n_subj} flags · applied to {oc_by_subject_applied} row(s)")
+    print(f"canonical_state_source: {sum(1 for r in rows if r['canonical_state_source'])} of {len(rows)} rows carry one"
+          + (f"; none recorded for source_repo {no_state_source}" if no_state_source else ""))
     print("by disposition:", dict(collections.Counter(r["disposition"] for r in survivors)))
     print("by estate role:", dict(collections.Counter(r["estate_role"] for r in survivors)))
     print("kill branches :", dict(collections.Counter(
