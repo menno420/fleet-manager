@@ -195,6 +195,78 @@ and **11 live controls over the real estate — 4 known-moved and 7 known-still,
 all correct**. A matcher that passes fixtures and returns nothing on real text
 is still broken, so the real-slice control is not optional.
 
+## 4b · What moved during the run — and a correction to the estate's own activity tool
+
+The `BASE` contract schedules a re-read before publication. Running
+`python3 tools/estate_activity.py refresh` mid-run (exit 0) surfaced two things
+the 11:34Z snapshot could not have held, one of them material.
+
+### Two other sessions started while this one was auditing
+
+| repo | PR | opened | what it is |
+|---|---|---|---|
+| `fleet-manager` | [#1021](https://github.com/menno420/fleet-manager/pull/1021) | 2026-09-04T12:18:24Z | *"Spider Bot's purpose, recorded"* — 6 files |
+| `spider-bot` | [menno420/spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | 2026-09-04T12:19:06Z | *"AI operations: one intake path, one moderation path…"* — 2 files |
+
+Both carry the **same owner-live direction of 2026-09-04**, and their own PR
+bodies say it is *"newer than every record in this repo"*:
+
+> *"Spider Bot exists to manage the Slingy Spider server and help during testing
+> of the game. It should become a reliable automoderator with heavy AI
+> integration. People should be able to talk naturally to it for guidance,
+> complaints, bugs, feedback and improvement ideas."*
+
+**This is material, not incidental.** `spider-bot` is one of the thirteen
+repositories in this run's re-audit slice, and its purpose was being **restated
+by the owner while an agent of this run was reading it at a SHA pinned before
+that**. So this baseline's `spider-bot` row is **superseded on its purpose field
+at the moment of writing**, and the seed manifest carries that as a blocker
+rather than as a fact: the successor's `repositories/spider-bot/intent.md` must
+be written from fm #1021 and spider-bot #3, not from this run's reading.
+`WEAK_OR_INCOMPLETE` was the right classification for it and remains right for a
+different reason than the one that earned it.
+
+It is also the second concurrent session this run has had to work around — the
+first being Substrate Kit's kit #590 (§ 9). Two independent sessions moving
+estate state during a three-hour audit is not an anomaly to note once; it is the
+**operating condition** a seed session will also be in, which is why the handoff
+in § 11 makes re-running the delta the first launch step rather than an optional
+freshness check.
+
+### The activity tool over-reports "invisible work", and the cause is `pushed_at`
+
+The same run flagged two repositories under *"Invisible work — repositories that
+moved without a card to explain it"*:
+
+| repo | flagged because | `pushed_at` | what that push actually was |
+|---|---|---|---|
+| `superbot` | *"newest card is 2026-08-13 — pushed 18 days later with no card"* | `2026-08-31T18:38:08Z` | PR **#2453**, `dependabot[bot]`, created **`2026-08-31T18:38:08Z`** — the same second. Default branch `5e3a667b` is from 2026-08-20T23:17:52Z and did not move. All 8 open PRs are dependabot's; **zero distinct non-bot authors**. |
+| `spider-swing` | same wording | `2026-08-31T04:26:56Z` | PR **#180**, `dependabot[bot]`, created **`2026-08-31T04:26:57Z`** — one second later, which is the branch push followed by the PR. Default branch `fc64a3fb` is from 2026-08-23T20:17:00Z and did not move. |
+
+The attribution is a match to the second, not an inference: `pushed_at` advances
+on **any** ref, so a bot opening a branch reads identically to an unrecorded
+human or agent session. Both rows are false positives.
+
+The log's own framing is what makes this worth writing down rather than a nit:
+it calls that section *"the section the log exists for"* and says a row means
+*"nothing in the estate's records says who did that work or why."* Here the
+records say precisely who did it, with a timestamp that matches exactly — and
+the tool did not look.
+
+**Scoped honestly:** both repositories do also carry stale non-dependabot
+branches (`superbot` has 46 branches including several `claude/*` and `codex/*`;
+`spider-swing` has 5). None of those is what `pushed_at` is reporting — the
+newest push in each case is the dependabot one — so the false positive is
+specifically about *which* ref moved most recently, not a claim that these
+repositories have no unrecorded history anywhere.
+
+**Recorded, not fixed.** The fix is a real change to a generator that this run
+did not set out to touch, and the honest scope note is that `estate_activity.py`
+is advisory and wired into no gate, so a false positive costs an investigation
+rather than a red build. It is carried into the seed manifest as a **known
+defect of a carried tool**, which is the disposition the successor needs: the
+tool is worth carrying, and it is worth carrying with this written down.
+
 ## 5 · What the re-audit found
 
 *(§ 5 is completed from the fleet's returned evidence; see the sections below.)*
