@@ -1,7 +1,8 @@
 # 2026-09-04 — Hand the Spider Bot AI-operations work forward
 
-> **Status:** `in-progress` — branch `claude/spider-bot-ai-ops-sthix0`, restarted
-> from `main` because its previous PR (fm #1029) merged. Born red; flipped last.
+> **Status:** `complete` — merged path: fm #1031, branch
+> `claude/spider-bot-ai-ops-sthix0`, restarted from `main` because its previous
+> PR (fm #1029) merged. Born red; flipped here as the last step.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -67,4 +68,23 @@ for exactly this and it earned its place three times in one pass.
 
 ## Close-out
 
-Pending — this card is the merge hold.
+**Landed as fm #1031.** The handoff prompt is committed and the four corrections
+it turned up are in with it.
+
+The branch was restarted from `main` because fm #1029 had merged. The force-push
+hook named three files where the discarded head differed from `main`; all three
+were checked by **blob SHA, not by commit list**, and all three were the
+discarded head being *behind*: `2026-09-04-continuation-prompt-state-fix.md`
+absent there and present in both `main` and my HEAD, the couch-legend
+continuation prompt carrying the pre-#1030 blob `6d25f87` against `4571753` in
+both, and `comm -23` over the sorted guard-fires returning **0** lines unique to
+it.
+
+`check --strict` held red on the born-red hold as the only finding, locally and
+then in CI — read from the finding lines in the substrate-gate job log, not from
+the exit code. Expected green at this flip.
+
+**What this card does not claim:** spider-bot#3 is still open at `d3a66bb` and
+its deployment is still unverified, exactly as its own card says. Nothing here
+changed that; it hands it to the next session with the state measured rather
+than assumed.
