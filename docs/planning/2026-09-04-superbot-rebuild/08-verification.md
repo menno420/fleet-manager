@@ -197,8 +197,25 @@ looks like. Its sibling ratchet in the same repo (setup-copy jargon, ceiling 133
 `tools/check_settle_once.py:629-637`: an `ALLOWLIST` or `KNOWN_RISKS` row
 matching no warn-classified root is **itself a finding** —
 `"STALE-ROW … never let an excuse outlive its reason"`. It is the checker-level
-twin of § 3.3 and, per R2, the only one of `superbot-next`'s 27 checkers that
-expires its own exemptions.
+twin of § 3.3.
+
+**Corrected count, and the correction is instructive.** Lane R2 reported this as
+*"the only checker of the 27 that expires its own exemptions"*, and a first cut of
+this section published that. It is **two**: `tools/check_money_race.py:610-616`
+carries the same pattern verbatim — `(set(ALLOWLIST) | set(KNOWN_RISKS)) -
+matched` emitting `"STALE-ROW … never let an excuse outlive the code it
+excused"`. Positive control: `grep -rln "STALE" tools/*.py` returns exactly those
+two files.
+
+**And 27 was the wrong denominator anyway**, because it counts checkers with no
+exemptions to expire. Measured: **10 of the 27 carry an exemption / allowlist /
+baseline structure at all**, and **2 of those 10 expire it** —
+`check_settle_once` and `check_money_race`. The eight that do not include
+`check_escape_hatches` (21 exemption-ish references) and `check_sim_gate` (26),
+which are §§ 3.1/3.6's two worst population cases.
+
+2-of-10 is a weaker headline than 1-of-27 and it is the true one; it supports the
+same conclusion, which is the point of re-deriving rather than relaying.
 
 This is the direct answer to `superbot`'s exception files
 (`consistency_exceptions.yml`, `command_reachability_exceptions.yml`,
@@ -226,7 +243,7 @@ if it proves unreliable."*
 | denominator assertion (§ 3.1) | one file | **every** gate asserts its own count against an independently derived one |
 | live-population negative control (§ 3.2) | one guard, pointed at a model | **every** population-walking guard ships one, pointed at the rendered artifact, and it must fail on empty |
 | shrink-only ratchet + staleness proof (§ 3.3) | 1 of 2 ratchets | **every** baseline/allowlist/exception list carries a paired staleness assertion; a list without one is a build error |
-| excuse-row expiry (§ 3.4) | 1 of 27 checkers | in the checker **template**, so it is present by construction |
+| excuse-row expiry (§ 3.4) | 2 of the 10 checkers that carry exemptions | in the checker **template**, so it is present by construction |
 | workflow↔script flag parity (§ 3.5) | one workflow, "disposable" | checkers self-register their argparse surface and CI derives invocations from that registry, so the guard's population cannot drift |
 
 **And the finding that makes this section worth more than the rule in § 1:**
