@@ -1002,8 +1002,36 @@ checkers: 45 | referenced from tests/: 44 | referenced from .github/workflows/: 
   and then found the real path.
 
 **The checkers are libraries; the gate is `pytest tests/ -v -n auto`** in
-`code-quality.yml`. So a workflow-step census of this repo measures its
-*documentation*, not its enforcement.
+`code-quality.yml`, and that step carries **no `continue-on-error`** (the 10
+occurrences in the file are on other steps), so it fails the job. A workflow-step
+census of this repo therefore measures its *documentation*, not its enforcement.
+
+**And "referenced from `tests/`" was re-derived a second time, with a stricter
+instrument, because a reference count is not an enforcement count.** The second
+pass scans 1,114 test files with `__pycache__` **excluded**, and counts a checker
+as ENFORCED only when a test file both *drives* it — imports the module, loads it
+by path, subprocesses `scripts/<name>.py`, or calls one of its attributes — **and**
+contains an `assert`:
+
+```
+ENFORCED  — driven by an asserting test : 44
+MENTIONED — named in tests, not driven  : 0
+ABSENT    — not in tests/ at all        : 1   (check_plan_staleness)
+positive control 'check_command_reachability' in ENFORCED: True
+```
+
+**44 of 45 survives the stricter reading.** The one checker outside the net is
+`check_plan_staleness`.
+
+*An over-correction, recorded because it is the mirror of every other error
+here.* A five-checker spot sample taken with `grep -rl … | head -1` returned a
+`.pyc` for one and an unrelated view-conformance test for another, and this
+session concluded from those two that "44" was a reference count wearing an
+enforcement label. It was not — the oddities were artefacts of picking an
+**arbitrary first match**, not properties of the population. Having spent the
+session catching numbers that were too flattering, the reflex mis-fired on one
+that was simply correct. **Under- and over-correction have the same root: a
+sample standing in for a census.**
 
 ### Why this one matters more than the arithmetic
 
