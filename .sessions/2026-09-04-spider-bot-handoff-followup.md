@@ -1,7 +1,8 @@
 # 2026-09-04 — The handoff was picked up, and it made two hub records wrong
 
-> **Status:** `in-progress` — branch `claude/spider-bot-ai-ops-sthix0`, restarted
-> from `main` because its previous PR (fm #1031) merged. Born red; flipped last.
+> **Status:** `complete` — merged path: fm #1038, branch
+> `claude/spider-bot-ai-ops-sthix0`, restarted from `main` because its previous
+> PR (fm #1031) merged. Born red; flipped here as the last step.
 
 - **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
@@ -64,4 +65,15 @@ value was not in what it knew; it was in having named precisely what it did not.
 
 ## Close-out
 
-Pending — this card is the merge hold.
+**Landed as fm #1038.** Two hub records brought back to the tree.
+
+`check --strict` held red on the born-red hold as the only finding, read from
+the finding lines. The force-push hook named 71 differing files; every one was
+main moving forward, established by **blob comparison, not commit list** —
+`comm -23` over the sorted `docs/CAPABILITIES.md` and `.substrate/guard-fires.jsonl`
+of the discarded head returned **0** lines absent at HEAD, and the five other
+files fm #1031 touched are byte-identical on `main`.
+
+**What this card does not claim:** spider-bot#3 is still open at `8937191c`,
+green and unmerged, and its deployment is still unverified. The check-in at
+18:42Z carries it.
