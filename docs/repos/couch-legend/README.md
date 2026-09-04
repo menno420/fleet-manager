@@ -52,8 +52,11 @@ ungated lanes were worked.
 **The rail breach was structural, and is closed by tuning.** Re-read from
 the fixtures, seed 23's 0.14 % was the optimiser crossing into chapter 5 with
 three mid-tier Grow rows unbought, equipping The Standing Glass in the same
-pass, and 10 % of a Work shelf ~30× the garden being ~3× the whole garden —
-every Grow row decoration for the player holding the glass; `balanced` s47
+pass, and 10 % of a Work shelf **~10 000×** the garden being **~1 000×** the
+whole garden (measured at `4934955`: Work base 3.47 × 10⁸, garden 3.45 × 10⁴;
+an earlier "~30× / ~3×" here was inferred from the felt reading and caught
+by the owner-review hook after the merge) — every Grow row decoration for
+the player holding the glass; `balanced` s47
 sat on the bound at 2.1 % for the same reason. The change: each cross-wire
 pays its share **up to a ceiling times what the receiving shelf makes
 itself** (the glass 1×, The First Follower 3×, Earth in the Window 1×), so a
