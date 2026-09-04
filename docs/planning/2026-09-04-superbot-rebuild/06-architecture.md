@@ -23,7 +23,7 @@ everything else is derived from them:
 |---|---|
 | **C1 · A guard is only as good as its population.** Every registry, graph and surface the successor builds is something a gate will one day have to count. | [`04-root-cause.md`](04-root-cause.md) § 2.4 · [`08-verification.md`](08-verification.md) § 1 |
 | **C2 · An out-of-tree module must be able to own data**, or cog portability fails for the feature classes worth porting (`stores` fences out 29 of `superbot-next`'s own 49 subsystems). | I-10 · OD-19 |
-| **C3 · AI supplies judgement, deterministic code supplies authority** — through a typed schema-validated verdict, never parsed prose. | `[D-0042]` |
+| **C3 · AI supplies judgement, deterministic code supplies authority** — through a typed schema-validated verdict, never parsed prose. | [the 2026-09-04 AI-authority decision](run/in-flight-direction.md) |
 | **C4 · A feature must cost a local change**, or the exception files grow with the feature set. | [`04-root-cause.md`](04-root-cause.md) § 1.2 |
 
 **The rule this file applies to every abstraction it proposes**, stated once and
@@ -524,7 +524,7 @@ and therefore nothing to keep in sync and no exception file to grow.
 
 ## 9 · The deterministic interaction pipeline
 
-`[D-0042]` in an ordered flow. **One entry point.** Every surface — slash,
+[The 2026-09-04 AI-authority decision](run/in-flight-direction.md) in an ordered flow. **One entry point.** Every surface — slash,
 component, modal, autocomplete, prefix alias, scheduled job, AI-initiated action —
 arrives at step 2 and takes the same path from there. `superbot-next` built this
 and its own docstring states the order (read at the pin,
@@ -592,7 +592,7 @@ effect assertion at the end.
 **The AI's write surface starts where production already proved it works:**
 `superbot`'s catalogue is 36 tools, 35 read-only and exactly one write —
 `open_support_ticket`, which goes through the audited mutation seam (I-11). That
-is `[D-0042]`'s contract, shipped, in production, today. The successor's registry
+is [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s contract, shipped, in production, today. The successor's registry
 is `superbot-next`'s open per-module one (so a module brings its own tools —
 `superbot` has **no** per-cog registration hook at all, M4-D6, `lane-claimed`)
 carrying `superbot`'s contract, **with a committed floor on the registry**.

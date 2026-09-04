@@ -531,9 +531,9 @@ through the same contract, which is the cheapest available second test of it.
 ### Implementation boundaries
 
 **In:** one deterministic moderation capability (the pre-check half of
-`[D-0042]`'s pipeline), the case record, the audit read surface, preview/confirm.
+[The 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s pipeline), the case record, the audit read surface, preview/confirm.
 
-**Out:** anything a model decides. S3 contains **no AI**. `[D-0042]`'s step 8 does
+**Out:** anything a model decides. S3 contains **no AI**. [The 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s step 8 does
 not exist yet, and that is the point: the pipeline's authority half must be
 complete and exercised before the judgement half is written, or the judgement half
 is the thing being tested by the authority half's first test.
@@ -592,7 +592,7 @@ up until 02:00.
 
 ### Objective
 
-Add `[D-0042]`'s steps 7–11 — deterministic pre-check, optional AI analysis,
+Add [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s steps 7–11 — deterministic pre-check, optional AI analysis,
 typed schema-validated verdict, policy engine, risk/mode gate — with a model as
 the first non-human caller of S3's typed operation, and **no new write path**.
 
@@ -619,7 +619,7 @@ would have done, in shadow mode, before anything is allowed to act.
 - **shadow mode as a mode of the same pipeline**, so the evidence it collects is
   evidence about the code that would have run;
 - **durable-first report intake**: the record exists with a stable id before any
-  external projection (`[D-0042]`, adopted verbatim).
+  external projection ([the 2026-09-04 AI-authority decision](run/in-flight-direction.md), adopted verbatim).
 
 ### Depends on
 
@@ -693,7 +693,7 @@ anything else proceeds.
 
 ### Exit criteria
 
-1. `[D-0042]`'s pipeline is implemented in order, and steps 7–11 are skippable
+1. [The 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s pipeline is implemented in order, and steps 7–11 are skippable
    without affecting steps 0–6 and 12–15.
 2. Invalid model output is inert, in four asserted failure modes.
 3. Shadow mode has produced a reviewable track record a human has read.

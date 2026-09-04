@@ -50,7 +50,7 @@ that a gate.
 
 ---
 
-## 2 · The declaration — one record, twenty facets
+## 2 · The declaration — one record, seven identity fields and sixteen facets
 
 The successor's unit of extension is a **feature**: one directory, one manifest
 module, one key. The manifest is the only place a feature is registered, and
@@ -58,7 +58,8 @@ every other surface is derived from it.
 
 `superbot-next` already built four fifths of this and it is the strongest
 transferable artifact in either repository. `sb/spec/manifest.py:24-35` declares
-`SubsystemManifest` with **ten** facets — `key`, `version`, `commands`, `panels`,
+`SubsystemManifest` with **ten fields, eight of them facets** — `key` and
+`version`, then `commands`, `panels`,
 `settings`, `stores`, `events`, `capabilities`, `data_invariants`,
 `wizard_sections` — and `sb/app/main.py:91-104` discovers every module under
 `sb/manifest/` by `pkgutil`, so **adding a subsystem requires no registry edit at
@@ -95,7 +96,7 @@ class FeatureManifest:
     subscriptions: tuple[SubscriptionSpec, ...]   # + what it listens to
     jobs:          tuple[JobSpec, ...]            # + durable scheduled work
     # --- judgement ------------------------------------------------------
-    ai_tools:      tuple[AIToolSpec, ...]         # + per-feature, [D-0042]-typed
+    ai_tools:      tuple[AIToolSpec, ...]         # + per-feature, [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)-typed
     # --- proof and operation --------------------------------------------
     metrics:       tuple[MetricSpec, ...]         # + declared, cardinality-budgeted
     audit_actions: tuple[AuditActionSpec, ...]    # + the verbs it may write
@@ -109,7 +110,7 @@ class FeatureManifest:
 | `owner`, `tier` | R0 of the verification ladder ([`08-verification.md`](08-verification.md) § 4) needs a named owner; `tier` is the field [`12-owner-decisions.md`](12-owner-decisions.md) **OD-D** writes into when he rules on the middle set |
 | `parent`, `entry` | the parent link is stored **twice** in `superbot` — `SUBSYSTEMS[key]["parent_hub"]` and `HUBS[hub].primary_children` — and `disbot/utils/hub_registry.py:44-57` documents the bidirectional roster rule and the drift checker that had to be written for it. Re-derived: 8 hubs, **34** primary children, **34** subsystems carrying `parent_hub`, matching. Storing it once removes the checker, not just the drift |
 | `journeys` | layer 4 of [`08-verification.md`](08-verification.md) § 3c is the **first layer a do-nothing bot fails** and the first one neither repo has. A journey cannot be asserted if it was never declared |
-| `operations` | [D-0042]: *AI supplies judgement, deterministic code supplies authority.* The typed operation is the authority half. It is also what a permission gate and an audit row hang off |
+| `operations` | [the 2026-09-04 AI-authority decision](run/in-flight-direction.md): *AI supplies judgement, deterministic code supplies authority.* The typed operation is the authority half. It is also what a permission gate and an audit row hang off |
 | `migrations` (namespaced) | I-10: `superbot-next`'s plugin fence lists `stores` as host-only, so **29 of its own 49 subsystems cannot be out-of-tree plugins**. A feature that cannot ship its schema cannot be portable |
 | `subscriptions` | `superbot`'s listeners are `@commands.Cog.listener()` methods — invisible to every registry, so nothing can enumerate what reacts to what |
 | `jobs` | re-derived: **7** `@tasks.loop` decorators across `disbot/` in 7 cog files, declared nowhere. `superbot-next` has a real kernel scheduler (`sb/kernel/scheduler/`) and **no manifest facet for it**, so a feature still cannot declare durable work |
@@ -206,7 +207,7 @@ requires a journey and an effect beside it.
 **Declares** `operations` — one typed record per state change: input type, output
 type, capability, risk class, idempotency key, audit verb.
 **Derived** the permission gate's input; the audit row's shape; the AI pipeline's
-action vocabulary ([D-0042]); the effect layer's list of things that must be
+action vocabulary ([the 2026-09-04 AI-authority decision](run/in-flight-direction.md)); the effect layer's list of things that must be
 proven to change the database.
 **Gate** no write outside a declared operation. `superbot` already has the
 coarser version and it is genuinely good: `architecture_rules/mutation_owners.yaml`
@@ -220,7 +221,7 @@ eligibility and emits `ticket.open_requested` so a human clicks a button, and th
 row is written by the audited ticket mutation service (M4-S3, `lane-claimed`;
 the catalogue's own comment at `disbot/services/ai_tool_catalogue.py:50-52` calls
 it *"the one **action** toolset … unlike every other catalogued tool, which is
-read-only"*). That is [D-0042]'s pipeline, shipped, before the decision was
+read-only"*). That is [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s pipeline, shipped, before the decision was
 written.
 
 ### 3.5 · Persistence
@@ -288,7 +289,7 @@ a build error.
 **Evidence** `superbot` enforces with decorators — `admin_or_owner`,
 `app_admin_or_owner`, `perms_or_owner(manage_guild=True)` — at the handler, while
 `SUBSYSTEMS[key]["capabilities"]` carries capability strings as *metadata*
-(`disbot/utils/subsystem_registry.py:1002-1006` for `utility`). Two
+(`disbot/utils/subsystem_registry.py:1002-1007` for `utility`). Two
 representations of one fact, only one of them enforcing. `superbot-next`'s
 per-guild visibility chain (thread > channel > category > guild) **survived its
 rebuild** and is a `PRESERVE_CONTRACT` (R3-S9, `lane-claimed`).
@@ -410,7 +411,7 @@ eval-coverage floor; the AI pipeline's action vocabulary.
    `_TOOL_COVERAGE_FLOOR` at 35 (`lane-claimed`, M4-D1). An excuse row that
    exempts precisely the riskiest member of the population is the § 4.4 case in
    its purest form.
-3. **No free-form prose becomes an action.** [D-0042], quoted as the pipeline it
+3. **No free-form prose becomes an action.** [The 2026-09-04 AI-authority decision](run/in-flight-direction.md), quoted as the pipeline it
    is: event → deterministic pre-check → optional AI analysis → **typed
    schema-validated verdict** → policy engine → permission/risk gate → typed
    operation → Discord API → audit + case. Invalid model output means **no
@@ -499,7 +500,10 @@ of. Every figure below was re-derived in this session against `superbot` @
 | `disbot/utils/settings_keys/__init__.py` | re-export block + `__all__` at **124** names | AST |
 | `architecture_rules/extension_roles.yaml` | **67** classified names | YAML key count |
 | `architecture_rules/mutation_owners.yaml` | **14** domains | YAML parse |
-| `docs/help-command-surface-map.md`, `docs/setup-platform/settings-customization-command-map.md`, `docs/repo-navigation-map.md`, `docs/repo-sector-map.md` | 4 documents with per-feature rows | `new_subsystem.py` checks 5–7 and 10 |
+| `docs/help-command-surface-map.md` | **50** table rows, one per subsystem key | `grep -c '^\| \`'` |
+| `docs/setup-platform/settings-customization-command-map.md` | **48** `###` sections | `grep -c '^### '` |
+| `docs/repo-navigation-map.md` | a path-level orientation document the check requires the key to be *mentioned* in | `new_subsystem.py:280-300` + reading the doc's header |
+| `docs/repo-sector-map.md` | **not** a per-feature list: 5 sectors, plus a machine-readable `sector-folio-map` block (`:243-248`) homing each `docs/subsystems/<key>.md` folio to exactly one sector. It fires only for the **8** features that have a folio (`ls docs/subsystems/` → 9 files, one of them `README.md`) | read at source |
 
 **And five exception files, which are the measure of how much each rule is
 already not true.** Re-derived entry counts:
@@ -740,7 +744,7 @@ requirement in § 3.5 is not theoretical.
 
 Its own docstring is the finding: *"A thin command host … The cog holds **no
 domain logic** — every action routes into an existing manager inside the hub
-view"* (`disbot/cogs/server_management_cog.py:1-18`). The cog is already the
+view"* (`disbot/cogs/server_management_cog.py:1-16`). The cog is already the
 right shape. **The weight is 822 lines of view code that mixes routing, rendering
 and privileged mutation**, and the module-level closure of 94 against a whole-AST
 closure of 268 says most of what it reaches, it reaches lazily.
@@ -754,7 +758,7 @@ closure of 268 says most of what it reaches, it reaches lazily.
    This is the work, and it is not mechanical: today an operator action's
    authority is a decorator on a callback and its audit is whatever the manager
    happened to call.
-3. **Risk classes make it AI-addressable.** It is the feature class [D-0042]'s
+3. **Risk classes make it AI-addressable.** It is the feature class [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s
    pipeline is aimed at — a moderator-facing operator surface where a typed
    verdict may propose and only a typed operation may act. Which risk classes may
    auto-act is **OD-F**, not this file.
@@ -995,7 +999,8 @@ floor over the shipped artifact; every population-walking gate ships a negative
 control that fails when the population is empty. The measured reason for all
 three clauses is in [`08-verification.md`](08-verification.md) § 1, and the
 measured reason for the derivation rule is that adding one ordinary feature to
-`superbot` today means fourteen coordinated touch-points, nine central files and
+`superbot` today means fourteen coordinated touch-points, eight central code and
+configuration files, four documents, and
 a growing share of 131 exception entries — while its successor's answer to the
 same problem fences the data-owning majority of its own product out of the
 extension mechanism it built.

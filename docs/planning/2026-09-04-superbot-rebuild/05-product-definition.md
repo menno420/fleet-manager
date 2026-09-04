@@ -57,7 +57,7 @@ thing do what it said. This is the audience `superbot` serves best and its
 successor serves worst — see § 3.
 
 **A fourth party is a consumer of the product without being a user of it: the
-developer who receives what the bot collects.** `[D-0042]`'s pipeline exists so
+developer who receives what the bot collects.** [The 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s pipeline exists so
 that reports, complaints and feedback *"become durable, easy for the developer
 to find and act on — preferably through GitHub or an equally clear
 developer-facing system"* (owner, live, 2026-09-04, in flight at
@@ -401,7 +401,7 @@ in slice one, which is the only way to find out whether it works.
 
 ### 7.1 · The pipeline, verbatim
 
-`[D-0042]` (owner, live, 2026-09-04; in flight at #1021 at the time of writing,
+[The 2026-09-04 AI-authority decision](run/in-flight-direction.md) (owner, live, 2026-09-04; in flight at #1021 at the time of writing,
 quoted here under the estate's precedence rule that a live owner statement stands
 on its own):
 
@@ -455,7 +455,7 @@ Three jobs, and no others in the first horizon:
 **Reports are durable first and projected second** — a confirmed report enters
 durable private storage with a stable id **before** any GitHub call; GitHub is a
 projection and a sink, never the primary store, and never a place private or
-interpersonal material is published (`[D-0042]`, adopted verbatim).
+interpersonal material is published ([the 2026-09-04 AI-authority decision](run/in-flight-direction.md), adopted verbatim).
 
 **New autonomous moderation starts in shadow mode** with a staff review surface,
 because *"reliable"* is his word and an unfalsifiable classifier cannot earn it.
@@ -485,7 +485,7 @@ than a reassurance:
   losing one privileged intent removes the estate's largest investment in one
   step with no fallback (`lane-claimed`, C-D12).
 - **Moderation degrades to deterministic rules only.** The pre-check in
-  `[D-0042]`'s pipeline runs first and is deterministic by construction; with AI
+  [the 2026-09-04 AI-authority decision](run/in-flight-direction.md)'s pipeline runs first and is deterministic by construction; with AI
   off, the pipeline is pre-check → policy engine → gate → operation, and the
   optional analysis step is simply absent. Nothing in the authority path was ever
   the model's.
@@ -614,7 +614,7 @@ the thing is good.
 - **Not a prefix-parity product.** 413 frozen prefix names and 135 aliases are a
   2020-era invocation vocabulary, and freezing it in a required check is what
   blocks the migration that matters (`lane-claimed`, C-S06/C-D04).
-- **No free-form prose parsed into an action, ever** — `[D-0042]`; an invalid or
+- **No free-form prose parsed into an action, ever** — [the 2026-09-04 AI-authority decision](run/in-flight-direction.md); an invalid or
   incomplete model output means no automatic action, which is a hard stop rather
   than a threshold.
 - **No AI-only write path and no autonomous destructive action** — **OD-F**'s
