@@ -254,12 +254,71 @@ framework in which these five are the default and opting out is the thing that
 takes effort**, because this estate has now demonstrated twice that a good
 pattern applied by discipline reaches 1-of-2, 1-of-27, and 2-of-8.
 
-## 3b · The proof layers
+## 3b · What the parity system actually proves — and the six primitives worth keeping
+
+Lane R5 dissected the acceptance oracle. Its sharpest finding is **verified here**
+and is the deepest instance of this review's defect class:
+
+### The oracle never runs the shipping renderer
+
+Every wire byte on the **actual** side of a golden diff comes from
+`rendered_panel_payload()` — defined at `sb/adapters/parity/transport.py:242`,
+called at `:531`, and otherwise imported by exactly two parity unit tests.
+Production installs a different renderer entirely:
+`sb/app/panel_host.py:66` → `panel_engine.install_panel_presenter(DiscordPanelPresenter())`
+(3 references in `tests/`, none on the golden path).
+
+**So 533 goldens compare the old bot's real discord.py output against a
+hand-maintained model of discord.py.** It is `superbot`'s help-reachability sim
+(§ 2.2) one level deeper: the same guard-over-a-model shape, sitting at the heart
+of the acceptance oracle rather than beside it. A byte-perfect pass says the
+*parity serializer* agrees with the capture; it says nothing about what a user
+sees.
+
+### The corpus figures — `lane-claimed`, and marked as such
+
+These are R5's and are **not** re-derived here, because reproducing them needs
+the disposition transforms applied first: **38 of 533** goldens assert nothing
+after dispositions (38 of the 66 slash goldens, 58 %) · **165 of 183** rendered
+component custom_ids are never clicked by any case (90 %), with only **42 of
+533** actuating anything · **36 of 533** pin a refusal as the expected behaviour ·
+`check_parity_depth`'s "100 % declared-surface touch coverage" runs over a
+denominator of **83** surfaces, with **22 of 49** ported subsystems declaring
+zero. One adjacent figure *was* re-derived and matches: **62 of 533** goldens
+carry an empty `db_delta`.
+
+### The six primitives the successor keeps — every one already built
+
+R5's most useful output is not the indictment; it is that the harness contains
+**six** transferable mechanisms, on top of § 3's five:
+
+| primitive | where | what it gives the successor |
+|---|---|---|
+| **`db_delta` effect capture** | per-case `TRUNCATE … RESTART IDENTITY`, fixture SQL, full snapshot of every row of every `pg_tables` table before and after, row-level diff, volatile columns scrubbed **by name** | *"the only assertion in either repo that proves a write happened."* This is the **effect layer**, already implemented |
+| **the F-003 denominator assert** | `run_golden_parity.py:162-170` | § 3.1 — every gate asserts its checked count equals the count that exists |
+| **composition-root reachability boot** | `check_runtime_smoke` boots the real root headlessly and resolves every manifest ref, PanelRef and armed subscriber | the **reachability layer**, cheap: no DB, no token, no network. Missing one assertion — that every registered `custom_id` resolves to a handler, which is the 165-never-clicked hole |
+| **the single-entry-seam fence** | `check_no_skip`: AST proof that no Discord surface reaches a handler except through `resolve()`, and `import discord` appears only under `sb/adapters/` | **the cog-portability enabler.** Widen its root to wherever ported cogs live, and pair it with the positive direction — every registered command *is* reachable from `resolve()` |
+| **the frozen compat pin** | `compat/compat-frozen.json`: 413 command rows, 265 legacy custom_ids, 49 subsystem keys, 23 event-payload field sets, 17 AI task ids, CODEOWNERS-routed | R5 calls it *"the highest-value artifact in either repo for the owner's stated goal"* — the executable form of the cog-portability contract |
+| **GAP-on-unmodeled-effect** | an outbound effect the transport does not model raises during **both** capture and replay | *"an unmodeled effect is a RED, never a skip — the single discipline that separates this harness from a screenshot differ"* |
+
+Plus two hygiene patterns: **symmetric disposition transforms** (an accepted
+difference is applied to both sides, so it cannot become a one-sided blind spot)
+and a **closed reason-class vocabulary** for exemptions (12 declared classes,
+*"never a bare flaky"*, 49 exempt rows across 21 subsystems) — which makes
+coverage debt countable, and needs only an expiry per class so *time-driven*
+cannot mean *forever*.
+
+**The conclusion this forces.** `superbot-next` did not lack the ingredients of a
+real proof system — it had a genuine effect assertion, a denominator guard, a
+real-boot reachability check and a containment fence, and it **pointed its
+headline oracle at a model anyway**. The successor's advantage is not better
+ideas; it is wiring these six to the shipping artifact from the first commit.
+
+## 3c · The proof layers
 
 `PENDING FLEET` — the full layer table (structural · unit/domain ·
 contract/integration · journey · reachability · effect · real-guild ·
-production-readiness), each with its declared population and its named blind
-spot, lands from lane R5 and challenge F.
+production-readiness) lands with challenge F's gate-breaking pass.
 
 Two layers are already fixed by measurement and will not move:
 
