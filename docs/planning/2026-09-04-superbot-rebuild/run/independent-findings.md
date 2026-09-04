@@ -788,19 +788,53 @@ thing from a claim that does not hold.
 | R3: `from cogs.<x>` imports inside `cogs/` — claimed 134 | **128** module-level, AST, 51 files | *denominator differs, conclusion intact* |
 | M8: cross-layer imports — claimed 977 forward / 0 reverse | **1174 forward / 0 reverse** | *denominator differs (layer-set assumption), **the load-bearing zero is exact*** |
 | R2: excuse-row expiry — claimed 1 of 27 checkers | **2 of the 10 that carry exemptions** | *corrected in the plan; conclusion intact and sharper* |
-| M9: central audit spine — claimed 1 call site vs superbot's 49 across 28 files | `emit_central_audit` → **4 sites / 3 files**; `audit_events` → **37 refs / 27 files** | *shape reproduces, both numbers differ* |
+| M9: central audit spine — claimed 1 call site vs superbot's 49 across 28 files | `emit_central_audit(` → **1 site / 1 file**; `emit_audit_action(` → **49 sites / 27 files** | **exact** (27 files vs the lane's 28) — *and this session's first two re-derivations of it were the things that were wrong; see below* |
 
-**Score: 8 exact · 4 with a differing denominator · 0 where the conclusion
+**Score: 9 exact · 3 with a differing denominator · 0 where the conclusion
 flipped.** No lane claim re-derived so far has been wrong about *what it found* —
 only about how much of it there was.
 
-**And one methodological catch worth keeping.** The first attempt at the audit
-row guessed the API names (`record_audit|audit_emit|emit_audit|write_audit`) and
-produced 24-vs-10 — numbers that matched neither the lane nor reality, because
-the query had no positive control. Finding the real symbols first
-(`sb/kernel/workflow/audit.py::emit_central_audit`,
-`disbot/services/audit_events.py::emit_audit_action`) produced the row above.
-**A re-derivation with an unvalidated instrument is not a re-derivation**, and
-recording that 24-vs-10 as a refutation would have been the same defect as the
-one this whole review is about — one level up again, and this time in the
-correction machinery rather than the thing being corrected.
+### The ledger's own bad row, kept because it is the sharpest lesson here
+
+The audit-spine row took **three** attempts, and the first two were mine.
+
+1. **Guessed API names** (`record_audit|audit_emit|emit_audit|write_audit`) →
+   24-vs-10. Matched neither the lane nor reality. Caught, because absurd.
+2. **Grepped the MODULE name** (`audit_events`) → *"37 refs / 27 files"*,
+   published into this ledger as *"shape reproduces, both numbers differ"* with
+   the lane implicitly marked down. **That row was wrong.** Of 44 matching lines
+   **31 are `import` statements**, and on the `superbot-next` side it counted the
+   defining module's own internals.
+3. **Grepped the CALL** (`emit_audit_action(` / `emit_central_audit(`, excluding
+   the defining module) → **49 sites / 27 files** versus **1 site / 1 file**. The
+   lane said 49 across 28, and 1. **It was right.**
+
+**A re-derivation with an unvalidated instrument is not a re-derivation** — and
+this ledger asserted that rule in one paragraph while publishing, in the table
+directly above it, a row produced by exactly that. Twice the correction
+machinery committed the defect it exists to catch: once caught by absurdity,
+once only when a reviewer asked what the number rested on.
+
+So the rule takes the same treatment as every gate in this review: a
+re-derivation is done when the **instrument has a positive control** — *find the
+symbol before counting the symbol* — not when it produces a number.
+`grep <module-name>` and `grep <function>(` answer different questions, and only
+one of them is the question.
+
+### And a third instance, in the commit that was correcting the second
+
+The commit meant to land this correction (`70ca1cb`) was authored while the edit
+script **raised `AssertionError` before writing anything**. The `git commit` on
+the following line was newline-separated rather than `&&`-chained, so it ran
+anyway: the commit carries a message describing a fix to this file and contains
+**only `.substrate/guard-fires.jsonl`**, 14 lines of telemetry. It was pushed.
+
+**That is a false-done — this review's own subject — produced inside the
+correction of the previous false-done.** It is recorded rather than amended away
+because the mechanism is worth more than the tidiness: a heredoc that fails
+loudly still leaves an unchained `git commit` free to claim the work. The habit
+that catches it is the one this review keeps arriving at from every direction —
+**verify the artifact, not the exit of the step you think produced it**:
+`git show --stat HEAD` after any scripted edit, which is the commit-level twin
+of `assert len(population) >= FLOOR`.
+
