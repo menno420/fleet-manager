@@ -1,8 +1,23 @@
 # Continuation prompt — Spider Bot AI operations, review and continue
 
-> **Status:** `reference` · written 2026-09-04 at the close of the AI-operations
-> tranche. Paste-ready, verbatim, no editing. The copy below is byte-identical
-> to the one handed to the owner in chat (fm #1030's lesson).
+> **Status:** `reference` · **CONSUMED 2026-09-04, ~1 h after it was written.**
+> Kept verbatim as the record; do not paste it at a fresh session — its subject
+> is finished. `session_01XtUDb1BxPVdjkGryVWCKVu` (Claude Fable 5.1) acted on it
+> at 18:32Z, pushing `8937191c`, and **spider-bot#3 was merged under the account
+> at 18:42Z as `5a7f8a2`** — by the owner or by that same sibling session; the
+> timeline cannot tell them apart; the deployment is verified in that repo's session card.
+>
+> **What it was for, and what it actually bought.** Everything in its DECIDED and
+> REJECTED sections was carried so it would not be re-litigated, and none of it
+> was. The line that produced new truth was the one admitting ignorance — the
+> `preserve()` question marked *NEW, and in no document yet* — which a different
+> model went and measured, finding that the IaC would have deleted the rollout
+> switches. A handoff's value is in naming what it does not know.
+>
+> Written at the close of the AI-operations tranche. The copy below is
+> byte-identical to the one handed to the owner in chat (fm #1030's lesson);
+> the state annotations dated `8937191c` were added in fm #1038, before it
+> merged.
 
 ```text
 CONTINUE: spider-bot#3 is built, green and open, deliberately unmerged. Review
@@ -25,8 +40,10 @@ Boot in fleet-manager, then `add_repo menno420/spider-bot`. spider-bot has NO
 read path, silently. Measured 2026-09-04 with `git ls-tree`.
 
 WHERE THINGS STAND (all verified 2026-09-04, late; re-check anyway)
-- spider-bot#3 OPEN, mergeable_state `clean`, head `d3a66bb`. 23 commits, 58
-  files, +14,395/-125. CI check `quality` completed/success at that head.
+- spider-bot#3 OPEN, mergeable_state `clean`, head `8937191c`. 24 commits, 59
+  files. CI check `quality` completed/success at that head. `d3a66bb` was the
+  head when this prompt was written; a review pass pushed one commit on top of
+  it at 18:32Z, and the three items below carry what it changed.
 - All 40 Codex review threads are RESOLVED. Each was fixed in code first; the
   three round tables in the PR's issue comments record which fix answered which.
 - spider-bot `main` is `bf4d7527`, untouched since 2026-08-25. Merging #3 is the
@@ -44,18 +61,23 @@ WHERE THINGS STAND (all verified 2026-09-04, late; re-check anyway)
 - spider-swing#181 MERGED. The support feed is live; it was fetched from
   raw.githubusercontent.com and parsed end-to-end (source=feed, live=True).
 - fleet-manager#1021 and #1029 MERGED. fleet-manager `main` was `2561874`.
-- 669 tests pass, exit 0 (re-run at `d3a66bb`). 55 invariants in `CLAUDE.md`.
+- 669 tests pass, exit 0 (at `d3a66bb` and again at `8937191c`). 55 invariants
+  in `CLAUDE.md`.
 
 READ FIRST — a floor, not a boundary
 1. `spider-bot/docs/rollout.md` — BINDING, and it wins over every other
    document about what turns on, when, and on what evidence. It also carries
    the owner's six manual steps and the questions that are his to answer, so do
-   not re-derive either. Verified at branch HEAD `d3a66bb`.
+   not re-derive either. Verified at `d3a66bb`; step 3 and the watch-pattern
+   line were corrected at `8937191c`.
 2. `spider-bot/docs/what-changed.md` — the same thing in plain language, which
-   is the version to talk to him from. Verified at `d3a66bb`.
+   is the version to talk to him from. Verified at `d3a66bb`; its
+   *Moderation cases* row said `#mod-cases` where the bot resolves
+   `#case-state`, corrected at `8937191c`.
 3. `spider-bot/.sessions/2026-09-04-ai-operations-tranche-1.md` — the build's
    own card, including *Deployment outcome*, which says the deployment is NOT
-   verified rather than pretending. Verified at `d3a66bb`.
+   verified rather than pretending. Verified at `d3a66bb`, watch-pattern line
+   corrected at `8937191c`.
 4. `fleet-manager/docs/repos/spider-bot/README.md` and `intent.md` — Layer 2;
    the purpose is ANSWERED there, not DRAFT. Verified at fm `origin/main`.
 Then: the five issue comments on spider-bot#3 ARE the review record — three
@@ -111,11 +133,14 @@ OPEN — his to answer. All but the last are already written up in
   real issue against 179 pull requests); whether `#intake-state` needs
   splitting; who counts as staff for the panel, which reads `manage_guild`
   alone today.
-- NEW, and in no document yet: `.railway/railway.ts` declares `preserve()` for
-  exactly the three variables that exist. Whether an IaC apply would drop a
-  dashboard-set `GITHUB_TOKEN` or `MOD_*` is UNKNOWN, and it sits directly
-  under rollout step 3. Settle it, or add them to the IaC with `preserve()`
-  first.
+- ~~NEW: whether an IaC apply would drop a dashboard-set `GITHUB_TOKEN` or
+  `MOD_*`.~~ **ANSWERED and FIXED at `8937191c`, so do not re-investigate it.**
+  It would have: Railway IaC is omit-means-delete, and a read-only
+  `railway config plan` with one existing variable removed from the file
+  previewed `Delete variable worker.GUILD_ID`. All six rollout switches are now
+  declared `preserve()`; a plan with them added and none of them set reports
+  "already up to date", so the lines are inert until each is. Set each switch in
+  the dashboard when its step comes, never in the file.
 
 YOUR FIRST STEP
 Do not trust the state above — it ages. Re-verify it, then report what moved:
