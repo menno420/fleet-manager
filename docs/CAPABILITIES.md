@@ -2233,6 +2233,28 @@ substance.
 the schema is the dial. A refusal here means the schema needs flattening, exactly
 as a 422 means a SHA needs re-reading.
 
+### When `gemini-3.6-flash`'s free daily cap is spent, the same free key still serves `gemini-3.1-flash-lite` — try the Lite class before the paid key (MEASURED 2026-09-04, fm #1036, cloud-container)
+
+The free `GEMINI_API_KEY` refused a mid-session review pass on the flagship:
+
+```
+429 · Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash
+```
+
+Other sessions had spent the day's twenty. **This is not "Gemini is
+unavailable today."** `GET /v1beta/models?key=…` on the same key listed 40 models
+with `generateContent`, six of them a Flash Lite class (`gemini-3.1-flash-lite`,
+`gemini-3.5-flash-lite`, `gemini-flash-lite-latest`, `gemini-2.5-flash-lite`, and
+two previews), and the conventions doc records that class at roughly 500 requests
+a day against the flagship's ~20. The first Lite id tried answered at once:
+`gemini-3.1-flash-lite`, 5,375 prompt tokens in, 238 out, a four-finding diff
+review returned in the requested format, no error.
+
+**The route, in order:** `gemini-3.6-flash` on the free key → on a 429, list the
+key's models and try a `*-flash-lite` id on the same free key → only if every free
+route refuses, `GEMINI_API_KEY_PAID` on the flagship (decision 11 in
+`docs/decisions.md` authorizes the spend; say so in the card). A 429 names a cap on one model, never on the key.
+
 ## CAN — the owner-live credentialed session (the "rescue venue"), verified 2026-07-12
 
 A session the owner starts with his credentials exported (`RAILWAY_API_KEY`,
