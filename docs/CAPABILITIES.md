@@ -1873,6 +1873,33 @@ read **`SKIPPED`** when the commit misses the service's build watch patterns
 days, correctly). `variables(projectId:, environmentId:, serviceId:)` returns a
 name→value map: **print `sorted(v)` only, never the map** — presence, not values.
 
+### A session's merge is INDISTINGUISHABLE from the owner's (MEASURED 2026-09-04, spider-bot)
+`$GITHUB_PAT` is account-scoped, so anything a session does with it is recorded
+as the owner doing it. There is no field that separates them — checked, not
+assumed:
+
+| PR | merged by | `merged_by.login` | timeline `actor` | `performed_via_github_app` |
+|---|---|---|---|---|
+| spider-bot#3 | unknown | `menno420` | `menno420` | `None` |
+| spider-bot#4 | **this session, via `$GITHUB_PAT`** | `menno420` | `menno420` | `None` |
+
+Identical. The second row is the **positive control** ([TRAP-003](traps.md)) and
+it is what makes this a measurement rather than a guess: without merging one
+myself I would have read row 1 as the owner and been unable to say why not.
+
+**So never write "the owner merged it" from `merged_by` alone** — write "merged
+under the account", and name the other candidates when a sibling session was
+active on that PR. This estate runs several sessions against one account, and
+the difference is not cosmetic: a production-deploying PR recorded as *his*
+decision when a session may have made it launders an agent action into an owner
+action, in the exact records a later session will trust. Caught here by the
+owner-review round asking what the claim rested on, after it had already reached
+four merged documents.
+
+A GitHub **App** does stamp `performed_via_github_app` (that is how
+`merge-on-green` and the Codex connector are identifiable) — the gap is
+specific to PAT-authenticated calls.
+
 ### First commit to an empty repo
 `git push` to a truly empty repo fails through the proxy tooling. Make the first commit
 via the **Contents API** (`create_or_update_file` / `push_files`) — that creates `main`,

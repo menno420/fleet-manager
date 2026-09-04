@@ -88,9 +88,16 @@ and the free tier serves no image model (`limit: 0`). Two routes, both his:
 run the prompts in the "Couch Legend" ChatGPT project, or refill the prepay
 (`OQ-CL-SCENES-4-6` · `OQ-GEMINI-PREPAY`).
 
-**NEXT is still phase B** — now a queue entry with the tab and the minute it
+**The owner answered four questions live at 18:33Z the same evening** (recorded
+in couch-legend, not carried in a prompt): phase B — *"haven't played yet"*,
+so it stays open; the cross-wire ceiling **stays** (couch-legend decisions ledger, entry 0004);
+once B is a yes, **C (the Morning Routine) comes before D** (entry 0005 of the same ledger); and
+he **runs the chapter 4–6 prompts in the ChatGPT project himself**, so the
+Gemini prepay top-up is not needed for them.
+
+**NEXT is still phase B** — a queue entry with the tab and the minute it
 takes (`OQ-CL-COUCH-FEEL`). Everything else in the plan's § 8 waits on it or
-on his art QA.
+on his art QA; when it arrives as a yes, the next session starts C.
 
 ### Thread: the long-form redesign — **LANDED 2026-09-04** (couch-legend #19)
 

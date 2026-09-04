@@ -1536,6 +1536,10 @@ fleet-wide merges/ready-flips live in
   sketch until this answers; a "no" on arranging changes what C should be. UNBLOCKS: phases
   C and D of `couch-legend:docs/planning/2026-09-04-long-form-redesign.md` § 8. ↩️ reversible
   (nothing is built on a guess). VERIFIED-NEEDED: your one-line verdict, in words.
+  **Asked live 18:33Z, same day — answer: *"haven't played yet."* Still OPEN.** You also
+  settled two things around it: the cross-wire ceiling stays (couch-legend decisions ledger, entry 0004) and,
+  once this is a yes, the Morning Routine comes before the arc-3 batches (couch-legend decisions ledger,
+  entry 0005).
 
 - **`OQ-CL-SCENES-4-6` — couch-legend: run the three arc-2 scene prompts (chapters 4–6) and
   QA the pairs.** OPEN (2026-09-04). WHAT: paste-ready prompts for The Couch, Rituals of the
@@ -1551,10 +1555,15 @@ fleet-wide merges/ready-flips live in
   inside four hours. UNBLOCKS: the `STAGE_PRESENTATION` entries for three more chapters
   (phase E, pair by pair). ↩️ reversible. VERIFIED-NEEDED: three accepted pairs at
   ≥ 900 × 1200, or a "no" with what to change in the prompt.
+  **Route chosen live 18:33Z, same day: (a) — you run them in the ChatGPT project yourself.**
+  The prompts are the paste-ready blocks in §§ 1–5 of that doc; the acceptance questions
+  are § 7. Nothing else waits on this.
 
 - **`OQ-GEMINI-PREPAY` — the paid Gemini key's prepay balance is EMPTY (measured
   2026-09-04 17:36Z: every paid call returns 429 *"Your prepayment credits are depleted"*).**
-  OPEN, optional. WHAT: [D-0011] authorises sessions to spend the paid key, and today there is
+  OPEN, optional — **and not needed for the scenes: you chose route (a) of
+  `OQ-CL-SCENES-4-6` live 18:33Z.** Stays here only as the standing fact that the paid
+  key has nothing to spend until refilled. WHAT: [D-0011] authorises sessions to spend the paid key, and today there is
   nothing to spend — image generation, Pro and Search grounding are all off until the balance
   is refilled (the free key still serves text; image models are `limit: 0` on it, re-measured
   the same minute). WHERE: <https://ai.studio/projects> → the paid project → billing → prepay.
