@@ -122,6 +122,35 @@ python3 capture_literal_scan.py --selftest   # exit 0 — 5/5 positives, 6/6 neg
 cd /home/user/fleet-manager && python3 bootstrap.py check --strict
 ```
 
+## Landed mid-session, and worth carrying
+
+- **A merge-conflicted PR in this repo produces ZERO workflow runs, not a red
+  one.** fm #1025 sat at `mergeable_state: dirty` for ~15 minutes after #1022/
+  #1023/#1024 merged, and `GET /actions/runs?branch=…` returned `total_count: 0`
+  throughout — no queued run, no failed run. `substrate-gate` fires on
+  `pull_request`, which needs `refs/pull/N/merge`, and a conflicted PR has none.
+  Positive control: `claude/fleet-manager-substrate-kit-jejk7x` had three
+  successful `pull_request` runs in the same window; the actor hypothesis was
+  refuted (all three open PRs opened by the same user). **So "CI never started"
+  on a fleet-manager PR is a merge-conflict signal, not an Actions outage.**
+  Resolving the conflict started both workflows within seconds. → `CAPABILITIES.md`
+  at close.
+- **`.substrate/guard-fires.jsonl` conflicts resolve as a UNION**, never by
+  taking a side: it is append-only telemetry and either side's `--theirs`/`--ours`
+  silently discards another session's records. Base 41,965 + main's additions +
+  this session's appends, deduplicated in that order = 42,264.
+- **Codex commented on fm #1025 unprompted, ~3 minutes after PR open**, with no
+  `@codex review` from this session. It made no changes, correctly read the
+  born-red state, and independently ran all three verify commands green. That
+  **contradicts** `.claude/CLAUDE.md`'s current record that the automatic
+  triggers are off and *"the comment is the only trigger"* — one observation, not
+  a refutation of his 2026-09-02 statement, and it is logged here rather than
+  edited into the boot file by a session that saw it once.
+- **A one-shot check-in is armed** (`trig_011kkDbokoPHAuTVGg7uumoc`, fires
+  2026-09-04T14:00Z) to re-check #1025, the fleet's journal, and whether #1021
+  merged. **Do not delete it** ([D-0015]); a fired one-shot is inert. Disable
+  with `update_trigger enabled:false` if it ever misbehaves.
+
 ## Open at the time of writing
 
 - The fleet's map/root-cause wave, its challenge lanes, its refutation pass and
