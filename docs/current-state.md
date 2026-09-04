@@ -75,6 +75,15 @@ copy product architecture or internal product state. Canonical intent:
   for whichever session next works the mail with him. It went through
   seventeen Codex rounds; the three-round cap that followed is
   [`traps.md`](traps.md) TRAP-009 (its decision is stamped there).
+- **D2 is the actionable program step. `OQ-FM-D2-TARGET` is ✅ ANSWERED
+  2026-08-28 — `spider-swing`** (owner, live, the OD-24 sitting; OD-26 and
+  [`owner-queue.md`](owner-queue.md)). ~~STILL OPEN~~ — that reading was
+  correct when written and was **not updated when he answered**, so this file
+  said OPEN here, CLOSED 150 lines below, and *"awaits the owner"* in
+  § Next action: three states for one question inside one boot-path document.
+  Corrected 2026-09-04 (fm #1020) against the program's NOW pointer and the
+  queue entry, both of which already said ANSWERED. The withdrawal it describes
+  is real history and is kept: a
 - **The accepted `estate` build order's step 2 is DONE: substrate-kit K1–K5 are merged, unreleased
   (2026-09-04).** [kit #590](https://github.com/menno420/substrate-kit/pull/590),
   squash-merged `8a83c733eded4af06281dcbe1d01f05d3da98a94`. Built as **one
@@ -114,7 +123,8 @@ copy product architecture or internal product state. Canonical intent:
 - **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
-  repository choice. **No session is blocked by it:** the
+  repository choice — which is why the 08-28 answer was verified against the
+  sitting record before being recorded. **No session is blocked by it:** the
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
   gives a measured order — **`spider-swing` → `product-forge` → `estate-backups`
   → the `websites` date stamp**. **Settled among the RATED, 2026-08-24 (fm
@@ -315,6 +325,28 @@ copy product architecture or internal product state. Canonical intent:
   (*"Records work can go now"*): a kit-venue **records** session (charter
   rewrite + the truth pass's 23-file sweep), then the release. Everything
   owner-gated stayed gated.
+- **THIS REPOSITORY IS SCHEDULED TO BE REPLACED. The plan's execution target is
+  a fresh hub named `estate`; fleet-manager becomes the read-only archive**
+  (decision 25 in `docs/decisions.md` and decision 26 in `docs/decisions.md`, owner-live 2026-08-30;
+  [the redirect](planning/2026-08-30-fresh-start-redirect.md) is the design
+  home). Nothing is created or moved yet, and forward-only placement discipline
+  governs the meantime. **His sequence:** finish the plan → establish a
+  trustworthy baseline (re-audit only where information changed; every seeded
+  claim carries a certainty tag or it does not seed) → build the skills, hooks
+  and gates → seed the new hub → consolidation passes from birth. Settled since:
+  the archive shape, the file-length caps, hooks-in-the-hub-only, and the build
+  order — **thin seed → blind cold test → write cutover → deeper machinery, with
+  only kit changes K1–K5 before the seed** (decision 33 in `docs/decisions.md`–decision 35 in `docs/decisions.md`, decision 38 in `docs/decisions.md`). The
+  tree, the boot budget and the carry · distill · archive table are in
+  [the structure proposal](planning/2026-09-01-estate-structure-proposal/README.md).
+  **This entry exists because the decision was absent from this file.** Until
+  2026-09-04 the only match for "successor" here was a line about `superbot`;
+  a session reading the mandatory third read learned nothing about the hub's own
+  replacement, and would have distilled a successor state document that never
+  mentioned the cutover. Found and added by the estate truth baseline (fm #1020);
+  it is the fourth instance of the defect the boot file's read-path entries 0,
+  1b and 2b already record — *a decision that exists, and is not on the path
+  that would deliver it*.
 - **The cold-boot context cost is measured, and the owner has ruled it worth
   paying (OD-25, 2026-08-28).** He ran this session (fm #962) as a deliberate
   experiment — *"to find out exactly how much context a cold boot would
@@ -400,49 +432,19 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
-- **Spider Bot becomes the AI operations bot of the Slingy Spider test server**
-  (2026-09-04, fm #1021 · spider-bot #3 · spider-swing #181). Owner direction,
-  recorded in [`repos/spider-bot/intent.md`](repos/spider-bot/intent.md) and
-  the rules at [`repos/spider-bot/README.md`](repos/spider-bot/README.md);
-  `OQ-GCB-REVIEW-SCOPE` closed by his own words rather than by a
-  session picking from the menu it offered (A and C are **not mentioned** —
-  absence, not refusal, and the closure says so).
-  **The method note worth keeping:** the ultracode design pilot was aimed at
-  checking a design and instead read the code the session had already
-  committed, returning **seven reproducible defects in it** — including silent
-  data loss in the store (a bug report quoting a crash log round-tripped to
-  `{}`, because the record envelope rides in a ```json fence and the decoder
-  split on the next one) and an anti-hallucination check that passed on a
-  one-character quote. All seven were confirmed by running them and fixed with
-  regression tests. Reading committed code beat designing against it, which is
-  why the second fleet was re-aimed from more design lanes to adversarial
-  review of the implementation.
-- **The estate activity log — a cloud session can now see what ran on the
-  laptop** (2026-08-26, fm #947). `docs/activity/` + `tools/estate_activity.py`,
-  wired into the boot table, `MAP.md`, `README.md`, the card protocol, the
-  session-close skill and two doc-routes. Measurement:
-  [`findings/2026-08-26-cross-session-visibility.md`](findings/2026-08-26-cross-session-visibility.md).
-  **Three gaps, three fixes:** no aggregation (the cards existed and were
-  unreachable from the router whose job is routing) · no venue on any card ·
-  and work outside every repository leaving nothing at all, which is what his
-  question was actually about. **`@codex` returned 46 findings over five rounds —
-  35 `[conceded]`, 1 `[partial]`, 10 `[survived]`** (the survivors all
-  re-emissions of fixes already in the tree). Three were P1, two were arithmetic
-  in this very entry (the reachable split was 43/31 and is 54/20; the card
-  baseline counted the directory README), and the sharpest pair **contradicted
-  each other on one predicate** — an open born-red PR must not report itself as
-  unexplained movement, and must not excuse every other push either. Rounds 3
-  and 4 then found the same three bugs twice in a second near-parallel code
-  path, so that path was **removed rather than patched**. **`creator-kit` registered the same
-  PR** —
-  created 2026-08-25, absent from an index whose header promised *"every
-  repository the account holds"*; the baseline was 27 and the account held 28.
-  **Four non-archived repositories still have no card protocol**, so no session
-  in them can ever appear in the derived lane — `curious-research`, `estate-backups`,
-  `spider-bot`, `superbot-plugin-hello`; `spider-bot` is the notable one, live
-  in production with **20 commits** in two days and no `.sessions/` at all
-  (corrected 2026-08-26 after merge; the figure first published here was *8*,
-  which was the requested page size, not a count).
+- **The successor-ready estate truth baseline — the layer the seed needs before
+  it can be seeded** (2026-09-04, fm #1020). The fresh-start sequence's **step
+  2**, and the **migration manifest** the build order names as a prerequisite:
+  [the finding](findings/2026-09-04-estate-truth-baseline.md) ·
+  [the manifest](planning/2026-09-04-estate-seed-manifest.csv) ·
+  `tools/estate_baseline/`. **Census: 28 repositories**, each with one
+  disposition. Counts live in the finding, not here.
+  **What changes the plan:** of the five repositories whose trees did **not**
+  move, only one is reusable — *zero commits proves the source did not move; it
+  cannot make evidence reusable that never asked the question.*
+  **Verdict `PARTIAL`, deliberately** — three internal critics and three Codex
+  rounds (9 · 6 · 5, all conceded) found real defects, twice against its own
+  earlier fixes. **Four defects here and in `ESTATE.md` were fixed on the way.**
 
 - **Owner direction captured — and the session's own D2 conclusion withdrawn on
   review** (2026-08-23, fm #937). He asked for oversight into the active projects
@@ -610,8 +612,11 @@ window.
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
 E1 is drafted in full and staged as his Gmail draft (fm #1017) — the rewrite
-of Part 1 and the send remain his alone; D2 is the available track; its next-repo target awaits
-the owner (OD-15 superseded shiftlife, 2026-08-10).
+of Part 1 and the send remain his alone; D2 is the available track and **its
+target is `spider-swing`** (`OQ-FM-D2-TARGET` ANSWERED 2026-08-28, OD-26).
+~~its next-repo target awaits the owner~~ — corrected 2026-09-04 (fm #1020);
+OD-15 had superseded the older `shiftlife` target on 2026-08-10 and he named
+the replacement eighteen days later.
 
 Use
 [`findings/2026-08-05-foundation-continuation.md`](findings/2026-08-05-foundation-continuation.md)
