@@ -70,16 +70,59 @@ subsequent run was read before its output was believed. Recorded in
 `docs/traps.md` TRAP-011, `docs/CAPABILITIES.md` (the CLI recipe), and a new
 `railway-cli-project` doc route that fired on this session's own next command.
 
-## Owner decision — put to him, not taken
+## Owner decision — put to him as four questions, answered live (~18:40Z)
 
-The merge is his (DECIDED in the handoff). What he gets: merge now or change
-first; the six setup steps and the open rollout questions as `docs/rollout.md`
-already carries them; and the IaC answer above, which closes the one question
-no document held.
+| question | his answer |
+|---|---|
+| spider-bot#3: merge now · change first · hold | **Merge now** |
+| Publication consent: form = consent, conversation = ask | **Keep as built** |
+| A report about the BOT goes to… | **spider-bot's own issues** |
+| Tester ideas on spider-swing's tracker | **Yes, labelled, as built** |
 
-## Deployment outcome
+The six owner-only setup steps (PAT, label, two channels, permissions, AutoMod,
+`known_issues`) were not asked — they are his list in `docs/rollout.md`, and
+the PAT step changed shape with answer three (scoped to both repositories).
 
-*(written after his answer)*
+## Deployment outcome — `MEASURED`, by hash
+
+spider-bot#3 merged at his word at `2026-09-04T18:42:14Z` as merge commit
+**`5a7f8a285a095855e0450b7c237d184344d5a580`** (24 commits). Railway deployment
+`6f5c7648-3e6c-40a2-acfc-e46cd93b685a`: created `18:42:16Z`, **SUCCESS** at
+`18:43:06Z` (polled every 20 s to a terminal state inside the turn), and
+**`meta.commitHash == main HEAD`** — the check, not the status. `bc4f9985`
+reads REMOVED. The deployment log (`deploymentLogs` with `attributes`, because
+Railway parses the JSON audit line into attributes and leaves `message`
+empty): `synced 12 guild commands` · `channels not found (features degrade):
+bot-state, case-state, intake-state` · the `ready` event with
+`channels=["announcements","bug-reports","feedback","general","mod-log","start-here"]`,
+`members=3`, `intake=false`, `github=false`, `moderation="off"`,
+**`support_feed="feed"`**. Written into spider-bot's tranche-1 card in
+[spider-bot#5](https://github.com/menno420/spider-bot/pull/5). What only he can
+check: `/home` opens, `/tester count` answers, the AI replies on mention.
+
+One correction to my own reading, kept because it is the kind that gets
+committed: the startup line showed `github_token=<redacted>` and for a moment
+read as "a token is set". It was **my** redaction regex rewriting
+`github_token=None`; the variables query (names only) is the evidence, and it
+says no token.
+
+## The follow-on his third answer created — spider-bot#5
+
+*A report about the bot goes to spider-bot's own tracker* is a code change:
+`Category.BOT_PROBLEM`, `Target`, `Report.target` (category alone decides),
+`IntakeService(bot_github=…)` with `client_for`/`repo_for`/`can_publish`,
+`GITHUB_REPO_BOT`, a `BotProblemModal` behind `/report`, `/publish` naming the
+tracker it posts to, invariant 56, and the rollout's PAT step scoped to both
+repositories. Fail-closed the way that matters: a missing bot tracker refuses a
+bot report by name and never routes it to the game's public tracker. Ships off
+(no token). Opened READY as
+[spider-bot#5](https://github.com/menno420/spider-bot/pull/5) — a second PR
+because #3 merged at his word first (D-0024 reason).
+
+**Correction to fm `0321a5f`'s commit message:** it says `docs/current-state.md`
+gains one line. The orientation budget measured 7,000/7,000 words before any
+addition, so the line was removed before the commit; that file was unchanged
+in that commit.
 
 ## Layer-2 handoff
 
