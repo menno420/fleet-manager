@@ -1,11 +1,13 @@
 # Verification architecture — the proof layers that replace parity
 
 > **Status:** `plan` — **PARTIAL.** § 1 (the population contract) and § 2 (the
-> worked failures it is derived from) are complete and rest on this session's own
-> measurements. §§ 3–5 — the full layer table, the real-guild ladder and the
-> production-readiness split — land from fleet lanes R2 (the vacuous-guard
-> census), R5 (the parity harness anatomy) and challenge F (the gate-breaking
-> pass), and are marked `PENDING FLEET` until they do.
+> worked failures it is derived from) rest on this session's own measurements.
+> §§ 3c–5 — the layer table, the real-guild ladder and the production-readiness
+> split — are written from challenge F's gate-breaking pass, which built the
+> concrete bot that passes 7/7 required checks and does nothing. Rows carried
+> from that lane are marked **`lane-claimed`**; the lane ran its cheats
+> in-process against the real checkers, and where it says MEASURED it means it
+> executed the defeat, not that it reasoned about one.
 
 ## 0 · What this replaces, and what it keeps
 
@@ -343,11 +345,29 @@ ideas; it is wiring these six to the shipping artifact from the first commit.
 
 ## 3c · The proof layers
 
-`PENDING FLEET` — the full layer table (structural · unit/domain ·
-contract/integration · journey · reachability · effect · real-guild ·
-production-readiness) lands with challenge F's gate-breaking pass.
+Eight layers. The column that matters is the last one: **what a bot that does
+nothing scores.** Challenge F built that bot on paper against the real checkers,
+and its result is the design constraint — *"a bot with all 863 clickable controls
+wired to resolvable no-op handlers, one golden per subsystem and one forged
+sign-off row per subsystem passes 7/7 green"* (`lane-claimed`, CHALLENGE F).
 
-Two layers are already fixed by measurement and will not move:
+| # | layer | population it declares | what it proves | a do-nothing bot scores |
+|---|---|---|---|---|
+| 1 | **structural** | every module in the shipped package | absence invariants — no forbidden import, no shadowed symbol, no unbounded metric label, no ambient config read | **100 %.** All six of `superbot-next`'s required AST scans assert absence; a bot doing nothing violates none (`lane-claimed`, F-D10) |
+| 2 | **unit / domain** | every exported domain function | that logic computes what it claims | **high**, and it does not matter — see § 2. Never assert over `inspect.getsource()`: 9 such assertions exist today, testing source text of code no test executes (`lane-claimed`, F-D07) |
+| 3 | **contract / integration** | every registered handler, panel and command | that each declared surface resolves to a callable and each `PanelRef` names a registered panel | **100 %.** "Callable" is the whole assertion, so 1,947 no-op coroutines are indistinguishable from a working bot (`lane-claimed`, F-S08) |
+| 4 | **journey** | every enabled feature's canonical path, end to end from the entry point | that a user can *complete* the thing, not that the pieces exist | **0 %** — this is the first layer a do-nothing bot fails, and the first one either repo lacks |
+| 5 | **reachability** | **every panel in the committed manifest snapshot** (§ 1) | that every enabled feature is reachable from the canonical entry point inside the promised interaction budget | **0 %** on any real feature set |
+| 6 | **effect** | every mutating operation declared in the spec | that the operation *changed the database and wrote the audit row*, asserted as a `db_delta`, not that it declared an `audit_verb` | **0 %**, and this is the layer that makes a transcribed constant unable to pass |
+| 7 | **real-guild** | the features claimed ready for this release | that a human drove it in a Discord guild against the built SHA | **0 %** *only if the record is validated* — § 4 |
+| 8 | **production-readiness** | the deployment path itself | that the thing that boots in CI is the thing that boots on the host | **0 %** — § 5 |
+
+**Layers 1–3 are necessary and cheap and prove nothing about the product.** That
+is not an argument against them; it is an argument against reporting them as
+completeness. `superbot-next` has 1, 2 and 3 and reported 533/533.
+
+**Layers 4–8 are where a successor's "done" lives.** Two of them are already
+fixed by measurement and will not move:
 
 - **Reachability** runs over the **committed route graph**, walked from the
   canonical entry point, and asserts every enabled feature is reachable within
@@ -365,9 +385,75 @@ Two layers are already fixed by measurement and will not move:
 
 ## 4 · The real-guild ladder
 
-`PENDING FLEET`.
+`superbot-next` already built a live-verification registry — a signed record that
+a human drove a surface in a real guild. It is the right idea, and challenge F
+**forged one and it validated**: a record with
+`surface_id='/NO_SUCH_COMMAND_AT_ALL'`, `signer='me'`, `signed_at='not-a-date'`,
+`build_sha='zzzz'` and two evidence links `'x'` and `'y'` returned **zero
+problems, EXIT=0** (`lane-claimed`, F-D04, run in-process against the real
+validator). Nothing resolves an evidence link, checks the SHA against the PR
+head, or parses the timestamp.
+
+So the successor keeps the registry and makes each field **resolvable**. The
+ladder, in order — a feature climbs it and cannot skip a rung:
+
+| rung | what it asserts | how it is made unforgeable |
+|---|---|---|
+| **R0 · declared** | the feature exists in the spec with an owner and a canonical path | schema; no human input |
+| **R1 · wired** | layers 1–3 green for this feature | mechanical |
+| **R2 · journeyed** | layer 4: the canonical path completes headlessly, with its effect asserted (layer 6) | mechanical |
+| **R3 · reachable** | layer 5: reachable from the entry point inside the budget, at the guild-visibility settings this feature ships with | mechanical |
+| **R4 · driven** | a human drove it in a real guild | `build_sha` **must equal the PR head SHA**, checked; `signed_at` **must parse and fall inside the build's lifetime**, checked; each evidence link **must resolve to a message in the recorded guild**, fetched; `surface_id` **must exist in the committed manifest**, resolved |
+| **R5 · operated** | it survived a restart and a degraded dependency in that guild | the same record, plus a recorded restart and one injected dependency failure |
+
+**The rung that decides releases is R4, and its whole value is the four
+resolution checks.** An unresolvable field is a red gate, never a warning: the
+measured failure is not that someone lied, it is that the validator accepted a
+string nobody could check.
+
+**One rule about who signs.** A sign-off record whose signer is the session that
+wrote the feature proves the session ran something. That is R2's job and it is
+already mechanical. R4 exists to be a *second observer*, so the record names a
+human and the gate does not accept an agent identity there.
 
 ## 5 · Product-completeness versus deployment-readiness
 
-`PENDING FLEET` — they are separate verdicts and must not be compressed into one
-green score.
+They are separate verdicts and must never be compressed into one green score.
+`superbot-next` compressed them, and the compression is measurable in both
+directions.
+
+**Product-completeness** answers *how much of the promised product works* — the
+R-ladder above, reported as a fraction with its denominator visible: "R4 on 12 of
+14 shipped features." It is a **floor assertion**, and it is the thing neither
+repo has: no checker in either asserts a floor on how much of the bot works
+(`lane-claimed`, CHALLENGE F).
+
+**Deployment-readiness** answers *whether this build can run on the host*, and it
+is a different population — the deployment path, not the feature set. Two measured
+failures show why it cannot ride along with the first:
+
+- **The required gate never renders a Discord message.** `install_panel_runtime`
+  returns *before* installing the presenter when `discord` is not importable, and
+  the required code-quality job installs only `pytest pyyaml`. The four
+  `DiscordPanelPresenter` tests **skip**: `19 passed, 4 skipped`, EXIT=0
+  (`lane-claimed`, F-D09). Every green run of the required gate was a run in which
+  the presenter did not exist — which is the same fact as R5's finding that the
+  parity corpus tests a serializer production does not install.
+- **The deploy shape has never fired.** `railway.json` and `python3 -m sb` are
+  committed and unexercised — `superbot-next`'s own entry point records CUT-3 as
+  unfired.
+
+So the successor reports **two verdicts, always adjacent, never summed**:
+
+```
+PRODUCT      R4 on 12 of 14 shipped features   (floor: 100% of shipped)
+DEPLOYMENT   boots on the host image, renders a real message,
+             survives a restart                (floor: all three)
+```
+
+And **deployment-readiness runs in the host environment with the real
+dependencies installed**, or it is measuring a different program. The rule that
+falls out of F-D09 is worth stating on its own, because it is cheap and it is
+exactly what was missed: **a skipped test in a required gate is a red gate.** A
+skip is a declaration that the population was absent, which is the population
+defect wearing a green tick.
