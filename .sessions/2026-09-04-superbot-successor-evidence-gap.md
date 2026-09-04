@@ -1,16 +1,21 @@
 # 2026-09-04 — the SuperBot successor: closing verdict gap 1 by booting `superbot-next` and driving its help tree and setup flow
 
-> **Status:** `in-progress` — branch `claude/superbot-evidence-gap-kyum0x`,
-> PR fm #1040. Born red on purpose. **What is about to happen:** the rebuild
-> package's verdict (`docs/planning/2026-09-04-superbot-rebuild/13-verdict.md`
-> gap 1) says every dynamic claim in it is read from source because neither
-> bot was booted. This session boots `superbot-next` at the pin `d5f66dc2`
-> against a throwaway local Postgres, drives the help tree and the setup flow
-> through the real dispatch spine and the production panel presenter, and
-> writes the observation into the package's `run/` folder — with each layer
-> labelled real or synthetic. Slice one is not started:
-> `OQ-SUPERBOT-SUCCESSOR-SCOPE` (A) was still open in `docs/owner-queue.md`
-> at this session's start. The flip is the last act.
+> **Status:** `complete` — branch `claude/superbot-evidence-gap-kyum0x`,
+> PR fm #1040. Born red on purpose, and all four conditions are met: the
+> observation record and its instrument are in the package
+> (`run/boot-observation.md`, `run/headless_drive.py`, the retained raw
+> record), the package and estate pointers are in, three Codex rounds were
+> answered (6 + 5 + 6 findings, all fixed, 0 open), and the gate is green
+> with the hold lifted. Flipping this line was the last act. **What this
+> session did:** the rebuild package's verdict (`13-verdict.md` gap 1) said
+> every dynamic claim in it was read from source because neither bot was
+> booted; `superbot-next` was booted headless at the pin `d5f66dc2` against
+> a throwaway local Postgres, the help tree, the setup flow, the join
+> launcher and every slash command were driven through the real dispatch
+> spine and the production presenter, and the observation is in the
+> package's `run/` folder with each layer labelled real or synthetic. Slice
+> one is not started: `OQ-SUPERBOT-SUCCESSOR-SCOPE` (A) was still open in
+> `docs/owner-queue.md` throughout.
 
 - **📊 Model:** withheld · max · review/verify
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -133,7 +138,7 @@ is. A name is prose; an expected id is data. Same shape as
   from what the presenter last sent. Every click then carries the exact
   `custom_id` the production adapter minted. This is the successor's
   reachability gate in prototype — walked over the **rendered** view — and it
-  ran 1,821 interactions in under ten minutes on one CPU.
+  ran 1,802 interactions in under ten minutes on one CPU.
 - **Blocking I/O inside the event loop looks like a dead health server.** The
   first `/ready` probe used `urllib` in the same thread as the bot and timed
   out at 5 s; `asyncio.to_thread` answered in milliseconds with the real 503.
@@ -175,12 +180,30 @@ Layer-2 handoff line — is written when the work lands; see below once it is)*
   `guard-fires.jsonl` resolved as a union, the owner index regenerated).
 - `e1591a7` — the record corrected against the final run before the review
   answered (run count, route count, DB deltas, command census).
-- *(review-round commits and the flip are listed below as they land)*
+- `fe78f51` — round 1's six fixes (pin from HEAD, boot verdict, guild-scoped
+  reset, propagated exit status, the card's whole-run label); sixth run.
+- `4c88928` — round 2's five fixes (replays counted, absolute output path,
+  the blackjack bet form attributed, the card's stale counts); seventh run.
+- `e22dc40` — second merge of `origin/main` (telemetry union only).
+- `70f1f5a` — round 3's six fixes (queued messages are snapshots — the P1;
+  phase-local setup baseline; whole process log retained; untracked files
+  refused; the retained-record transform as `--retain`; the setup walk's
+  render/send split); eighth run, retained.
+- the flip commit — this card only.
 
 **Verify** — `python3 bootstrap.py check --strict --added-card
-.sessions/2026-09-04-superbot-successor-evidence-gap.md` on the merged tree:
-**exit 1, two findings, both the designed born-red hold**
-(`session-card-hold` and the preflight lane mirroring it); no other finding.
+.sessions/2026-09-04-superbot-successor-evidence-gap.md`: on every pushed
+head before the flip, **exit 1 with two findings, both the designed born-red
+hold** (`session-card-hold` and the preflight lane mirroring it), the same
+two CI's `substrate-gate` showed on `4bc4e5b`, `fe78f51` and `70f1f5a`
+(read from the job logs); on the flipped card, **exit 0**:
+
+```
+$ python3 bootstrap.py check --strict --added-card .sessions/2026-09-04-superbot-successor-evidence-gap.md
+check: 164 heuristic advisory finding(s) across 7 checker(s) held off the gate channel (…) — never exit-affecting
+check: all checks passed.
+EXIT=0
+```
 Three real findings were met and fixed on the way: `false-wall:
 classifier-denied-standing` (the refusal was re-worded as the dated,
 momentary thing it was), `orientation-budget` (the boot-read set went 10
@@ -188,6 +211,20 @@ words over 7,000 after the current-state line; trimmed), and `owner index
 drift` (regenerated). `reachability_probe.py` at the pin reproduces the
 package's static figures exactly (314 panels · 200 edges · help depth 0 ·
 setup 39 of 40 · 185 of 314 combined).
+
+**The review rounds — three of three, the cap.** Round 1 on `f1907d9`: six
+P2, six fixed (`fe78f51`). Round 2 on `fe78f51`: five P2, five fixed
+(`4c88928`). **Round 3 on `4c88928`: one P1 + five P2 — 6 fixed, 0 refuted,
+0 open** (`70f1f5a`), each verified directly per [D-0019]: an eighth
+fresh-database run of the fixed instrument, whose every reachability figure
+matched the seventh and whose setup walk lost exactly the 19 stale re-clicks
+the P1 predicted. The three rounds found nothing that moved a conclusion and
+eleven things that moved a number or a label — the same shape as fm #1025's
+round. **Reviewed SHA and what came after it:** the last verdict is on
+`4c88928`; after it came `e22dc40` (a merge of `main`, telemetry union only),
+`70f1f5a` (the round-3 fixes, verified by the eighth run and disclosed on the
+PR) and the flip commit (this card only) — the two exemptions [D-0019]
+names, taken and said.
 
 **⚑ decide-and-flag**
 
