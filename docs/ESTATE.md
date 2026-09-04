@@ -251,14 +251,34 @@ archiving is a reversible tidy, deletion is not.
 **Scope of this check:** the four repositories attached to that session
 (`fleet-manager`, `websites`, and the two labs). No account-wide dependency
 scan was run, so "nothing depends on these" is established for those four
-only. **UPDATE 2026-08-22 — the account-wide scan has now run** for
+only. ~~**UPDATE 2026-08-22 — the account-wide scan has now run** for
 `Substrate-kit-app`: `search/code?q=Substrate-kit-app+user:menno420` returns
 **5 hits, all in `fleet-manager`** (this index and its doc-routes), none in
 the other 25 repositories. That widens the check from 4 repos to 26 and
-removes the stated blocker on the deletion question — which the
-[OD-18 table](planning/2026-08-22-repo-dispositions.md) still answers
-**archive**, on value rather than on dependencies. Honest edge: code search
-indexes default-branch text, so a consumer outside GitHub would not appear.
+removes the stated blocker on the deletion question.~~
+
+> **WITHDRAWN 2026-09-04 (fm #1020). It widened nothing, and it contradicted
+> this file's own warning 83 lines above it.** The sweep it rests on is exactly
+> the method [§ `search/code` does NOT cover this account](#️-searchcode-does-not-cover-this-account--dependency-sweeps-are-unreliable)
+> refutes: `MEASURED` 2026-08-23, **7 of 26 repositories are indexed and 19 are
+> not**, so a zero from an unindexed repository is indistinguishable from a
+> genuine absence. `Substrate-kit-app` is itself among the unindexed. A search
+> that cannot see 19 repositories does not establish anything about them, and
+> **the blocker on the deletion question was never removed.**
+>
+> Both halves sat in this file at once — the warning, and this paragraph reading
+> as though the warning did not apply to it — which is the failure the
+> independent structure review named as *"several polished front doors … each
+> internally plausible and jointly stale"*, here inside a single document. Found
+> by the estate truth baseline's archived-provenance lane and verified at both
+> line ranges before striking.
+>
+> **The disposition is unaffected:** the
+> [OD-18 table](planning/2026-08-22-repo-dispositions.md) answers **archive**
+> for `Substrate-kit-app` **on value rather than on dependencies**, and archiving
+> is reversible. What is affected is *deletion*, which is not — so a future
+> deletion call must read the § warning and treat the dependency question as
+> **open**. To close it, clone-and-grep the keeps; that has not been run.
 
 ## When the owner's words don't name a repo
 
