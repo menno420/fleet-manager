@@ -228,6 +228,25 @@ future row.
 |---|---|---|---|
 | 35 | the row-13 reassertion gate + its cross-line tail | four verified corner cases, none firing on either live tree at land time: (a) an `or`-coordinated negated complement pair (`does not hold or remain in force`) reads as affirmative — false POSITIVE, cheap direction; (b) a later `whereas <other-capability>` clause suppresses the family gate over an earlier real reassertion (`…but remains in force in production, whereas deploys are unrestricted`) — false NEGATIVE; (c) the truth-token vocabulary omits direct state predicates (`active`, `enforced`, `operative`, `valid`) — false NEGATIVE; (d) the cross-line tail treats a Markdown table row as prose continuation — false POSITIVE. Fix family: per-contrast-clause family scoping + token vocabulary + a table-row stop in the tail extension; the adjacent shapes already recorded in kit #587's card (apposition-severed mention cue; reassertion after a plain-clause cue; empty-family comma-cue baseline; FALSE-label family-blindness) belong to the same future fix unit | new in kit #587 (Codex R3, all four execution-verified 2026-08-28); the round tally 5→6→4 measured non-convergent, so the cap landed the PR with these named |
 
+## Two more, from the K1–K5 adoption-profile work (kit #590, 2026-09-04)
+
+| # | site (kit main post-#590) | defect | provenance |
+|---|---|---|---|
+| 36 | `.github/workflows/ci.yml`, the kit's own **Session gate** step | the kit grades its session card with `check --strict --require-session-log --session-log <card>`, which runs the **marker** checks but NOT the **added-card grammar** lane — so an off-taxonomy `📊 Model:` task class reaches `main` unflagged. Measured live: kit #590's card shipped `feature` (not one of the nine PL-004 classes; the class is `feature build`) and this repo's gate, which uses `--added-card`, caught the identical mistake on its own card the same hour. `check_model_line` rejects the value outright, so the checker is right and only the gate's lane selection is wrong. Fix is a lane choice, not a checker change — but it is a real one: that line is the telemetry feed `session-close` harvests into `telemetry/model-usage.jsonl`, so the gap admits wrong records, not cosmetic ones | new finding, kit #590/#591 (2026-09-04); the record itself was corrected on `main` by kit #591 |
+
+**Row 20 re-confirmed, cross-adopter (not a new row).** `adopt --include-claude`
+still produces `[boot-section-missing]` on `.claude/CLAUDE.md`, because the
+staged agreement's heading (`## Orientation — read first, in order`) does not
+match `check_boot_path`'s heading regex. Reproduced 2026-09-04 on a cold
+adoption of the **pre-change** `origin/main` dist as well as the post-#590 one,
+which rules the change out as a cause and makes this the third independent
+sighting of row 20 (idea-engine #899 R1 · this). Advisory-only, never
+exit-affecting. **Interacts with row 30:** kit #590 made `CONSTITUTION.md`'s
+boot list profile-aware (it renders a sparse block for a shape that plants no
+docs), so whoever fixes row 30's two-canonical-lists problem should read
+`engine.render.boot_read_path` and `agreement_boot_tail` first — the pointer/
+list split row 30 asks for now has a shape dimension it did not have in August.
+
 ## Residue this session found itself (not Codex)
 
 - **The kit's `tests/test_skills_index_install_contract.py` guard regex is
