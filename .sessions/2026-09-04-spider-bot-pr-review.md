@@ -134,7 +134,17 @@ Layer-2 handoff: docs/repos/spider-bot/README.md — *AI operations build* threa
 
 ## 💡 Session idea
 
-*(at close)*
+**The Codex round guard counts intent, and intent is the wrong thing to count.**
+It fingerprints the head plus the request text at `PreToolUse`, so a request
+composed inside a command whose earlier gate branch failed — the curl never
+ran, nothing was posted — still spent a round: this session posted two real
+requests on spider-bot#5 and the guard read three, and the last real round was
+announced as "the last one the cap allows". A count that can run ahead of the
+thing it counts is a wall in waiting: one more such miss and a needed round is
+denied while GitHub shows two. The mechanism fix is to count on `PostToolUse`
+from the response — a comment id that exists — and keep the `PreToolUse` deny
+only for the fourth. Same shape as TRAP-003: the query ran; that is not the
+world.
 
 ## ⟲ Previous-session review
 
