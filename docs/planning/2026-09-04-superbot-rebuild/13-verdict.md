@@ -46,6 +46,43 @@ This is not a formality. It means:
 **Closed by:** a boot of `superbot-next` in a test guild with a test app, driving
 the help tree and the setup flow. About an hour, per the audit's own recipe.
 
+> **CLOSED IN PART — 2026-09-04, later the same day, fm #1040.** The bot was
+> booted at the pin `d5f66dc2`: the composition root `run_app()` ran end to end
+> against a throwaway local Postgres (57 migrations, 1,327 dispatch targets,
+> 314 panels, 27 slash commands, `RUNNING`, clean `STOPPED` on SIGTERM), and
+> the help tree, the setup flow, the join launcher and every slash command
+> were driven through the real spine and the **production** panel presenter —
+> **headless**: the gateway connect was stubbed and Discord's HTTP answered by
+> an in-process fake, so the transport and the guild are synthetic and
+> everything else is real. The record is
+> [`run/boot-observation.md`](run/boot-observation.md); the instrument is
+> [`run/headless_drive.py`](run/headless_drive.py).
+>
+> **What it changed.** Every reachability number above is now a runtime
+> observation with its static twin beside it, and three of them moved. The
+> help tree is **not** depth 0 at runtime — its selectors are provider-fed,
+> so `/help` reaches 57 of 66 help panels (depth up to 5) — and it is still
+> the dead end the package says it is: **48 of those 57 carry nothing but a
+> Back button and no click leads out of the help tree.** The primary setup
+> entry (`/setup`, the join launcher's *Start Setup*, `/setup-advanced`,
+> `/setup-status`) renders its card and **never sends it**: the production
+> presenter has no channel-send branch for a request without an interaction
+> origin, the parity twin does, so the 13-panel essential flow is unreachable
+> through the shipped adapter and the reply links to message id `0`. And a
+> guild owner locks themself out of every control in a channel with **one
+> click** on the Command Access panel (a mode or a role-set), because the
+> owner override is the platform owner's, not the guild owner's. Two
+> unhandled `AttributeError`s were met on the way (`ticket/setup_panel.py`
+> and `platform/guild_snapshot.py`), neither caught by 3,648 tests.
+>
+> **What stays open — the gateway leg.** Nothing here observed Discord
+> itself: the real gateway READY, the remote command set of the test
+> application (the one-call measurement named above), rendering in a real
+> client, and a human's R4 drive. The container's bot-token variable could
+> not be exercised by this session's venue; that leg is one owner step,
+> written as `OQ-SUPERBOT-NEXT-GATEWAY-LEG` in `docs/owner-queue.md`. The
+> verdict stays `PARTIAL` on gaps 3 and 4 and on this residue of gap 1.
+
 ### 2 · ~~The fan-out's adversarial verification did not run before this landed~~ — **IT RAN, AND IT REFUTED 62 OF 196 LANE STRENGTHS**
 
 `run/CONTRACTS.md`'s AGGREGATE contract designed a refutation pass as the second
@@ -149,8 +186,11 @@ Stated positively, because a `PARTIAL` verdict is not a recommendation to wait:
 ## What a future session may do on this verdict
 
 **May:** build slice one under `12-owner-decisions.md`'s stated defaults; run the
-refutation pass over the retained rows; boot `superbot-next` in a test guild to
-close gap 1.
+refutation pass over the retained rows *(done)*; boot `superbot-next` in a test
+guild to close gap 1 *(done headless — the gateway leg is the owner's, see
+`OQ-SUPERBOT-NEXT-GATEWAY-LEG`)*; re-run
+[`run/headless_drive.py`](run/headless_drive.py) against a later pin if either
+product tree moves.
 
 **May not:** claim design-lock; promise or perform a production cutover; treat any
 `lane-claimed` number as measured; or begin a second slice before slice one's

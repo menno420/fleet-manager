@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-04T17:51:07Z
+> generated-at 2026-09-04T19:19:01Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -34,12 +34,13 @@ worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/P
 
 ## Decide — open items in the owner queue
 
-41 open of 73 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
+42 open of 74 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
 own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
-**Open (38)**
+**Open (39)**
 
 - **`OQ-SUPERBOT-SUCCESSOR-SCOPE`** — 🟡 OPEN — one question decides the successor's
+- **`OQ-SUPERBOT-NEXT-GATEWAY-LEG`** — 🟡 OPEN — the one leg of verdict gap 1 a session could not run: connect the test app once and read what Discord
 - **`OQ-INTENT-WRITE-UP`** — write your intent, against the questions prepared for
 - **`OQ-KIT-RENAME`** — the kit's published name: you ruled it changes, and the
 - **`OQ-GBA-NEXT-PICKS`** — 🎮 gba-homebrew: the letter pick + playtest verdicts

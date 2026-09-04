@@ -36,6 +36,48 @@ dispatch targets, real handlers, real DB writes — "not a shell").
 
 ## Threads
 
+### Thread: the headless boot — **gap 1 closed in part; three runtime defects on record, at the pin `d5f66dc2`** (2026-09-04, later the same day)
+
+The rebuild package's verdict said every dynamic claim in it was read from
+source because neither bot had been booted. fm #1040 booted this repo at the
+pin — the composition root end to end against a throwaway local Postgres, the
+gateway connect stubbed, Discord's HTTP faked in-process — and drove `/help`,
+the setup flow, the join launcher and all 27 slash commands through the real
+spine and the **production** presenter, clicking every rendered control.
+Record: [`planning/2026-09-04-superbot-rebuild/run/boot-observation.md`](../../planning/2026-09-04-superbot-rebuild/run/boot-observation.md);
+instrument: `run/headless_drive.py` beside it. What a session working this
+repo needs from it (`MEASURED` at the pin, headless — no Discord surface
+observed):
+
+- **The primary setup entry never posts its card.** `/setup`, the launcher's
+  *Start Setup*, `/setup-advanced` and `/setup-status` render into the
+  workspace through `service.post_panel_to_channel`, whose request has no
+  interaction origin; `DiscordPanelPresenter` has no channel-send branch for
+  that shape (the parity `ParityPresenter` does — `record_send`), so the
+  render is dropped and the reply links to message id `0`. The 13-panel
+  essential flow is unreachable through the shipped adapter.
+- **Two unhandled `AttributeError`s:** `sb/domain/ticket/setup_panel.py:159`
+  and `:191` read `result.ok` off a `WorkflowResult` that has no such field
+  (the *Enable tickets* / *Auto-create log channel* buttons answer *"Something
+  went wrong on our end"*); `sb/domain/platform/guild_snapshot.py:243` reads
+  `.name` off a `ResourceRequirement` (every setup recommender read logs the
+  exception and falls back).
+- **A guild owner locks themself out with one click** on the Command Access
+  panel — a mode or a per-channel role-set — because `owner_override_holds`
+  is the platform owner's, not the guild owner's; the reply tells them to
+  fix it in `!settings`, which is prefix-only and dead without the message
+  intent. Three of the ten setup commands (`setup-describe`, `setup-skip`,
+  `setup-unskip`) cannot work on the slash surface at all: commands register
+  parameterless.
+- **The help tree is navigable and leads nowhere:** 57 of 66 help panels
+  from `/help`, depth up to 5, 48 of them with nothing but a Back button, and
+  not one click out of the help tree.
+
+Next step in this repo: **none** — it stays parked and read-only. The
+findings belong to the successor plan (gap 1's residue is the gateway leg,
+`OQ-SUPERBOT-NEXT-GATEWAY-LEG` in `docs/owner-queue.md`). If the owner ever
+wants these fixed *here*, the four bullets above are the ticket.
+
 ### Thread: the rebuild review — **its failure is now diagnosed, at the pin `d5f66dc2`** (2026-09-04)
 
 The 2026-09-04 comparative review

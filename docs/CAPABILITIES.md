@@ -171,6 +171,31 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-04 · capability · `owner-live` (remote CCR container, auto mode) ·
+  **`superbot-next` boots and can be DRIVEN end to end with no Discord token
+  and no network: its composition root runs against a throwaway local
+  PostgreSQL 16 with the gateway connect stubbed, and a synthetic
+  INTERACTION_CREATE walker pushes the help tree, the setup flow, the join
+  launcher and every slash command through the real spine and the production
+  presenter, clicking every control it renders.** · evidence (fm #1040, pin
+  `d5f66dc2`): `run_app()` reached `RUNNING` in ~1.3 s (57 migrations, 1,327
+  dispatch targets, 314 panels, 27 slash commands, `/ready` → 503
+  `gateway_not_ready` with `accepting_commands: true`), 1,821 interactions
+  rendered 237 of the 314 committed panels (234 sent, 3 dropped by the presenter), SIGTERM → clean `STOPPED`, exit 0.
+  Postgres: the binaries are at `/usr/lib/postgresql/16/bin` and the server
+  refuses root, so `initdb`/`pg_ctl` run under `os.setuid` to the existing
+  `postgres` account (a 60-line wrapper; trust auth on 127.0.0.1:54329). The
+  instrument is `docs/planning/2026-09-04-superbot-rebuild/run/headless_drive.py`
+  and its docstring is the recipe; the record is `run/boot-observation.md`
+  beside it. · route note: the token-bearing leg was not run here — on 2026-09-04
+  five commands that referenced `DISCORD_BOT_TOKEN_PRODUCTION`, a read-only
+  `GET /users/@me` included, were refused by this venue's auto-mode
+  classifier (momentary, per call; re-attempt on any change), so the
+  transport was replaced instead of the identity being checked. Not a
+  property of the token or of the bot; the leg is
+  `OQ-SUPERBOT-NEXT-GATEWAY-LEG` in `docs/owner-queue.md`.
+  — LAST-VERIFIED: 2026-09-04
+
 - 2026-09-04 · capability · `any` · **The paid Gemini key's prepay balance is a
   state, not a wall — and today it is EMPTY. Every `GEMINI_API_KEY_PAID` call
   returns 429 until the owner refills it; the free key keeps serving text, and
