@@ -2045,6 +2045,54 @@ workflow's own comment predicts when no trusted publisher is registered. A
 session that files this by run conclusion alone records a failure that did not
 happen.
 
+### Measure fan-out concurrency instead of quoting it — a demand test (MEASURED 2026-09-04, fm #1020)
+
+The `Workflow` harness documents its cap as `min(16, CPUs−2)`. **In this
+container it was 2.** Measured, not inferred: eight agents dispatched at one
+instant, each held alive 45 s by a fixed wait, produced **four clean waves of
+two** — peak 2, mean(busy) 1.88.
+
+The discriminator matters as much as the number, because a small overlap can
+mean either a real limit or slow provisioning:
+
+- within-wave starts **1.1–3.6 s** apart → provisioning is fast;
+- each new wave began **5.2–11.7 s after a slot freed** → starts track
+  slot-frees.
+
+Fast provisioning plus starts tracking slot-frees is **slot-limiting**. Had
+provisioning itself taken ~2 minutes, the same pairs would appear with no limit
+at all.
+
+**Why this is a capability and not a complaint:** it makes wall-clock
+predictable before a run rather than after it. At the observed 2, a 44-agent
+fleet is hours; sizing on the documented 16 would have been wrong by 8×. The
+recipe is `.claude/skills/fleet-preflight/SKILL.md` § 7, and the probe is worth
+its three minutes on any fan-out over ~10 agents. **Re-measure per container** —
+the estate has recorded 4 and 2 in different containers on the same day.
+
+### A `Workflow` structured-output schema can be refused for SIZE — slim it, do not abandon it (MEASURED 2026-09-04, fm #1020)
+
+Thirteen agents returned, verbatim:
+
+```
+blocked by safety classifier: output schema too large to classify safely
+```
+
+The agents never ran. **This is a property of the schema, not of the task, the
+model or the prompt** — a sibling lane with a smaller schema and a *longer*
+prompt ran fine in the same workflow, at the same moment.
+
+**The route around it, measured working:** keep the structured output, shrink the
+schema. Flatten deeply nested `items`/`properties` into flat arrays of strings,
+drop `description` text from nested leaves (it counts), and move the guidance the
+descriptions carried into the prompt, which is not size-checked the same way. The
+same thirteen agents then returned **13 of 13, zero errors**, with no loss of
+substance.
+
+**Do not read this as "structured output is unavailable"** — it is available, and
+the schema is the dial. A refusal here means the schema needs flattening, exactly
+as a 422 means a SHA needs re-reading.
+
 ## CAN — the owner-live credentialed session (the "rescue venue"), verified 2026-07-12
 
 A session the owner starts with his credentials exported (`RAILWAY_API_KEY`,
