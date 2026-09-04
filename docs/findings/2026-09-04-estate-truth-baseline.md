@@ -214,7 +214,36 @@ was **wider than the review stated**.
 
 ## 9 · The Substrate Kit dependency, at its currently verified state
 
-*(completed from the fleet's returned evidence)*
+The seed's shape depends on kit behaviour, and a concurrent session is changing
+that behaviour right now. This run **records the dependency and measures the
+current state**; it solves nothing here and proposes no kit change.
+
+`MEASURED` 2026-09-04T12:0xZ, live API, direct egress:
+
+| What | State | Command |
+|---|---|---|
+| Latest **published** kit release | **v1.21.0**, published 2026-08-13T12:23:57Z; assets `bootstrap.py`, `bootstrap.py.sha256`, `release.json` | `GET /repos/menno420/substrate-kit/releases/latest` |
+| Kit `main` | `ff06fb902c69`, 2026-09-01T18:25:00Z — **ahead of the published release** | `GET …/branches/main` |
+| **K1–K5** (adoption profiles) | **`menno420/substrate-kit#590`, OPEN** — head `19d70eeff43e`, 31 files, 7 commits, +4,761, last updated 2026-09-04T12:03:17Z | `GET …/pulls/590` |
+| What fleet-manager vendors | `kit_version 1.21.0` (`substrate.config.json`), and `bootstrap.py` self-reports `1.21.0` | read at HEAD |
+
+**The dependency stated exactly, so the seed session does not have to infer it.**
+`[D-0035]` puts *"K1–K5 in substrate-kit, one release"* **before** the seed. As of
+this measurement K1–K5 are **not released, not on kit `main`, and exist only in
+an open pull request**. So a seed item that requires the `hub` adoption profile
+is blocked on three events in order — #590 merges · a release is cut (the cut is
+owner-paced, and the record says fixes already on `main` are waiting for the next
+batch) · the new hub adopts that release. **None of the manifest's seeded items
+depends on any of them**, which is the property this run was asked to preserve:
+the baseline is consumable by a seed session whether or not K1–K5 have landed,
+and what changes with them is the *tree the kit plants*, not the *truth the
+manifest carries*.
+
+**What this run deliberately did not do:** read #590's diff to judge it, form a
+view on the adoption-profile design, or record any K1–K5 behaviour as a fact.
+The five items are a live PR by another session; anything said about their
+behaviour today would be stale on merge. A seed session re-checks the four rows
+above at launch — they are the first entry in the handoff's re-check list (§ 11).
 
 ## 10 · Testing the baseline against cold-session use
 
