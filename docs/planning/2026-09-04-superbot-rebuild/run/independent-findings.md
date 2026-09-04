@@ -980,3 +980,72 @@ condition a green CI check creates every day. It is also the argument for why
 § 3's mechanisms must be *structural* rather than *habitual* — habits fail in the
 direction of the thing you already believe, and this session demonstrated it
 inside the document arguing for it.
+
+## I-21 · `superbot`'s enforcement locus is pytest, not the workflow — 44 of 45, not 14 — `MEASURED`
+
+Three lanes disagreed about whether `superbot`'s 45 `scripts/check_*.py` are
+actually enforced. Re-derived here, one loop over all 45:
+
+```
+checkers: 45 | referenced from tests/: 44 | referenced from .github/workflows/: 15
+```
+
+- **M5 reported** *"of 45 `check_*.py` scripts only 14 run in CI"* — it counted
+  workflow references. Measuring the same thing gives 15; either way it is the
+  **wrong locus**.
+- **R2 caught it mid-lane and said so**: *"my own intermediate reading that '30 of
+  45 superbot checkers are unwired' is REFUTED by measurement — 43 of 45 are
+  referenced from `tests/`."*
+- **R6 made it its headline** and stated the correction loudly in its own
+  `contradicts` field: it first counted 15 in CI, found no runner for
+  `check_command_reachability` / `check_settings_reachability` in any workflow,
+  and then found the real path.
+
+**The checkers are libraries; the gate is `pytest tests/ -v -n auto`** in
+`code-quality.yml`. So a workflow-step census of this repo measures its
+*documentation*, not its enforcement.
+
+### Why this one matters more than the arithmetic
+
+It **inverts the review's central comparison on the axis that decides everything
+else**. The convenient story — *`superbot` is accumulated trial-and-error,
+`superbot-next` is the engineered one* — survives only while you believe
+`superbot`'s guards are decorative. They are not: 44 of 45 run behind blocking,
+zero-tolerance invariant tests, several with the staleness proofs and negative
+controls § 3 of the verification design is built from.
+
+And the mirror holds. `superbot-next` inverted the arrangement — checkers driven
+from a `set -e` workflow loop rather than from tests — and **three of its
+flagship "required, NO EXPIRY" gates are green over an empty or unsigned
+population** (`check_escape_hatches`: `"view:` occurrences = 0 in a 2,274,784-byte
+snapshot; `check_verified_live`: 0 records, 50 of 50 subsystems `unverified`;
+the `ui/` glob at 0 files across 49 directories).
+
+**So on guard architecture, `superbot` is the donor and `superbot-next` is the
+cautionary tale** — the exact reverse of how the 2026-08-21 plan assigns the two
+roles. That plan's line is *"use `superbot-next` as an architecture and
+kernel-pattern donor"*; on this axis the arrow points the other way, and this is
+now the third attribution reversal found (I-3 the import-direction guard, I-4 the
+AI gateway, this).
+
+### The other reversal in the same lane: this is a PORT, not a convergence
+
+R6 scanned for file-level similarity between the trees and found **54
+`disbot`↔`sb` pairs above 0.55, 8 at ≥0.90, and one byte-identical** — verified
+here: `disbot/utils/mining/capacity.py` and `sb/domain/mining/capacity.py` share
+md5 `64f1665a9fb83a940d95eca5b9492bf2`.
+
+Two consequences:
+
+1. **"Which patterns did the two bots independently converge on?"** — a question
+   this review's own R6 brief asked — is **largely void on the domain layer.**
+   There was no convergence to discover there; the code was carried across. The
+   genuine convergences are in the *kernel* patterns, and the genuine
+   *improvement* is navigation (`superbot`'s `attach_standard_nav` is opt-in with
+   17 call sites across 9 files; `superbot-next` made engine-injected navigation
+   the default — a port that was improved rather than restated).
+2. **It is direct evidence for OD-19's cog-portability requirement**, from an
+   unexpected direction: a domain module already moved between these two
+   architectures **unchanged**. Portability is not hypothetical here; it has
+   happened, 54 times, and the fence that blocks it for stateful modules is a
+   contract choice (I-10) rather than a structural impossibility.
