@@ -833,6 +833,16 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   the owner explicitly reserved the choice.
 
 - **`OQ-KIT-V1-21-RELEASE` ◐ HALF-ANSWERED 2026-08-28 — the CUT is timed; the ADOPTERS are not.**
+  **UPDATE 2026-09-04:** a third PR now rides `main` unreleased — [kit
+  #590](https://github.com/menno420/substrate-kit/pull/590) (`8a83c73`), the
+  K1–K5 adoption-profile work the accepted build order puts before the
+  `estate` seed. It
+  does **not** unlock the cut on its own: his timing answer sequences the
+  charter rewrite and the doc-surface sweep first, and neither has landed. The
+  smallest action that would release it, when he wants it, is one
+  `workflow_dispatch` of `release.yml` with the version input, after
+  `scripts/cut_release.py --write --rebuild-dist` bumps the three version homes
+  and opens the CHANGELOG section.
   Owner, live (§ 12 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)): *"Cut when the next fix batch lands"* — so
   kit #587 and #588 wait on `main` and ride out with the charter rewrite and the
   doc-surface sweep in **one** release rather than their own cut. **Still his and
