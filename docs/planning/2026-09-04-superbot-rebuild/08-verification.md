@@ -268,12 +268,39 @@ Production installs a different renderer entirely:
 `sb/app/panel_host.py:66` → `panel_engine.install_panel_presenter(DiscordPanelPresenter())`
 (3 references in `tests/`, none on the golden path).
 
-**So 533 goldens compare the old bot's real discord.py output against a
-hand-maintained model of discord.py.** It is `superbot`'s help-reachability sim
-(§ 2.2) one level deeper: the same guard-over-a-model shape, sitting at the heart
-of the acceptance oracle rather than beside it. A byte-perfect pass says the
-*parity serializer* agrees with the capture; it says nothing about what a user
-sees.
+**The two sides cross different boundaries, and each module says so in its own
+first ten lines** — read after two wrong readings of this section that were
+inferred from filenames instead:
+
+- **Expected side** (`parity/harness/fake_http.py`): the **real old bot** is
+  booted in-process against the real `bot1.bot` object, and the harness fakes
+  discord.py 2.7.1's *two transport seams* — `ConnectionState.http` and the
+  webhook `async_context` — recording what crosses them. Real `Message` objects
+  come back so the real `ViewStore` keeps working. **This side goes through real
+  discord.py serialization**; only the network is faked.
+- **Actual side** (`sb/adapters/parity/transport.py`): *"the capture boundary for
+  the NEW bot… **Twin** of `parity/harness/fake_http.py`, recording in the SAME
+  wire vocabulary but **listening on `sb/`'s own ports instead of discord.py's
+  HTTPClient**."* `grep "import discord" sb/adapters/parity/*.py` returns
+  **nothing** — this side never touches discord.py at all. Its `ParityPresenter`
+  is the parity twin of production's `DiscordPanelPresenter`.
+
+**So a golden diff measures whether the hand-written twin agrees with real
+discord.py.** That is real information and it is not nothing. What it is *not* is
+evidence about the shipping renderer, which is on **neither** side: production
+installs `DiscordPanelPresenter` (`sb/app/panel_host.py:66`), the goldens drive
+`ParityPresenter`, and the two are never compared to each other.
+
+It is `superbot`'s help-reachability sim (§ 2.2) one level deeper — the same
+guard-over-a-model shape, sitting at the heart of the acceptance oracle rather
+than beside it.
+
+**One consequence for anyone re-running this.** `parity/harness/boot.py:33` sets
+`_DISBOT = _REPO_ROOT / "disbot"` and inserts it on `sys.path`, and **there is no
+`disbot/` in `superbot-next`**. The oracle harness cannot boot without the old
+repository checked out beside it, so **the golden corpus is not reproducible from
+this repository alone** — which is why lane R5 reached the binding probe and
+stopped.
 
 ### The corpus figures — `lane-claimed`, and marked as such
 
