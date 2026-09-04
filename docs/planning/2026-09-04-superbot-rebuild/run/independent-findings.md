@@ -506,8 +506,22 @@ btd6 0 · project_moon 0).
 
 **Rendered:** three hubs use the shared child-discovery seam
 (`discover_hub_children` / `HubChildButton`): **games, community, utility**.
-Their children are discovered from the registry, so coverage is guaranteed by
-construction. The other five hand-roll. Counting `@button`-decorated methods on
+Coverage is guaranteed by construction, and the guarantee is exactly as strong
+as the function body — read, not assumed: `disbot/views/hub_children.py`'s
+`discover_hub_children` is an **unfiltered** comprehension,
+`[(name, dict(meta)) for name, meta in SUBSYSTEMS.items() if meta.get("parent_hub") == hub_key]`,
+followed only by a deterministic sort. Every declared child is returned.
+
+**One precision, because the caller adds a filter the seam does not.** The games
+hub's own test is named `test_view_renders_one_game_hub_button_per_**visible**_child`:
+the caller narrows the discovered set by **per-guild governance visibility**
+before rendering. That is correct behaviour — a subsystem an operator disabled
+should not offer a button — so the honest form of the guarantee is *every
+declared child the viewer is permitted to see*, and the 19/19 below is a
+**declared-coverage** figure, like every other row in the table.
+**It is also a requirement on the successor's reachability gate**: the gate must
+model per-guild visibility, or it will score a correctly-hidden subsystem as an
+unreachable one and train its readers to ignore it. The other five hand-roll. Counting `@button`-decorated methods on
 each hand-roller's view class:
 
 | hub | declared | mechanism | children with a button | missing |
