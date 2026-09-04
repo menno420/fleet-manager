@@ -308,6 +308,10 @@ the register that has to hold them:
    presence.
 4. **Data.** Its own Postgres. OD-E's default is *import nothing*, so there is no
    reason for a connection string to production to exist anywhere in the tree.
+5. **A deploy watch-path filter from day one** ([`06-architecture.md`](06-architecture.md)
+   § 11) — the direct answer to the measured `Watch Paths | (none)` above, and
+   the one separation that has to be *configured* rather than merely not
+   violated.
 
 **And the early warning that is worth more than the rule:** the first time a
 successor artifact *names* an incumbent's service, token, guild or database —
