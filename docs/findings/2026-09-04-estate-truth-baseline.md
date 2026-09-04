@@ -102,6 +102,36 @@ That reconciliation is itself a result. The index was wrong by one repository
 for a day in August (`creator-kit`, created 2026-08-25, registered 08-26 only
 because an invisible-work sweep found it); it is exact today.
 
+### Per-repository coverage, and the asymmetry the seed inherits
+
+`MEASURED` at HEAD by enumerating the directories and matching them against the
+census, not by quoting a generated page:
+
+| Surface | Coverage | Uncovered |
+|---|---|---|
+| `docs/owner-comments/<repo>/` | **28 of 28** | — |
+| `docs/repos/<repo>/` (Layer 2) | **10 of 28** | the 9 archived · `superbot-plugin-hello` · `creator-kit` · `curious-research` · `gba-homebrew` · `idea-engine` · `pokemon-mod-lab` · `shiftlife` · `sim-lab` · `fleet-manager` itself |
+| `owner/intent-workbooks/` worksheets carrying his words | **1 of 74** — `owner/intent-workbooks/estate/why-this-estate-exists.md` | the other 73 are unanswered forms |
+
+**This asymmetry is a seed-time obligation, not a curiosity.** The agreed
+`estate` tree gives **every** repository a folder under `repositories/`, with a
+generated index whose rows carry the state word. Seeded from today's coverage
+that produces **eighteen rooms with a door and nothing behind it** — precisely
+the *"dead rooms"* the door test already penalises. The manifest therefore
+treats a `repositories/<repo>/README.md` for the eighteen as a seed-time
+**deliverable** rather than a carry, and § 5's re-audit is what supplies the
+content for the eight non-archived ones. The nine archived get a README only,
+which is what the structure proposal already specifies.
+
+**The 1-of-74 figure is the sharpest number in this section and it is not a
+criticism of the workbooks.** They are questions written *for* the owner and he
+has answered one. It means the successor cannot be seeded with "his intent"
+as though it were recorded: what exists is his intent **on the successor's
+purpose** (that one worksheet), plus the owner-direction records and decision
+entries, which are real and quotable. Everything else in `owner/` seeds as an
+empty form awaiting him — carried because the forms are the ask, not because
+they contain answers.
+
 ## 4 · The baseline-of-baselines, and why it had to be rebuilt from dates
 
 For each repository the run identified the best prior evidence that read it
