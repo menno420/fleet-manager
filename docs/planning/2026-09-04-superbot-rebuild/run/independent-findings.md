@@ -1023,15 +1023,43 @@ positive control 'check_command_reachability' in ENFORCED: True
 **44 of 45 survives the stricter reading.** The one checker outside the net is
 `check_plan_staleness`.
 
-*An over-correction, recorded because it is the mirror of every other error
-here.* A five-checker spot sample taken with `grep -rl … | head -1` returned a
+**Third pass, and it settles it.** The second instrument passed a positive
+control but had no negative one — and a negative control does fail it: the string
+`"# see scripts/check_fake_thing.py for details"` classifies as *driving* the
+checker. So it was re-resolved with a discriminator prose cannot fool: **parse
+each asserting test to an AST** (comments are absent from an AST by
+construction) and ask whether the checker's name is *imported*, or appears in a
+**string literal the code actually uses**:
+
+```
+HARD  (imported / importlib in an asserting test) : 23
+STRING-DRIVEN (name in a code string literal)     : 21
+COMMENT / PROSE ONLY (in source, not in AST)      :  0
+total accounted                                   : 44 of 45
+```
+
+**Zero comment-only mentions. 44 of 45 stands** on a third independent
+instrument — 23 imported directly, 21 invoked through a path string (the
+subprocess pattern), one (`check_plan_staleness`) absent from `tests/` entirely.
+
+*Two over-corrections, recorded because they mirror every other error here.* A five-checker spot sample taken with `grep -rl … | head -1` returned a
 `.pyc` for one and an unrelated view-conformance test for another, and this
 session concluded from those two that "44" was a reference count wearing an
 enforcement label. It was not — the oddities were artefacts of picking an
 **arbitrary first match**, not properties of the population. Having spent the
 session catching numbers that were too flattering, the reflex mis-fired on one
-that was simply correct. **Under- and over-correction have the same root: a
-sample standing in for a census.**
+that was simply correct. And a second time, one turn later: a failing negative
+control on the *regex* was read as evidence against the *population*, producing
+a "23 confirmed / 21 unresolved" split the AST pass then dissolved to 44 / 0.
+
+**Under- and over-correction have the same root: a sample standing in for a
+census.** Having been caught over-claiming, this session began over-doubting,
+and the over-doubts were as wrong as the over-claims and cost two extra passes.
+The number was 44 on every instrument that carried both controls. **The fix is
+not more scepticism; it is a census with a positive AND a negative control the
+first time** — which is exactly what [`CONTRACTS.md`](CONTRACTS.md) § INSTRUMENT
+already required, and which this session enforced on the fleet's instruments
+while skipping it on its own.
 
 ### Why this one matters more than the arithmetic
 
