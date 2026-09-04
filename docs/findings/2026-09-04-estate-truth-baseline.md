@@ -285,4 +285,46 @@ above at launch — they are the first entry in the handoff's re-check list (§ 
 
 ## 12 · What this run did NOT establish
 
-*(completed)*
+An undisclosed limit is the real defect, so these are stated as flatly as the
+findings.
+
+1. **The delta's baseline is recovered from a DATE, not a SHA**, because the
+   2026-08 audit wave recorded almost none. Its error is bounded by one day of
+   commits per repository and always errs toward over-reporting change. Fixed
+   for the future, not for this run: every manifest row carries a source SHA, so
+   the next delta is exact.
+2. **`UNCHANGED_REUSABLE` is a claim about the tree, not about the evidence.**
+   Zero commits since a measurement proves the *source* did not move; it does
+   not prove the measurement answered the successor's questions. § 5's reuse lane
+   judges that separately and its verdicts are the ones to read — a repository
+   can be unmoved and still not reusable.
+3. **The census describes what was fetched, never what was missed.** It is
+   scoped to `GET /user/repos?affiliation=owner` for this account. A repository
+   under another owner, in an organisation, or shared with the account would not
+   appear, and nothing here would look wrong.
+4. **No claim is made about Substrate Kit's K1–K5 behaviour.** § 9 measures only
+   where that work *is*. It is another session's open PR and anything said about
+   its behaviour would be stale on merge.
+5. **The cold-session test is ten questions**, blind-scored. A pass is evidence
+   the baseline routes, never proof it routes everything, and the answering
+   agents ran inside this repository, so § 10 reports the leak assessment
+   alongside the score rather than assuming isolation.
+6. **The owner's half of the acceptance test is not run.** His browsing test —
+   finding a named document on GitHub's web view without opening an index — is
+   his, and this run cannot substitute for it.
+7. **This run did not test the `estate` tree**, which does not exist. It tests
+   whether the *baseline* can seed one. The door-test walks in the structure
+   proposal remain unrun against anything real.
+8. **The re-audit is a slice, by design.** Fourteen repositories were re-read;
+   nine archived ones were confirmed archived and given provenance rows rather
+   than audited; five were argued for reuse. Anything the unread nine hold beyond
+   their provenance line is unmeasured, and § 5 names the one question that was
+   asked of them.
+9. **A manifest is a proposal, not a cutover.** Every row is a *candidate* with a
+   verb and a verifier. Whether the owner accepts the verb is his; the run's
+   claim is that each row is provenanced enough to be argued with, not that the
+   argument is settled.
+10. **The three hub defects fixed inline are the ones that blocked this
+    baseline** — they are not a full audit of fleet-manager's live truth, and the
+    area lanes' `surprises` in § 7 are a sample of a class rather than its
+    enumeration.
