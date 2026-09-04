@@ -104,3 +104,46 @@ UNCONTRACTED: none.
 - An instrument that matches correctly and asks the wrong question. The pilot is
   the only cover, and only because its transcripts were read whole.
 - Anything landing between the pre-publication re-read and the merge.
+
+---
+
+## Addendum — a CORPUS correction the fleet caught, and where the error actually was
+
+An area agent reported: *"The task brief stated the planning population was 41
+files; the actual tracked file count (both `find` and `git ls-files`) is 39."*
+It is right, and running the check across every area shows the error is narrower
+and more interesting than one stale number.
+
+**The `CORPUS` line above is correct.** It was built with
+`git ls-files | awk` and its `docs/planning 39` matches
+`git ls-files docs/planning | wc -l` exactly; the sixteen per-area figures sum to
+the stated 411.
+
+**The per-area `n` hints handed to the agents were built separately, with a
+`glob('**')`, and three of eight disagree with it:**
+
+| area | `n` given to the agent | `git ls-files` | why they differ |
+|---|--:|--:|---|
+| `planning` | 41 | **39** | the glob counted 3 directories as files |
+| `repos-and-owner-comments` | 88 | **50** | directories counted, and an `ls` form that double-listed nested paths |
+| `apparatus` | 105 | **147** | the opposite error — `.claude/skills/*/SKILL.md` counts one file per skill and misses everything else in each skill directory, so this one **under**-reported |
+| `owner-workbooks` | 93 | 93 | correct |
+| the other four | — | — | not re-derived; the same glob built them |
+
+So the defect is **two populations counted two ways in one run**, which is the
+composition-versus-count failure § 4 of the skill exists to prevent, reproduced
+at a smaller scale inside a run that had already contracted against it. It did
+not corrupt any finding — `n` was a hint, every agent enumerated its own
+population with `ls`/`find` and reported `files_total` from that — but a reader
+comparing the sheet against an agent's `files_total` would have found a
+discrepancy with no explanation, which is exactly the thing the sheet exists to
+stop.
+
+**The figure to quote is `git ls-files`.** Where an agent's `files_total`
+disagrees with the `n` in its own prompt, the agent's number is the measured one.
+
+**Coverage is not the same as population, and is reported per lane rather than
+assumed.** `owner-workbooks` opened **17 of 93** and said so; that is a
+judgement call about a population that is 74 near-identical unanswered forms,
+and it is recorded as `files_examined/files_total` on every area result rather
+than smoothed into a claim of full coverage.
