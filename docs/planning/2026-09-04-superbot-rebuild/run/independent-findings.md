@@ -606,10 +606,35 @@ predicate to the agents:
 > do not inflate."*
 
 **Publishing a filter to the population being filtered converts it from a filter
-into a template.** The field distributions show exactly that shape: 108 of 110
-rows carry a non-empty `prevents_failure`, `enforcement_locus` is `ci_check` or
-`source_guard` on 95 of 110, and the median `consumers` is 2 — the rule's own
-threshold. Every one of those is a field the agents knew was read.
+into a template.** The field distributions are consistent with that — 108 of 110
+rows carry a non-empty `prevents_failure`, and `enforcement_locus` is `ci_check`
+or `source_guard` on 95 of 110 — but *consistent with* is not *caused by*, so the
+claim rests on a shape test rather than on plausibility.
+
+**The discriminator: `consumers` piles up on the threshold.** The rule passes at
+`consumers >= 2`. The distribution across all 110 strengths:
+
+```
+ 1: ########                                           (8)   ← would die on this field
+ 2: ################################################## (50)  ← 45 %, the threshold itself
+ 3: ##########                                         (10)
+ 4: #####                                              (5)
+ 5: #######                                            (7)
+ 6: ########                                           (8)
+ 7: ######                                             (6)
+ 8: ###                                                (3)
+ 9-11: ####                                            (4)
+>12:                                                   (9)
+```
+
+**45 % of rows sit on the minimum passing value**, with a clean taper on either
+side. A genuine count of distinct call sites has no reason to cluster at two —
+that is where a writer stops counting once two is known to be enough. And the
+eight rows at `consumers: 1` are the other half of the evidence: every one
+carries a non-empty `prevents_failure`, which is precisely the rule's alternative
+branch. Agents that could not reach two reached for the escape the rule offers.
+
+Both signatures are of a population written against a known predicate.
 
 **This is not evidence the rows are bad.** Spot-checks hold: M9's escape-hatch
 claim reproduces exactly (218 of 314 panels carry a non-null `renderer_override`;
