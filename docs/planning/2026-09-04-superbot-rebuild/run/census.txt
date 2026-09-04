@@ -1,0 +1,44 @@
+=== CORPUS CENSUS — the parts to be evaluated ===
+
+## superbot @ 5e3a667b (product source)
+  runtime python files       883
+  runtime python LOC         243961
+  cogs (modules)             59
+  cog package dirs           24
+  services                   190
+  views (py)                 250
+  core/runtime modules       41
+  governance modules         16
+  utils modules              192
+  migrations                 104
+  test files                 1060
+  test LOC                   244805
+  docs md files              863
+  architecture_rules         10
+  session cards              970
+  workflows                  18
+
+## superbot-next @ d5f66dc2 (rebuild source)
+  sb/ python files           634
+  sb/ LOC                    150328
+    sb/spec                  22
+    sb/kernel LOC            20486
+    sb/domain LOC            111929
+    sb/adapters LOC          6375
+    sb/app LOC               1821
+    sb/manifest LOC          5545
+  domain subsystems          48
+  test files                 273
+  test LOC                   78171
+  migrations                 57
+  parity goldens             551
+  docs md files              92
+  session cards              335
+  workflows                  8
+  manifest.snapshot.json     2.2M
+
+## spider-bot @ bf4d7527 (bounded third source)
+  runtime python files       27
+  runtime LOC                3172
+  test files                 15
+  docs md                    4

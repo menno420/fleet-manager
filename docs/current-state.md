@@ -172,6 +172,16 @@ copy product architecture or internal product state. Canonical intent:
   [`repos/spider-bot/`](repos/spider-bot/README.md)). `OQ-GCB-REVIEW-SCOPE`
   (the review-loop letters) stays open, now as spider-bot's next-phase
   direction.
+  **UPDATE 2026-09-04: the SuperBot successor has an evidence-backed plan, a
+  separate thread from spider-bot** —
+  [`planning/2026-09-04-superbot-rebuild/`](planning/2026-09-04-superbot-rebuild/00-README.md),
+  read-only on both repos, **superseding the comparative and architectural
+  halves of the 2026-08-21 plan.** Verdict `PARTIAL — EVIDENCE GAPS`: the gaps
+  block design-lock, not the first slice. The two bots failed **differently** —
+  debt from non-local feature cost, versus instruments pointed at models — and a
+  successor avoiding one fails the other. Open: `OQ-SUPERBOT-SUCCESSOR-SCOPE`
+  (A), one server or many. **Nothing in `superbot`, its Railway worker, its
+  Postgres or any Discord surface was touched.**
 - **Cross-session visibility now has a surface: [`activity/`](activity/README.md)**
   (2026-08-26, fm #947). Owner ask: *"how well does a cloud session understand
   what the local sessions have been doing?"* `MEASURED` answer: barely — in the

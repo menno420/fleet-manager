@@ -1,0 +1,538 @@
+[
+ {
+  "path": "/home/user/superbot-next/sb/domain/community/panels.py",
+  "line": 5,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/community/panels.py",
+  "line": 152,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/channel/visibility.py",
+  "line": 29,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/ai/service.py",
+  "line": 110,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/ai/operator_cards.py",
+  "line": 19,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/ai/settings_widgets.py",
+  "line": 59,
+  "name": "_SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 87,
+  "name": "_COGS",
+  "detector": "D1_name",
+  "size": 58,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 25,
+  "name": "CAPTURE-WORLD LITERAL",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 26,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 32,
+  "name": "honest successor",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 85,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/cogmgr.py",
+  "line": 115,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/panels.py",
+  "line": 24,
+  "name": "CAPTURE-WORLD LITERAL",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/panels.py",
+  "line": 25,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/admin/panels.py",
+  "line": 28,
+  "name": "successor read",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/hermes/service.py",
+  "line": 47,
+  "name": "_installed",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/fishing/weather.py",
+  "line": 16,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/fishing/weather.py",
+  "line": 144,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/fishing/weather.py",
+  "line": 168,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/four_twenty/service.py",
+  "line": 101,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/moderation/service.py",
+  "line": 317,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/btd6/dataset.py",
+  "line": 185,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/btd6/service.py",
+  "line": 12,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/btd6/paragon_math.py",
+  "line": 36,
+  "name": "TOTAL_POWER_FOR_MAX_DEGREE",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/btd6/store.py",
+  "line": 64,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/settings/ai_readers.py",
+  "line": 30,
+  "name": "_SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/mining/service.py",
+  "line": 23,
+  "name": "CAPTURE world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/mining/service.py",
+  "line": 51,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/mining/service.py",
+  "line": 240,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/mining/panels.py",
+  "line": 457,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/cleanup/settings_widgets.py",
+  "line": 45,
+  "name": "_SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/platform_views.py",
+  "line": 3,
+  "name": "CAPTURE WORLD",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/flag_catalog.py",
+  "line": 2,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/flag_catalog.py",
+  "line": 6,
+  "name": "CAPTURE-WORLD LITERAL",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/process_state.py",
+  "line": 2,
+  "name": "successor read",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/handlers.py",
+  "line": 27,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/handlers.py",
+  "line": 44,
+  "name": "successor read",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/handlers.py",
+  "line": 56,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/handlers.py",
+  "line": 243,
+  "name": "successor read",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/log_buffer.py",
+  "line": 45,
+  "name": "_installed",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/command_catalog.py",
+  "line": 6,
+  "name": "CAPTURE-WORLD LITERAL",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/command_catalog.py",
+  "line": 7,
+  "name": "CAPTURE world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/command_catalog.py",
+  "line": 21,
+  "name": "honest successor",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/panels.py",
+  "line": 12,
+  "name": "SUCCESSOR READ",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/panels.py",
+  "line": 207,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/diagnostic/panels.py",
+  "line": 410,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/xp/service.py",
+  "line": 144,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/xp/handlers.py",
+  "line": 28,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/xp/handlers.py",
+  "line": 67,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/xp/handlers.py",
+  "line": 154,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/xp/handlers.py",
+  "line": 367,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/casino/table.py",
+  "line": 91,
+  "name": "_tables",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/utility/service.py",
+  "line": 15,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/utility/handlers.py",
+  "line": 441,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/utility/handlers.py",
+  "line": 464,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/utility/panels.py",
+  "line": 323,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/role/handlers.py",
+  "line": 444,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/role/panels.py",
+  "line": 234,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/ticket/handlers.py",
+  "line": 62,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/ticket/handlers.py",
+  "line": 283,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/setup/moderation.py",
+  "line": 73,
+  "name": "SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/setup/role_templates.py",
+  "line": 112,
+  "name": "SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/setup/roles.py",
+  "line": 80,
+  "name": "SUBSYSTEM",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/games/panels.py",
+  "line": 125,
+  "name": "capture-world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/games/session.py",
+  "line": 52,
+  "name": "_REGISTRY",
+  "detector": "D1_name",
+  "size": 0,
+  "labelled": false
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/starboard/handlers.py",
+  "line": 52,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ },
+ {
+  "path": "/home/user/superbot-next/sb/domain/starboard/handlers.py",
+  "line": 138,
+  "name": "capture world",
+  "detector": "D2_label",
+  "size": 0,
+  "labelled": true
+ }
+]

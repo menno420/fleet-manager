@@ -49,7 +49,7 @@ registry, closed-test clock and membership memory that the entry point lists as
 | PR | What |
 |---|---|
 | [fleet-manager#1021](https://github.com/menno420/fleet-manager/pull/1021) | The records: `intent.md` answered, `[D-0042]`, `OQ-GCB-REVIEW-SCOPE` closed, the Layer-2 entry point re-derived |
-| [spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | The build: **22 commits**, 246 → **669 tests**, 21 → **55 invariants** |
+| [spider-bot#3](https://github.com/menno420/spider-bot/pull/3) | The build: **23 commits**, 246 → **669 tests**, 21 → **55 invariants** |
 | [spider-swing#181](https://github.com/menno420/spider-swing/pull/181) | The producer half of the support feed: a versioned, fail-closed cross-repo contract |
 
 **The build, in dependency order.** Shared foundations (stable ids, a storage
