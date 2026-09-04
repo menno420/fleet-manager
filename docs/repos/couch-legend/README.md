@@ -1,6 +1,6 @@
 # couch-legend — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-22**
+> **Status:** `living-ledger` · true as of **2026-09-04**
 >
 > **What this is:** fleet-manager's entry point for `menno420/couch-legend` —
 > where the last session left off and where the next one should look.
@@ -40,6 +40,51 @@ game is a **life story**: save v2 `lifeHigh`, 18 chapters, the first three
 painted scene pairs live.
 
 ## Threads
+
+### Thread: the long-form redesign — **PR #19 OPEN, 2026-09-04**
+
+The owner's directive was larger than the incremental work before it: make
+Couch Legend stay interesting for many hours through *evolving mechanics*,
+not more rows. The session measured the problem before designing anything,
+which is the part worth carrying forward: at `d877ed0`, an instrument that
+imports the live content tables (`tools/stage-evolution.ts`, 6 known
+positives / 5 known negatives) reported **2 of 18 chapters gate any content
+row and 0 of 18 introduce a mechanic**, and the committed simulator dataset
+showed a balanced player buying **all 38 shop rows within 78 minutes** and
+then spending **99.6 % of the 14-day story with nothing new to buy**, with
+**13 of 18 chapters arriving empty**. Sixteen chapters were the same loop
+with new scenery.
+
+What is proposed in [couch-legend #19](https://github.com/menno420/couch-legend/pull/19):
+**keepsakes** — every chapter after the first leaves one permanent object with
+the couch, the couch always has fewer places than objects, and every effect
+transforms a system that already existed rather than minting a currency. The
+same instrument re-run reports **17/18** chapters introducing a mechanic (its
+self-test grew 13 → 18 checks in the same commit, so the after-number is not a
+looser measurement). Rails: story close 12.5 d → **12.1 d**, worst attended
+dead time **44.8 m → 40.6 m** against a 45 m bound, check-ins offering a move
+**96.9 % → 98.0 %**, rebuild unchanged; one sub-2 % felt-upgrade reading
+survives in 1 of 27 runs on the new optimiser lane and is stated rather than
+tuned away. Save is **v3**, and the migration is rate-neutral by construction
+so the recorded replay parity evidence is untouched.
+
+Also in the same PR: a **monetization design lane as mockups that cannot
+transact** — one `BillingAdapter` whose only implementation is a mock with no
+path to a completed purchase, seven preview states behind a **compile-time**
+flag, and a checker proven to fire both ways that asserts an ordinary build
+emits none of it. Store policy was read from the live pages, and two findings
+matter estate-wide for anything cannabis-themed: Apple's age scale is now
+**4+/9+/13+/16+/18+** (17+ is gone) with the drug descriptor mapping
+Frequent → **18+**; and Google Play has **no written fictional-game exemption
+for drugs** — the Violence subsection has one and the Marijuana subsection
+does not, so the margin comes from that clause being scoped to real commerce,
+not from a carve-out. Do not repeat the comfortable version of that sentence.
+
+**NEXT is an owner feel pass, not a build.** Simulation bounds fairness,
+reachability and dead time; it cannot say whether *arranging* the couch is
+interesting, and that answer gates the next mechanic family (the Morning
+Routine — Clarity as a choice rather than only a multiplier). The plan for
+phases B–G is `couch-legend:docs/planning/2026-09-04-long-form-redesign.md`.
 
 ### Thread: the mechanics base — **landed**, 2026-08-20
 
