@@ -90,8 +90,8 @@ run the prompts in the "Couch Legend" ChatGPT project, or refill the prepay
 
 **The owner answered four questions live at 18:33Z the same evening** (recorded
 in couch-legend, not carried in a prompt): phase B — *"haven't played yet"*,
-so it stays open; the cross-wire ceiling **stays** (couch-legend [D-0004]);
-once B is a yes, **C (the Morning Routine) comes before D** ([D-0005]); and
+so it stays open; the cross-wire ceiling **stays** (couch-legend decisions ledger, entry 0004);
+once B is a yes, **C (the Morning Routine) comes before D** (entry 0005 of the same ledger); and
 he **runs the chapter 4–6 prompts in the ChatGPT project himself**, so the
 Gemini prepay top-up is not needed for them.
 

@@ -92,8 +92,8 @@ prevent; it does not wait for a next session.
 
 Four questions asked after both PRs landed; four answers, recorded where
 the next session reads: phase B *"haven't played yet"* (`OQ-CL-COUCH-FEEL`
-stays open) · the ceiling stays (couch-legend [D-0004]) · C before D once B
-is a yes ([D-0005]) · he runs the chapter 4–6 prompts in ChatGPT himself
+stays open) · the ceiling stays (couch-legend decisions ledger, entry 0004) · C before D once B
+is a yes (entry 0005 of the same ledger) · he runs the chapter 4–6 prompts in ChatGPT himself
 (`OQ-CL-SCENES-4-6` route a; the prepay top-up is not needed for them).
 Second PR from this session, docs-only — exception reason under [D-0024]:
 the answers arrived after the main PR had merged.

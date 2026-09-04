@@ -1510,9 +1510,9 @@ fleet-wide merges/ready-flips live in
   C and D of `couch-legend:docs/planning/2026-09-04-long-form-redesign.md` § 8. ↩️ reversible
   (nothing is built on a guess). VERIFIED-NEEDED: your one-line verdict, in words.
   **Asked live 18:33Z, same day — answer: *"haven't played yet."* Still OPEN.** You also
-  settled two things around it: the cross-wire ceiling stays (couch-legend [D-0004]) and,
-  once this is a yes, the Morning Routine comes before the arc-3 batches (couch-legend
-  [D-0005]).
+  settled two things around it: the cross-wire ceiling stays (couch-legend decisions ledger, entry 0004) and,
+  once this is a yes, the Morning Routine comes before the arc-3 batches (couch-legend decisions ledger,
+  entry 0005).
 
 - **`OQ-CL-SCENES-4-6` — couch-legend: run the three arc-2 scene prompts (chapters 4–6) and
   QA the pairs.** OPEN (2026-09-04). WHAT: paste-ready prompts for The Couch, Rituals of the
