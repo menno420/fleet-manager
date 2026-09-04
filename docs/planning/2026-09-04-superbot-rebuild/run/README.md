@@ -9,6 +9,7 @@
 | [`census.txt`](census.txt) | the corpus census, printed by the command that produced it |
 | [`survival_rule.py`](survival_rule.py) | the AGGREGATE rule as an executable expression, with its field audit and its kill/survive fixtures. `python3 survival_rule.py` → exit 0 |
 | [`capture_literal_scan.py`](capture_literal_scan.py) | the capture-world-literal instrument, with positive and negative controls. `--selftest` → exit 0. **Its D1 detector was retired at 1/12 precision** — the retirement is the finding |
+| [`in-flight-direction.md`](in-flight-direction.md) | the owner statement that landed **mid-run**, caught by the sheet's own BASE re-read: what it changes for this review, and the standing action for the synthesis step |
 | `raw/` | the fleet's retained output (agent journals) |
 
 Nothing in this folder is authoritative for the plan's conclusions; it is the
