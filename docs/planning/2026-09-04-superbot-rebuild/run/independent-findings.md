@@ -728,3 +728,41 @@ either repo yielded:
 lanes, remain **lane-claimed and unverified** until the adversarial refutation
 pass runs. That distinction is now load-bearing rather than procedural: with the
 survival rule not filtering (I-15), verification is the only filter this run has.
+
+## I-17 · A lane count re-derived: 128, not 134 — and the rule this run now follows — `MEASURED`
+
+Lane R3 reported *"134 `from cogs.<x>` import statements inside `cogs/`, all
+fully legal under the rule."* Re-derived here by AST over `disbot/cogs/`:
+**128 module-level `ImportFrom cogs.*` statements across 51 files.** A six-import
+delta, and it is the difference between a textual grep and a parse — R3's figure
+most likely counted function-body imports or matched a substring.
+
+**The structural claim it supports is unaffected and confirmed.**
+`architecture_rules/layers.yaml` gives
+`cogs.may_import: ['utils', 'core', 'services', 'views', 'governance', 'cogs']` —
+**`cogs` may import `cogs`**, so superbot's one CI-enforced architecture rule
+cannot constrain coupling in the layer the owner specifically wants portable
+(OD-19). R3's paired claim also reproduces exactly: `check_architecture.py
+--mode strict` emits **1** `views→cogs` warning and exits **0**, against the
+55-entry `known_violations` ledger recording 18 — the other 17 having moved into
+function bodies, out of the gate's module-level field of view.
+
+### The rule, because the failure was procedural rather than factual
+
+This session drew the line — *"everything else stays lane-claimed and unverified
+until the refutation pass"* — and then quoted three lane numbers as fact in the
+same reply. **Drawing the line and crossing it in one breath is worse than not
+drawing it**, because the qualifier then reads as coverage.
+
+So, for the rest of this run:
+
+> **No lane-produced number reaches a matrix, a headline or the executive
+> assessment until this session has re-derived it.** Lane rows are evidence
+> *pointers*; the count that gets published is the one re-run here. Where a lane
+> number is carried without re-derivation it is marked `lane-claimed` inline, not
+> in a footnote.
+
+Cheap, and the evidence says it pays: of the six lane figures re-derived so far,
+**five reproduced exactly** (R2's four in I-16, plus R3's `views→cogs` = 1) and
+**one was off by 5 %**. That is a good lane hit-rate and precisely the reason the
+rule is about *publication* rather than about trust.
