@@ -470,13 +470,19 @@ occurring **within one file**:
 journals. Re-running it reproduces the file; re-running it against a fresh fleet
 at seed time shows what moved.
 
-**Twenty-one columns per row**, which is what `decision 35 in `docs/decisions.md``'s acceptance test asks
-for (*"one verb per candidate with a verifier's name"*) plus the provenance the
-fresh-start directive requires (*no certainty tag, no seed*): subject · source
-repository · source path · verification point · certainty · canonical owner ·
-destination role · disposition · transformation required · links that must
-survive · blocker · verifier · the four dissent fields · fact · origin lane ·
-`survives` · `killed_by`.
+**One column per field, in the order `build_manifest.py::COLUMNS` gives** — the
+header is the count, so none is copied here (this paragraph read "twenty-one"
+while the file held twenty-two). What the acceptance test in
+`decision 35 in `docs/decisions.md`` asks for (*"one verb per candidate with a
+verifier's name"*) plus the provenance the fresh-start directive requires (*no
+certainty tag, no seed*): subject · source repository · source path ·
+verification point · certainty · canonical owner · destination role ·
+disposition · transformation required · links that must survive · blocker ·
+verifier · the six dissent fields · fact · origin lane · `survives` ·
+`killed_by` · and, **since fm #1036, `canonical_state_source`** — the ledger of
+the repository the row's truth belongs to, taken from each repository reading
+and, for the hub, from the file that declares itself the ledger
+([`2026-09-04-estate-seed-prerequisites.md`](2026-09-04-estate-seed-prerequisites.md)).
 
 ### The shape of the cut
 
@@ -743,7 +749,7 @@ with known holes, which is what the acceptance test asked for.
 |---|---|
 | **Re-run `delta.py` against `anchors.tsv`** | The estate moves; this baseline is a snapshot at 2026-09-04T11:34Z. The command is one line and the anchors are committed. |
 | **The four Substrate Kit rows in § 9** | #590 **merged during this run** and § 9 said `OPEN` for four hours before the external round caught it. What remains unsatisfied is the **release cut** and the hub's adoption, not the merge — re-read all four rows rather than inheriting any of them. One generated manifest blocker still reads *"the open kit PR #590"*: it is agent text retained verbatim from the journal, true when written, and superseded by § 9. |
-| **Every `carry` row's source SHA** | A carry copies bytes. If the source moved, the copy is a stale fork of a live document — the exact failure the fresh start exists to end. |
+| **Every `carry` row's source SHA** | A carry copies bytes. If the source moved, the copy is a stale fork of a live document — the exact failure the fresh start exists to end. **Mechanical since fm #1036:** `python3 tools/estate_baseline/row_delta.py --manifest … --classification … --out …` classifies every row (`SOURCE_UNCHANGED` / `SOURCE_MOVED` / `SOURCE_GONE` / `UNCHECKABLE:<reason>`), and its snapshot at `data/…/row-delta.tsv` is the state at 2026-09-04T19:18Z — [the follow-on finding](2026-09-04-estate-seed-prerequisites.md) reads it. |
 | **`fleet-manager`'s own HEAD** | It moved 23 commits between its prior evidence and this run, and it is the substantive seeding source. |
 | **The open-PR inventory** | Taken at one instant with `per_page=100`; `superbot` alone carried 8 open dependabot PRs, and dependabot churn is continuous. |
 | **Any row whose `certainty` is `MEASURED-PRIOR`** | Someone else measured it, dated. That is provenance, not currency. |
@@ -805,6 +811,11 @@ findings.
     and `verification_point` are checked as filled strings, so a narration like
     `(live PR list)` passes as provenance. Three surviving `MEASURED` rows carry
     one. Fixing it needs a path/instant validator and a re-run of the readings.
+    **Validator half done, fm #1036 (2026-09-04):** `row_delta.py` classifies
+    every row's provenance SHAPE and resolves it against the live repository;
+    the rows it cannot resolve are published `UNCHECKABLE` with the reason
+    (3 of 119 survivors on the snapshot). The re-run of those readings is still
+    owed — it is agent work, and the follow-on finding names the three rows.
 11. **1 of 44 adversary drops and 63 of 73 certainty overclaims still reach no
     row.** The drop residual is now one. The overclaim residual is large and is a
     **schema defect, not a matching one**: the refute schema collected free text
@@ -812,13 +823,22 @@ findings.
     asking which seed subject each attaches to, so most cannot be resolved to a
     row by any join. The next run's schema should require the subject. Loosening
     the threshold to close the gap was considered and rejected — it would kill
-    rows on a guess.
+    rows on a guess. **Consumer built, fm #1036:** `build_manifest.py` now reads
+    `overclaimed_certainty` entries of the form `{"subject", "reason"}` and joins
+    them exactly within the audited reading (fixture-tested); bare strings are
+    still read as before, so the committed manifest is unchanged. The builder
+    also decomposes the residual it used to print as "63": **59 flags reach no
+    row** (the schema defect) and **4 reach only rows outside `MEASURED`/`OWNER`**
+    (the rule working as designed, not a miss).
 11b. **The manifest has no `canonical_state_source` column**, so a consumer of
     the CSV alone cannot distinguish a repository's canonical ledger from
     whichever file supplied a claim — which is exactly the distinction § 7 says
     protects the seed from importing stale front doors. The field exists per
     repository in `repo-readings.json`; adding it to the artifact is a seed-time
-    requirement, not a correction to this run.
+    requirement, not a correction to this run. **Added, fm #1036:** the column
+    is stamped by the generator from each reading, and for the hub from the file
+    that declares itself the ledger (`docs/current-state.md`); 183 of 183 rows
+    carry one, and the 22 pre-existing columns reproduce byte-for-byte.
 11c. **The drop matcher is a heuristic and is documented as one.** Containment
     scored per audited reading, resolved as a **maximum one-to-one matching** so
     a drop is spent at most once and greedy edge order cannot strand a more
@@ -838,8 +858,10 @@ findings.
     archived contribute provenance prose and no rows, by design; the five unmoved
     contribute none because their prior evidence is not reusable. Anyone reading
     the CSV as *the estate's* migration manifest will be wrong.
-13. **`only_source_is_hub_summary` is set on 7 of 183 rows and 0 of 123
-    survivors**, while ~30 survivors are sourced from a hub index or README. The
+13. **`only_source_is_hub_summary` is set on 7 of 183 rows and 0 of the 119
+    survivors** (this line read "123" until fm #1036 counted the committed
+    file; § 8's own table had 119 all along), while ~30 survivors are sourced
+    from a hub index or README. The
     flag is agent-set and under-used, so that branch of the rule is close to
     inert on live data — it fires in fixtures, not here.
 14. **Several `carry` rows exceed the successor's own file-length cap**

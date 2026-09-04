@@ -32,6 +32,8 @@ EXPECTED = {
     "Survivor fact": "yes",              # survival: full provenance, hub-owned
     "Dropped by the adversary": "no",    # kill: the refuter dropped it
     "Killed by the judge": "no",         # kill: a disposition judge applied the rule
+    "Overclaimed by subject": "no",      # kill: a refuter named the subject exactly (the
+                                         # 2026-09-04 schema form) and the MEASURED tag fell
 }
 
 # The fixture journal has no readings for the real re-audit slice, so the
@@ -57,6 +59,25 @@ SCOPED_SURVIVOR = ("Dropped by the adversary", "docs/x.md", "other-repo")
 # real reason. Measured on live fleet output before it was fixed.
 JUDGE_BRANCH = "stale_on_copy and disposition == 'carry'"
 
+# A refuter that names the SUBJECT it judges must reach that row with no
+# heuristic in between. The 2026-09-04 run collected 73 overclaims as free text
+# and 63 reached no row; the fixture's demo refuter carries one object form and
+# one free-text flag that names nothing, and the builder must apply the first
+# and merely count the second.
+OVERCLAIM_BRANCH = "an adversary showed the MEASURED tag is not earned"
+
+# The reading names its canonical ledger; the manifest must carry it per row so a
+# consumer of the CSV alone can tell the ledger from whichever file supplied a
+# claim (finding § 7, § 12 item 11b). `other-repo`'s reading names none.
+STATE_SOURCE = {"demo": "STATUS.md", "other-repo": ""}
+
+# A repository reading that cites a HUB file leaves source_repo == "fleet-manager";
+# the column must still carry the AUDITED repository's ledger, because the row's
+# truth belongs to it. Keying on source_repo stamped the hub ledger on 12 of 183
+# committed rows and the error was masked wherever both ledgers were named
+# docs/current-state.md — so the fixture gives demo a ledger the hub cannot share.
+CROSS_SOURCE = ("Cross-source hub citation", "fleet-manager", "STATUS.md")
+
 
 def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
@@ -73,7 +94,19 @@ def main() -> int:
             return 1
         rows = list(csv.DictReader(out.open(encoding="utf-8")))
 
+    # Without --allow-partial the same journal must be REFUSED: it carries a
+    # malformed dissent, and reporting success over one is the drop this test exists for.
+    strict = subprocess.run(
+        [sys.executable, str(HERE / "build_manifest.py"), "--journal", str(FIXTURE),
+         "--classification", str(REPO / "docs/findings/data/2026-09-04-estate-truth-baseline/classification.json"),
+         "--out", str(pathlib.Path(tempfile.gettempdir()) / "manifest-strict-probe.csv")],
+        capture_output=True, text=True, cwd=REPO)
+
     bad = []
+    if strict.returncode == 0:
+        bad.append("the builder reported success over a journal carrying a malformed overclaim object")
+    elif "lost dissent" not in strict.stderr:
+        bad.append(f"the refusal must name the lost dissent, got stderr {strict.stderr[-200:]!r}")
     for subject, want in EXPECTED.items():
         cands = [r for r in rows if r["subject"] == subject and r["source_repo"] != "other-repo"]
         got = cands[0]["survives"] if cands else None
@@ -95,6 +128,52 @@ def main() -> int:
     if judged != JUDGE_BRANCH:
         bad.append(f"a judge-killed row must publish the JUDGE's branch, got {judged!r} "
                    f"expected {JUDGE_BRANCH!r}")
+
+    oc = [r for r in rows if r["subject"] == "Overclaimed by subject"]
+    if not oc:
+        bad.append("subject-form overclaim case missing from output")
+    elif oc[0].get("killed_by", "") != OVERCLAIM_BRANCH:
+        bad.append(f"a subject-form overclaim must kill through the rule's overclaim branch, "
+                   f"got {oc[0].get('killed_by', '')!r}")
+    elif "adversary (by subject)" not in oc[0].get("blocker", ""):
+        bad.append("a subject-form overclaim must publish the refuter's reason in blocker")
+    if "canonical_state_source" not in (rows[0] if rows else {}):
+        bad.append("the manifest must carry a canonical_state_source column")
+    else:
+        for repo, want in STATE_SOURCE.items():
+            got = sorted({r["canonical_state_source"] for r in rows if r["source_repo"] == repo})
+            if got != [want]:
+                bad.append(f"canonical_state_source for {repo}: {got}, expected [{want!r}]")
+    subj, srepo, want_src = CROSS_SOURCE
+    xs = [r for r in rows if r["subject"] == subj]
+    if not xs:
+        bad.append("cross-source case missing from output")
+    elif xs[0]["source_repo"] != srepo:
+        bad.append(f"cross-source case: source_repo {xs[0]['source_repo']!r}, expected {srepo!r}")
+    elif xs[0]["canonical_state_source"] != want_src:
+        bad.append(f"a row produced by demo's reading must carry demo's ledger {want_src!r}, "
+                   f"got {xs[0]['canonical_state_source']!r} (keyed by source_repo, not by the audited reading)")
+    # `other-repo`'s reading carries the JSON null — its rows must read EMPTY, never
+    # the string "None" (round 2). STATE_SOURCE already expects "" for it.
+    if any(r["canonical_state_source"] == "None" for r in rows):
+        bad.append("a JSON null canonical_state_source was stamped as the string 'None'")
+    if proc.stdout and "1 subject-form flag(s) reach no row" not in proc.stdout:
+        bad.append("the builder must count a subject-form overclaim whose subject matches no row "
+                   f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")
+    if proc.stdout and "survivor fcat" not in proc.stdout.lower():
+        bad.append("the unmatched subject-form flag must be printed by subject so it can be found")
+    if "Survivor fact" in "".join(r["blocker"] for r in rows if r["subject"] == "Survivor fact"):
+        bad.append("the typo'd subject must not reach the near-miss row by any fuzzy join")
+    # Five malformed entries in the fixture: an object with no subject (round 1), and a
+    # null, a number, a nested list and an empty string (round 3) — every one must be
+    # counted, because each is a dissent the refuter emitted that nothing can read.
+    if proc.stdout and "5 malformed entr" not in proc.stdout:
+        bad.append("the builder must count EVERY unsupported overclaim entry (blank-subject object, "
+                   "null, number, list, empty string), never drop one "
+                   f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")
+    if proc.stdout and "1 reach no row" not in proc.stdout:
+        bad.append("the builder must count the free-text flag that reaches no row "
+                   f"(stdout: {[l for l in proc.stdout.splitlines() if 'overclaims' in l]})")
 
     kills = sum(1 for v in EXPECTED.values() if v == "no")
     survivals = sum(1 for v in EXPECTED.values() if v == "yes")
