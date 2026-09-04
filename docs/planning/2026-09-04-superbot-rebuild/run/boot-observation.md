@@ -8,13 +8,14 @@
 > everything below is `MEASURED` unless it says otherwise, **and "measured"
 > here means measured HEADLESS** — read § 1 before quoting any number.
 >
-> **What produced it:** [`headless_drive.py`](headless_drive.py), run three
-> times to a clean end on a fresh database, plus one *restart* run over the
-> same database. The retained result of the final run is
+> **What produced it:** [`headless_drive.py`](headless_drive.py), run five
+> times to a clean end on a fresh database while the walker itself was being
+> corrected (§ 6, § 7), plus one *restart* run over the same database. The
+> retained result of the final run is
 > [`raw/headless-drive-2026-09-04.json`](raw/headless-drive-2026-09-04.json)
 > (every interaction, render and `resolve()` outcome; message payloads and
-> component lists dropped, texts clipped). The numbers in §§ 2–6 were identical across the three runs; § 7's
-> came from the final one.
+> component lists dropped, texts clipped). The panel counts in §§ 2–6 were
+> identical across the runs; § 7's figures are the final run's.
 
 ## 0 · The finding in one paragraph
 
@@ -48,7 +49,7 @@ else that runs is `superbot-next` at the pin.
 | PostgreSQL | **real** (PostgreSQL 16, throwaway local cluster, fresh database per run) | `initdb`/`pg_ctl` under the container's `postgres` account; DSN on `127.0.0.1:54329` |
 | the dispatch spine | **real** | discord.py `Interaction` → `bot.tree._call` / `component_feed.handle_*` → `resolve()` → the panel engine → **`DiscordPanelPresenter`** (the production presenter, `sb/adapters/discord/panel_view.py`) → discord.py `InteractionResponse` / `Webhook` → the wire payload |
 | the gateway | **stubbed** | `gateway.connect_gateway` replaced by a stub that fills what READY would have filled (client user, application id, one guild) and returns a task that ends when the root closes the bot. **No token is read** — the token variable is overwritten with a placeholder before import, as the repo's own `restore-verify.yml` does |
-| Discord's REST API | **faked in-process** | `HTTPClient.request` and the webhook adapter answer from a recorder that mints message ids and stores payloads; 15 routes modelled; 4 met and not modelled (moderation kick/ban, `GET /users/{id}`) |
+| Discord's REST API | **faked in-process** | `HTTPClient.request` and the webhook adapter answer from a recorder that mints message ids and stores payloads; 17 routes answered (one of them, the remote command list, deliberately refused); 4 met and not modelled (moderation kick/ban, `GET /users/{id}`) |
 | the guild | **synthetic** | one guild, five text channels, three roles, four members (owner · admin · member · the bot); permission overwrites are stored, not enforced |
 | the actor | **synthetic** | the guild owner unless a step says *member*; member tier comes from the real `member_tier_from_member` over the synthetic payload |
 | the clicks | **synthetic payloads, real ids** | INTERACTION_CREATE dicts built from the recorded messages — a click carries the exact `custom_id` the presenter put on the wire; selects carry a real option value; native pickers carry a synthetic channel / role / user id; modals are submitted with `3` for numeric-looking fields and a fixed string otherwise |
@@ -200,12 +201,14 @@ queue empty):
 
 The effect layer is real here — after the setup walk, on the fresh database:
 `setup_session` 1 row (`depth = advanced`, `skipped_sections` for every
-section the walker skipped, `setup_status` moving `pending → in_progress →
-dismissed` as the buttons said), `audit_log` +76 (`setup.session.depth_set`,
-`setup.session.section_skip`, `setup.session.dismissed`, …), `sb_drafts` 1 +
-`sb_draft_operations` 35 (the staged operations `/setup-reset` later reports
-clearing: *"✅ Cleared **35** staged operations"*), `settings` +1,
-`ticket_config` +1, `event_outbox` +77 with the relay delivering as it ticked.
+section the walker skipped, `setup_status` and `current_step` rewritten by
+the clicks — `in_progress` / `roles` at the end of the run, `dismissed` in
+the run whose launcher walk ended on *Dismiss*), `audit_log` +69
+(`setup.session.depth_set`, `setup.session.section_skip`,
+`setup.session.dismissed`, …), `sb_drafts` 1 + `sb_draft_operations` 35 (the
+staged operations `/setup-reset` later reports clearing: *"✅ Cleared **35**
+staged operations"*), `settings` +1, `ticket_config` +1, `event_outbox` +70
+with the relay delivering as it ticked.
 
 Three modals were issued and submitted (roles time tier, roles XP tier, the
 ticket launcher's *Open a support ticket*); the numeric ones took the value.
@@ -234,8 +237,8 @@ harness replaces.
 ### 5.6 · Restart — "come back the next day"
 
 A second boot over the same database: `boot hook setup.resume_sweep: ok`
-(nothing to resume — the session row's `setup_message_id` is `NULL` after the
-dismiss), `/setup-hub` shows the depth chooser again (static copy — it does
+(nothing to resume — the session row carries no launcher message id,
+`setup_message_id` is `NULL`), `/setup-hub` shows the depth chooser again (static copy — it does
 not reflect the saved `depth = advanced`), `/setup-status` and `/setup` drop
 their cards exactly as before, `/help` renders. The session row survived the
 restart with its depth and skips intact. `UNVERIFIED` whether the sections hub
@@ -278,10 +281,11 @@ a control keyed by its declared identity, because session-lifecycle panels
 (the Cog Manager) mint a fresh id per render and an id-keyed walk re-clicked
 one select 6,518 times before that was fixed.
 
-- **All 27 commands answered.** 22 open a panel directly; `/bugreport` and
-  `/dispatch` render `hermes.bridge_unconfigured` (honest — no bridge
-  configured); `/setup-reset` answers in text; `/setup-describe`,
-  `/setup-skip`, `/setup-unskip` are § 5.4.
+- **All 27 commands answered.** 23 render a panel — three of them the
+  dropped workspace cards of § 5.2, two of them `hermes.bridge_unconfigured`
+  (`/bugreport`, `/dispatch`: honest, no bridge configured); four answer in
+  text — `/setup-reset` usefully, `/setup-describe`, `/setup-skip` and
+  `/setup-unskip` as § 5.4 says.
 - **Interactions:** 1,490 in the global walk
   (1,821 in the whole run); budget not exhausted (8,000 allowed), queue empty;
   42 modals submitted.

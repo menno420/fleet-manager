@@ -76,7 +76,7 @@ worker, its Postgres and every Discord surface stay untouched** (the rail in
   discord.py's `Interaction` → the tree / component feed → `resolve()` → the
   panel engine → the **production** `DiscordPanelPresenter`. Population
   declared (the committed snapshot's 314 panel ids) and reported both ways.
-  Three clean runs on a fresh database plus one restart run; the walker was
+  Five clean runs on a fresh database plus one restart run; the walker was
   corrected twice on the way (a command-access lock-out it caused itself,
   then a Cog Manager select it re-clicked 6,518 times because session views
   mint a fresh id per render) — both corrections are in the record as
