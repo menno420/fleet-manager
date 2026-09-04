@@ -3,8 +3,9 @@
 > **Status:** `reference` · **CONSUMED 2026-09-04, ~1 h after it was written.**
 > Kept verbatim as the record; do not paste it at a fresh session — its subject
 > is finished. `session_01XtUDb1BxPVdjkGryVWCKVu` (Claude Fable 5.1) acted on it
-> at 18:32Z, pushing `8937191c`, and **the owner merged spider-bot#3 at 18:42Z
-> as `5a7f8a2`**; the deployment is verified in that repo's session card.
+> at 18:32Z, pushing `8937191c`, and **spider-bot#3 was merged under the account
+> at 18:42Z as `5a7f8a2`** — by the owner or by that same sibling session; the
+> timeline cannot tell them apart; the deployment is verified in that repo's session card.
 >
 > **What it was for, and what it actually bought.** Everything in its DECIDED and
 > REJECTED sections was carried so it would not be re-litigated, and none of it
