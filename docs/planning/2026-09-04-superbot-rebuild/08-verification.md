@@ -140,12 +140,109 @@ ships `FLOOR` for its tool catalogue, its panel graph, its command surface and
 its migration set, so *the mechanism improved and the population collapsed* is a
 red diff rather than a discovery two months later.
 
-## 3 · The proof layers
+## 3 · The five mechanisms the estate already built — and never generalised
 
-`PENDING FLEET` — the layer table (structural · unit/domain · contract/integration
-· journey · reachability · effect · real-guild · production-readiness), each with
-its declared population and its named blind spot, lands from lanes R2 and R5 and
-challenge F.
+**This section replaces what was going to be an invented rule.** The population
+contract in § 1 is not this session's idea. Both repositories already contain
+working anti-vacuity mechanisms — five of them, each written after a real
+incident, each solving one face of the problem — and **not one was generalised to
+the guards beside it.** The successor's job is not to invent the rule; it is to
+make these five the *default shape of a check* instead of five isolated good
+days.
+
+All five verified in source by this session, not carried on a lane's word.
+
+### 3.1 · The denominator assertion — `superbot-next`, inside the parity harness
+
+`tools/run_golden_parity.py:162-170`. The most surprising artifact in either
+repo: the byte-parity harness — the instrument this whole review indicts —
+**contains the fix for its own failure class.**
+
+> *"F-003 fix: the denominator check. `results` only ever holds cases that
+> SUCCESSFULLY reconstructed … a golden that failed to reconstruct into a case
+> never gets an entry there, so the loop above has no way to see it and **the
+> gate could false-green with fewer cases replayed than goldens on disk.**
+> Assert the two counts match per ported subsystem so a silently-dropped golden
+> reds the gate instead of just shrinking what got checked."*
+
+Somebody noticed the population question exactly, named the false-green, and
+fixed it **in code rather than in prose** — comparing a filesystem walk against
+the loader's output, two independently derived counts. Then it stayed in that one
+file. The nine other mechanisms M11 measured as empty, near-empty or a model
+would each have been caught by the same three lines.
+
+### 3.2 · The live-population negative control — `superbot`
+
+`tests/unit/invariants/test_help_reachability.py:61-80`, and its docstring is the
+rule in one sentence: *"a vacuous check is worse than none."* It mutates the
+**live** scheme rather than a fixture and `pytest.fail()`s when the target is not
+present, so **the control itself fails if the population is empty.**
+
+Its limit is the one § 2.2 records — the live population it mutates is
+`scheme_live()`, a model of the registry rather than the rendered panel. **The
+mechanism is right and its target is wrong**, which is precisely why the
+successor takes the mechanism and repoints it.
+
+### 3.3 · The shrink-only ratchet with a staleness proof — `superbot`
+
+`tests/unit/invariants/test_command_reachability.py:96-104`: a paired test that
+**fails when a baseline entry is no longer a gap**, so recorded debt can only
+shrink and can never go stale. Its baseline is currently `frozenset()` — the
+ratchet drained itself and finished its job, which is what a working ratchet
+looks like. Its sibling ratchet in the same repo (setup-copy jargon, ceiling 133,
+24-entry tolerance list) **has no such test**.
+
+### 3.4 · Excuse-row expiry — `superbot-next`
+
+`tools/check_settle_once.py:629-637`: an `ALLOWLIST` or `KNOWN_RISKS` row
+matching no warn-classified root is **itself a finding** —
+`"STALE-ROW … never let an excuse outlive its reason"`. It is the checker-level
+twin of § 3.3 and, per R2, the only one of `superbot-next`'s 27 checkers that
+expires its own exemptions.
+
+This is the direct answer to `superbot`'s exception files
+(`consistency_exceptions.yml`, `command_reachability_exceptions.yml`,
+`known_violations` at 55 entries): an allowlist that can only grow is a rule
+being retired in slow motion, and a set-difference in the same run is the whole
+fix.
+
+### 3.5 · The guard that guards the guards — `superbot`
+
+`tests/unit/scripts/test_workflow_script_flags.py`, and its provenance header
+names the incident verbatim: PR #1770 invoked `check_session_slug_unique.py
+--strict` on a script defining no `--strict`; **argparse exited 2 and the checker
+silently never ran.** The test asserts every long option in the workflow is one
+the script's `--help` advertises. Population: **11** `scripts/*.py` invocations
+in `code-quality.yml`.
+
+It is the only guard in either repo aimed at the *silently-dead-checker* class —
+and it is scoped to one workflow file, and marked *"disposable … delete this test
+if it proves unreliable."*
+
+### 3.6 · What the successor does with them
+
+| mechanism | today | in the successor |
+|---|---|---|
+| denominator assertion (§ 3.1) | one file | **every** gate asserts its own count against an independently derived one |
+| live-population negative control (§ 3.2) | one guard, pointed at a model | **every** population-walking guard ships one, pointed at the rendered artifact, and it must fail on empty |
+| shrink-only ratchet + staleness proof (§ 3.3) | 1 of 2 ratchets | **every** baseline/allowlist/exception list carries a paired staleness assertion; a list without one is a build error |
+| excuse-row expiry (§ 3.4) | 1 of 27 checkers | in the checker **template**, so it is present by construction |
+| workflow↔script flag parity (§ 3.5) | one workflow, "disposable" | checkers self-register their argparse surface and CI derives invocations from that registry, so the guard's population cannot drift |
+
+**And the finding that makes this section worth more than the rule in § 1:**
+these five were written by the same people, in the same two repositories, against
+the same defect class — and each stayed in the file where it was born. The
+successor's real requirement is therefore not a better idea. It is **a checker
+framework in which these five are the default and opting out is the thing that
+takes effort**, because this estate has now demonstrated twice that a good
+pattern applied by discipline reaches 1-of-2, 1-of-27, and 2-of-8.
+
+## 3b · The proof layers
+
+`PENDING FLEET` — the full layer table (structural · unit/domain ·
+contract/integration · journey · reachability · effect · real-guild ·
+production-readiness), each with its declared population and its named blind
+spot, lands from lane R5 and challenge F.
 
 Two layers are already fixed by measurement and will not move:
 
