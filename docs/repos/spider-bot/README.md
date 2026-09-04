@@ -1,55 +1,82 @@
 # spider-bot — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-08-24** (built by the
-> registration session, the same day the repo went live)
+> **Status:** `living-ledger` · live state re-derived **2026-09-04** against the
+> GitHub API and a fresh clone; the construction record at the bottom is still
+> the 2026-08-24 registration session's.
 >
 > **What this is:** fleet-manager's entry point for `menno420/spider-bot` —
 > where the last session left off and where the next one should look.
-> **Canonical for nothing.** The repo's own `README.md` wins on its state, its
-> `CLAUDE.md` wins on the working rules, and the live tree and Railway service
-> win over both. This file summarises and points; when it disagrees with the
-> repo, the repo is right and this file is stale.
+> **Canonical for nothing except purpose.** [`intent.md`](intent.md) beside this
+> file is the canonical intent surface (owner-answered 2026-09-04). The repo's
+> own `README.md` wins on its state, its `CLAUDE.md` wins on the working rules,
+> its `docs/product-shape.md` wins on the product model, and the live tree and
+> Railway service win over all of them.
 >
-> **README-only build, on purpose** (the on-demand shape): the depth files
-> (`capabilities.md` / `records.md` / `working-here.md`) are not yet written —
-> the repo is one day and five commits old, so there is nothing scattered to
-> consolidate yet. Add them when the record actually spreads.
+> **What this file got wrong, and how** — kept because the correction is the
+> useful part. Written 2026-08-24 when the repo was one day and five commits
+> old, it froze that day's numbers into prose and was never re-derived. By
+> 2026-09-04 it was wrong about the commit count (5 → **20**), the test count
+> (78 → **246**), and, worst, it still listed *"a `/home` panel"* as a
+> **candidate** for the next feature when the panel, the route registry, the
+> closed-test clock and membership memory had all shipped on 2026-08-24/25. A
+> dated header is not a honesty mechanism if nothing re-reads it.
 
 ## The one-paragraph answer
 
-**Spider Bot** is the AI community bot of the **Slingy Spider** Discord server
-(guild `1541447750628147351`) — the GCB plan's clean game-community repo,
-created 2026-08-24 under owner direction. Python 3.12 + discord.py 2.7, one
-Railway worker (project `spider-bot`, service `worker`, europe-west4), deployed
-live the same day. v0.1 ships the tester funnel (`/jointest`, `/feedback`,
-opted-in watcher), the human-only tester roster (`/tester add|remove|count` —
-the role mirrors the real Play closed-test cohort, granted only after the
-owner verifies the opt-in), owner/mod utilities (`/announce`, `/status`), and
-AI chat: replies on @mention anywhere public, initiative ONLY in
-`AI_INITIATIVE_CHANNELS` (currently `general`), every AI decision audited
-(stdout JSON + #mod-log embeds). `MEASURED` 2026-08-24: latest deployment
-SUCCESS building `e0d8909` = HEAD; deploy log reads
-`ready as Spider Bot#7153 in Slingy Spider; AI=True`.
+**Spider Bot** is the **AI operations bot of the Slingy Spider Discord server**
+(guild `1541447750628147351`) — the owner said so live on 2026-09-04, and that
+statement is newer than the plan this repo was created under. Its job is to
+**manage the server and help during testing of the game**: be a reliable
+automoderator, let people talk to it naturally for guidance, complaints, bugs,
+feedback and ideas, and turn what they say into **durable reports the developer
+can find and act on**. Read [`intent.md`](intent.md) before inferring anything
+about direction — and read [`[D-0042]`](../../decisions.md) for the four rules
+that statement generates, the sharpest being that *heavy AI integration* means
+the AI supplies **judgement** while deterministic code supplies **authority**.
+
+Python 3.12 + discord.py 2.7, one Railway worker (project `spider-bot`, service
+`worker`, europe-west4), live since 2026-08-24. `MEASURED` 2026-09-04 from the
+API: `main` = `bf4d75278a74` (2026-08-25T22:42:55Z), **20 commits**, **0 open
+PRs**, **no rulesets and no branch protection**, CI workflow `quality` green on
+the last 10 runs. A fresh clone measures **57 tracked files** — 27 runtime
+modules (3,172 lines), 16 test files (2,999 lines, **246 collected tests**), 4
+repo docs. `ruff check .`, `python -m pytest` and `python -m compileall
+spiderbot` all exit **0** at that SHA.
+
+What has actually shipped: the tester funnel (`/jointest`, `/feedback`, the
+opted-in watcher), the human-only tester roster (`/tester add|remove|count`),
+owner/mod utilities (`/announce`, `/status`), AI chat (mention anywhere public,
+initiative only in `AI_INITIATIVE_CHANNELS`), the **app-like UI layer** —
+`/home` + a pinnable `/panel`, one typed route registry, preview-then-confirm
+presets, a locked visual system — the **closed-test clock** read out of the
+guild audit log, **membership memory** (roles restored on rejoin, the tester
+role deliberately never), and Railway IaC with build watch patterns.
 
 `superbot` (live, frozen) is its behavior/UX oracle and `superbot-next`
 (parked) its architecture donor — every reuse gets a row in the repo's
-`docs/extraction-ledger.md` (6 rows at registration). Neither source repo is
-ever modified. GCB-1 is resolved by this repo's existence; the owner chose
-the name `spider-bot` over the plan's `superbot-community` default.
+`docs/extraction-ledger.md` (12 rows at 2026-09-04). Neither source repo is
+ever modified.
 
 ## The deploy trap — read before pushing anything
 
-**Push to main deploys straight to production.** No PR gate; CI (`quality`:
-ruff + 78 tests + compileall) is informational. Railway's deploy status
+**Push to main deploys straight to production.** No PR gate and no ruleset;
+CI (`quality`: ruff + 246 tests + compileall) is informational. Railway's deploy status
 SUCCESS alone proves nothing about which code runs: verify the new
 deployment's `meta.commitHash` equals HEAD (the repo README documents the
 `serviceConnect` trap that makes this necessary). And never leave a local
 instance running while the Railway worker is up — that is two live bots
 answering in the real server.
 
-**Owner intent (DRAFT, awaiting his words):** [`intent.md`](intent.md) — from
-the 2026-08-28 elicitation sitting; it proposes no feature direction, per this
-file's own rule.
+One more Railway fact, and it is not a failure when you see it: `railway.json`
+sets build **watch patterns** (`spiderbot/**`, `requirements.txt`,
+`railway.json`, `.python-version`), so a docs- or tests-only commit
+deliberately does **not** deploy and the live `commitHash` will lag HEAD.
+Preserve them — without watch patterns a scheduled commit once restarted a
+donor's production worker ~293 times in one billing cycle.
+
+**Owner intent — ANSWERED 2026-09-04:** [`intent.md`](intent.md). The
+2026-08-28 draft's four ❓ slots are closed there, and the rules the answer
+generates are [`[D-0042]`](../../decisions.md).
 
 ## Threads
 
@@ -64,24 +91,47 @@ workflow `quality` on every push (informational). Deploy re-verified live
 after landing. Still deferred until the bot needs durable state:
 Postgres/migrations, Docker, config schema.
 
-### Thread: next feature — **active, owner's pick**, updated 2026-08-24
+### Thread: purpose — **answered 2026-09-04, live** (supersedes "next feature — owner's pick")
 
-The owner chooses what the bot grows next; a session must not infer it.
-Candidates on the table (from the GCB plan + the build sessions): a `/home`
-panel · richer tester-funnel tracking · more knowledge depth · making CI a
-required check (that one changes the landing workflow to a PR flow, so it is
-owner-gated twice over). The larger arc — what the review/testing loop
-covers — is `OQ-GCB-REVIEW-SCOPE` in [`../../owner-queue.md`](../../owner-queue.md),
-still open.
+The thread this file carried since 2026-08-24 — *"the owner chooses what the bot
+grows next; a session must not infer it"* — is **closed by him choosing.**
+Spider Bot is the **AI operations bot of this one server**: a reliable
+automoderator, a natural-language front door for guidance, complaints, bugs,
+feedback and ideas, and a machine that turns those into durable
+developer-findable reports (preferably GitHub issues on `spider-swing`).
+Canonical: [`intent.md`](intent.md) · rules: [`[D-0042]`](../../decisions.md).
 
-### Thread: plan transplant — **open, unstarted**
+`OQ-GCB-REVIEW-SCOPE` — open since 2026-08-23, asking *what must the
+review-oriented bot actually do* — is **answered by the same statement**: the
+testing-and-feedback loop, plus moderation of the server that runs it. See
+[`../../owner-queue.md`](../../owner-queue.md).
 
-The GCB plan's own README says that on repo creation the plan is copied into
-the repo, reconciled against the first commit, and the fleet-manager folder
-becomes a dated pointer. None of that has happened: spider-bot points AT
-[`../../planning/2026-08-21-game-community-bot/`](../../planning/2026-08-21-game-community-bot/README.md)
-instead. Workable for now — but whoever re-sequences the roadmap after the
-review-scope letters land should do the transplant in the same pass.
+### Thread: AI operations build — **active**, opened 2026-09-04
+
+The first tranche against the new purpose. Shape, in dependency order: shared
+foundations (stable ids, a storage seam, a GitHub client, typed AI verdict
+contracts, a policy layer, correlation) → the developer feedback loop (one
+intake service behind every entry point, conversational filing, privacy
+classification, store-first, idempotent GitHub projection) → the AI moderation
+foundation (event logging, classifier, deterministic policy evaluator, **shadow
+mode**, one case model, a staff review surface) → the game-knowledge seam (a
+versioned support feed produced by `spider-swing`, consumed with a
+last-known-good fallback) → run-evidence import.
+
+**Nothing new enforces on arrival.** New moderation ships `off`/`shadow`; the
+GitHub path is fail-closed until a credential exists. What turns each
+enforcement class on is evidence, defined in the plan, not the fact that the
+code compiles.
+
+### Thread: plan transplant — **open, and now partly moot**
+
+The GCB plan's own README says that on repo creation the plan is copied into the
+repo, reconciled against the first commit, and the fleet-manager folder becomes
+a dated pointer. That never happened. It matters less now: [`[D-0042]`](../../decisions.md)
+narrows the plan's multi-game breadth out of spider-bot's scope, so what is left
+to transplant is the architecture research, not the product definition. The
+repo's own `docs/product-shape.md` and `docs/architecture.md` are the live
+product surfaces.
 
 ## Before you attach it
 
@@ -99,9 +149,11 @@ anywhere.
 | file (in spider-bot) | what it is |
 |---|---|
 | `README.md` | identity, stack ruling, secret NAMES, deployment + the deploy trap. **Start here** |
-| `CLAUDE.md` | the 12 invariants (defect lines, not style preferences) + verify commands + venue rules |
+| `CLAUDE.md` | the **21** invariants (defect lines, not style preferences) + verify commands + venue rules. It said twelve here until 2026-09-04; the file has carried twenty-one since 2026-08-25 |
 | `docs/extraction-ledger.md` | every reuse from superbot / superbot-next, with the decision per row |
-| `tests/` | the 78-test harness — the executable form of the invariants |
+| `docs/product-shape.md` | `binding` — what the bot is for and how it should feel. Read it after `CLAUDE.md` |
+| `docs/architecture.md` | `binding` — the layered design the AI-operations work is built on |
+| `tests/` | the **246**-test harness — the executable form of the invariants |
 
 ## External workspaces (§ 5.7)
 

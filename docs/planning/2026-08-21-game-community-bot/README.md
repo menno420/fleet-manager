@@ -13,6 +13,48 @@
 > into that repo, reconciled against its first commit, and this folder becomes
 > a dated pointer rather than a second product source of truth.
 
+## NARROWED 2026-09-04 — the owner said what the bot is FOR, and it is one server
+
+`OWNER`, live, and it is newer than everything below including the OD-19
+amendment:
+
+> *"Spider Bot exists to manage the Slingy Spider server and help during testing
+> of the game. It should become a reliable automoderator with heavy AI
+> integration. People should be able to talk naturally to it for guidance,
+> complaints, bugs, feedback and improvement ideas. Those reports should become
+> durable, easy for the developer to find and act on — preferably through GitHub
+> or an equally clear developer-facing system."*
+
+**What this does to this plan.** The decision headline below opens *"Build a
+clean, **multi-game** Discord bot repository"* and § "Product success in one
+screen" describes a fresh game-server owner inviting the bot and running a setup
+wizard. **That is no longer what `spider-bot` is being built to be.** This plan
+stays authoritative as the **architecture and source research** — the donor
+disposition in [`source-review.md`](source-review.md), the AI-autonomy model and
+typed-operation discipline in [`architecture.md`](architecture.md), the evidence
+gates in [`verification-and-operations.md`](verification-and-operations.md) are
+all still the best record anyone has and are being built on. It is **no longer**
+the description of the product. A session must not re-broaden `spider-bot` into
+the multi-game platform on this document's authority.
+
+**Two open items below are closed by the same sentence:**
+
+- **`OQ-GCB-REVIEW-SCOPE`** — *"what must the review bot actually do?"*, open
+  since 2026-08-23, the gate this README's "Next executable action" put ahead of
+  everything: **the testing-and-feedback loop, plus moderation of the server
+  that runs it.** The four candidate scopes in the owner queue are answered by
+  his own words rather than picked from.
+- **The sequencing conflict this file records** (roadmap Phases 1–4 breadth
+  versus OD-19's small review bot first) **resolves toward OD-19 and stays
+  there.** The AI spine is built — but as the moderation-and-intake spine of one
+  server, not as the platform kernel [`delivery-roadmap.md`](delivery-roadmap.md)
+  Phase 1 describes. That roadmap is **not** the executable order for
+  `spider-bot` any more; the repo's own plan is.
+
+Canonical intent: [`../../repos/spider-bot/intent.md`](../../repos/spider-bot/intent.md).
+The four rules his statement generates are stamped at spider-bot's entry
+point: [`docs/repos/spider-bot/README.md`](../../repos/spider-bot/README.md).
+
 ## AMENDED 2026-08-23 — OD-19 narrows the first slice and adds one hard constraint
 
 `OWNER`, live, refining OD-16. Read this before the headline below: it does not
