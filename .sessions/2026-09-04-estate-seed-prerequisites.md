@@ -36,23 +36,26 @@ this card born-red at `9a2fcb0`.
   live default-branch tip; provenance it cannot resolve is published `UNCHECKABLE:<reason>`,
   which is the path/instant validator the baseline's § 12 item 10 lacked. Reads the
   ` + `-joined, repository-qualified and API-reference forms the corpus actually holds
-  (round 1). Plus **`test_row_delta.py`**: 17 provenance shapes, 10 verification forms, 5
-  path cases, 6 precedence cases, and 9 live controls (3 positive, 4 negative — three of
-  them unmoved files inside MOVED repositories — 1 uncheckable, 1 api-reference).
+  (round 1), expands single-level wildcards, and refuses to fall back to an earlier reading
+  when the later re-read SHA does not resolve (round 2). Plus **`test_row_delta.py`**: 18
+  provenance shapes, 10 verification forms, 5 binding cases, 5 path cases, 8 precedence
+  cases, and 9 live controls (3 positive, 4 negative — three of them unmoved files inside
+  MOVED repositories — 1 uncheckable, 1 api-reference).
 - **`tools/estate_baseline/build_manifest.py`** — the `canonical_state_source` column
   (appended; from the reading that PRODUCED the row — its origin lane, never its
   `source_repo` — the hub from the file that declares itself the ledger); a
   consumer for the subject-bearing overclaim schema (exact join, in the docstring as the
-  next run's contract; a malformed object with no subject is counted and refuses the
-  strict build); the overclaim residual decomposed (59 reach no row · 4 reach rows
+  next run's contract; an object with no subject, or whose subject reaches no row, is
+  counted and refuses the strict build; a JSON null ledger stays empty); the overclaim
+  residual decomposed (59 reach no row · 4 reach rows
   outside MEASURED/OWNER · 10 applied). **`fixtures/journal-aggregation.jsonl` +
   `test_manifest.py`** extended for all of it, including a cross-source row with a
   ledger the hub cannot share.
 - **`docs/planning/2026-09-04-estate-seed-manifest.csv`** — REGENERATED, not edited: 183
   rows, 22 prior columns byte-identical cell-for-cell, 183/183 carry the new column.
 - **Evidence** — `docs/findings/data/2026-09-04-estate-truth-baseline/row-delta.tsv` (the
-  row-level snapshot, 2026-09-04T18:59Z) and `delta-rerun-2026-09-04.tsv` (the delta re-run
-  at 19:02Z; fleet-manager and spider-bot each took one commit in the three minutes between).
+  row-level snapshot, 2026-09-04T19:18Z) and `delta-rerun-2026-09-04.tsv` (the delta re-run
+  at 19:02Z); both see fleet-manager at `17a532b` and spider-bot at `ee243fd`.
 - **[The follow-on finding](../docs/findings/2026-09-04-estate-seed-prerequisites.md)** —
   what moved at row level (18 of 119 survivors — 17 fleet-manager rows over ten files, one
   spider-bot `distill`; two `carry`; the three satellite survivors' files unmoved although
@@ -78,8 +81,8 @@ Real exit codes, each read directly (never after a pipe):
 python3 tools/estate_baseline/delta.py --anchors …/anchors.tsv --out <tsv>      exit 0 · 28 rows · 4 CHANGED at ≈18:27Z, 5 at 19:02Z (spider-bot joined)
 python3 tools/estate_baseline/test_delta.py <tsv>                                exit 0 · 11/11 controls
 python3 tools/estate_baseline/build_manifest.py --journal ×3 … --out <manifest>  exit 0 · 183 rows · 119 / 64 · 22 prior columns: 0 differing cells
-python3 tools/estate_baseline/row_delta.py … --out data/…/row-delta.tsv          exit 0 · 337 API calls · 98 / 18 / 3 over the 119 survivors (18:59Z)
-python3 tools/estate_baseline/test_row_delta.py                                  exit 0 · 9/9 controls, snapshot-relative · 17 provenance shapes
+python3 tools/estate_baseline/row_delta.py … --out data/…/row-delta.tsv          exit 0 · 339 API calls · 98 / 18 / 3 over the 119 survivors (19:18Z)
+python3 tools/estate_baseline/test_row_delta.py                                  exit 0 · 9/9 controls, snapshot-relative · 18 provenance shapes · 5 binding cases
 python3 tools/estate_baseline/test_manifest.py                                   exit 0 · 4 cases, 3 kill / 1 survival · strict build refused over the malformed object
 python3 tools/estate_baseline/seed_rule.py                                       exit 0 · 0 unread / 0 undefined · 14 fixtures
 python3 tools/gen_findings_index.py --check                                      exit 0 · 78 listed, current
@@ -102,7 +105,17 @@ validation skipped on an empty manifest → validated from `fieldnames`, empty m
 `[conceded]` P2 fresh-file negative controls accepted `UNCHECKABLE` → they fail it ·
 `[conceded]` P2 the parser read ` + `-joined, repo-qualified and API-reference cells as
 narration or not-found (7 killed cells) → parsed, qualified, named; snapshot re-taken.
-Round 2 requested on the head carrying these fixes; the flip waits for its answer.
+**Codex round 2 (on `20586b3`): 5 findings — 5 conceded (1 P1, 4 P2), 0 refuted, 0 open.**
+`[conceded]` P1 a subject-form overclaim whose subject reaches no row was lost as silently as a
+blank one → counted, printed by subject, strict build refuses; fixture with a typo'd subject
+that must not reach the near-miss row · `[conceded]` P2 an unresolved later re-read SHA fell
+back to the earlier reading → `bind_verification()` makes the row UNCHECKABLE, five binding
+fixtures · `[conceded]` P2 a wildcard path (`tests/*.py`) was dropped as annotation → parsed,
+expanded against the listing at both points, `SOURCE_UNRESOLVED_GLOB` for what cannot be ·
+`[conceded]` P2 the finding's fixture paragraph carried round-1 counts → rewritten to what the
+suite prints · `[conceded]` P2 a JSON null ledger became the string `None` → type-checked,
+fixture with a null. Snapshot re-taken (same 98 / 18 / 3). Round 3 — the last the cap allows —
+requested on the head carrying these fixes; its findings are fixed and verified without Codex.
 
 ## ⚑ Decide-and-flag
 

@@ -323,8 +323,12 @@ def main() -> int:
             if "successor_seed" in r:
                 readings.append(r)
                 who_read = str(r.get("repo", "")).split("/")[-1]
-                if str(r.get("canonical_state_source", "")).strip():
-                    state_source[who_read] = str(r["canonical_state_source"]).strip()
+                css = r.get("canonical_state_source")
+                # Only a non-empty STRING names a ledger. A JSON null is the reader's
+                # honest "none recorded" and must stay an empty, reportable cell —
+                # str(None) is the word "None", a fabricated ledger (Codex, round 2).
+                if isinstance(css, str) and css.strip():
+                    state_source[who_read] = css.strip()
                 for it in r.get("successor_seed") or []:
                     n = normalise(it, f"repo:{r.get('repo', '?')}")
                     if n:
@@ -392,9 +396,12 @@ def main() -> int:
     # An overclaim names a claim inside one repository's reading; attach it to
     # that repository's rows whose subject the flag text mentions.
     oc_applied = oc_by_subject_applied = 0
+    subject_flags_seen: set[tuple[str, str]] = set()     # (audited repo, subject) that reached a row
     for it in items:
         audited = audited_of(it)
         reason = overclaims_by_subject.get(audited, {}).get(it["subject"].strip().lower())
+        if reason is not None:
+            subject_flags_seen.add((audited, it["subject"].strip().lower()))
         if reason is not None and it["certainty"] in ("MEASURED", "OWNER"):
             it["certainty_overclaimed"] = True
             it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
@@ -408,6 +415,13 @@ def main() -> int:
                                 f"adversary: {flag[:160]}"
                 oc_applied += 1
                 break
+    # A subject-form flag whose subject reaches no row in its reading — a typo, a
+    # stale subject, a subject the reader never emitted — is a dissent lost exactly
+    # as a blank subject is, and the strict build refuses over it the same way
+    # (Codex, round 2: the round-1 check covered only the blank case).
+    overclaims_unmatched_subject = [f"{repo}: {subj!r}"
+                                    for repo, flags in overclaims_by_subject.items()
+                                    for subj in flags if (repo, subj) not in subject_flags_seen]
     # Where the free-text residual actually is. "10 of 73 applied" conflated two
     # different failures: a flag that names no row any join can reach (the
     # schema defect) and a flag that reaches a row whose certainty the rule does
@@ -488,7 +502,10 @@ def main() -> int:
           f"{oc_ineligible_only} reach only rows outside MEASURED/OWNER · "
           f"{oc_no_row} reach no row (the schema residual)")
     print(f"certainty overclaims (by subject): {n_subj} flags · applied to {oc_by_subject_applied} row(s)"
+          f" · {len(overclaims_unmatched_subject)} subject-form flag(s) reach no row"
           f" · {len(overclaims_malformed)} malformed object(s) with no subject")
+    for m in overclaims_unmatched_subject:
+        print("  UNMATCHED subject-form overclaim, reaches no row:", m)
     for m in overclaims_malformed:
         print("  MALFORMED overclaim, reaches no row:", m)
     print(f"canonical_state_source: {sum(1 for r in rows if r['canonical_state_source'])} of {len(rows)} rows carry one"
@@ -533,12 +550,13 @@ def main() -> int:
         print("NOTE — read but never refuted (the adversarial lane is incomplete):", unrefuted)
     if unaudited:
         print("NOTE — in the re-audit slice but with no reading in these journals:", unaudited)
-    if unaudited or unrefuted or undisposed or overclaims_malformed:
+    if unaudited or unrefuted or undisposed or overclaims_malformed or overclaims_unmatched_subject:
         if not args.allow_partial:
             print("build_manifest: FAILED — refusing to report success over an incomplete "
                   "manifest (a missing reading, refutation OR area disposition) or over a "
-                  "malformed dissent (an overclaim object with no subject); pass "
-                  "--allow-partial to publish one deliberately", file=sys.stderr)
+                  "lost dissent (an overclaim object with no subject, or whose subject "
+                  "reaches no row of its reading); pass --allow-partial to publish one "
+                  "deliberately", file=sys.stderr)
             return 1
     return 0
 

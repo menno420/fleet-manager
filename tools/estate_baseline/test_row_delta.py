@@ -27,7 +27,7 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 sys.path.insert(0, str(HERE))
-from row_delta import classify_path, classify_row, paths_of, shas_of  # noqa: E402
+from row_delta import bind_verification, classify_path, classify_row, paths_of, shas_of  # noqa: E402
 
 # --- 1a · provenance shapes, each taken from a live manifest cell ------------------
 N = None
@@ -63,6 +63,8 @@ PATHS = [
     ("live API: pulls?state=open", [], "api-reference", "a query string names a live surface"),
     ("live-api:pulls?state=open", [], "api-reference", "same, glued"),
     ("releases API (tag postgres-botsite-final-2026-08-16)", [], "api-reference", "the releases API"),
+    ("README.md, tests/*.py", [(N, "README.md"), (N, "tests/*.py")], "paths:2+glob",
+     "a wildcard path is a path — dropping it would let the row read UNCHANGED on README alone (round 2)"),
     ("README.md (what it fails to say) + docs/repos/estate-backups/README.md (fleet-manager, which does say it)",
      [(N, "README.md"), ("fleet-manager", "docs/repos/estate-backups/README.md")],
      "paths:2+qualified+annotation", "a repository named as the first word of the parenthetical after a path"),
@@ -97,6 +99,19 @@ SHAS = [
     ("", [], "narration", "empty is narration, not a crash"),
 ]
 
+# --- 1b' · which verification SHA binds — the later one, and only if all resolved ----
+C1 = {"sha": "caa6cd2" * 5, "date": "2026-09-03T21:42:38Z"}
+C2 = {"sha": "7ccc88a" * 5, "date": "2026-09-04T12:24:49Z"}
+BIND = [
+    # (candidates, resolved map, expected sha or None, why)
+    (["caa6cd2"], {"caa6cd2": C1}, C1["sha"], "one SHA, resolved"),
+    (["caa6cd2", "7ccc88a"], {"caa6cd2": C1, "7ccc88a": C2}, C2["sha"], "two resolved: the later binds"),
+    (["7ccc88a", "caa6cd2"], {"caa6cd2": C1, "7ccc88a": C2}, C2["sha"], "order in the cell does not matter"),
+    (["caa6cd2", "7ccc88a"], {"caa6cd2": C1, "7ccc88a": None}, None,
+     "the later re-read did not resolve: UNCHECKABLE, never a fallback to the stale reading (round 2)"),
+    (["caa6cd2"], {"caa6cd2": None}, None, "nothing resolved"),
+]
+
 # --- 1c · the classifier; expected outcome written BEFORE the run ------------------
 PATH_CASES = [
     # (base object, tip object, expected, why)
@@ -115,6 +130,9 @@ ROW_CASES = [
      "a provenance defect outranks a clean sibling"),
     (["NOT_FOUND", "MISSING_AT_VERIFICATION"], "SOURCE_MISSING_AT_VERIFICATION",
      "missing-at-verification outranks not-found"),
+    (["UNCHANGED", "UNRESOLVED_GLOB"], "SOURCE_UNRESOLVED_GLOB",
+     "a glob nobody could expand is never reported unchanged by omission"),
+    (["UNRESOLVED_GLOB", "MOVED"], "SOURCE_MOVED", "a moved path still outranks an unexpanded glob"),
 ]
 
 # --- 2 · live controls over the real manifest ------------------------------------
@@ -163,6 +181,11 @@ def main() -> int:
         if got_shas != want_shas or got_shape != want_shape:
             failures.append(f"shas_of({cell!r}) -> {got_shas}, {got_shape!r}; "
                             f"expected {want_shas}, {want_shape!r} ({why})")
+    for cands, resolved, want, why in BIND:
+        got, _note = bind_verification(cands, resolved)
+        got_sha = got["sha"] if got else None
+        if got_sha != want:
+            failures.append(f"bind_verification({cands}) -> {got_sha}, expected {want} ({why})")
     for base, tip, want, why in PATH_CASES:
         got = classify_path(base, tip)
         if got != want:
@@ -259,6 +282,7 @@ def main() -> int:
 
     total = len(POSITIVE) + len(NEGATIVE) + 2
     print(f"unit fixtures  : {len(PATHS)} provenance shapes · {len(SHAS)} verification forms · "
+          f"{len(BIND)} binding cases · "
           f"{len(PATH_CASES)} path cases ({kills} kill / {survivals} survival) · "
           f"{len(ROW_CASES)} row-precedence cases")
     print(f"real-slice     : {hits}/{total} controls correct ({len(POSITIVE)} positive, "

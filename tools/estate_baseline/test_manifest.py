@@ -105,8 +105,8 @@ def main() -> int:
     bad = []
     if strict.returncode == 0:
         bad.append("the builder reported success over a journal carrying a malformed overclaim object")
-    elif "malformed dissent" not in strict.stderr:
-        bad.append(f"the refusal must name the malformed dissent, got stderr {strict.stderr[-200:]!r}")
+    elif "lost dissent" not in strict.stderr:
+        bad.append(f"the refusal must name the lost dissent, got stderr {strict.stderr[-200:]!r}")
     for subject, want in EXPECTED.items():
         cands = [r for r in rows if r["subject"] == subject and r["source_repo"] != "other-repo"]
         got = cands[0]["survives"] if cands else None
@@ -153,6 +153,17 @@ def main() -> int:
     elif xs[0]["canonical_state_source"] != want_src:
         bad.append(f"a row produced by demo's reading must carry demo's ledger {want_src!r}, "
                    f"got {xs[0]['canonical_state_source']!r} (keyed by source_repo, not by the audited reading)")
+    # `other-repo`'s reading carries the JSON null — its rows must read EMPTY, never
+    # the string "None" (round 2). STATE_SOURCE already expects "" for it.
+    if any(r["canonical_state_source"] == "None" for r in rows):
+        bad.append("a JSON null canonical_state_source was stamped as the string 'None'")
+    if proc.stdout and "1 subject-form flag(s) reach no row" not in proc.stdout:
+        bad.append("the builder must count a subject-form overclaim whose subject matches no row "
+                   f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")
+    if proc.stdout and "survivor fcat" not in proc.stdout.lower():
+        bad.append("the unmatched subject-form flag must be printed by subject so it can be found")
+    if "Survivor fact" in "".join(r["blocker"] for r in rows if r["subject"] == "Survivor fact"):
+        bad.append("the typo'd subject must not reach the near-miss row by any fuzzy join")
     if proc.stdout and "1 malformed object(s) with no subject" not in proc.stdout:
         bad.append("the builder must count an overclaim object that has no subject, never drop it "
                    f"(stdout: {[l for l in proc.stdout.splitlines() if 'by subject' in l]})")

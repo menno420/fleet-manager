@@ -59,28 +59,36 @@ list of files. That gap is the reason for § 2.
 **The instrument.** `tools/estate_baseline/row_delta.py` takes the manifest and,
 for every row, (a) classifies the SHAPE of its provenance, (b) resolves the SHA(s)
 in `verification_point` against the row's source repository, taking the
-latest-dated one where a row names a reading and a later re-read, and (c)
+latest-dated one where a row names a reading and a later re-read — and only when
+every candidate resolved, because falling back to the earlier reading when the
+re-read is unknown would measure drift from a point the reader had superseded
+(Codex round 2; such a row is `UNCHECKABLE` with the candidate named) — and (c)
 compares the git object at each cited path — a blob for a file, the listing for
-a directory — at that SHA against the same path at the live default-branch tip.
+a directory, the matching entries for a single-level wildcard such as
+`tests/*.py` — at that SHA against the same path at the live default-branch tip.
 Identical objects mean the content the reader verified is the content that is
 live. The row status vocabulary is in the script's docstring; the rule of
 precedence is that one moved path outranks any number of unchanged ones,
 because a `carry` copies bytes.
 
-Fixtures: `tools/estate_baseline/test_row_delta.py` — 9 provenance shapes and
-10 verification-point forms taken from live cells, 5 path cases (4 kill /
-1 survival) including the branch that must not fire, 6 row-precedence cases,
-and live controls: 3 positives (fleet-manager rows citing `docs/current-state.md`,
-`docs/ESTATE.md`, `docs/decisions.md` — all modified in the sixteen commits),
-4 negatives (the three satellite survivors above plus shiftlife, which has not
-moved since 2026-07-27) and 1 uncheckable control. **8 of 8 controls correct,
-exit 0** against the committed snapshot. The three satellite negatives are the
-discriminating case: their repositories moved, their files did not.
+Fixtures: `tools/estate_baseline/test_row_delta.py` — the counts below are what
+the suite prints, and the suite is the record: **18 provenance shapes** and
+**10 verification-point forms** taken from live cells, **5 binding cases** (which
+SHA binds, and the unresolved re-read that must not fall back), **5 path cases**
+(4 kill / 1 survival) including the branch that must not fire, **8
+row-precedence cases**, and live controls: 3 positives (fleet-manager rows citing
+`docs/current-state.md`, `docs/ESTATE.md`, `docs/decisions.md` — all modified
+in the first sixteen commits), 4 negatives (the three satellite survivors above
+plus shiftlife, which has not moved since 2026-07-27), 1 uncheckable control and
+1 api-reference control. **9 of 9 controls correct, exit 0** against the
+committed snapshot. The three satellite negatives are the discriminating case:
+their repositories moved, their files did not. (An earlier draft of this
+paragraph carried the round-1 counts beside a round-2 suite; Codex round 2.)
 
-**The snapshot.** `MEASURED` 2026-09-04T18:59Z — fleet-manager tip `e7e7c0e`,
-spider-bot tip `25cd1a1`; the delta re-run three minutes later saw one more
-commit on each, which is the estate moving, not a disagreement — 337 API calls,
-exit 0 —
+**The snapshot.** `MEASURED` 2026-09-04T19:18Z — fleet-manager tip `17a532b`,
+spider-bot tip `ee243fd`, the same tips the delta re-run in § 1 saw — 339 API
+calls, exit 0 (taken three times during the session as the instrument was
+corrected and the estate moved; only the last is committed) —
 [`data/2026-09-04-estate-truth-baseline/row-delta.tsv`](data/2026-09-04-estate-truth-baseline/row-delta.tsv),
 183 rows. Read from the file with `csv.DictReader`:
 
@@ -141,13 +149,16 @@ pulls?state=open`, `live-api:pulls?state=open`, `releases API (tag …)`). The
 two `SOURCE_UNVERIFIED_CROSS_REPO` rows cite a second path qualified with
 `fleet-manager`; the row's SHA belongs to its own repository, so that path has
 no verification point to compare and is named rather than compared at a SHA it
-never had. **The first cut of the parser got seven of these wrong** — it read
+never had. **The first cut of the parser got eight of these wrong** — it read
 three `+`-joined cells as narration, the four API references as narration or,
-for `git/trees`, as a file not found — and Codex round 1 caught it; the parser
-now splits on ` + `, honours a repository named before a path or as the first
-word of the parenthetical after it (only when the census knows the name), and
-names API references. Counted from the snapshot joined to the manifest on
-(subject, source_repo).
+for `git/trees`, as a file not found, and dropped the wildcard in spider-bot's
+`README.md, tests/*.py` as annotation so that row was judged on `README.md`
+alone — Codex rounds 1 and 2 caught them; the parser now splits on ` + `,
+honours a repository named before a path or as the first word of the
+parenthetical after it (only when the census knows the name), names API
+references, and expands a single-level wildcard against the directory listing at
+both points (that row reads `SOURCE_MOVED` on both its paths). Counted from the
+snapshot joined to the manifest on (subject, source_repo).
 
 **A fact about the survivors' verification points the audit did not state.**
 `sha_on_default_branch` is `no` for **84 of 119 survivors**: their SHAs
@@ -176,7 +187,9 @@ fleet-manager` while the truth is the satellite's. The first cut keyed on
 `docs/current-state.md`, and 4 changed value on the fix (two substrate-kit rows
 → `control/status.md`, one estate-backups row, one shiftlife row). Area lanes
 are the hub's own reading, and for fleet-manager — read by five area lanes that
-record no such field — the value is the file that declares itself the ledger: `docs/current-state.md` opens
+record no such field — the value is the file that declares itself the ledger
+(a reading's JSON `null` stays an empty, reportable cell — round 2 caught the
+first cut turning it into the word `None`): `docs/current-state.md` opens
 with `Status: living-ledger` and *"It carries live hub state"*, and the boot
 file's deep read path calls it *"the living ledger"*. The constant and its
 citation are in the generator, not in prose here.
@@ -208,13 +221,16 @@ form, and the builder still applies it exactly as before — 10 rows):
    no threshold, no heuristic — publishing the refuter's reason in `blocker` as
    `adversary (by subject): …`. The module docstring states the required shape.
    An object with a missing or blank subject — the schema defect the object form
-   exists to expose — is counted and printed as malformed, and the builder
-   refuses success over it unless `--allow-partial` is passed (the first cut
-   dropped it silently; Codex round 1). Fixture: the aggregation journal carries
-   one subject-form overclaim on a `MEASURED` item (killed through the rule's
-   overclaim branch, asserted), one free-text flag that names nothing (counted,
-   never applied, asserted), and one object with no subject (counted, and the
-   strict build refused, both asserted).
+   exists to expose — is counted and printed as malformed, and so is an object
+   whose subject reaches **no row of its reading** (a typo, a stale subject): both
+   are a lost dissent, and the builder refuses success over either unless
+   `--allow-partial` is passed (the first cut dropped the blank case silently,
+   Codex round 1; the second covered only the blank case, round 2). Fixture: the
+   aggregation journal carries one subject-form overclaim on a `MEASURED` item
+   (killed through the rule's overclaim branch, asserted), one free-text flag that
+   names nothing (counted, never applied, asserted), one object with no subject
+   and one with a typo'd subject (each counted, neither reaching the near-miss
+   row, and the strict build refused — all asserted).
 2. **"63 of 73" was two numbers.** The builder now prints the split, read from
    the same data: **59 flags reach no row** by any join — the schema defect —
    and **4 reach only rows whose certainty is not `MEASURED`/`OWNER`**, where the
@@ -258,8 +274,8 @@ python3 tools/estate_baseline/delta.py --anchors docs/findings/data/2026-09-04-e
 python3 tools/estate_baseline/test_delta.py <that tsv>                                                                    → exit 0, 11/11
 python3 tools/estate_baseline/build_manifest.py --journal run1 --journal run2 --journal run3-repos --classification … --out docs/planning/2026-09-04-estate-seed-manifest.csv
                                                                                                                           → exit 0, 183 rows, 119 / 64
-python3 tools/estate_baseline/row_delta.py --manifest … --classification … --delta <tsv> --out data/…/row-delta.tsv        → exit 0, 337 calls, 98 / 18 / 3 over the 119 survivors
-python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, 9/9 live controls, 17 provenance shapes
+python3 tools/estate_baseline/row_delta.py --manifest … --classification … --delta <tsv> --out data/…/row-delta.tsv        → exit 0, 339 calls, 98 / 18 / 3 over the 119 survivors
+python3 tools/estate_baseline/test_row_delta.py                                                                           → exit 0, 9/9 live controls, 18 provenance shapes, 5 binding cases
 python3 tools/estate_baseline/test_manifest.py                                                                            → exit 0, 4 cases; the strict build refused over the malformed object
 python3 tools/estate_baseline/seed_rule.py                                                                                → exit 0, 0 unread / 0 undefined, 14 fixtures
 ```

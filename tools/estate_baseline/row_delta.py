@@ -34,6 +34,11 @@ Row status vocabulary (one per row; `paths_checked` carries the per-path detail)
   SOURCE_MISSING_AT_VERIFICATION   a cited path did not exist at the SHA the row
                                    claims to have read it at — a provenance defect
   SOURCE_NOT_FOUND                 the path exists at neither point
+  SOURCE_UNRESOLVED_GLOB           a wildcard path the instrument could not expand
+                                   (`**`, or a wildcard above the last segment) — named,
+                                   never dropped; single-level globs such as
+                                   `tests/*.py` ARE expanded against the directory
+                                   listing at both points
   SOURCE_UNVERIFIED_CROSS_REPO     a path qualified with ANOTHER repository
                                    (`fleet-manager docs/repos/x/README.md`) — the
                                    row's SHA belongs to its source repository, so
@@ -44,8 +49,9 @@ Row status vocabulary (one per row; `paths_checked` carries the per-path detail)
   INACCESSIBLE:<reason>            an API wall — recorded, never classified
 
 Precedence when a row cites several paths: GONE > MOVED > MISSING_AT_VERIFICATION
-> NOT_FOUND > UNVERIFIED_CROSS_REPO > UNCHANGED, because the worst case is the one
-a `carry` must hear, and a path nobody could compare is never reported unchanged.
+> NOT_FOUND > UNVERIFIED_CROSS_REPO > UNRESOLVED_GLOB > UNCHANGED, because the
+worst case is the one a `carry` must hear, and a path nobody could compare is
+never reported unchanged.
 
 Usage
 -----
@@ -93,6 +99,7 @@ COLUMNS = [
 # --- provenance parsing ----------------------------------------------------------
 
 _PATH_TOKEN = re.compile(r"^[A-Za-z0-9_./@\-]+$")
+_GLOB_TOKEN = re.compile(r"^[A-Za-z0-9_./@\-]*[*?\[][A-Za-z0-9_./@\-*?\[\]]*$")
 _REPO_WORD = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._\-]*$")
 # An API reference, not a tree path: the git data API, a query string, or an
 # explicit `api` marker. Readers wrote `git/trees (harness/*)` and
@@ -106,8 +113,14 @@ _CANON_VP = re.compile(r"^\s*[0-9a-f]{7,40}@\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{
 
 
 def _is_path(word: str) -> bool:
-    return bool(_PATH_TOKEN.match(word)) and ("/" in word or "." in word) \
+    return bool(_PATH_TOKEN.match(word) or _GLOB_TOKEN.match(word)) and ("/" in word or "." in word) \
         and not word.lower().startswith("http") and not _API_WORD.search(word)
+
+
+def is_glob(path: str) -> bool:
+    """`tests/*.py` cites every matching file; dropping it as annotation would let a
+    row read UNCHANGED on the one literal path beside it (Codex, round 2)."""
+    return bool(re.search(r"[*?\[]", path))
 
 
 _PAREN_HINT = re.compile(r"(\S+)\s*\(([A-Za-z0-9][A-Za-z0-9._\-]*)\s*[,)]")
@@ -170,6 +183,8 @@ def paths_of(source_path: str, census: set[str] | None = None) -> tuple[list[tup
     shape = "path" if len(pairs) == 1 else f"paths:{len(pairs)}"
     if any(h for h, _ in pairs):
         shape += "+qualified"
+    if any(is_glob(p_) for _, p_ in pairs):
+        shape += "+glob"
     return pairs, shape + ("+annotation" if had_annotation else "")
 
 
@@ -203,6 +218,22 @@ def shas_of(verification_point: str) -> tuple[list[str], str]:
     return seen, shape
 
 
+def bind_verification(candidates: list[str], resolved: dict[str, dict | None]) -> tuple[dict | None, str]:
+    """Which resolved commit is the row's verification point — or why none is.
+
+    The contract says the LATER of several SHAs binds (a reading, then a re-read).
+    That contract is only honest if every candidate resolved: when the later one
+    is unknown to the repository, falling back to the earlier one would classify
+    drift from a point the reader had already superseded (Codex, round 2). So an
+    unresolved candidate makes the row UNCHECKABLE, and the note names it.
+    """
+    missing = [c for c in candidates if resolved.get(c) is None]
+    if missing:
+        return None, "unresolved candidate(s): " + ", ".join(missing)
+    ver = max((resolved[c] for c in candidates), key=lambda c: c["date"])
+    return ver, ("several SHAs; the latest-dated is the verification point" if len(candidates) > 1 else "")
+
+
 # --- classification (pure; the part the fixtures exercise) -------------------------
 
 def classify_path(base_blob: str | None, tip_blob: str | None) -> str:
@@ -217,7 +248,7 @@ def classify_path(base_blob: str | None, tip_blob: str | None) -> str:
 
 
 _PRECEDENCE = ["GONE", "MOVED", "MISSING_AT_VERIFICATION", "NOT_FOUND",
-               "UNVERIFIED_CROSS_REPO", "UNCHANGED"]
+               "UNVERIFIED_CROSS_REPO", "UNRESOLVED_GLOB", "UNCHANGED"]
 
 
 def classify_row(path_statuses: list[str]) -> str:
@@ -294,6 +325,32 @@ class GitHub:
         if st != 200 or not isinstance(body, dict):
             return "unknown"
         return "yes" if body.get("status") in ("ahead", "identical") else "no"
+
+    def listing(self, repo: str, directory: str, ref: str) -> tuple[dict | None, str | None]:
+        """{name: (type, sha)} for a directory at `ref`; (None, None) = absent; (None, wall)."""
+        d = directory.rstrip("/") or "."
+        path = "" if d == "." else urllib.parse.quote(d, safe="/")
+        st, body = self.get(f"/repos/{OWNER}/{repo}/contents/{path}?ref={urllib.parse.quote(ref, safe='')}")
+        if st == 404:
+            return None, None
+        if st != 200 or not isinstance(body, list):
+            return None, f"listing HTTP {st}: {str(body)[:120]}"
+        return {e["name"]: (e["type"], e["sha"]) for e in body}, None
+
+    def glob_digest(self, repo: str, pattern: str, ref: str) -> tuple[str | None, str | None]:
+        """A stable digest of the files a single-level glob matches at `ref`, or
+        (None, None) when nothing matches / the directory is absent, or (None, wall)."""
+        import fnmatch
+        directory, _, pat = pattern.rpartition("/")
+        entries, wall = self.listing(repo, directory, ref)
+        if wall:
+            return None, wall
+        if entries is None:
+            return None, None
+        hit = sorted((n, t, sha_) for n, (t, sha_) in entries.items() if fnmatch.fnmatchcase(n, pat))
+        if not hit:
+            return None, None
+        return "glob:" + "|".join(f"{n}:{t}:{sha_}" for n, t, sha_ in hit), None
 
     def object_sha(self, repo: str, path: str, ref: str) -> tuple[str | None, str | None]:
         """The git object SHA of `path` at `ref`: a blob for a file, a stable digest
@@ -400,21 +457,20 @@ def main() -> int:
         if tip["archived"]:
             notes.append("repository is archived")
 
-        resolved = []
+        resolved: dict[str, dict | None] = {}
         for s in shas:
             c, e = gh.resolve(repo, s)
-            if c:
-                resolved.append(c)
-            else:
+            resolved[s] = c
+            if c is None:
                 notes.append(f"{s} not a commit in {repo} ({e})")
-        if not resolved:
+        # The LATER of several verification points is the one that binds — and only
+        # if every candidate resolved; see bind_verification().
+        ver, bind_note = bind_verification(shas, resolved)
+        if ver is None:
             finish("UNCHECKABLE:sha-unresolved-in-source-repo")
             continue
-        # The LATER of several verification points is the one that binds: a row
-        # reading "caa6cd2; re-read at 7ccc88a" was last confirmed at 7ccc88a.
-        ver = max(resolved, key=lambda c: c["date"])
-        if len(resolved) > 1:
-            notes.append("several SHAs; the latest-dated is the verification point")
+        if bind_note:
+            notes.append(bind_note)
         row["verification_sha"], row["verification_sha_date"] = ver["sha"], ver["date"]
         row["sha_on_default_branch"] = gh.on_branch(repo, ver["sha"], tip["sha"])
 
@@ -429,8 +485,17 @@ def main() -> int:
                     statuses.append("UNVERIFIED_CROSS_REPO")
                     detail.append(f"{hint}:{p}=UNVERIFIED_CROSS_REPO")
                     continue
-            b, wb = gh.object_sha(repo, p, ver["sha"])
-            t, wt = gh.object_sha(repo, p, tip["sha"])
+            if is_glob(p):
+                directory, _, pat = p.rpartition("/")
+                if "**" in p or is_glob(directory):
+                    statuses.append("UNRESOLVED_GLOB")
+                    detail.append(f"{p}=UNRESOLVED_GLOB")
+                    continue
+                b, wb = gh.glob_digest(repo, p, ver["sha"])
+                t, wt = gh.glob_digest(repo, p, tip["sha"])
+            else:
+                b, wb = gh.object_sha(repo, p, ver["sha"])
+                t, wt = gh.object_sha(repo, p, tip["sha"])
             if wb or wt:
                 wall = wb or wt
                 break
