@@ -2,8 +2,14 @@
 
 > **Status:** `living-ledger`
 
-> **Seven files here are LIVE, not part of the historical ledger below** —
-> the seventh, added 2026-09-03 after the review-site pass landed
+> **Eight files here are LIVE, not part of the historical ledger below** —
+> the eighth, added 2026-09-04 at the close of the Couch Legend long-form
+> redesign (couch-legend #19):
+> [`2026-09-04-couch-legend-phase-b-continuation.md`](2026-09-04-couch-legend-phase-b-continuation.md),
+> the continuation prompt for the session that reviews what phase A landed and
+> takes the redesign forward — phase B is the owner's feel pass and gates C
+> and D, so the prompt branches on whether his verdict has arrived. The
+> seventh, added 2026-09-03 after the review-site pass landed
 > (websites #524): [`2026-09-03-review-site-walkthrough-chatgpt-work.md`](2026-09-03-review-site-walkthrough-chatgpt-work.md),
 > the continuation prompt for a ChatGPT Work session on the owner's laptop
 > that walks the live site through his Chrome extension and reports whether
