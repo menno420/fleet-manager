@@ -123,6 +123,25 @@ MODELS      : readers/mappers/census/inventory → sonnet
               · challengers A–F → opus · final critic (last look) → opus
               · fable: none — the owner has not asked for Fable on this run, and
                 D-0040 as amended 2026-09-02 makes Fable his call, never the session's.
+INSTRUMENT DEFECT FOUND BY THE FLEET, 2026-09-04T14:40Z — recorded here rather than
+              quietly fixed, because the sheet is frozen at launch and this is what the
+              freeze is for:
+              The M6 lane brief (superbot persistence) told the agent
+              "there are integration tests named *_race.py — what do they prove?".
+              **There are none.** `find /home/user/superbot -name '*race*.py'` returns 2
+              files, both about a BTD6 "races" parser, and `tests/integration/` does not
+              exist in superbot at all. The 14 `*_race.py` files and the integration
+              directory are **superbot-next's** — this session grepped them there earlier
+              and carried the filenames into the wrong repo's prompt.
+              The lane caught it and said so in its headline (*"there are no *_race.py or
+              integration tests anywhere in superbot, contradicting the lane brief"*),
+              which is the CONTRADICT-LOUDLY instruction added after the pilot paying for
+              itself on its first real use.
+              Two consequences, both kept: the lane's answer is better than the question
+              it was asked, and the error inverts a comparison in `superbot-next`'s favour
+              — it has DB-backed integration race tests and `superbot` has none, which no
+              prior review credited.
+
 UNCONTRACTED: (1) Neither bot is BOOTED in this session. Every reachability, effect and
               dynamic-state claim is read from source, the compiled manifest snapshot, or
               the 2026-08-05 live audit — never from a running process. The live audit's
