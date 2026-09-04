@@ -1,5 +1,9 @@
 # Session spot-checks — claims the running session verified itself
 
+> **Status:** `audit` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> claims the running session verified by hand, so the fleet's readings have something independent to be checked against.
+
 > Not fleet output. These are checks the running session ran directly against
 > the live API at each repository's pinned SHA, so that the fleet's readings
 > have something independent to be cross-checked against. `MEASURED` 2026-09-04.

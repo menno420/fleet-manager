@@ -2,6 +2,10 @@ I have everything. Writing the rows.
 
 # Provenance rows — the nine archived repositories
 
+> **Status:** `audit` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> the nine archived repositories, confirmed archived live, with the one fact a future session would need for each.
+
 **Live verification, all nine, `MEASURED` 2026-09-04** via `GET /repos/menno420/<repo>` and `GET /repos/menno420/<repo>/commits/<default_branch>` over the direct-PAT path (`curl --noproxy '*'`), HTTP 200 on all 18 calls. JSON at `/tmp/claude-0/-home-user-fleet-manager/ba0cfcbc-1bca-5743-a303-812375e61427/scratchpad/eb/archived/<repo>.json` and `<repo>.tip.json`.
 
 **9 of 9 confirm `archived: true`.** The list is not stale. All nine are `private: false`, `default_branch: main`, `has_pages: false`, `open_issues_count: 0`, `forks_count: 0`. Every default-branch tip is the pre-archive notice commit from the R5 run — nothing has moved in 12 days, consistent with read-only.

@@ -52,8 +52,15 @@ def main() -> int:
         if got != expected:
             failures.append(f"unit: classify({ahead},{archived}) -> {got}, expected {expected} ({why})")
 
+    # Partition ALL branches, not a subset: an earlier version counted kills and
+    # survivals and left the two ARCHIVED_OR_NONACTIVE cases in neither, so the
+    # printed tally read "7 cases, 4 kill / 1 survival" and did not add up.
     killed = sum(1 for a, ar, e, _ in UNIT if e in {"CHANGED_REAUDIT", "INACCESSIBLE"})
     survived = sum(1 for a, ar, e, _ in UNIT if e == "UNCHANGED_REUSABLE")
+    diverted = sum(1 for a, ar, e, _ in UNIT if e == "ARCHIVED_OR_NONACTIVE")
+    if killed + survived + diverted != len(UNIT):
+        failures.append(f"unit: tally does not partition the cases "
+                        f"({killed}+{survived}+{diverted} != {len(UNIT)})")
     if not killed or not survived:
         failures.append("unit: fixtures must contain at least one kill AND one survival")
 
@@ -86,7 +93,8 @@ def main() -> int:
         else:
             hits += 1
 
-    print(f"unit fixtures  : {len(UNIT)} cases, {killed} kill / {survived} survival")
+    print(f"unit fixtures  : {len(UNIT)} cases, {killed} kill / {survived} survival / "
+          f"{diverted} archived-diverted")
     print(f"real-slice     : {hits}/{len(POSITIVE) + len(NEGATIVE)} controls correct "
           f"({len(POSITIVE)} positive, {len(NEGATIVE)} negative) over {len(rows)} rows in {path}")
     for f in failures:

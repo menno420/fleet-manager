@@ -1,5 +1,9 @@
 # fleet-preflight contract sheet — the estate truth baseline run (2026-09-04)
 
+> **Status:** `reference` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> the run's fleet-preflight contract sheet, filled before the first audit agent spawned and quoted verbatim in the finding.
+
 Filled before the first audit agent spawned, per
 [`.claude/skills/fleet-preflight/SKILL.md`](../../../../.claude/skills/fleet-preflight/SKILL.md).
 Quoted verbatim in the finding.
@@ -38,8 +42,8 @@ PILOT       : delta lane × all 28 rows first (it is cheap and total) · 28 rows
               Repository lane × 2 agents (spider-swing, creator-kit — one contradicting front
               door, one no-baseline) read whole before committing the remaining 14.
 CORPUS      : TWO corpora, censused separately.
-              (A) the estate = 28 repositories — 19 non-archived / 9 archived, 4 private
-                  (estate-backups, pokemon-mod-lab, shiftlife + none other) — from
+              (A) the estate = 28 repositories — 19 non-archived / 9 archived, 3 private
+                  (estate-backups, pokemon-mod-lab, shiftlife) — from
                   GET /user/repos?affiliation=owner at 2026-09-04T11:34Z, reconciled against
                   docs/ESTATE.md: 28 rows, 0 live-not-in-index, 0 index-not-live.
               (B) fleet-manager's own candidate live truth = 1,284 tracked files, of which

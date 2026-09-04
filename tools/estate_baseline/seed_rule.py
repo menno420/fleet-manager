@@ -29,7 +29,8 @@ DIES_IF_SRC = (
     "or (contradicted_by and contradiction_resolution == 'unresolved') "
     "or (stale_on_copy and disposition == 'carry') "
     "or (canonical_owner not in ('hub', 'owner') and disposition == 'carry') "
-    "or (only_source_is_hub_summary and certainty != 'OWNER')"
+    "or (only_source_is_hub_summary and certainty != 'OWNER') "
+    "or (certainty_overclaimed and certainty in ('MEASURED', 'OWNER'))"
 )
 
 # Collected to be PUBLISHED, never to decide.  Anything not here and not read
@@ -42,7 +43,7 @@ REPORT_ONLY = {
 SCHEMA_FIELDS = sorted(REPORT_ONLY | {
     "source_path", "verification_point", "certainty", "canonical_owner",
     "disposition", "contradicted_by", "contradiction_resolution", "refuted",
-    "stale_on_copy", "only_source_is_hub_summary",
+    "stale_on_copy", "only_source_is_hub_summary", "certainty_overclaimed",
 })
 
 
@@ -70,6 +71,8 @@ def why(item: dict) -> list[str]:
         f.append(f"product truth ({item['canonical_owner']}) carried whole into the hub")
     if item["only_source_is_hub_summary"] and item["certainty"] != "OWNER":
         f.append("only source is a hub document restating something with no primary")
+    if item.get("certainty_overclaimed") and item["certainty"] in ("MEASURED", "OWNER"):
+        f.append(f"an adversary showed the {item['certainty']} tag is not earned")
     return f
 
 
@@ -93,6 +96,7 @@ BASE = {
     "verifier": "delta.py", "contradicted_by": [],
     "contradiction_resolution": "none", "refuted": False,
     "stale_on_copy": False, "only_source_is_hub_summary": False,
+    "certainty_overclaimed": False,
 }
 
 # Expected outcome written down BEFORE the run, per fleet-preflight § 1b.
@@ -115,6 +119,10 @@ FIXTURES = [
      {"canonical_owner": "superbot"}, True),
     ("kills: a hub summary with no primary and no owner authority",
      {"only_source_is_hub_summary": True}, True),
+    ("kills: an adversary showed the MEASURED tag is not earned",
+     {"certainty_overclaimed": True}, True),
+    ("survives: an overclaim flag on a row that is only REASONED anyway",
+     {"certainty_overclaimed": True, "certainty": "REASONED"}, False),
 ]
 
 

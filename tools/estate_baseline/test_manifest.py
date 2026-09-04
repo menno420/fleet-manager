@@ -34,6 +34,17 @@ EXPECTED = {
     "Killed by the judge": "no",         # kill: a disposition judge applied the rule
 }
 
+# The scoping case: `other-repo` emits an item whose subject is IDENTICAL to the
+# drop written about `demo`. Correctly scoped it survives; pooled globally it
+# dies. It is keyed by (subject, source_path) because the subject collides.
+SCOPED_SURVIVOR = ("Dropped by the adversary", "docs/x.md", "other-repo")
+
+# A refuter judges ONE repository's reading, so its drops must apply to that
+# reading and to nothing else. Pooling every refuter's drops into one namespace
+# let a drop written about one repository kill a row from another — caught on
+# live data by the count going ABOVE the number of drops that exist (49 applied
+# against 44 written). The fixture's reader and refuter therefore share a repo.
+
 # A judge that already applied the rule NAMED the branch that fired. The
 # manifest must publish that branch, not one this script re-derives from the
 # blank fields it synthesised for the row — the first version of the builder
@@ -56,18 +67,27 @@ def main() -> int:
             print(proc.stdout, proc.stderr)
             print("FAIL: builder exited", proc.returncode)
             return 1
-        rows = {r["subject"]: r for r in csv.DictReader(out.open(encoding="utf-8"))}
+        rows = list(csv.DictReader(out.open(encoding="utf-8")))
 
     bad = []
     for subject, want in EXPECTED.items():
-        got = rows.get(subject, {}).get("survives")
+        cands = [r for r in rows if r["subject"] == subject and r["source_repo"] != "other-repo"]
+        got = cands[0]["survives"] if cands else None
         if got != want:
             bad.append(f"{subject!r}: survives={got}, expected {want}")
-    if len(rows) != len(EXPECTED):
-        bad.append(f"expected {len(EXPECTED)} rows, got {len(rows)}")
-    if rows.get("Dropped by the adversary", {}).get("killed_by", "") == "":
+    subj, path, repo = SCOPED_SURVIVOR
+    scoped = [r for r in rows if r["subject"] == subj and r["source_repo"] == repo]
+    if not scoped:
+        bad.append(f"scoping case missing from output: {subj!r} @ {repo}")
+    elif scoped[0]["survives"] != "yes":
+        bad.append(f"a drop written about another repository killed {repo}'s row "
+                   f"(killed_by={scoped[0]['killed_by']!r}) — drops are not scoped")
+    dropped = [r for r in rows if r["subject"] == "Dropped by the adversary"
+               and r["source_repo"] != "other-repo"]
+    if dropped and dropped[0].get("killed_by", "") == "":
         bad.append("a killed row must publish the branch that fired, not just a flag")
-    judged = rows.get("Killed by the judge", {}).get("killed_by", "")
+    jrows = [r for r in rows if r["subject"] == "Killed by the judge"]
+    judged = jrows[0].get("killed_by", "") if jrows else ""
     if judged != JUDGE_BRANCH:
         bad.append(f"a judge-killed row must publish the JUDGE's branch, got {judged!r} "
                    f"expected {JUDGE_BRANCH!r}")

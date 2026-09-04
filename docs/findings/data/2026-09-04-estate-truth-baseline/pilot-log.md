@@ -1,5 +1,9 @@
 # Pilot log — what reading the pilot whole actually changed
 
+> **Status:** `audit` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> what reading the pilot's transcripts whole actually changed, including one attribution this log itself got wrong and corrected.
+
 > fleet-preflight § 3 requires the pilot's transcripts to be read **completely**
 > and what it changed written down, *including "nothing"*. Three things changed.
 > All three would have been invisible in a summary.

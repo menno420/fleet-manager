@@ -1,3 +1,17 @@
+# The unchanged five — is prior evidence REUSABLE, or did the tree merely not move?
+
+> **Status:** `audit` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> whether prior evidence about the five unmoved repositories is REUSABLE — a
+> different question from whether the tree moved, and the one that overturned
+> the mechanical classification for four of them.
+>
+> Raw lane output, kept verbatim below the fence. The scratchpad paths it names
+> were the agent's own working directory and are gone with the container; the
+> evidence that survives is the quoted verbatim spans and the live tip SHAs.
+
+---
+
 All five tips re-verified; artifacts under `/tmp/claude-0/-home-user-fleet-manager/ba0cfcbc-1bca-5743-a303-812375e61427/scratchpad/eb/reuse/` (`tip-verify.tsv`, `<repo>.branch.json`, `<repo>.repo.json`).
 
 ---

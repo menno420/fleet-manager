@@ -123,11 +123,19 @@ census, not by quoting a generated page:
 `estate` tree gives **every** repository a folder under `repositories/`, with a
 generated index whose rows carry the state word. Seeded from today's coverage
 that produces **eighteen rooms with a door and nothing behind it** — precisely
-the *"dead rooms"* the door test already penalises. The manifest therefore
-treats a `repositories/<repo>/README.md` for the eighteen as a seed-time
-**deliverable** rather than a carry, and § 5's re-audit is what supplies the
-content for the eight non-archived ones. The nine archived get a README only,
-which is what the structure proposal already specifies.
+the *"dead rooms"* the door test already penalises.
+
+**Where that obligation lives, stated exactly, because an earlier draft of this
+paragraph said something the artifact contradicts.** It is **not** a manifest
+row. An enumerator proposed one (*"the 18 of 28 repositories with no Layer-2
+folder need a `repositories/<repo>/README.md` authored fresh at seed time"*) and
+**the survival rule killed it** — `survives=no`, on `not source_path`, because a
+thing that must be *written* has no source to cite. That is the rule behaving
+correctly: a manifest row is a claim about existing truth, and future work is
+not that. The obligation is therefore carried in **§ 11's handoff**, where work
+belongs, and the arithmetic there is stated per repository rather than as one
+number. Found by the independent completeness critic, which read the row and the
+paragraph and reported that they disagreed.
 
 **The 1-of-74 figure is the sharpest number in this section and it is not a
 criticism of the workbooks.** They are questions written *for* the owner and he
@@ -299,6 +307,14 @@ and [`refutations.json`](data/2026-09-04-estate-truth-baseline/refutations.json)
 **Only two walls in thirteen repositories**, both recorded with exact error text.
 Private repositories read as cleanly as public ones on the direct-PAT path.
 
+**Two of these readings were cross-checked by hand rather than trusted** —
+[`spot-checks.md`](data/2026-09-04-estate-truth-baseline/spot-checks.md) carries
+the session's own live-API verification of `superbot`'s missing root README and
+`product-forge`'s four seat-era ORDERs still reading `status: new`. Both prior
+claims held exactly; the first needed its wording corrected (the repository has a
+front door, it is simply not at root), which is the kind of imprecision a seed row
+would have propagated.
+
 ### The three findings that matter for the seed
 
 1. **Three front doors are inadequate and two of them are actively wrong.**
@@ -458,37 +474,69 @@ survive · blocker · verifier · the four dissent fields · fact · origin lane
 
 | | N |
 |---|--:|
-| rows | 109 |
-| **live in `estate`** | **48** — 15 `carry`, 33 `distill` |
-| `archive_only` (stays in fleet-manager, reachable by link) | 52 |
-| killed by the survival rule, published with the branch that fired | 9 |
+| rows | 183 |
+| **live in `estate`** | **68** — 18 `carry`, 50 `distill` |
+| `archive_only` (stays in fleet-manager, reachable by link) | 55 |
+| killed by the survival rule, published with the branch that fired | 60 |
 
-**48 live items against ~1,300 tracked files** is the thin seed the plan asks
+**68 live items against ~1,300 tracked files** is the thin seed the plan asks
 for, and the ratio is the point rather than the count: the fresh start exists
 because *"a growing archive nobody reads"* is a named non-goal, and a manifest
 that seeded three hundred items would have reproduced it.
 
-Destination roles of the 48: `practices/` 14 · `owner/` 9 · `tools/` 9 ·
-`plans/` 4 · `decisions/` 3 · `root` 3 · `repositories/` 2 · `state/` 2 ·
-`evidence/` 1 · `ideas/` 1.
+Destination roles of the 68: `practices/` 14 · `repositories/` 14 · `owner/` 11 ·
+`tools/` 9 · `plans/` 6 · `state/` 6 · `decisions/` 3 · `root` 3 · `evidence/` 1 ·
+`ideas/` 1.
 
-### What the rule killed, and the honest limit on that number
+> **Every number in this section was wrong until the external round, and the
+> paragraph below it said the opposite of what the artifact showed.** The
+> section was written when the manifest held 109 rows — the fleet-manager half
+> alone — and was never regenerated after the repository lane folded in. All
+> three independent critics opened the CSV, counted, and reported it as a P1;
+> two of them reproduced the manifest with its own generator first to prove the
+> artifact was not the stale half. **This is the run's own TRAP-001 — a dated
+> reading presented as current — committed inside a document that names
+> TRAP-001 twice.** Corrected here from `csv.DictReader` over the committed
+> file, and the same numbers are what the generator prints.
 
-Nine rows died across **seven distinct branches** — `only_source_is_hub_summary
-and certainty != 'OWNER'` (×2) · `refuted` (×2) · unresolved contradiction (×2,
-two phrasings) · `not source_path` · `stale_on_copy and disposition == 'carry'`
-· `not verification_point`. A spread that wide is evidence the rule
-**discriminates** rather than rejecting everything or nothing.
+### What the rule killed, and what the external round changed about that claim
 
-**But it is not yet evidence that the rule adds anything to the judges.**
-Splitting the kills by origin: **all nine were already killed by a disposition
-judge, and the rule independently overturned zero rows a judge had kept.** So on
-this half of the corpus the aggregation rule has only echoed the judges. Its own
-discrimination is demonstrated by the 12 hand-written fixtures (8 kill / 4
-survival) and the two proved-firing aggregation fixtures — not by live data.
-The repository lane is the real test, because there readers emit seed items with
-no judge between them and the manifest; § 5 reports that split rather than the
-total.
+Sixty rows died across **30 distinct branch strings**. The split by origin:
+**51 kills the rule made itself · 9 echoed from a disposition judge.**
+
+**The earlier draft of this paragraph said the reverse** — *"all nine were
+already killed by a judge, and the rule independently overturned zero"* — which
+was true of the 109-row half and false of the artifact it was printed beside.
+The builder prints the split on every run (`kill origin : …`); the sentence was
+carried forward from the earlier state instead of read off the output. The
+provenance critic called this *"the run's central methodological self-criticism,
+inverted against its own artifact"*, and it was right.
+
+**Two aggregation defects the external round found, both now fixed, both
+measured before and after:**
+
+- **The drop join lost 19 of 44 adversary verdicts.** `build_manifest.py` joined
+  a refuter's `seed_items_to_drop[].subject` to a reader's item by exact
+  case-folded equality; adversaries write qualified subjects (*"identity and
+  live status — the 'live in production on Railway' clause"*) where the reader
+  wrote the bare noun. **This is the 2026-08-29 defect reproduced by the run
+  built to avoid it** — a dissent collected and then lost, one layer further
+  down than where that run lost it. Replaced with a content-word overlap join;
+  **34 of 44 now apply**, and the residual 10 are disclosed in § 12 rather than
+  smoothed.
+- **73 certainty overclaims were collected and read by nothing.** The refute
+  schema gathered them; `SCHEMA_FIELDS` had no such field and the rule no such
+  branch. Now a field the rule reads — `certainty_overclaimed and certainty in
+  ('MEASURED','OWNER')` — with the field audit still clean (0 unread, 0
+  undefined) and the fixtures at 14 cases, 9 kill / 5 survival. **8 of 73
+  applied**, because an overclaim names a claim rather than a seed subject and
+  only some resolve to one; the other 65 are disclosed, not discarded.
+
+**A third defect the fixtures caught while fixing the first.** Scoping the drops
+per refuter is required — a drop written about `spider-swing` was reaching a
+`superbot` row — and the giveaway was arithmetic: **49 applied against 44 that
+exist**. The fixture now has a cross-repository case that fires when the scoping
+is removed, verified by removing it.
 
 ### Coverage
 
@@ -504,26 +552,29 @@ The seed's shape depends on kit behaviour, and a concurrent session is changing
 that behaviour right now. This run **records the dependency and measures the
 current state**; it solves nothing here and proposes no kit change.
 
-`MEASURED` 2026-09-04T12:0xZ, live API, direct egress:
+`MEASURED` 2026-09-04, live API, direct egress, **re-read at publication**:
 
 | What | State | Command |
 |---|---|---|
-| Latest **published** kit release | **v1.21.0**, published 2026-08-13T12:23:57Z; assets `bootstrap.py`, `bootstrap.py.sha256`, `release.json` | `GET /repos/menno420/substrate-kit/releases/latest` |
-| Kit `main` | `ff06fb902c69`, 2026-09-01T18:25:00Z — **ahead of the published release** | `GET …/branches/main` |
-| **K1–K5** (adoption profiles) | **`menno420/substrate-kit#590`, OPEN** — head `19d70eeff43e`, 31 files, 7 commits, +4,761, last updated 2026-09-04T12:03:17Z | `GET …/pulls/590` |
-| What fleet-manager vendors | `kit_version 1.21.0` (`substrate.config.json`), and `bootstrap.py` self-reports `1.21.0` | read at HEAD |
+| Latest **published** kit release | **v1.21.0**, 2026-08-13T12:23:57Z — unchanged | `GET …/releases/latest` |
+| Kit `main` | **`6a82288e9e81`, 2026-09-04T12:30:02Z** | `GET …/branches/main` |
+| **K1–K5** (adoption profiles) | **`menno420/substrate-kit#590` MERGED 2026-09-04T12:15:39Z**, merge commit `8a83c733eded` | `GET …/pulls/590` |
+| What fleet-manager vendors | `kit_version 1.21.0`; `bootstrap.py` self-reports `1.21.0` | read at HEAD |
 
-**The dependency stated exactly, so the seed session does not have to infer it.**
-`decision 35 in `docs/decisions.md`` puts *"K1–K5 in substrate-kit, one release"* **before** the seed. As of
-this measurement K1–K5 are **not released, not on kit `main`, and exist only in
-an open pull request**. So a seed item that requires the `hub` adoption profile
-is blocked on three events in order — #590 merges · a release is cut (the cut is
-owner-paced, and the record says fixes already on `main` are waiting for the next
-batch) · the new hub adopts that release. **None of the manifest's seeded items
-depends on any of them**, which is the property this run was asked to preserve:
-the baseline is consumable by a seed session whether or not K1–K5 have landed,
-and what changes with them is the *tree the kit plants*, not the *truth the
-manifest carries*.
+> **This section said `OPEN` until the external round.** It was measured at
+> 12:0xZ, the PR merged at **12:15:39Z**, and the finding kept being edited for
+> four more hours without the row being re-read. **The BASE contract required
+> exactly this re-read before publishing and it was not run against the kit** —
+> so the run failed its own § 6 contract on the one repository it had declared
+> out of scope but depended on. All three critics caught it independently.
+
+**What the merge does and does not change.** K1–K5 are now on kit `main` but
+**not in a published release** — v1.21.0 still is, from 2026-08-13 — and
+fleet-manager still vendors 1.21.0. So the ordering the build order requires
+(*"K1–K5 in substrate-kit, one release"* before the seed) is **one step further
+along and still not satisfied**: what remains is the cut, which is owner-paced,
+and then the new hub adopting it. The property this run was asked to preserve
+holds unchanged: **no seeded item depends on any of it.**
 
 **What this run deliberately did not do:** read #590's diff to judge it, form a
 view on the adoption-profile design, or record any K1–K5 behaviour as a fact.
@@ -533,13 +584,107 @@ above at launch — they are the first entry in the handoff's re-check list (§ 
 
 ## 10 · Testing the baseline against cold-session use
 
-*(completed from the blind-scored test)*
+Three cold agents answered [the ten pre-registered questions](data/2026-09-04-estate-truth-baseline/cold-session-rubric.md)
+from the baseline artifacts **alone**; an independent Opus scorer, which had not
+seen this synthesis, applied the rubric committed **before any answer existed**.
+
+**Result: PASS — mean 2.0, all ten questions at 2, zero at 0, zero
+`right_for_wrong_reason`, and every cited artifact verified by the scorer as
+actually supporting its answer.** No question was reported unanswerable.
+
+**And the result is heavily qualified, by the scorer, in two ways the rubric
+asked for and one it did not anticipate.**
+
+1. **The agents were not cold.** All three ran with
+   `/home/user/fleet-manager/.claude/CLAUDE.md` auto-loaded, and **all three
+   self-disclosed it unprompted and specifically** in the `leaks` field. Its
+   load-bearing overlap is Q4 (the successor's name and build order), which the
+   boot file states independently. The scorer checked whether the permitted
+   artifacts carry Q4 on their own and found they do — § 1 and a manifest row —
+   *"so the baseline does route Q4; these three agents are simply not clean
+   evidence that it does."* That distinction is the honest reading of the whole
+   PASS.
+2. **The rubric leaked into the corpus.** `unchanged-reuse.md` quotes Q1, Q2, Q3
+   and Q7 **with their pass criteria**, and it was in the permitted artifact set,
+   so the agents could read the marking scheme for four of ten questions. The
+   scorer found this; the rubric's own "what this does not establish" did not
+   anticipate it. **Neither did I** — the lane was told the rubric's questions
+   were the bar it should judge prior evidence against, which is why they are
+   quoted there, and nobody noticed that made the file an answer key.
+3. **A mean of 2.0 across ten questions is itself a signal to distrust.** A
+   perfect score on a test whose corpus contains part of its own marking scheme
+   and whose agents had the boot file loaded is weak evidence of routing and
+   strong evidence that the test was too easy. It is reported as PASS because
+   that is what the pre-registered bar says; it is **not** treated as
+   establishing the retrieval half of the acceptance test, and § 11 does not
+   rest on it.
+
+**What the scorer said the baseline should have carried**, all now either fixed
+or recorded: §8's regenerated counts (fixed) · a `supersedes` field per
+repository (recorded) · a reconciliation of §5's `hub agrees` column with the
+manifest's resolution fields (recorded) · a **state-word column in the
+manifest**, because today every state word lives only in §5's prose table, which
+forces a machine-readable question back into narrative (recorded) · the rubric
+kept out of the artifact set (recorded).
 
 ## 11 · Verdict, and the exact handoff
 
 ### The verdict
 
-*(completed from the fleet's returned evidence and the blind score)*
+# `PARTIAL`
+
+Not `READY_FOR_THIN_SEED`, and the external round is why. Three independent
+critics attacked the synthesis on separate lenses and returned
+**PARTIAL · BLOCKED · BLOCKED** with 35 findings between them, of which **eleven
+were P1 and every P1 was correct.** A verdict of READY written over that would
+be exactly the failure the owner's own EAP account names as what killed the last
+rebuild — *"work that was claimed to be complete was in fact not complete at
+all."*
+
+**What the PARTIAL rests on — the parts that survived attack:**
+
+- **The census.** The completeness critic re-ran `GET /user/repos` itself and
+  reproduced 28 / 9 archived / 3 private and the `ESTATE.md` reconciliation.
+- **The delta instrument.** Reproduced from its own commands; 11 of 11 live
+  controls correct.
+- **The manifest's reproducibility.** Two critics regenerated the CSV
+  byte-identical from the committed journals.
+- **The raw evidence.** *"The run's raw evidence is unusually good"* — the
+  provenance critic, which opened 12 rows' `source_path` at their stated
+  verification points, 7 locally and 5 cross-repo.
+- **The reuse finding**, which is the run's most consequential correction to
+  itself and drew no P1.
+
+**What keeps it from READY — the defects that were real, in the order they
+matter:**
+
+1. **§ 8 described a manifest that was not the committed one**, and inverted the
+   run's own central self-criticism. Both fixed; both were the run committing
+   TRAP-001 inside a document that cites TRAP-001.
+2. **The aggregation lost 19 of 44 adversary drops and read 0 of 73 certainty
+   overclaims** — the 2026-08-29 defect, reproduced one layer down by the run
+   built to prevent it. Fixed and re-measured (34 of 44; 8 of 73), with the
+   residual disclosed rather than closed.
+3. **§ 9 said the kit PR was open four hours after it merged**, which is the
+   BASE contract's own re-read not being run. Fixed.
+4. **Provenance is string-non-emptiness, not path-shape.** Rows survive with
+   `source_path` values like `(live PR list)`. The rule tests that the field is
+   filled, not that it points anywhere. **Not fixed** — it needs a validator and
+   a re-run of the readings, which is more than a correction.
+5. **The manifest is not estate-wide.** Fourteen of 28 repositories contribute
+   zero rows: the nine archived (by design) and the five unmoved (because their
+   evidence is not reusable, which the run proved). Honest, and it means the
+   artifact is a migration manifest **for fleet-manager plus thirteen
+   repositories**, not for the estate.
+6. **Several `carry` rows would fail `estate`'s own preflight on day one** —
+   `docs/decisions.md` is 1,222 lines against a 200-line cap, and one row's
+   blocker concedes the split *"must actually be done"*.
+
+**A `PARTIAL` here is worth more than a manufactured `READY`.** The seed session
+can work from this: the census is settled, the delta is reproducible, 68 live
+items are provenanced, and the six items above are named with what each needs.
+What it must not do is treat the manifest as final — it is a reviewed proposal
+with known holes, which is what the acceptance test asked for.
 
 ### What a future `estate` creation session can now safely do
 
@@ -617,7 +762,8 @@ findings.
 7. **This run did not test the `estate` tree**, which does not exist. It tests
    whether the *baseline* can seed one. The door-test walks in the structure
    proposal remain unrun against anything real.
-8. **The re-audit is a slice, by design.** Fourteen repositories were re-read;
+8. **The re-audit is a slice, by design.** Thirteen repositories were re-read by
+   the repository lane (fleet-manager was read by the five area lanes instead);
    nine archived ones were confirmed archived and given provenance rows rather
    than audited; five were argued for reuse. Anything the unread nine hold beyond
    their provenance line is unmeasured, and § 5 names the one question that was
@@ -626,7 +772,30 @@ findings.
    verb and a verifier. Whether the owner accepts the verb is his; the run's
    claim is that each row is provenanced enough to be argued with, not that the
    argument is settled.
-10. **The three hub defects fixed inline are the ones that blocked this
+10. **Provenance is tested for non-emptiness, not for shape.** `source_path`
+    and `verification_point` are checked as filled strings, so a narration like
+    `(live PR list)` passes as provenance. Three surviving `MEASURED` rows carry
+    one. Fixing it needs a path/instant validator and a re-run of the readings.
+11. **10 of 44 adversary drops and 65 of 73 certainty overclaims still reach no
+    row.** The join is content-word overlap; an overclaim names a claim rather
+    than a seed subject, and only some resolve to one. Better than the 19 and 73
+    that were lost before the external round, and not zero.
+12. **The manifest covers 13 of 28 repositories plus fleet-manager.** The nine
+    archived contribute provenance prose and no rows, by design; the five unmoved
+    contribute none because their prior evidence is not reusable. Anyone reading
+    the CSV as *the estate's* migration manifest will be wrong.
+13. **`only_source_is_hub_summary` is set on 7 of 183 rows and 0 of 123
+    survivors**, while ~30 survivors are sourced from a hub index or README. The
+    flag is agent-set and under-used, so that branch of the rule is close to
+    inert on live data — it fires in fixtures, not here.
+14. **Several `carry` rows exceed the successor's own file-length cap**
+    (`docs/decisions.md` 1,222 lines against 200). `carry` was judged on whether
+    the truth belongs live, never on whether the file can land as-is.
+15. **The counts of what was re-audited disagreed between § 5 and § 12** — 13
+    versus 14 — on whether `fleet-manager` counts as re-read. It is 13
+    repositories by the repository lane plus fleet-manager by the five area
+    lanes; the population is now named wherever a number appears.
+16. **The three hub defects fixed inline are the ones that blocked this
     baseline** — they are not a full audit of fleet-manager's live truth, and the
     area lanes' `surprises` in § 7 are a sample of a class rather than its
     enumeration.

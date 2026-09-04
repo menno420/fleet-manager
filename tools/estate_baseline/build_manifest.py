@@ -29,6 +29,7 @@ import collections
 import csv
 import json
 import pathlib
+import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -41,6 +42,30 @@ COLUMNS = [
     "contradiction_resolution", "refuted", "stale_on_copy",
     "only_source_is_hub_summary", "fact", "origin_lane", "survives", "killed_by",
 ]
+
+
+CENSUS: set[str] = set()
+
+
+def canon_repo(value: str, lane: str) -> str:
+    """A repository name, or an honest marker — never a path fragment.
+
+    `owner/repo` is trimmed to `repo`, but only when the result is a repository
+    the census actually holds. An agent that wrote a file path into this column
+    previously yielded `source_repo == "README.md"`; fall back to the lane, which
+    always names the repository or area the row came from.
+    """
+    v = (value or "").strip()
+    if v in CENSUS:
+        return v
+    tail = v.split("/")[-1].strip()
+    if tail in CENSUS:
+        return tail
+    if lane.startswith("repo:"):
+        return lane.split(":", 1)[1].split("/")[-1]
+    if lane.startswith("area:"):
+        return "fleet-manager"
+    return v or "(unstated)"
 
 
 def normalise(item: dict, lane: str) -> dict | None:
@@ -63,7 +88,7 @@ def normalise(item: dict, lane: str) -> dict | None:
             v = "" if v is None else str(v)
         out[f] = v
     out["estate_role"] = canon_role(out["estate_role"])
-    out["source_repo"] = out["source_repo"].split("/")[-1]
+    out["source_repo"] = canon_repo(out["source_repo"], lane)
     out["judge_branch"] = str(item.get("judge_branch", ""))
     out.setdefault("contradiction_resolution", "none")
     if not out["contradiction_resolution"]:
@@ -91,6 +116,44 @@ def canon_role(value: str) -> str:
     return value.strip() or "(unassigned)"
 
 
+def _key(text: str) -> frozenset:
+    """Content words of a subject, for joining a verdict to the item it judges."""
+    words = re.findall(r"[a-z0-9]+", (text or "").lower())
+    return frozenset(w for w in words if len(w) > 2 and w not in _STOP)
+
+
+_STOP = {"the", "and", "for", "its", "his", "her", "not", "but", "with", "from",
+         "that", "this", "are", "was", "has", "have", "into", "onto", "own"}
+
+
+def match_drop(subject: str, drops: dict) -> str | None:
+    """Find an adversary's drop for this item, tolerating a qualified subject.
+
+    Exact equality is not enough and the miss is not hypothetical: on this run's
+    own data an exact case-folded join matched 25 of 44 drop verdicts and lost
+    19, because adversaries write `"<subject> — the <clause> clause"` while the
+    reader wrote `"<subject>"`. Losing a dissent in the join is the same failure
+    as ignoring it in the rule.
+    """
+    s_norm = (subject or "").strip().lower()
+    if s_norm in drops:
+        return drops[s_norm]
+    sk = _key(subject)
+    if not sk:
+        return None
+    best, best_score = None, 0.0
+    for cand, reason in drops.items():
+        ck = _key(cand)
+        if not ck:
+            continue
+        # containment in either direction, or a strong Jaccard overlap
+        inter = len(sk & ck)
+        score = max(inter / len(sk), inter / len(ck))
+        if score > best_score:
+            best, best_score = reason, score
+    return best if best_score >= 0.7 else None
+
+
 def flatten(cell) -> str:
     return " | ".join(cell) if isinstance(cell, list) else str(cell)
 
@@ -104,8 +167,10 @@ def main() -> int:
     args = ap.parse_args()
 
     classification = json.load(open(args.classification, encoding="utf-8"))
+    CENSUS.update(classification)
 
     items, drops, refutations, readings, areas = [], {}, [], [], []
+    overclaims: dict[str, list[str]] = {}
     for jpath in args.journal:
         for line in open(jpath, encoding="utf-8", errors="replace"):
             try:
@@ -127,12 +192,20 @@ def main() -> int:
                         n.setdefault("source_repo", r.get("repo", ""))
                         items.append(n)
 
-            # An adversary's verdict: its drops are applied to the reading above.
+            # An adversary's verdict: its drops AND its certainty overclaims are
+            # applied to the reading above. Collecting the overclaims and reading
+            # none of them was the 2026-08-29 defect in miniature — 73 flagged,
+            # 0 consumed, until the external round said so.
             if "seed_items_to_drop" in r:
                 refutations.append(r)
+                who = str(r.get("repo", "")).split("/")[-1]
                 for d in r.get("seed_items_to_drop") or []:
                     if d.get("subject"):
-                        drops[d["subject"].strip().lower()] = d.get("reason", "dropped by refuter")
+                        drops.setdefault(who, {})[d["subject"].strip().lower()] = \
+                            d.get("reason", "dropped by refuter")
+                for oc in r.get("overclaimed_certainty") or []:
+                    if isinstance(oc, str) and oc.strip():
+                        overclaims.setdefault(str(r.get("repo", "")).split("/")[-1], []).append(oc.strip())
 
             # A disposition judge's output for a fleet-manager area.
             if "items" in r and "killed" in r:
@@ -164,13 +237,25 @@ def main() -> int:
     # An adversary's drop is applied here, in aggregation, where it can actually
     # decide something. The 2026-08-29 fleet collected exactly this signal and
     # keyed its survival rule only on `refuted`, discarding 815 of 925 dissents.
+    # An overclaim names a claim inside one repository's reading; attach it to
+    # that repository's rows whose subject the flag text mentions.
+    oc_applied = 0
+    for it in items:
+        for flag in overclaims.get(it["source_repo"], []):
+            if match_drop(it["subject"], {flag: flag}) and it["certainty"] in ("MEASURED", "OWNER"):
+                it["certainty_overclaimed"] = True
+                it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
+                                f"adversary: {flag[:160]}"
+                oc_applied += 1
+                break
+
     applied = 0
     for it in items:
-        key = it["subject"].strip().lower()
-        if key in drops and not it["refuted"]:
+        reason = match_drop(it["subject"], drops.get(it["source_repo"], {}))
+        if reason and not it["refuted"]:
             it["refuted"] = True
             it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
-                            f"refuter dropped it: {drops[key]}"
+                            f"refuter dropped it: {reason}"
             applied += 1
 
     # De-duplicate on (subject, source_path); a survivor never silently replaces
@@ -201,7 +286,12 @@ def main() -> int:
     print(f"manifest      : {len(rows)} rows -> {out}")
     print(f"survives      : {len(survivors)}")
     print(f"killed        : {len(killed)}  (published with the branch that fired, never dropped)")
-    print(f"refuter drops applied in aggregation: {applied}")
+    total_drops = sum(len(r.get("seed_items_to_drop") or []) for r in refutations)
+    print(f"refuter drops applied in aggregation: {applied} of {total_drops}"
+          + ("  <-- OVER-APPLIED, a drop matched more than its own reading"
+             if applied > total_drops else ""))
+    print(f"certainty overclaims applied: {oc_applied} of "
+          f"{sum(len(v) for v in overclaims.values())}")
     print("by disposition:", dict(collections.Counter(r["disposition"] for r in survivors)))
     print("by estate role:", dict(collections.Counter(r["estate_role"] for r in survivors)))
     print("kill branches :", dict(collections.Counter(

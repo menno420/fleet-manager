@@ -1,5 +1,9 @@
 # The cold-session rubric — pre-registered
 
+> **Status:** `reference` · tier **RECORD** — evidence for
+> [`../../2026-09-04-estate-truth-baseline.md`](../../2026-09-04-estate-truth-baseline.md):
+> pre-registered before any answer existed — the commit that added it is the timestamp that makes the claim checkable.
+
 > **Committed before any answer existed.** The estate's § 4.8 method requires a
 > producer-and-scorer split with the rubric fixed in advance, because a rubric
 > written after the outputs are read is a description of them. Commit SHA of
