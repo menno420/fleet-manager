@@ -1,9 +1,12 @@
 # 2026-09-04 — the SuperBot rebuild: a comparative product/architecture review of `superbot` and `superbot-next`, and the successor plan
 
-> **Status:** `in-progress` — branch `claude/superbot-rebuild-review-20f9hq`.
-> Born red on purpose; flips to `complete` only when the plan package is
-> written, the bases are re-read against their launch SHAs, the external review
-> round has been answered, and the PR is green.
+> **Status:** `complete` — branch `claude/superbot-rebuild-review-20f9hq`.
+> Born red on purpose, and all four conditions are met: the plan package is
+> written (13 deliverables + index, plus `run/`), the bases were re-read against
+> their launch SHAs (§ *The base re-read* below — both product pins unmoved),
+> the external review round was answered (**one** Codex round, 13 findings, all
+> 13 addressed at `d28d16a`, replied on the PR), and the gate is down to this
+> hold alone. Flipping this line is the last act of the session.
 
 - **📊 Model:** opus-5 · ultracode · research + planning
 - **📍 Venue:** cloud-container
@@ -175,7 +178,40 @@ that landed is the text this session recorded**, so nothing the plan package
 built on it needs revising. `run/in-flight-direction.md`'s standing action is
 discharged in that file.
 
-## Open at the time of writing
+## The external review round — one round of three, answered
 
-- The external review round (`@codex`, hard cap 3 per the round-cap decision) was
-  requested at 2026-09-04T17:09:08Z on head `c6b1790` and is answering.
+Requested 17:09:08Z on head `c6b1790`; answered 17:20 with **13 inline
+findings** (6 P1, 7 P2). Every one was verified against source before acting;
+all 13 were addressed at `d28d16a` and answered on the PR. **No second round
+requested** — the cadence reserves them, and nothing in the reply is a question
+back.
+
+**Three changed a conclusion rather than a wording, and the first is the
+session's most important single correction:**
+
+1. **The population contract was an instance of the defect it prescribes
+   against.** § 1 of `08-verification.md` said `assert len(population) >= FLOOR`
+   with `FLOOR = 250` — which, against the measured 314 panels, passes while 64
+   panels vanish, and which a 250-entry hand-built model satisfies identically
+   because `POPULATION` was only prose. A lower bound is not an identity check.
+   The contract now commits an `EXPECTED` set **derived independently of the
+   walker it checks** and asserts equality in both directions. **The section
+   proposing the cure had the disease** — which is precisely how this defect
+   survives in careful repositories, and it is now written into the package as
+   its own worked example.
+2. **I-19 overclaimed.** `enabled=False` proves this composition root publishes
+   no new command set; it does not prove the audit's *"27 slash commands
+   survive"* wrong, because an application retains what an earlier sync
+   registered. Narrowed, the honest null restored, four downstream sites
+   corrected including this repo's `superbot-next` entry point.
+3. **I-9 did not measure what it concluded.** `--diff-filter=A` is blind to
+   modification. Rather than weaken the claim I ran the churn measurement it
+   needed — 10 of 883 runtime files touched, +418/−2 in the EAP window — so the
+   conclusion now rests on evidence that carries it.
+
+**What the round says about the fleet.** 24 lanes and 6 adversarial challenges
+did not find any of these three. One external reviewer, one round, reading the
+written artifact rather than the source tree, found all three plus ten more. The
+fan-out was the right instrument for *census* work and the wrong one for
+*self-critique*, which is consistent with I-15: a fleet given the standard it
+will be scored against agrees with itself.
