@@ -102,7 +102,12 @@ copy product architecture or internal product state. Canonical intent:
   **NOT released, and not this session's call:** his *"cut when the next fix
   batch lands"* sequences the charter rewrite and the doc-surface sweep first
   — neither has landed — and `OQ-KIT-V1-21-RELEASE`'s adopter half is open.
-  Three merged-unreleased kit PRs now wait: #587, #588, #590.
+  What waits for that cut, measured rather than recalled: kit `main` is **10 commits ahead of the
+  `v1.21.0` tag** (`GET /compare/v1.21.0...main`, 2026-09-04) — five records/
+  registry-regen commits (#582–#586) and five substantive PRs: #587, #588,
+  #589, #590, #591. An earlier draft of this line said "three", which was the
+  two named in the 2026-08-28 record plus mine; it undercounted because it was
+  composed rather than measured.
   **The next executable step on this track is that order's step 3** — the seed-set
   folder READMEs and the migration manifest — then the thin `estate` seed and
   the blind cold test. The seed is NOT this step.
