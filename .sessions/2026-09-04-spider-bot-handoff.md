@@ -28,8 +28,14 @@ Write the handoff, and fix two things the preflight for it turned up.
   numbers the prompt would state. The card was right when it was written and one
   commit landed after it — the same drift its own *Previous-session review*
   section is about, one day old instead of eleven.
-- `docs/CAPABILITIES.md` — the Railway GraphQL route, because reaching it cost a
-  detour that no record would have saved.
+- `docs/CAPABILITIES.md` + `.claude/hooks/doc-routes.json` — the Railway
+  GraphQL query shapes, and a route that fires on `backboard.railway.com` or
+  `RAILWAY_API_KEY`. **Half of it was already recorded** — the urllib-403 /
+  curl-200 split, on 2026-08-05, as *trap (1)* inside a **Gemini/Vertex
+  delegation** entry. I re-measured it from scratch because nothing filed under
+  Gemini reaches a session holding a Railway question. The entry says so rather
+  than presenting a rediscovery as a discovery, and the route is the actual fix:
+  `check_doc_routes.py` → 73 routes, 0 errors.
 
 ## What the preflight measured that no record held
 

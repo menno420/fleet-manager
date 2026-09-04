@@ -1246,6 +1246,22 @@
         "\\b\\d+\\s+files?\\s+named\\b"
       ],
       "says": "STOP — TRAP-008. You located something; you have not necessarily read it. A listing or matching command (ls, find -name, grep -l, head -1, git ls-tree) yields NAMES AND COUNTS, never contents — it can locate a thing, it cannot characterise one. Same for a label: read to the end of the unit you are quoting, the whole cell, the whole row, the whole file. docs/ESTATE.md:85 is 869 chars on one line, one cell 673: it opens 'the ground-up bot rebuild' and puts 'parity != ported' ~400 chars later IN THE SAME CELL. Six instances in one session on 2026-09-01, one of them committed inside the document written to describe this trap. A pointer is not its document: when the boot file NAMES a doc, open the doc. Cite the line you actually read, not the path."
+    },
+    {
+      "id": "railway-graphql",
+      "tools": [
+        "Bash",
+        "Edit",
+        "Write"
+      ],
+      "when": [
+        "backboard\\.railway\\.com",
+        "RAILWAY_API_KEY"
+      ],
+      "docs": [
+        "docs/CAPABILITIES.md"
+      ],
+      "says": "Railway's GraphQL API has two shapes you will otherwise find by probing. (1) urllib gets 403 'error code: 1010' from backboard.railway.com and curl --noproxy '*' gets 200 on the identical request — Cloudflare rejecting the CLIENT, not Railway rejecting your key, so switch clients rather than concluding the key is wrong. (2) `me { projects }` returns an EMPTY LIST for this account: projects hang off `me { workspaces { team { projects } } }`. Both, with the deployments/meta.commitHash and variables queries, are under 'Railway's GraphQL API — the query shapes' in docs/CAPABILITIES.md. And when you read `variables(...)`, print sorted keys only — never the value map."
     }
   ]
 }

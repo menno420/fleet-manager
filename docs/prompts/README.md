@@ -2,8 +2,14 @@
 
 > **Status:** `living-ledger`
 
-> **Eight files here are LIVE, not part of the historical ledger below** —
-> the eighth, added 2026-09-04 at the close of the Couch Legend long-form
+> **Nine files here are LIVE, not part of the historical ledger below** —
+> the ninth, added 2026-09-04 at the close of the Spider Bot AI-operations
+> tranche (spider-bot #3):
+> [`2026-09-04-spider-bot-ai-ops-continuation.md`](2026-09-04-spider-bot-ai-ops-continuation.md),
+> the continuation prompt for the session that reviews the built-but-unmerged
+> PR and takes it forward — the merge is the owner's call, because the bot is
+> live in a real Discord server and `main` deploys straight to production. The
+> eighth, added the same day at the close of the Couch Legend long-form
 > redesign (couch-legend #19):
 > [`2026-09-04-couch-legend-phase-b-continuation.md`](2026-09-04-couch-legend-phase-b-continuation.md),
 > the continuation prompt for the session that reviews what phase A landed and
