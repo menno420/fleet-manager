@@ -75,6 +75,42 @@ copy product architecture or internal product state. Canonical intent:
   for whichever session next works the mail with him. It went through
   seventeen Codex rounds; the three-round cap that followed is
   [`traps.md`](traps.md) TRAP-009 (its decision is stamped there).
+- **The accepted `estate` build order's step 2 is DONE: substrate-kit K1–K5 are merged, unreleased
+  (2026-09-04).** [kit #590](https://github.com/menno420/substrate-kit/pull/590),
+  squash-merged `8a83c733eded4af06281dcbe1d01f05d3da98a94`. Built as **one
+  reusable adoption profile** (`bootstrap.py adopt --profile hub`) rather than
+  five conditionals, so `upgrade`/`render` honour it with no second
+  orchestration path. `main` was re-verified after the merge rather than
+  trusted from the PR's green: 2,277 passed / 1 skipped, dist byte-pin exit 0,
+  and a hub adoption driven through **`main`'s own artifact** into an empty git
+  repo produced the tree K1–K5 specify — no `control/`, no `docs/`, a visible
+  `sessions/`, the ledger gitignored and capped, the owner-context pointer
+  slot present. Existing adopters are unchanged by construction: `default`
+  omits and overrides nothing, and a config predating the change loads as
+  `default`. **Deferred and named, not left to be found:** the hub has no skill
+  pack (26 advisories over 8 paths — they are the change *working*, since those
+  paths previously passed silently as grounded-by-construction; the fix is the
+  skills channel, which the build order defers), and the kit's doctrine prose
+  is *reported* rather than forked per shape. Cost, for calibration: three
+  Codex rounds (the per-PR review cap) returned 21 findings, an independent
+  43-agent adversarial pass returned 37 of which 14 survived refutation, and 40
+  mutants were applied with 40 killed. Full thread, including the two latent
+  defects (telemetry containment parsed rather than resolved; an upgrade
+  refusal that fired only after writes had begun):
+  [`repos/substrate-kit/README.md`](repos/substrate-kit/README.md)
+  § *Thread: K1–K5*.
+  **NOT released, and not this session's call:** his *"cut when the next fix
+  batch lands"* sequences the charter rewrite and the doc-surface sweep first
+  — neither has landed — and `OQ-KIT-V1-21-RELEASE`'s adopter half is open.
+  What waits for that cut, measured rather than recalled: kit `main` is **10 commits ahead of the
+  `v1.21.0` tag** (`GET /compare/v1.21.0...main`, 2026-09-04) — five records/
+  registry-regen commits (#582–#586) and five substantive PRs: #587, #588,
+  #589, #590, #591. An earlier draft of this line said "three", which was the
+  two named in the 2026-08-28 record plus mine; it undercounted because it was
+  composed rather than measured.
+  **The next executable step on this track is that order's step 3** — the seed-set
+  folder READMEs and the migration manifest — then the thin `estate` seed and
+  the blind cold test. The seed is NOT this step.
 - **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
