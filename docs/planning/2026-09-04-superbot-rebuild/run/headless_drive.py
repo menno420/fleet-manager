@@ -44,6 +44,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import collections
+import copy
 import datetime as dt
 import itertools
 import json
@@ -730,7 +731,10 @@ class Drive:
             "responses": [
                 {k: v for k, v in e.items() if k in ("kind", "response_type", "message_id", "channel_id")}
                 for e in REC.events[n_events:]],
-            "messages": [REC.messages[e["message_id"]] for e in REC.events[n_events:]
+            # SNAPSHOTS: the recorder's dicts are edited in place by later
+            # type-7 updates and PATCHes; a queued click must carry the
+            # message as it was when this step rendered it (Codex, round 3)
+            "messages": [copy.deepcopy(REC.messages[e["message_id"]]) for e in REC.events[n_events:]
                          if e.get("message_id") in REC.messages],
             "modals": [e.get("data") for e in REC.events[n_events:]
                        if e.get("response_type") == 9],
@@ -934,31 +938,42 @@ async def fetch_rows(dsn: str, sql: str) -> list[dict]:
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
-def checkout_revision(repo: str) -> tuple[str, bool]:
-    """(HEAD sha, dirty) of the checkout the drive is about to run — the pin
-    the record carries is READ from the tree, never taken from a flag."""
+def checkout_revision(repo: str, exempt: tuple[str, ...] = ()) -> tuple[str, list[str]]:
+    """(HEAD sha, dirty entries) of the checkout the drive is about to run —
+    the pin the record carries is READ from the tree, never taken from a
+    flag. Every modified AND untracked path counts (an untracked `discord/`
+    would shadow the installed dependency once the checkout is on sys.path);
+    the only exemptions are the drive's own output files named in *exempt*."""
     import subprocess
 
     head = subprocess.run(["git", "-C", repo, "rev-parse", "HEAD"],
                           capture_output=True, text=True, check=True).stdout.strip()
-    # tracked changes only: an untracked file (a result JSON written next to
-    # the checkout, an editor's scratch) does not alter the revision under test
-    status = subprocess.run(["git", "-C", repo, "status", "--porcelain", "--untracked-files=no"],
+    status = subprocess.run(["git", "-C", repo, "status", "--porcelain", "--untracked-files=all"],
                             capture_output=True, text=True, check=True).stdout
-    return head, bool(status.strip())
+    exempt_rel = {os.path.relpath(os.path.abspath(e), os.path.abspath(repo)) for e in exempt}
+    dirty = []
+    for line in status.splitlines():
+        if not line.strip():
+            continue
+        path = line[3:].strip().strip('"')
+        if path in exempt_rel:
+            continue
+        dirty.append(line)
+    return head, dirty
 
 
 async def main_async(args) -> int:
     # resolve every path the caller gave BEFORE the chdir into the checkout
     args.repo = os.path.abspath(args.repo)
     args.out = os.path.abspath(args.out)
-    head, dirty = checkout_revision(args.repo)
+    head, dirty = checkout_revision(args.repo, exempt=(args.out,))
     if args.pin and head != args.pin:
         raise SystemExit(f"checkout HEAD {head} is not the expected pin {args.pin}; "
                          f"refusing to attribute evidence to the wrong source state")
     if dirty:
-        raise SystemExit(f"checkout at {head} has uncommitted changes; the record "
-                         f"could not be attributed to a revision")
+        raise SystemExit(f"checkout at {head} carries changes or untracked files the record "
+                         f"could not attribute to a revision: {dirty[:5]} — keep drive "
+                         f"outputs outside the checkout")
     sys.path.insert(0, args.repo)
     os.chdir(args.repo)
     os.environ["DISCORD_BOT_TOKEN_PRODUCTION"] = "headless-placeholder-never-a-real-token"
@@ -1142,6 +1157,7 @@ async def main_async(args) -> int:
             result["run_app_exit"] = await asyncio.wait_for(app_task, timeout=60)
         except Exception as exc:  # noqa: BLE001
             result["run_app_exit"] = f"shutdown error: {exc!r}"
+        result["boot_log"] = list(boot_log)
         json.dump(result, open(args.out, "w"), indent=1, default=str)
         print(json.dumps({"restart_check": True, "run_app_exit": result["run_app_exit"],
                           "resume_sweep_log": result["resume_sweep_log"]}, indent=1, default=str))
@@ -1164,6 +1180,9 @@ async def main_async(args) -> int:
     # /setup-advanced, /setup-status, /setup-describe — walked from each root.
     from sb.kernel.interaction.guild_events import GuildJoinEvent, dispatch_guild_join
 
+    # the setup phase's own baseline: everything the boot, the first contact
+    # and the help walk wrote is already in the tables at this point
+    counts_before_setup = await table_counts(args.dsn)
     n_ev = len(REC.events)
     join_consumers = await dispatch_guild_join(GuildJoinEvent(
         guild_id=GUILD_ID, guild_name="Headless Test Guild", owner_id=OWNER_ID,
@@ -1216,9 +1235,17 @@ async def main_async(args) -> int:
 
     # settings + audit rows that the setup drive left behind
     result["db"] = {
-        "before": counts_before, "after_setup": counts_after_setup, "after": counts_after,
-        "delta_setup": {k: counts_after_setup.get(k, 0) - counts_before.get(k, 0)
-                        for k in counts_after_setup if counts_after_setup.get(k, 0) != counts_before.get(k, 0)},
+        "before": counts_before, "before_setup": counts_before_setup,
+        "after_setup": counts_after_setup, "after": counts_after,
+        # the setup phase alone (join + setup walk + launcher clicks), against
+        # the baseline taken just before it
+        "delta_setup": {k: counts_after_setup.get(k, 0) - counts_before_setup.get(k, 0)
+                        for k in counts_after_setup
+                        if counts_after_setup.get(k, 0) != counts_before_setup.get(k, 0)},
+        # everything before the setup phase: boot, first contact, help walk
+        "delta_before_setup": {k: counts_before_setup.get(k, 0) - counts_before.get(k, 0)
+                               for k in counts_before_setup
+                               if counts_before_setup.get(k, 0) != counts_before.get(k, 0)},
         "delta_total": {k: counts_after.get(k, 0) - counts_before.get(k, 0)
                         for k in counts_after if counts_after.get(k, 0) != counts_before.get(k, 0)},
     }
@@ -1259,6 +1286,9 @@ async def main_async(args) -> int:
     result["run_app_exit"] = exit_code
     result["lifecycle_phase_final"] = lifecycle.get_phase().value
     result["shutdown_log"] = [l for l in boot_log if "lifecycle" in l.lower() or "drain" in l.lower()][-12:]
+    # the whole process log, boot to shutdown — the startup-time slice taken
+    # above would hide every warning the drive itself provoked
+    result["boot_log"] = list(boot_log)
     json.dump(result, open(args.out, "w"), indent=1, default=str)
     summary = {k: result[k] for k in ("boot_seconds", "lifecycle_phase_after_boot", "ready_http",
                                      "tree_command_count", "population", "run_app_exit",
@@ -1269,6 +1299,73 @@ async def main_async(args) -> int:
     # the shell sees the composition root's own verdict: a non-zero return, a
     # shutdown that timed out or raised, is an unclean run and says so.
     return 0 if exit_code == 0 else 2
+
+
+def retain_record(drive_path: str, restart_path: str | None, out_path: str) -> int:
+    """The committed retained record (run/raw/headless-drive-<date>.json) is
+    THIS transform of the drive's full dump: message payloads and presenter
+    component lists dropped, texts and user messages clipped, the restart
+    run's essentials merged in. Reproducible: same inputs, same file."""
+    r = json.load(open(drive_path))
+    out = {k: r.get(k) for k in (
+        "pin", "started_at", "boot_seconds", "boot_failed", "boot_state", "wait_timed_out",
+        "lifecycle_phase_after_boot", "ready_http", "tree_commands", "tree_command_count",
+        "expected_panels", "population", "run_app_exit", "lifecycle_phase_final",
+        "events_total", "http_calls", "unhandled_http", "shutdown_log")}
+    out["process_log"] = [l for l in r.get("boot_log", [])
+                          if not l.startswith("INFO sb.kernel.interaction.trace")]
+    out["db"] = r.get("db")
+    phases = {}
+    for k, v in (r.get("phases") or {}).items():
+        if isinstance(v, dict) and "interactions" in v:
+            phases[k] = {kk: vv for kk, vv in v.items() if kk != "lockouts"}
+            phases[k]["lockouts_count"] = len(v.get("lockouts", []))
+            phases[k]["lockouts_first"] = v.get("lockouts", [])[:2]
+        elif isinstance(v, list):
+            phases[k] = [{kk: st.get(kk) for kk in ("label", "type", "command", "custom_id", "values", "texts", "error")}
+                         | {"presented": [p["panel_id"] for p in st["presented"]],
+                            "resolved": [(x["target"], x["outcome"], x["reason"], x["error_class"]) for x in st["resolved"]]}
+                         for st in v]
+        elif isinstance(v, dict) and "consumers" in v:
+            phases[k] = {kk: vv for kk, vv in v.items() if kk != "launcher_messages"}
+        else:
+            phases[k] = v
+    out["phases"] = phases
+    out["presented"] = [{"seq": p["seq"], "panel_id": p["panel_id"], "sent": p.get("sent"),
+                         "audience": p["audience"], "anchor_policy": p["anchor_policy"],
+                         "origin_none": p.get("origin_none"), "nonnav_controls": p.get("nonnav_controls"),
+                         "surface": p["surface"], "interaction_id": p["interaction_id"],
+                         "controls": len(p.get("components", []))}
+                        for p in r.get("presented", [])]
+    out["resolved"] = [dict(x, user_message=(x["user_message"] or "")[:120] or None)
+                       for x in r.get("resolved", [])]
+    out["steps"] = [{kk: st.get(kk) for kk in ("seq", "label", "type", "command", "custom_id", "values", "elapsed_ms", "error")}
+                    | {"texts": [t[:160] for t in st.get("texts", [])],
+                       "presented": [p["panel_id"] for p in st["presented"]],
+                       "resolved": [(x["target"], x["outcome"], x["reason"], x["error_class"]) for x in st["resolved"]],
+                       "responses": [(e.get("kind"), e.get("response_type")) for e in st.get("responses", [])]}
+                    for st in r.get("steps", [])]
+    out["lockouts_count"] = len(r.get("lockouts", []))
+    out["lockouts_first"] = r.get("lockouts", [])[:3]
+    if restart_path:
+        rr = json.load(open(restart_path))
+        out["restart_check"] = {
+            "pin": rr.get("pin"),
+            "process_log": [l for l in rr.get("boot_log", [])
+                            if "boot hook" in l or "resume" in l.lower() or "boot complete" in l],
+            "steps": [{kk: st.get(kk) for kk in ("label", "texts", "error")}
+                      | {"presented": [p["panel_id"] for p in st["presented"]],
+                         "resolved": [(x["target"], x["outcome"], x["reason"], x["error_class"]) for x in st["resolved"]],
+                         "embeds": [{"title": e.get("title"), "description": (e.get("description") or "")[:400],
+                                     "fields": [(f.get("name"), str(f.get("value"))[:200]) for f in (e.get("fields") or [])]}
+                                    for m in st["messages"][:1] for e in (m.get("embeds") or [])]}
+                      for st in rr["phases"]["restart"]],
+            "setup_session_rows": rr["db"]["setup_session_rows"],
+            "run_app_exit": rr.get("run_app_exit"),
+        }
+    json.dump(out, open(out_path, "w"), separators=(",", ":"), default=str)
+    print("retained", out_path, os.path.getsize(out_path), "bytes")
+    return 0
 
 
 def main() -> int:
@@ -1286,7 +1383,13 @@ def main() -> int:
                     help="declare both privileged intents approved (arms the message feed)")
     ap.add_argument("--restart-check", action="store_true",
                     help="second boot over the SAME database: re-open the console and stop")
+    ap.add_argument("--retain", metavar="DRIVE_JSON", default=None,
+                    help="do not drive: write the retained record (--out) from this full "
+                         "dump, merging --retain-restart if given")
+    ap.add_argument("--retain-restart", metavar="RESTART_JSON", default=None)
     args = ap.parse_args()
+    if args.retain:
+        return retain_record(args.retain, args.retain_restart, args.out)
     return asyncio.run(main_async(args))
 
 

@@ -180,7 +180,7 @@ findings go here, below the fence.)
   presenter, clicking every control it renders.** · evidence (fm #1040, pin
   `d5f66dc2`): `run_app()` reached `RUNNING` in ~1.3 s (57 migrations, 1,327
   dispatch targets, 314 panels, 27 slash commands, `/ready` → 503
-  `gateway_not_ready` with `accepting_commands: true`), 1,821 interactions
+  `gateway_not_ready` with `accepting_commands: true`), 1,802 interactions
   rendered 237 of the 314 committed panels (234 sent, 3 dropped by the presenter), SIGTERM → clean `STOPPED`, exit 0.
   Postgres: the binaries are at `/usr/lib/postgresql/16/bin` and the server
   refuses root, so `initdb`/`pg_ctl` run under `os.setuid` to the existing

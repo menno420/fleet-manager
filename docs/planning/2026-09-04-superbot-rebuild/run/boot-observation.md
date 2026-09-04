@@ -8,13 +8,14 @@
 > everything below is `MEASURED` unless it says otherwise, **and "measured"
 > here means measured HEADLESS** — read § 1 before quoting any number.
 >
-> **What produced it:** [`headless_drive.py`](headless_drive.py), run seven
+> **What produced it:** [`headless_drive.py`](headless_drive.py), run eight
 > times to a clean end on a fresh database while the walker itself was being
 > corrected (§ 6, § 7) and then hardened after review, plus one *restart* run
 > over the same database. The retained result of the final run is
 > [`raw/headless-drive-2026-09-04.json`](raw/headless-drive-2026-09-04.json)
-> (every interaction, render and `resolve()` outcome; message payloads and
-> component lists dropped, texts clipped). The panel counts in §§ 2–6 were
+> (every interaction, render and `resolve()` outcome, and the process log;
+> message payloads and component lists dropped, texts clipped — the
+> `--retain` mode of the instrument, § 12, is the whole transform). The panel counts in §§ 2–6 were
 > identical across the runs; § 7's figures are the final run's.
 
 ## 0 · The finding in one paragraph
@@ -33,8 +34,8 @@ unreachable through the shipped adapter; a guild owner **locks themself out of
 every control in a channel with one click** on the Command Access panel,
 because the owner override belongs to the platform owner; and two unhandled
 `AttributeError`s sit behind ordinary buttons. The advanced wizard behind
-`/setup-hub` works — 21 of its 40 panels rendered, its session row, depth,
-skips and audit rows written and read back after a restart. Nothing here
+`/setup-hub` works — 24 of its 40 panels rendered and 21 sent, its session
+row, depth, skips and audit rows written and read back after a restart. Nothing here
 touched Discord: the transport and the guild are synthetic (§ 1), and the
 gateway leg is the owner's (§ 10).
 
@@ -62,8 +63,9 @@ presenter was asked to present. § 8 reports both directions of the difference.
 
 ## 2 · The boot
 
-Log lines from the final run, in boot order (the full boot log is in the raw
-record):
+Log lines from the final run, in boot order (the whole process log, boot to
+shutdown with the dispatch-trace lines dropped, is the raw record's
+`process_log`):
 
 | step | observed |
 |---|---|
@@ -81,7 +83,7 @@ record):
 | feeds | reaction feed 3 consumers; guild-join feed 1 consumer (`setup.launcher`) |
 | rosters | 6 `subscribe(bus)` modules armed |
 | boot hooks | `setup.resume_sweep: ok` |
-| readiness | `boot complete: RUNNING` at **1.25–1.48 s** after `run_app()` started; `/ready` → **503** `{"status": "not_ready", "reason": "gateway_not_ready", "phase": "RUNNING", "accepting_commands": true}` — correct for a process with no gateway |
+| readiness | `boot complete: RUNNING` at **1.25–1.96 s** after `run_app()` started (the eight runs); `/ready` → **503** `{"status": "not_ready", "reason": "gateway_not_ready", "phase": "RUNNING", "accepting_commands": true}` — correct for a process with no gateway |
 | shutdown | SIGTERM (the root's own handler) → drain → `lifecycle STOPPED — clean exit`, **`run_app()` returned 0** |
 
 `REASONED`: the boot is the part of the package's dynamic picture that was
@@ -187,9 +189,10 @@ to click links to a message that does not exist.
 `/setup-hub` answers with the ephemeral depth chooser (`setup.hub`: ⚡ Quick ·
 🛠 Standard · 🔬 Advanced); a depth click mints the session row
 (`setup.start_session`) and opens `setup.sections_hub`; each section card
-opens its detail; presets preview; the final review renders. **21 of the 40
-setup panels were rendered and sent** in the setup walk (202 interactions,
-queue empty):
+opens its detail; presets preview; the final review renders. **The setup walk
+(183 interactions, queue empty) rendered 23 of the 40 setup panels and sent 20
+of them** — the three of § 5.2 were dropped — and the launcher phase adds
+`suggestions_card`, so across the two phases **24 are rendered and 21 sent**:
 
 `setup.hub` · `sections_hub` · `section_channels` · `channels_detail` ·
 `section_logging_presets` · `logging_picker` · `section_roles` ·
@@ -199,16 +202,21 @@ queue empty):
 `preset_card` · `preset_preview` · `final_review` · `wizard_step` ·
 `suggestions_card` (from the launcher).
 
-The effect layer is real here — after the setup walk, on the fresh database:
+The effect layer is real here. The setup phase alone — the join, the setup
+walk and the launcher clicks, against a baseline taken just before it — wrote:
 `setup_session` 1 row (`depth = advanced`, `skipped_sections` for every
 section the walker skipped, `setup_status` and `current_step` rewritten by
-the clicks — `in_progress` / `roles` at the end of the run, `dismissed` in
-the run whose launcher walk ended on *Dismiss*), `audit_log` +69
+the clicks — `in_progress` / `cog_routing` at the end of the run, `dismissed`
+in the run whose launcher walk ended on *Dismiss*), `audit_log` +62
 (`setup.session.depth_set`, `setup.session.section_skip`,
-`setup.session.dismissed`, …), `sb_drafts` 1 + `sb_draft_operations` 35 (the
-staged operations `/setup-reset` later reports clearing: *"✅ Cleared **35**
-staged operations"*), `settings` +1, `ticket_config` +1, `event_outbox` +70
-with the relay delivering as it ticked.
+`setup.session.dismissed`, …), `sb_drafts` 1 + `sb_draft_operations` 34 (the
+staged operations `/setup-reset` later reports clearing: *"✅ Cleared **34**
+staged operations"*), `ticket_config` +1, `event_outbox` +62 with the relay
+delivering as it ticked. What the boot, the first contact and the help walk
+had written before that baseline: the 57 migrations, 7 `ai_instruction_profile`
+rows, 4 idempotency keys, 4 invariant-sweep rows, 1 `settings` row (the
+platform latch), 1 audit row (the boot canary) and 2 outbox rows — the help
+tree writes nothing.
 
 Three modals were issued and submitted (roles time tier, roles XP tier, the
 ticket launcher's *Open a support ticket*); the numeric ones took the value.
@@ -227,7 +235,7 @@ commands wearing slash names.
 | where | what | user sees |
 |---|---|---|
 | `sb/domain/ticket/setup_panel.py:159` and `:191` | `result.ok` on a `WorkflowResult` (`sb/kernel/workflow/result.py:82` — no such field) | *Enable tickets* and *Auto-create log channel* on the Support Tickets section → **"Something went wrong on our end — it's been logged."** (a `BUG` envelope) |
-| `sb/domain/platform/guild_snapshot.py:243` | `spec.name` on a `ResourceRequirement` while walking manifest `settings` facets | logged as an exception on **every** setup recommender read (145 times in the final run); the channels section degrades to the advisor fallback, silently |
+| `sb/domain/platform/guild_snapshot.py:243` | `spec.name` on a `ResourceRequirement` while walking manifest `settings` facets | logged as an exception on **every** setup recommender read (110 records in the retained run's process log); the channels section degrades to the advisor fallback, silently |
 
 Both are in code the goldens replay past. `REASONED`: neither could have been
 caught by a parity oracle, because both are in the live seams (the workflow
@@ -287,8 +295,8 @@ one select 6,518 times before that was fixed.
   text — `/setup-reset` usefully, `/setup-describe`, `/setup-skip` and
   `/setup-unskip` as § 5.4 says.
 - **Interactions:** 1,493 in the global walk — 1,490 clicks plus the three
-  replays after the lock-out resets of § 6 — and 1,821 in the whole run
-  (3 first-contact + 116 help + 202 setup + 7 launcher + 1,493); budget not
+  replays after the lock-out resets of § 6 — and 1,802 in the whole run
+  (3 first-contact + 116 help + 183 setup + 7 launcher + 1,493); budget not
   exhausted (8,000 allowed), queue empty; 42 modals submitted.
 - **Panels rendered from any command:** 236 (depth histogram
   from the command roots `{0: 21, 1: 66, 2: 114, 3: 28, 4: 4, 5: 3}`).
@@ -353,7 +361,7 @@ third row, which no floor would have caught.
 | claim, where | static / prior | runtime | disposition |
 |---|---|---|---|
 | I-13, `09-roadmap.md` § 2: *"From `help.*` roots max depth is 0"* | declared graph: 0 downward edges from help | **57 of 66 help panels reached, depth up to 5** — the edges are provider-fed at runtime | **number superseded; conclusion sharpened** — the tree is navigable and leads out to nothing (§ 4) |
-| I-13: *"`setup` is 39 of 40 panels unreachable from every declared entry point"* | declared graph | **21 of 40 rendered and sent** from `/setup-hub` (the advanced wizard); **the essential flow's 13 are unreachable through the production presenter** (§ 5.2) | **split** — the wizard IS in the graph behind a slash root; the primary entry is broken by a missing send branch, not by the graph |
+| I-13: *"`setup` is 39 of 40 panels unreachable from every declared entry point"* | declared graph | **23 of 40 rendered and 20 sent** from `/setup-hub` (the advanced wizard; 24 and 21 with the launcher's suggestions card); **the essential flow's 13 are unreachable through the production presenter** (§ 5.2) | **split** — the wizard IS in the graph behind a slash root; the primary entry is broken by a missing send branch, not by the graph |
 | 2026-08-05 audit § 4b: *"the front door is 91 % dead ends"* | 60 of 66 button-less, generously counted | **48 of the 57 reached** have no non-nav control (84 %) and **0 exits** | **confirmed, tighter** |
 | audit § 8: *"commands answer nothing on a fresh database"* | recipe note | slash commands answer with no policy row (§ 3) | **not reproduced on the slash surface**; prefix `UNVERIFIED` |
 | I-19, `13-verdict.md` gap 1: *"this composition root publishes no command set"* | `sync_remote(..., enabled=False)` | the root **builds a 27-command local tree and guild-syncs it** when the test-guild opt-in is set; the global set is never written; the remote set stays unobserved | **holds for the global set; the guild leg is real code that ran** |
@@ -424,11 +432,18 @@ python3.11 -m venv ../sbnext-venv && ../sbnext-venv/bin/pip install --require-ha
 
 # 3. the drive — fresh database, then the restart check over the same one.
 #    --pin is the revision you EXPECT; the drive refuses a checkout at any other
-#    HEAD or with uncommitted changes, and records the HEAD it actually ran on.
-../sbnext-venv/bin/python <fleet-manager>/docs/planning/2026-09-04-superbot-rebuild/run/headless_drive.py \
-    --repo . --pin d5f66dc27768d49b2755f368c6a2d0ecca66a1af \
-    --dsn postgresql://superbot@127.0.0.1:54329/superbot --out drive.json
-../sbnext-venv/bin/python .../headless_drive.py --repo . --pin d5f66dc2… --dsn ... --restart-check --out restart.json
+#    HEAD, or one with modified or untracked files (its own --out excepted), and
+#    records the HEAD it actually ran on. Keep the outputs OUTSIDE the checkout.
+DRIVE=<fleet-manager>/docs/planning/2026-09-04-superbot-rebuild/run/headless_drive.py
+../sbnext-venv/bin/python $DRIVE --repo . --pin d5f66dc27768d49b2755f368c6a2d0ecca66a1af \
+    --dsn postgresql://superbot@127.0.0.1:54329/superbot --out /tmp/drive.json
+../sbnext-venv/bin/python $DRIVE --repo . --pin d5f66dc27768d49b2755f368c6a2d0ecca66a1af \
+    --dsn postgresql://superbot@127.0.0.1:54329/superbot --restart-check --out /tmp/restart.json
+
+# 4. the retained record (run/raw/headless-drive-<date>.json) is exactly this
+#    transform of the two dumps — no hand step in between
+python3 $DRIVE --retain /tmp/drive.json --retain-restart /tmp/restart.json \
+    --out run/raw/headless-drive-2026-09-04.json
 ```
 
 Read the real exit code, not one after a pipe — the drive returns 0 only when
