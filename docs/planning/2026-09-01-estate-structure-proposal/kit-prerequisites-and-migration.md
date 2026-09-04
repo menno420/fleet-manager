@@ -41,8 +41,11 @@ test (question E). All of it is plan input; mechanisms wait (OD-26 § 13).
 > **The cut did not happen and is not this session's to make.** His
 > *"cut when the next fix batch lands"* sequences the charter rewrite and the
 > doc-surface sweep first (neither has landed), and `OQ-KIT-V1-21-RELEASE`'s
-> adopter half is still open. Three merged-unreleased PRs now wait: #587,
-> #588, #590.
+> adopter half is still open. What waits for that cut, measured rather than
+> recalled: kit `main` is **10 commits ahead of the `v1.21.0` tag**
+> (`GET /compare/v1.21.0...main`, 2026-09-04) — five records/registry-regen
+> commits (#582–#586) and five substantive PRs: #587, #588, #589, #590,
+> #591.
 
 ## Carry · distill · archive — fleet-manager's living core mapped
 
