@@ -6,7 +6,7 @@
 > what needs your attention was spread across several surfaces you had to
 > already know about; it is swept from them so it cannot go stale.
 >
-> generated-at 2026-09-04T17:10:28Z
+> generated-at 2026-09-04T17:51:07Z
 
 **What is here:** things only you can decide · questions written for you ·
 documents waiting for your own words · piles that need triage. **What is
@@ -34,10 +34,10 @@ worksheets themselves: [`owner/intent-workbooks/PROGRESS.md`](intent-workbooks/P
 
 ## Decide — open items in the owner queue
 
-38 open of 70 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
+41 open of 73 entries in [`docs/owner-queue.md`](../docs/owner-queue.md) (historical duplicate bodies excluded). Each entry there carries its
 own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 
-**Open (35)**
+**Open (38)**
 
 - **`OQ-SUPERBOT-SUCCESSOR-SCOPE`** — 🟡 OPEN — one question decides the successor's
 - **`OQ-INTENT-WRITE-UP`** — write your intent, against the questions prepared for
@@ -61,6 +61,9 @@ own WHAT / WHERE / WHY-IT-MATTERS / UNBLOCKS.
 - **`OQ-POKEMON-PROTECT-MAIN`** — protect pokemon-mod-lab main (the fleet's only unprotected
 - **`OQ-NEXT-MERGE-QUEUE`** — superbot-next: enable merge queue OR drop require-up-to-date for
 - **`OQ-CL-FEEL-PASS`** — couch-legend: play the life story and feel-check the tuned late
+- **`OQ-CL-COUCH-FEEL`** — couch-legend: does ARRANGING the couch feel interesting? (phase B
+- **`OQ-CL-SCENES-4-6`** — couch-legend: run the three arc-2 scene prompts (chapters 4–6) and
+- **`OQ-GEMINI-PREPAY`** — the paid Gemini key's prepay balance is EMPTY (measured
 - **`OQ-CL-CHATGPT-REPASTE`** — couch-legend: one paste refresh of the ChatGPT project
 - **`OQ-VENTURE-STRIPE-KEYS`** — venture-lab: Stripe TEST keys. Paste sk_test_…
 - **`OQ-VENTURE-PUBLISH-CLICKS`** — venture-lab: publish products on gumroad.com — per-product
