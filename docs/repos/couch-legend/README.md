@@ -1,6 +1,6 @@
 # couch-legend — the entry point
 
-> **Status:** `living-ledger` · true as of **2026-09-04**
+> **Status:** `living-ledger` · true as of **2026-09-04** (evening — #20)
 >
 > **What this is:** fleet-manager's entry point for `menno420/couch-legend` —
 > where the last session left off and where the next one should look.
@@ -40,6 +40,48 @@ game is a **life story**: save v2 `lifeHigh`, 18 chapters, the first three
 painted scene pairs live.
 
 ## Threads
+
+### Thread: after phase A — B not arrived; the one breach closed; chapters 4–6 prompted (couch-legend #20, 2026-09-04)
+
+The session the #19 handoff asked for. It re-ran the census at `4934955`
+before trusting the handoff (14/18 · 3/18 · 17/18, exit 0), read this repo's
+owner-comments index (**0 unconsumed**), the PR thread and the issue list, and
+found **no phase-B verdict anywhere** — so C and D stayed gated and the two
+ungated lanes were worked.
+
+**The rail breach was structural, and is closed by tuning.** Re-read from
+the fixtures, seed 23's 0.14 % was the optimiser crossing into chapter 5 with
+three mid-tier Grow rows unbought, equipping The Standing Glass in the same
+pass, and 10 % of a Work shelf ~30× the garden being ~3× the whole garden —
+every Grow row decoration for the player holding the glass; `balanced` s47
+sat on the bound at 2.1 % for the same reason. The change: each cross-wire
+pays its share **up to a ceiling times what the receiving shelf makes
+itself** (the glass 1×, The First Follower 3×, Earth in the Window 1×), so a
+first Grow purchase's dilution is bounded at `1 + ceiling` by construction.
+Threaded through the engine, the purchase preview (which now says "the garden
+is the ceiling" instead of promising nugs the cap withholds), the Couch tab
+and ten new pins; 27 runs regenerated: **0 of 27 below 2 %**, seed-23 rows at
+139–163 %, story close 12.0 d, dead time 38.0 m, check-ins ≥ 96.9 %, rebuild
+unchanged. **Two published numbers were wrong and are corrected:** DESIGN
+said the optimiser ends with "2.3× the nugs and 1 690× the cash", the sim
+record said 4.52× / 0.29×, from the same fixtures — both horizon-balance
+snapshots, which reset at every Wake & Bake; on a peak-of-last-3-days measure
+across three seeds the edge is **1.8–1.9× nugs, cash a wash, lifeHigh
+0.96–0.98×**, and it was 1.7–2.3× before the ceiling. Evidence:
+`couch-legend:docs/sim/2026-09-04-couch-balance.md` §§ 2–4.
+
+**Phase E, chapters 4–6:** paste-ready lucid prompts and the baked-edit
+template, anchored on the arc-1 pairs, registry slots and acceptance
+questions — `couch-legend:docs/design/2026-09-04-arc-2-scene-prompts.md`.
+**No image was produced:** the paid Gemini key's prepay balance is empty
+(429 verbatim in [`../../CAPABILITIES.md`](../../CAPABILITIES.md), 2026-09-04)
+and the free tier serves no image model (`limit: 0`). Two routes, both his:
+run the prompts in the "Couch Legend" ChatGPT project, or refill the prepay
+(`OQ-CL-SCENES-4-6` · `OQ-GEMINI-PREPAY`).
+
+**NEXT is still phase B** — now a queue entry with the tab and the minute it
+takes (`OQ-CL-COUCH-FEEL`). Everything else in the plan's § 8 waits on it or
+on his art QA.
 
 ### Thread: the long-form redesign — **LANDED 2026-09-04** (couch-legend #19)
 
@@ -102,6 +144,8 @@ reachability and dead time; it cannot say whether *arranging* the couch is
 interesting, and that answer gates the next mechanic family (the Morning
 Routine — Clarity as a choice rather than only a multiplier). The plan for
 phases B–G is `couch-legend:docs/planning/2026-09-04-long-form-redesign.md`.
+*(The "one sub-2 % felt-upgrade reading" this thread records was closed by
+tuning the same day — the thread above.)*
 
 ### Thread: the mechanics base — **landed**, 2026-08-20
 
