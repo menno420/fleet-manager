@@ -350,6 +350,29 @@ copy product architecture or internal product state. Canonical intent:
 
 ## Recently shipped (newest first)
 
+- **The successor-ready estate truth baseline — the layer the seed needs before
+  it can be seeded** (2026-09-04, fm #1020). The fresh-start sequence's **step
+  2**, and the **migration manifest** the build order names as a prerequisite:
+  [the finding](findings/2026-09-04-estate-truth-baseline.md) ·
+  [the manifest](planning/2026-09-04-estate-seed-manifest.csv) (183 rows,
+  generated) · `tools/estate_baseline/` (the reproducible delta, the survival
+  rule, the builder, three fixture suites).
+  **Census: 28 repositories**, live-reconciled against `ESTATE.md`, each with one
+  disposition. **68 items live in `estate`**, 55 archive-only, 60 killed and
+  published with the branch that fired.
+  **The finding that changes the plan:** of the five repositories whose trees did
+  **not** move, only one is reusable — the rest anchor to a disposition table
+  whose own header disclaims internal state. *Zero commits proves the source did
+  not move; it cannot make evidence reusable that never asked the question.*
+  **Verdict `PARTIAL`, deliberately** — three independent critics returned
+  PARTIAL/BLOCKED/BLOCKED with eleven P1s, **every one correct**, including that
+  the finding's own § 8 described a manifest that no longer existed and that the
+  aggregation had lost 19 of 44 adversary drops (the 2026-08-29 defect,
+  reproduced by the run built to prevent it). All fixed and re-measured; the
+  residue is disclosed. **Four defects in this file and `ESTATE.md` were found
+  and fixed on the way** — including that this file never said the repository is
+  being replaced.
+
 - **The estate activity log — a cloud session can now see what ran on the
   laptop** (2026-08-26, fm #947). `docs/activity/` + `tools/estate_activity.py`,
   wired into the boot table, `MAP.md`, `README.md`, the card protocol, the
