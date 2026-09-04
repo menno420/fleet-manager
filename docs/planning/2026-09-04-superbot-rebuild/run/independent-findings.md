@@ -838,3 +838,73 @@ that catches it is the one this review keeps arriving at from every direction �
 `git show --stat HEAD` after any scripted edit, which is the commit-level twin
 of `assert len(population) >= FLOOR`.
 
+
+## I-19 · The audit's "27 slash commands survive" is wrong, and the weekly restore proof cannot fail — `MEASURED`
+
+Two R4 claims, re-derived here per I-17's rule. Both hold, and the first corrects
+the figure this estate has quoted for a month.
+
+### The degraded-boot number
+
+The 2026-08-05 live audit reported that booting without `SB_INTENT_MSGCONTENT_OK`
+leaves **"1,300 of 1,327 targets silently unreachable, leaving 27 slash
+commands."** The 27 survivors are what made it a *degradation* rather than a
+blackout.
+
+They do not survive, because they were never registered. Measured:
+
+```
+sb/app/main.py:616      outcome = await sync_remote(bot, committed, enabled=False)
+sb/app/tree_sync.py:53      if not enabled:
+                    :54          logger.debug("leg C: disabled via AUTO_SYNC_COMMANDS")
+                    :55          return SyncOutcome(False, "disabled")
+```
+
+The composition root hardcodes `enabled=False`, and `sync_remote` returns
+`SyncOutcome(False, "disabled")` before touching Discord. **This root never
+publishes a slash command at all** — so a `message_content`-degraded boot is not
+1,300-of-1,327 unreachable with 27 left; it is a bot with **no reachable command
+surface**, reporting healthy.
+
+**Why this matters more than a corrected number.** `sb/spec/config.py:252-255`
+justifies choosing DEGRADE over refuse-to-boot on the grounds that refusing
+*"darked the WHOLE bot when every slash command still serves."* The premise is
+false in this composition root. **The design decision rests on a survivor set
+that does not exist** — which is the population defect again, this time inside an
+architectural rationale rather than inside a test.
+
+### The weekly restorability proof
+
+`.github/workflows/restore-verify.yml:124`:
+
+```yaml
+run: python3 -m sb.app.verify_boot | tee verify-report.json
+```
+
+Measured across all **8** workflow files in the repo: **0 occurrences of
+`pipefail`** and **0 `shell:` keys**. GitHub Actions' default shell for `run:`
+is `bash -e`, not `bash -eo pipefail`, so the step's exit status is `tee`'s —
+which is 0 whether the boot verified or crashed. **The weekly proof that the bot
+can be restored cannot fail.**
+
+And this is the estate's own standing rule, from `.claude/CLAUDE.md`: *"verify
+before fold; verify with real exit codes (never `$?` after a pipe)."* It is
+violated in CI, in the one workflow whose entire purpose is proving
+restorability — the exact class the rule was written for, in the place where it
+mattered most.
+
+### What the successor takes from this
+
+Two properties, both cheap and both absent here:
+
+- **"Online" must mean a named, counted, reachable command surface**, asserted at
+  boot against a committed floor — not a gateway connection and a 200 on
+  `/ready`. A bot that reports healthy with zero registered commands is the
+  boot-time twin of a green gate over an empty population.
+- **Every degraded state goes to a sink that survives the process.** R4 measured
+  the current one: the degrade notice appends to a module-level
+  `deque(maxlen=256)` with zero sinks attached, is suppressed on later boots by a
+  durable latch, and the in-Discord card meant to surface it
+  (`!platform findings`) is a frozen capture-world literal that always renders
+  *"(none)"*. Three independent mechanisms, each of which alone would have hidden
+  it.
