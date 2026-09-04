@@ -161,7 +161,7 @@ copy product architecture or internal product state. Canonical intent:
   shadow mode, a data-driven policy table and one case model · a run-evidence
   reader · and a **versioned cross-repo support feed**, producer in
   `spider-swing` (fail-closed in both its required checks) and consumer in the
-  bot. spider-bot went 246 → 539 tests.
+  bot. **Merged and live 2026-09-04 evening (`5a7f8a28`).**
   **Three counts in this repo's own records were wrong and are corrected:**
   spider-bot had **20 commits, not 5**; **246 tests, not 78**; and the `/home`
   panel the Layer-2 entry point still listed as a *candidate* had shipped

@@ -1873,6 +1873,26 @@ read **`SKIPPED`** when the commit misses the service's build watch patterns
 days, correctly). `variables(projectId:, environmentId:, serviceId:)` returns a
 name→value map: **print `sorted(v)` only, never the map** — presence, not values.
 
+**The Railway CLI works here too, and carries one trap (MEASURED 2026-09-04,
+spider-bot#3 review).** `npm i -g @railway/cli` (5.49.1) + `RAILWAY_API_TOKEN=$RAILWAY_API_KEY`
+logs in as the owner; `railway config plan` needs `npm install railway` beside the
+`.railway/` folder it reads (run it in a scratch copy, never in the clone). **The
+trap: this container's environment carries `RAILWAY_PROJECT_ID`,
+`RAILWAY_ENVIRONMENT_ID` and `RAILWAY_SERVICE_ID` for `superbot-production`, and
+the CLI honours them over `railway link`** — an unoverridden `railway config plan`
+against spider-bot's file resolved to superbot-production and previewed **24
+variable deletions plus the Postgres** there (a plan, nothing applied; `railway
+status` shows which project you are on). Override all three on the command line
+(`RAILWAY_PROJECT_ID=… RAILWAY_ENVIRONMENT_ID=… RAILWAY_SERVICE_ID=… railway
+config plan`) and check the `Project` line of the output before believing a
+plan. Two IaC facts measured read-only on spider-bot the same day: **omit means
+delete** — removing one existing variable from `env` plans `Delete variable
+worker.GUILD_ID` as destructive; and **`preserve()` on a variable that does not
+exist yet is a no-op** — six added, plan "already up to date" — so the rollout
+switches can be declared before they are set. Applies are never automatic
+(`railway config apply` only, plan first, `--confirm-destructive` needed
+non-interactively). Never run `apply` from a session; plan is read-only.
+
 ### A session's merge is INDISTINGUISHABLE from the owner's (MEASURED 2026-09-04, spider-bot)
 `$GITHUB_PAT` is account-scoped, so anything a session does with it is recorded
 as the owner doing it. There is no field that separates them — checked, not
