@@ -212,9 +212,25 @@ session's most important single correction:**
    needed — 10 of 883 runtime files touched, +418/−2 in the EAP window — so the
    conclusion now rests on evidence that carries it.
 
-**What the round says about the fleet.** 24 lanes and 6 adversarial challenges
-did not find any of these three. One external reviewer, one round, reading the
-written artifact rather than the source tree, found all three plus ten more. The
-fan-out was the right instrument for *census* work and the wrong one for
-*self-critique*, which is consistent with I-15: a fleet given the standard it
-will be scored against agrees with itself.
+**What the round says about the fleet — corrected, because the first version of
+this paragraph was unfair to the fleet in a way that flattered the diagnosis.**
+It said 24 lanes and 6 adversarial challenges "did not find any of these three."
+They could not have. **Every lane was pointed at the two product repositories,
+and the challenge lanes finished between 15:36 and 16:10 — before most of the
+package existed**; only 2 of the 34 agent transcripts mention `08-verification`
+or `FLOOR` at all. A reviewer never shown the artifact has not missed a defect
+in it.
+
+**The accurate statement is narrower and worse.** Codex was the *only* reader of
+the written package, because **this session designed a 34-agent fleet to audit
+two repositories and no stage at all to audit its own output.** The comparison
+is not between two reviewers; it is between "reviewed" and "never asked". The
+lesson survives with its reason replaced: not *a fan-out cannot self-critique*
+— untested — but **a fan-out reviews exactly what you point it at, and pointing
+it at the sources while the conclusions go unreviewed is a population choice,
+made by the person who wrote the contract sheet.** That is I-15's shape one
+level up: the instrument was fine and its population was wrong.
+
+**For the next fan-out:** a synthesis-critic lane over the written deliverables,
+run before the external round, is the missing stage — and `run/CONTRACTS.md`'s
+AGGREGATE section is where it should have been declared.
