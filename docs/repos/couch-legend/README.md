@@ -41,7 +41,7 @@ painted scene pairs live.
 
 ## Threads
 
-### Thread: the long-form redesign — **PR #19 OPEN, 2026-09-04**
+### Thread: the long-form redesign — **LANDED 2026-09-04** (couch-legend #19)
 
 The owner's directive was larger than the incremental work before it: make
 Couch Legend stay interesting for many hours through *evolving mechanics*,
@@ -55,18 +55,35 @@ then spending **99.6 % of the 14-day story with nothing new to buy**, with
 **13 of 18 chapters arriving empty**. Sixteen chapters were the same loop
 with new scenery.
 
-What is proposed in [couch-legend #19](https://github.com/menno420/couch-legend/pull/19):
+What landed in [couch-legend #19](https://github.com/menno420/couch-legend/pull/19) (`4934955`):
 **keepsakes** — every chapter after the first leaves one permanent object with
 the couch, the couch always has fewer places than objects, and every effect
 transforms a system that already existed rather than minting a currency. The
-same instrument re-run reports **17/18** chapters introducing a mechanic (its
-self-test grew 13 → 18 checks in the same commit, so the after-number is not a
-looser measurement). Rails: story close 12.5 d → **12.1 d**, worst attended
+same instrument re-run reports **14/18** chapters introducing a new mechanic
+and a further **3/18** *deepening* one — 17 of 18 deliver something new, and
+only the bare couch at First Light delivers nothing. Its self-test grew 13 →
+22 checks, so the after-number is measured by a stricter instrument.
+*(An earlier draft of this thread said 17/18 introduce a mechanic; that
+conflated a stronger value of an existing shape with a new one, and Codex
+caught it in the third round.)* Rails: story close 12.5 d → **12.1 d**, worst attended
 dead time **44.8 m → 40.6 m** against a 45 m bound, check-ins offering a move
 **96.9 % → 98.0 %**, rebuild unchanged; one sub-2 % felt-upgrade reading
 survives in 1 of 27 runs on the new optimiser lane and is stated rather than
 tuned away. Save is **v3**, and the migration is rate-neutral by construction
 so the recorded replay parity evidence is untouched.
+
+**How it was reviewed, because the shape is reusable:** three Codex rounds (the
+per-PR cap) plus one independent pass on the landing head — **25 findings, 25
+conceded, 0 survived**, five of them P1. Round 2 read the *round-1 fixes* and
+found five defects in them; round 3 found seven more, **two of which corrected
+numbers this PR had already published**. Two further defects were found only by
+running the built game — the unit suite and 27 simulated runs both missed them.
+The cap was spent on a head that then received seven fixes, so the landing head
+went to the Gemini side channel instead — the estate's mid-session review
+route (see the decisions ledger and
+[`../../conventions/vertex-first-for-gemini.md`](../../conventions/vertex-first-for-gemini.md)).
+The free key returned 429 on its daily cap, so the paid key was spent for one
+request, as the ledger's spend authorization allows.
 
 Also in the same PR: a **monetization design lane as mockups that cannot
 transact** — one `BillingAdapter` whose only implementation is a mock with no

@@ -1,8 +1,8 @@
 # 2026-09-04 — Couch Legend's long-form redesign: the route update
 
-> **Status:** `in-progress` — branch `claude/couch-legend-design-arch-iwpo96`.
+> **Status:** `complete` — the route is updated; couch-legend #19 merged as `4934955`.
 
-- **📊 Model:** Opus 5 · xhigh · records
+- **📊 Model:** Opus 5 · xhigh · docs-only
 - **📍 Venue:** cloud-container
 - **🔗 Session:** [session_01FAkSXD7ZQ7E7XzysZmLRbF](https://claude.ai/code/session_01FAkSXD7ZQ7E7XzysZmLRbF) · "Couch Legend game design and architecture"
 
@@ -38,4 +38,20 @@ product repo's `docs/DESIGN.md` §§ 11–12.
 
 ## Close-out
 
-*(filled at the flip)*
+The product work merged as couch-legend
+[#19](https://github.com/menno420/couch-legend/pull/19) → `4934955`. This route
+now carries the measured before/after, the review record, and the two
+store-policy facts that generalise past one repo.
+
+**One correction worth carrying:** the thread first said 17 of 18 chapters
+introduce a mechanic. That was the product repo's own instrument overcounting —
+it treated a stronger value of an existing effect shape as a new mechanic — and
+Codex caught it in the third review round. The honest figure is **14 introduce,
+3 deepen, 17 deliver something new**. It was corrected in all four places it
+had been published, this route included.
+
+**A process note for the next session working a kit adopter:** the local gate
+and the CI gate are not the same command. `python3 bootstrap.py check --strict`
+passed while CI's added-card lane
+(`check --strict --added-card <card>`) failed on an off-taxonomy PL-004 task
+class. Run the added-card form locally before pushing a card.
