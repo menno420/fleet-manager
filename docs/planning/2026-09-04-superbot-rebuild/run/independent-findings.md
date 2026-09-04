@@ -1105,3 +1105,53 @@ Two consequences:
    architectures **unchanged**. Portability is not hypothetical here; it has
    happened, 54 times, and the fence that blocks it for stateful modules is a
    contract choice (I-10) rather than a structural impossibility.
+
+## I-22 · CORRECTION TO I-3 — `superbot-next`'s clean DAG is a module-level artifact — `MEASURED`
+
+**I-3 above is wrong in its most-quoted sentence, and challenge lane E found it.**
+I-3 reported *"0 module-level `sb.kernel` → `sb.domain` imports against 234 the
+other way"* and concluded the layering property was real-but-unenforced. M8
+reported the same shape ("977 cross-layer imports, ZERO reverse"). **Both
+censuses counted module-level imports only** — and that is where the property
+lives *because that is the only place a module-level census can look.*
+
+Re-derived here over `sb/domain`, counting cross-**subsystem** imports and
+splitting by where the `import` node sits:
+
+```
+cross-subsystem sb.domain imports: 296
+  module-level   :  28  ( 9.5 %)
+  FUNCTION-BODY  : 268  (90.5 %)
+
+mutual subsystem pairs — union graph : 8
+                       — module-level only : 0
+  ('community','xp') ('creature','games') ('farm','games') ('fishing','games')
+  ('fishing','mining') ('games','mining') ('governance','settings') ('role','setup')
+```
+
+**Nine of every ten cross-subsystem edges are inside function bodies, and every
+cycle is there.** At module level the graph is acyclic — 0 mutual pairs — which
+is exactly the number I published. Look at the whole graph and there are **8**.
+
+Three things follow, and the third is the one for the successor:
+
+1. **The "clean layer DAG" is not a property of the design; it is a property of
+   the measurement.** Moving an import into a function body removes it from the
+   census and changes nothing about the coupling. `superbot`'s own checker knows
+   this — it has a `--report-lazy-imports` mode, which R3 measured as raising its
+   findings from 1 to 137 — **and CI never passes the flag.**
+2. **The comparison inverts again.** Challenge E measured `superbot` acyclic in
+   both its 59-cog layer (0 cycles) and its 190-module services layer (0 cycles
+   over 148 edges). So on *actual* subsystem coupling the three-years-later bot
+   is cleaner than its ground-up replacement.
+3. **A layer rule that only sees module-level imports is a rule with a documented
+   bypass**, and both repos have taken it. The successor's import guard must
+   walk the **whole AST**, count function-body imports as real edges, and fail on
+   cycles — otherwise "clean architecture" means "we moved the imports."
+
+**And this is the session's own defect, not only the fleet's.** I spent the run
+catching guards that measured a convenient population, and published a headline
+number from a census that could only ever return zero. The instrument was mine,
+the blind spot was structural, and a lane I commissioned to disagree with me is
+what found it — which is the strongest available argument for the adversarial
+lanes being non-optional in the successor's review process.
