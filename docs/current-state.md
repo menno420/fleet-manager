@@ -75,10 +75,19 @@ copy product architecture or internal product state. Canonical intent:
   for whichever session next works the mail with him. It went through
   seventeen Codex rounds; the three-round cap that followed is
   [`traps.md`](traps.md) TRAP-009 (its decision is stamped there).
-- **D2 is the actionable program step. `OQ-FM-D2-TARGET` is STILL OPEN** — a
+- **D2 is the actionable program step. `OQ-FM-D2-TARGET` is ✅ ANSWERED
+  2026-08-28 — `spider-swing`** (owner, live, the OD-24 sitting; OD-26 and
+  [`owner-queue.md`](owner-queue.md)). ~~STILL OPEN~~ — that reading was
+  correct when written and was **not updated when he answered**, so this file
+  said OPEN here, CLOSED 150 lines below, and *"awaits the owner"* in
+  § Next action: three states for one question inside one boot-path document.
+  Corrected 2026-09-04 (fm #1020) against the program's NOW pointer and the
+  queue entry, both of which already said ANSWERED. The withdrawal it describes
+  is real history and is kept: a
   2026-08-23 session marked it answered by OD-20 and withdrew that the same
   session (`@codex`, fm #937); his words set an estate-wide outcome, not a
-  repository choice. **No session is blocked by it:** the
+  repository choice — which is why the 08-28 answer was verified against the
+  sitting record before being recorded. **No session is blocked by it:** the
   [active-repo intent audit](findings/2026-08-23-active-repo-intent-audit.md) § 6
   gives a measured order — **`spider-swing` → `product-forge` → `estate-backups`
   → the `websites` date stamp**. **Settled among the RATED, 2026-08-24 (fm
@@ -512,8 +521,11 @@ window.
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
 E1 is drafted in full and staged as his Gmail draft (fm #1017) — the rewrite
-of Part 1 and the send remain his alone; D2 is the available track; its next-repo target awaits
-the owner (OD-15 superseded shiftlife, 2026-08-10).
+of Part 1 and the send remain his alone; D2 is the available track and **its
+target is `spider-swing`** (`OQ-FM-D2-TARGET` ANSWERED 2026-08-28, OD-26).
+~~its next-repo target awaits the owner~~ — corrected 2026-09-04 (fm #1020);
+OD-15 had superseded the older `shiftlife` target on 2026-08-10 and he named
+the replacement eighteen days later.
 
 Use
 [`findings/2026-08-05-foundation-continuation.md`](findings/2026-08-05-foundation-continuation.md)
