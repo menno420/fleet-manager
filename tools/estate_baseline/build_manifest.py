@@ -87,6 +87,23 @@ def normalise(item: dict, lane: str) -> dict | None:
         else:
             v = "" if v is None else str(v)
         out[f] = v
+    # A missing decision field must not become a usable default. `certainty=""`
+    # survives a rule that kills only the literal 'UNVERIFIED', and a
+    # contradiction with no resolution silently becomes 'none'.
+    CERTS = {"MEASURED", "MEASURED-PRIOR", "OWNER", "REASONED", "REVIEWED",
+             "UNVERIFIED", "NOT-VERIFIABLE"}
+    if not str(item.get("certainty", "")).strip():
+        out["certainty"] = "UNVERIFIED"
+        out["blocker"] = (out.get("blocker", "") + "; " if out.get("blocker") else "") + \
+            "malformed record: no certainty supplied, read as UNVERIFIED"
+    elif out["certainty"] not in CERTS:
+        out["blocker"] = (out.get("blocker", "") + "; " if out.get("blocker") else "") + \
+            f"malformed record: certainty {out['certainty']!r} is not in the legend"
+        out["certainty"] = "UNVERIFIED"
+    if out["contradicted_by"] and not str(item.get("contradiction_resolution", "")).strip():
+        out["contradiction_resolution"] = "unresolved"
+        out["blocker"] = (out.get("blocker", "") + "; " if out.get("blocker") else "") + \
+            "malformed record: contradiction named with no resolution, read as unresolved"
     out["estate_role"] = canon_role(out["estate_role"])
     out["source_repo"] = canon_repo(out["source_repo"], lane)
     out["judge_branch"] = str(item.get("judge_branch", ""))
@@ -124,6 +141,60 @@ def _key(text: str) -> frozenset:
 
 _STOP = {"the", "and", "for", "its", "his", "her", "not", "but", "with", "from",
          "that", "this", "are", "was", "has", "have", "into", "onto", "own"}
+
+
+def assign_drops(items: list, drops_by_lane: dict) -> dict:
+    """Resolve drops to items ONE-TO-ONE, per audited lane.
+
+    A per-item lookup cannot prevent reuse: with a single drop `Release`, both
+    `Release signing` and `Release notes` score 1.0 under containment and each
+    lookup sees exactly one candidate, so an ambiguity guard never fires and both
+    rows die on one verdict. Assignment is the fix — every drop is spent at most
+    once, on its best-scoring subject, and ties are refused rather than guessed.
+
+    Returns {id(item): reason}.
+    """
+    out: dict[int, str] = {}
+    by_lane: dict[str, list] = {}
+    for it in items:
+        by_lane.setdefault(audited_of(it), []).append(it)
+    for lane, drops in drops_by_lane.items():
+        pool = by_lane.get(lane, [])
+        if not pool:
+            continue
+        pairs = []
+        for cand, reason in drops.items():
+            ck = _key(cand)
+            if not ck:
+                continue
+            for it in pool:
+                sk = _key(it["subject"])
+                if not sk:
+                    continue
+                inter = len(sk & ck)
+                score = max(inter / len(sk), inter / len(ck))
+                if score >= 0.6:
+                    pairs.append((score, cand, reason, id(it)))
+        pairs.sort(reverse=True, key=lambda t: t[0])
+        used_drop, used_item = set(), set()
+        for score, cand, reason, iid in pairs:
+            if cand in used_drop or iid in used_item:
+                continue
+            rivals = [q for q in pairs if q[1] == cand and q[3] not in used_item
+                      and q[3] != iid and abs(q[0] - score) < 0.15]
+            if rivals:
+                used_drop.add(cand)      # ambiguous: spend it on nobody
+                continue
+            out[iid] = reason
+            used_drop.add(cand)
+            used_item.add(iid)
+    return out
+
+
+def audited_of(item: dict) -> str:
+    """The repository whose reading produced this item, from its origin lane."""
+    lane = item.get("origin_lane", "")
+    return lane.split(":", 1)[1].split("/")[-1] if ":" in lane else ""
 
 
 def match_drop(subject: str, drops: dict) -> str | None:
@@ -261,15 +332,14 @@ def main() -> int:
                 oc_applied += 1
                 break
 
+    # Scope by the AUDITED reading (origin_lane), not by the claim's own
+    # source_repo: a repository reading that cites a hub file leaves
+    # source_repo == "fleet-manager", and keying on that silently skipped its own
+    # refuter (34 of 44 drops matched by source_repo against 43 by lane).
+    assigned = assign_drops(items, drops)
     applied = 0
     for it in items:
-        # Scope by the AUDITED reading (origin_lane), not by the claim's own
-        # source_repo: a repository reading that cites a hub file leaves
-        # source_repo == "fleet-manager", and keying on that silently skipped its
-        # own refuter. Codex measured the cost on this evidence: 34 of 44 drops
-        # matched by source_repo against 43 of 44 by lane.
-        audited = it["origin_lane"].split(":", 1)[1].split("/")[-1] if ":" in it["origin_lane"] else ""
-        reason = match_drop(it["subject"], drops.get(audited, {}))
+        reason = assigned.get(id(it))
         if reason and not it["refuted"]:
             it["refuted"] = True
             it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
@@ -337,11 +407,19 @@ def main() -> int:
                  and classification[r]["classification"] in
                  ("CHANGED_REAUDIT", "WEAK_OR_INCOMPLETE", "NEW")
                  and r != "fleet-manager"]
+    refuted_repos = {str(x.get("repo", "")).split("/")[-1] for x in refutations}
+    unrefuted = sorted(seen_repos - refuted_repos)
+    disposed = {str(a.get("area", "")) for a in areas}
+    enumerated = {str(x.get("area", "")) for x in items if False}  # areas carry their own
+    if unrefuted:
+        print("NOTE — read but never refuted (the adversarial lane is incomplete):", unrefuted)
     if unaudited:
         print("NOTE — in the re-audit slice but with no reading in these journals:", unaudited)
+    if (unaudited or unrefuted) and True:
         if not args.allow_partial:
             print("build_manifest: FAILED — refusing to report success over an incomplete "
-                  "manifest; pass --allow-partial to publish one deliberately", file=sys.stderr)
+                  "manifest (a missing reading OR a missing refutation); pass "
+                  "--allow-partial to publish one deliberately", file=sys.stderr)
             return 1
     return 0
 

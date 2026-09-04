@@ -712,8 +712,14 @@ with known holes, which is what the acceptance test asked for.
 2. **Treat the census as settled and each repository as dispositioned once.**
    28 repositories, reconciled live against `ESTATE.md`.
 3. **Seed the eighteen `repositories/<repo>/` folders that have no Layer-2
-   folder today** using § 5's re-audit for the eight non-active-but-live ones and
-   a README-only row for the nine archived, per the structure proposal.
+   folder today.** The eighteen are **8 + 9 + 1**, and the third term is the one
+   an earlier draft dropped: **eight** live repositories get content from § 5's
+   re-audit and the reuse lane · **nine** archived get a README only, per the
+   structure proposal · and **`fleet-manager` itself** gets the row that says it
+   is the **predecessor and frozen archive**, sourced from decision 25 in
+   `docs/decisions.md` rather than from a Layer-2 folder it never had. Counting
+   17 and calling it 18 would leave the predecessor's own room empty in a tree
+   whose index promises a row per repository. Caught by Codex, round 2.
 4. **Carry the one answered intent worksheet as owner-authored truth** —
    `owner/intent-workbooks/estate/why-this-estate-exists.md`, his words of
    2026-08-31 on why the successor exists. The other 73 worksheets carry

@@ -358,8 +358,11 @@ copy product architecture or internal product state. Canonical intent:
   generated) · `tools/estate_baseline/` (the reproducible delta, the survival
   rule, the builder, three fixture suites).
   **Census: 28 repositories**, live-reconciled against `ESTATE.md`, each with one
-  disposition. **68 items live in `estate`**, 55 archive-only, 60 killed and
-  published with the branch that fired.
+  disposition. **The manifest's own counts are deliberately not repeated here** —
+  they changed four times as the external round landed, and a total copied into a
+  front door is a total that goes stale in a front door. `python3
+  tools/estate_baseline/build_manifest.py` prints them; the finding's § 8 carries
+  them with their provenance.
   **The finding that changes the plan:** of the five repositories whose trees did
   **not** move, only one is reusable — the rest anchor to a disposition table
   whose own header disclaims internal state. *Zero commits proves the source did

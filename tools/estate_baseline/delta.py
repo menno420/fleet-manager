@@ -136,7 +136,8 @@ def classify(ahead: int | None, archived: bool) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--anchors", required=True, help="TSV: repo, baseline_utc, evidence_ref, certainty")
+    ap.add_argument("--anchors", required=True,
+                    help="TSV: repo, baseline_utc, evidence_ref, certainty[, baseline_sha]")
     ap.add_argument("--out", help="write TSV here (default: stdout)")
     args = ap.parse_args()
 
@@ -156,6 +157,7 @@ def main() -> int:
                 print(f"delta: malformed anchor row: {line!r}", file=sys.stderr)
                 return 2
             repo, baseline_utc, ref, certainty = (p.strip() for p in parts[:4])
+            recorded_sha = parts[4].strip() if len(parts) > 4 else ""
 
             status_code, meta = _get(f"/repos/{OWNER}/{repo}", token)
             if status_code != 200 or not isinstance(meta, dict):
@@ -165,7 +167,16 @@ def main() -> int:
                 continue
             branch, archived = meta["default_branch"], bool(meta["archived"])
 
-            base, err_b = commit_at(repo, branch, baseline_utc, token)
+            # Prefer the SHA the audit actually read. Re-deriving the baseline
+            # from the branch's CURRENT history is not equivalent: a branch reset
+            # to a commit older than baseline_utc resolves both ends to the same
+            # commit, `base == head` short-circuits, and a rewritten repository
+            # reads UNCHANGED_REUSABLE — the one case where skipping a re-audit
+            # is least safe.
+            if recorded_sha:
+                base, err_b = {"sha": recorded_sha, "date": f"recorded@{baseline_utc}"}, ""
+            else:
+                base, err_b = commit_at(repo, branch, baseline_utc, token)
             head, err_h = commit_at(repo, branch, None, token)
             if base is None or head is None:
                 rows.append([repo, branch, "", "", "", "INACCESSIBLE", ref, certainty,
