@@ -1155,3 +1155,37 @@ number from a census that could only ever return zero. The instrument was mine,
 the blind spot was structural, and a lane I commissioned to disagree with me is
 what found it — which is the strongest available argument for the adversarial
 lanes being non-optional in the successor's review process.
+
+## I-23 · A spot-check of the writing step's own `MEASURED` claims — 3 of 3 reproduce exactly — `MEASURED`
+
+The package's evidence rule says a `MEASURED` line must be re-derivable from what
+the file cites. That rule is worthless unaudited, so three `MEASURED` claims
+written by the deliverable-writing step were picked and re-run against the pinned
+clones after the files landed.
+
+| claim | stated | re-derived | verdict |
+|---|---|---|---|
+| `sb/domain/settings/panels.py` size, against `superbot`'s cog-size `FAIL_LOC` | 2,567 LOC vs `FAIL_LOC = 800` | `wc -l` → **2567**; `sed -n '42p' tests/unit/invariants/test_cog_size.py` → **`FAIL_LOC = 800`** | **exact** |
+| test-only registry clears under `sb/` | **92** (49 `domain` · 38 `kernel` · 3 `spec` · 2 `adapters`) | `grep -rn 'def \(clear\|reset\)_[a-z_]*_for_tests' sb/ \| wc -l` → **92**, and the per-area split reproduces 49/38/3/2 | **exact** |
+| the same pattern in `superbot` | **1** repo-wide | same grep at `5e3a667b` → **1** | **exact** |
+
+**And the instructive part is my own first attempt, which said it did not
+reproduce.** I searched for `clear_[a-z_]*_for_tests` and got 14 definitions, 29
+occurrences under `sb/`, 114 repo-wide — no query form giving 92 — and was one
+step from recording the claim as unsupported. **The row states its own command,
+and that command contains `reset_`, which my pattern omitted.** Running the
+stated command returned 92 on the first try.
+
+The lesson is narrow and worth keeping: **when a row publishes the command that
+produced it, run that command before running one of your own.** A near-miss
+regex produces a confident, wrong refutation, and a refutation is exactly the
+kind of claim that gets written down without a second check because it feels
+like diligence. This is the same failure shape as I-8 and I-12 in this file —
+twice previously a differing denominator turned out to be my query rather than
+the finding.
+
+**What this does and does not establish.** Three of three is a small sample and
+it does not discharge [`../13-verdict.md`](../13-verdict.md) gap 2, which is
+about the *lane* rows and the refutation pass that never ran. It does say that
+the writing step's `MEASURED` tag meant what the package says it means on every
+instance tested, which is the property the evidence grading depends on.
