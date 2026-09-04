@@ -448,6 +448,116 @@ The reports and methods are public:
 
 ---
 
+## ⚠ OWNER Q&A — answer before final send · NOT SENDABLE · outside the COPY markers, so `--count`, `--verify` and the Gmail draft never see it
+
+> **What this is (2026-09-04, this session's final review pass).** Six
+> questions whose answers could still make the mail stronger, each naming
+> the gap it closes and where the answer would most likely land. **Answer in
+> your own words, as roughly as you like** — the session cleans spelling and
+> run-ons only ([D-0041]) and shows you anything beyond that before it goes
+> in. An empty answer means *"leave the mail as it is on this point"*.
+> Nothing here is drafted for you; the `Menno:` lines are yours alone. This
+> block is removed from the file once every answer is folded in or declined,
+> and the Gmail draft is not restaged while any of them is open.
+
+**Q1. Your own answer to their question, today.** Part 1 says the mail will
+"answer your question about what would make me choose a Project over a
+session" — and the actual answer then appears only in Part 2's addendum, in
+the agents' ordering of your 2 September words. After the weeks of normal
+sessions since: would you choose a Project today, for which kind of work,
+and what is the one-sentence reason? *(Gap: the mail's stated purpose is
+delivered in Claude's voice. Likely destination: Part 1, a short paragraph
+after the verdict; the addendum then becomes the evidence under your answer
+rather than the answer itself.)*
+
+Menno: `[answer here]`
+
+**Q2. If they could fix only one thing before the public release.** The
+addendum lists four fixes with no order — working-versus-stalled visible on
+the home screen; a coordinator that cannot report its queue exhausted while
+orders sit unread; workers that accept the coordinator's authority for merges
+and other gated actions; a channel between Projects. Which one first, and why
+that one? And would that one fix be enough for you to let a Project run
+unreviewed, or is the missing trust something else — the work not being what
+you asked for, the permissions, not seeing what is happening? *(Gap: a
+product team acts on a ranking. Part 1 names visibility as the one
+*feature*, the 2 September record names permissions as the one *fix*, and a
+reader cannot tell which is first for you. Likely destination: one clause in
+the addendum's "must fix" paragraph, or one sentence in Part 1's verdict
+paragraph.)*
+
+Menno: `[answer here]`
+
+**Q3. The root cause you are still hunting.** Part 1 says searching for and
+correcting the errors took weeks, that you wanted the root cause first, and
+that you are still working on it — but never says what you found. In one or
+two sentences, as you see it now and in your own words rather than the
+agents' measurements: what is the pattern behind the mistakes? *(Gap: the
+paragraph leaves its own thread open, and the owner's reading of the failure
+is worth more to them than another measurement. Likely destination: Part 1,
+paragraph 3, replacing "and I am still working on it" or following it.)*
+
+Menno: `[answer here]`
+
+**Q4. The interviews, and the August study.** Part 1 says the two research
+interviews "gave me more insight into what you want to know from me" — what
+did they show Anthropic wants to know, and does this mail answer it? And
+separately: on 18 August they sent an async study invitation (*"20 minutes
+on how you'd describe Projects"*) — did you do it? *(Gap: the sentence
+currently dangles, and if you did the August study the "two" undercounts.
+Likely destination: the interviews sentence in Part 1 — one clause added, or
+its second half cut.)*
+
+Menno: `[answer here]`
+
+**Q5. What to keep, what to test first, and whether you want to be asked.**
+Part 2 calls the custom instructions the single best feature. Is there
+anything else from the Projects you would not want lost in a redesign — the
+coordinator that generates its own tasks, the daily reset, the throughput?
+If a new version shipped tomorrow, what is the first thing you would test,
+and do you want them to ask you? *(Gap: the standing offer is in Claude's
+voice only, and the end of a long correspondence reads better with one
+forward-looking line from you. Likely destination: Part 1, one or two
+sentences before the thanks.)*
+
+Menno: `[answer here]`
+
+**Q6. The wrong conclusion.** If someone at Anthropic read only Part 2, what
+is the one wrong conclusion you would want to prevent, in your words — for
+example "the code was bad", "he is unhappy with the program", "the agents
+were the problem rather than the product", or something else? *(Gap: Part 2
+is hedge-heavy and evidence-first; the takeaway is set by the first human
+sentence a reader finds on it. Likely destination: one sentence in Part 1's
+verdict paragraph, or nothing.)*
+
+Menno: `[answer here]`
+
+### Proposed small edits — yes or no each (none applied yet; all go in one pass with your answers, so the figure consumers move once)
+
+- **P1 · addendum, last sentence** — drop the duplicated documentation ask;
+  Part 1 already says it in your words. *"Two asks follow: …"* becomes *"One
+  ask follows, beyond the documentation ask he makes above: a "queue
+  exhausted" that is checked against the repository before it is
+  reported."* — *yes / no*
+- **P2 · Finding 3** — split the 60-word *"The conclusion we acted on …"*
+  sentence in two, drop *"the same count was 61 the day before"*, and remove
+  the second *"conclusion we acted on"* — meaning unchanged, three fewer
+  clauses. — *yes / no*
+- **P3 · addendum quotes** — *"tho not exactly the same"* → *"though not
+  exactly the same"* ([D-0041] spelling; the quotation marks still mark it
+  as yours). — *yes / no*
+- **P4 · ask 4** — drop *"— we are not saying anything about the code either
+  way"*; Finding 1 already says it. — *yes / no*
+- **P5 · Part 1, your words** — after *"will retire soon"*, add *"(it stays
+  online as a read-only archive, so the links in the technical half will
+  keep working)"* — the fresh-start redirect plan makes it true, and it protects eight links. —
+  *yes / no*
+- **P6 · Part 2, first paragraph** — *"measured a month later"* → *"measured
+  in the weeks after"* (the census is five weeks after the close; the subject
+  says six). — *yes / no*
+
+---
+
 ## 2 · Before he sends — the seven calls, two of them answered 2026-08-25 (plus the separate revision-scope question)
 
 > **▶ 2026-09-03 — the remaining calls, put as one-word answers; Shape A fixed
