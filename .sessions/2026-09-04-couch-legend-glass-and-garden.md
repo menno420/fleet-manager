@@ -87,3 +87,22 @@ reproducing 0.138 %. Corrected in the Layer-2 thread here and in
 couch-legend's sim record and DESIGN (its correction PR). Exception reason:
 a wrong published number on `main` is the drift the records rule exists to
 prevent; it does not wait for a next session.
+
+## Addendum — the owner's answers, live, 18:33Z
+
+Four questions asked after both PRs landed; four answers, recorded where
+the next session reads: phase B *"haven't played yet"* (`OQ-CL-COUCH-FEEL`
+stays open) · the ceiling stays (couch-legend decisions ledger, entry 0004) · C before D once B
+is a yes (entry 0005 of the same ledger) · he runs the chapter 4–6 prompts in ChatGPT himself
+(`OQ-CL-SCENES-4-6` route a; the prepay top-up is not needed for them).
+Second PR from this session, docs-only — exception reason under [D-0024]:
+the answers arrived after the main PR had merged.
+
+**Guard recipe (found by the gate on this PR's first head):** a satellite
+repo's decision ids share the hub's `[D-NNNN]` token space, so writing
+`[D-0005]` for a couch-legend decision in a hub doc trips the hub's
+`stamp` checker (it reads it as fleet-manager's own D-0005, stamped in
+`launch-readiness-2026-07-10.md`). Name cross-repo decisions in prose —
+"couch-legend decisions ledger, entry 0005" — never with the bracketed
+token. `scripts/preflight.py` does not run the stamp checker; only the full
+`bootstrap.py check --strict` does (TRAP-010's shape again).
