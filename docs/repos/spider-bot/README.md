@@ -155,7 +155,11 @@ read-only with `railway config plan` — so the six rollout switches are now
 declared `preserve()` (a no-op until each is set, also measured). The binding
 rollout is the repo's `docs/rollout.md`; the plain-language page is
 `docs/what-changed.md`; his six setup steps and the open questions live there,
-not here. **Live worker: `5a7f8a28`** (was `bc4f9985` until 18:43Z).
+not here. **Live worker: `c81f39fe`** (spider-bot#5 merged 19:26Z, deployment
+`ec59b97f` verified by hash; `5a7f8a28` before it from 18:43Z, `bc4f9985`
+before that). Both merges were pressed by the review session with the account
+PAT at his word — `merged_by` cannot show that (spider-bot#6), so the cards
+say it. 689 tests collected at `main`.
 
 ### Thread: plan transplant — **open, and now partly moot**
 

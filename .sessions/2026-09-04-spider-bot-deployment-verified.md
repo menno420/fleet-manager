@@ -12,8 +12,17 @@
 
 Three cards in a row — the tranche card, the handoff card, the follow-up card —
 each said the same thing: the deployment is not verified, and that is the item
-being handed forward. **The owner merged spider-bot#3 at 18:42:14Z as
-`5a7f8a2`**, so it stopped being a handoff and became a check to run.
+being handed forward. **spider-bot#3 was merged under the account at 18:42:14Z
+as `5a7f8a2`**, so it stopped being a handoff and became a check to run.
+
+**Who merged it is NOT established, and this card said "the owner" until the
+owner-review round asked what that rested on.** It rested on `merged_by:
+menno420` from the PR API. The positive control refutes that reading:
+spider-bot#4, merged by *this session* with `$GITHUB_PAT` nine minutes later,
+records identically — `actor=menno420, via_app=None` on both timeline events.
+The PAT is account-scoped, so a session's merge and the owner's are the same
+bytes. It was him, or the sibling session that had pushed `8937191c` ten
+minutes before.
 
 ## What was verified
 

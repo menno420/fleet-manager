@@ -7,8 +7,10 @@
 > **The two things this card deliberately did not claim are both now settled,
 > and the correction is kept here rather than applied silently.** It said the
 > spider-bot PR was left for the owner rather than merged, so the deployed SHA
-> was unverified. **The owner merged it at 2026-09-04T18:42:14Z as `5a7f8a2`,
-> and the deployment is VERIFIED**: the new Railway deployment's
+> was unverified. **It was merged under the account at 2026-09-04T18:42:14Z as
+> `5a7f8a2` — by the owner or by the sibling session that had been working it
+> ten minutes earlier; the two are not distinguishable (see
+> `docs/CAPABILITIES.md`) — and the deployment is VERIFIED**: the new Railway deployment's
 > `meta.commitHash` equals `main` HEAD byte-for-byte, and the worker's own
 > `ready` line reports `AI=True intake=False moderation=off` — the shipped
 > off-state, stated by the bot in production rather than asserted by a document.

@@ -1,8 +1,9 @@
 # 2026-09-04 — spider-bot#3 reviewed against the tree and the live Railway project; the merge is his
 
-> **Status:** `in-progress` — branch `claude/spider-bot-pr-review-bye9ni`, born red.
-> Flips `complete` only after the owner's answer on spider-bot#3 has been acted
-> on and both cards carry the outcome.
+> **Status:** `complete` — branch `claude/spider-bot-pr-review-bye9ni`, born red
+> and flipped here as the deliberate last step: spider-bot#3 and #5 merged at
+> the owner's word and both deployments verified by hash; the records PRs #7
+> and #8 landed; this card and spider-bot's own carry the outcome.
 
 - **📊 Model:** fable-5 · xhigh · review/verify
 - **📍 Venue:** cloud-container
@@ -128,9 +129,46 @@ gains one line. The orientation budget measured 7,000/7,000 words before any
 addition, so the line was removed before the commit; that file was unchanged
 in that commit.
 
+## Close-out — what landed, measured
+
+| what | where | evidence |
+|---|---|---|
+| The review pass on #3 | spider-bot `8937191` | CI `quality` green; gate 0/0/0/0 |
+| #3 merged, at his word, by this session with the PAT | `5a7f8a28`, 18:42:14Z | deployment `6f5c7648` SUCCESS, `meta.commitHash == main` |
+| Bot reports to spider-bot's own tracker (his answer 3) | [spider-bot#5](https://github.com/menno420/spider-bot/pull/5) → `c81f39fe`, 19:26:36Z | deployment `ec59b97f` SUCCESS, `meta.commitHash == main`; `ready` event: six channels, intake false, moderation off, feed live |
+| Two Codex rounds + one Gemini pass on #5 | 6 + 6 + 3 findings — 15 fixed, 1 conceded on wording, 0 open | three disposition tables on the PR |
+| The outcome and who merged, written down | [spider-bot#7](https://github.com/menno420/spider-bot/pull/7), [#8](https://github.com/menno420/spider-bot/pull/8) (records only, SKIPPED deployments — correct) | — |
+
+**The parallel session.** The build session (`session_01YCXH5D4omEgguaPYHwVz6d`)
+was alive the whole time: it recorded my review pass (fm #1038), verified the
+same deployment minutes after I did (fm #1041, spider-bot#4), and then found
+that `merged_by` cannot show who merged (fm #1043, spider-bot#6). It was right,
+and it could not know the answer — **this session merged #3 and #5 with the
+account PAT at his word, given live here.** Written into both spider-bot cards
+(#7). Neither session knew of the other until this branch read `dirty`; every
+overlap was resolved by taking the record that had landed and keeping only what
+it lacked.
+
+**Two counts I wrote without reading, corrected in the record rather than
+hidden:** `8937191`'s message and the #3 review comment say *669 passed* — the
+previous session's number restated, not read from my run; and spider-bot#7
+carried *0 collected* — a grep that matched nothing, chained into a write.
+Cause, measured: spider-bot's `addopts = "-q"` plus my own `-q` gives `-qq`,
+which suppresses pytest's summary line entirely, so no run ever showed a count
+to read. Real count at spider-bot `main`: **689 collected** (spider-bot#8). The
+exit codes were read every time; the counts were not.
+
+**Rollout state for him, after tonight:** step 1 done twice over (both deploys
+verified by hash); step 2 needs `#intake-state`, step 4 `#case-state` — his to
+create; the PAT (step 3) now scopes to **both** `menno420/spider-swing` and
+`menno420/spider-bot`; the label `from-spider-bot` is wanted in both. The three
+rollout questions he answered are marked answered in `docs/rollout.md`; the
+rest (`#intake-state` splitting, who counts as staff for the panel, the third
+ping) stay open there.
+
 ## Layer-2 handoff
 
-Layer-2 handoff: docs/repos/spider-bot/README.md — *AI operations build* thread updated (review state, live worker hash, IaC finding)
+Layer-2 handoff: docs/repos/spider-bot/README.md — *AI operations build* thread updated (merged, live at `c81f39fe`, the IaC finding, #5's routing, the open owner steps)
 
 ## 💡 Session idea
 
