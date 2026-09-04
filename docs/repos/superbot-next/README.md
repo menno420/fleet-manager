@@ -36,6 +36,39 @@ dispatch targets, real handlers, real DB writes — "not a shell").
 
 ## Threads
 
+### Thread: the rebuild review — **its failure is now diagnosed, at the pin `d5f66dc2`** (2026-09-04)
+
+The 2026-09-04 comparative review
+([`docs/planning/2026-09-04-superbot-rebuild/`](../../planning/2026-09-04-superbot-rebuild/00-README.md))
+treated this repo's outcome as its primary research subject. **Read
+[`04-root-cause.md`](../../planning/2026-09-04-superbot-rebuild/04-root-cause.md)
+before forming any view about why 533/533 parity shipped nothing.** Four
+findings change what the entry point above says, each measured at this pin:
+
+- **The 533 goldens do not test the shipping bot.** Every "actual" wire byte
+  comes from `rendered_panel_payload()` in `sb/adapters/parity/transport.py`, a
+  serializer used by nothing but the parity adapter; production installs
+  `DiscordPanelPresenter` (`sb/app/panel_host.py:66`), which **no CI job
+  exercises** — the required gate installs only `pytest pyyaml`, so its four
+  tests skip.
+- **This composition root publishes no slash-command set.**
+  `sb/app/main.py:616` hardcodes `sync_remote(bot, committed, enabled=False)`,
+  and the only other sync leg is gated on `SB_DATA_PLANE=test`. Whether the
+  audit's *"27 slash commands survive"* still holds from an earlier registration
+  is **unmeasured** — but the repo's own justification for degrading rather than
+  refusing to boot rests on that survivor set, and this root never creates it.
+- **The clean layer DAG is a measurement artifact.** 296 cross-subsystem
+  `sb.domain` imports, **268 of them (90.5 %) inside function bodies**, where
+  all 8 mutual subsystem pairs live and where the module-level census never
+  looked.
+- **Its real donation is not the panel/manifest/parity layer.** It is authority,
+  audit, send-egress and member-data erasure as **required fields and
+  registry-derived walks** — the half a successor would be foolish to
+  re-derive.
+
+Next step: none in this repo. It stays parked and read-only; the review
+changed nothing here.
+
 ### Thread: game-community successor direction — **resolved for planning** (2026-08-21)
 
 The owner's current request resolves the former two-plan fork in favor of a

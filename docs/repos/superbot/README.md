@@ -55,6 +55,36 @@ Three facts a fresh session needs that the repo will not volunteer
 
 ## Threads
 
+### Thread: the rebuild review — **plan written, one owner question open** (2026-09-04)
+
+A full comparative review of this repo against `superbot-next` ran on
+2026-09-04 and produced the successor plan:
+[`docs/planning/2026-09-04-superbot-rebuild/`](../../planning/2026-09-04-superbot-rebuild/00-README.md).
+**It supersedes the comparative and architectural halves of the 2026-08-21 plan
+below**, which stays authoritative for nothing it does not still uniquely carry.
+
+Three things it changes about how this repo is read, each re-derived against
+the pin `5e3a667b` rather than carried from a prior document:
+
+- **This repo is the donor for guards over the rendered product** —
+  reachability, hub actionability, the back-button rule, the always-answer
+  fallback at `disbot/bot1.py:540-546`. The 2026-08-21 plan attributed the
+  import-direction guard and the provider-neutral AI gateway to
+  `superbot-next`; both are **this repo's**, and `sb/kernel/ai/gateway.py:1-6`
+  says so in its own header.
+- **Its real enforcement locus is `tests/`, not the workflow file.** 44 of 45
+  `check_*.py` are driven from `tests/` as libraries behind blocking invariant
+  tests; a reviewer reading only the CI workflow will understate this repo
+  badly.
+- **Three years in it is not the tangle its docs imply** — 0.69 % of lines
+  unreachable from the composition root, one `TODO` marker in the whole tree.
+
+Next step: none in this repo. **The review changes nothing here and authorizes
+nothing here** — `superbot`, its Railway worker and its Postgres were read-only
+throughout and remain the protected surface they were. The open item is one
+owner question (`OQ-SUPERBOT-SUCCESSOR-SCOPE`), and the work it unblocks starts
+in a new repository, not this one.
+
 ### Thread: game-community successor plan — **written, owner confirmation gates remain** (2026-08-21)
 
 The owner asked for a basic game-testing/general game-server bot that keeps the
