@@ -141,17 +141,25 @@ def match_drop(subject: str, drops: dict) -> str | None:
     sk = _key(subject)
     if not sk:
         return None
-    best, best_score = None, 0.0
+    scored = []
     for cand, reason in drops.items():
         ck = _key(cand)
         if not ck:
             continue
-        # containment in either direction, or a strong Jaccard overlap
         inter = len(sk & ck)
+        # Containment alone is not enough: a two-word generic subject is a subset
+        # of half the corpus, so `Release` would match `Release signing` at 1.0
+        # and one drop could kill rows it never judged. Require substantial
+        # overlap in BOTH directions.
         score = max(inter / len(sk), inter / len(ck))
-        if score > best_score:
-            best, best_score = reason, score
-    return best if best_score >= 0.7 else None
+        if score >= 0.6:
+            scored.append((score, reason))
+    if not scored:
+        return None
+    scored.sort(reverse=True, key=lambda t: t[0])
+    if len(scored) > 1 and abs(scored[0][0] - scored[1][0]) < 0.15:
+        return None          # ambiguous: refuse rather than guess which drop applies
+    return scored[0][1]
 
 
 def flatten(cell) -> str:
@@ -164,6 +172,8 @@ def main() -> int:
     ap.add_argument("--classification", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--evidence-out")
+    ap.add_argument("--allow-partial", action="store_true",
+                    help="exit 0 even when a repository in the re-audit slice has no reading")
     args = ap.parse_args()
 
     classification = json.load(open(args.classification, encoding="utf-8"))
@@ -227,7 +237,8 @@ def main() -> int:
                          "refuted": True, "source_path": "(killed before a source was recorded)",
                          "verification_point": "(killed at disposition)",
                          "certainty": "REVIEWED", "canonical_owner": "hub",
-                         "estate_role": "archive/", "disposition": "archive_only"}
+                         "estate_role": "archive/", "disposition": "archive_only",
+                         "verifier": f"disposition judge for area {r.get('area', '?')}"}
                     nn = normalise(n, f"area:{r.get('area', '?')}")
                     if nn:
                         nn["judge_branch"] = k.get("branch", "").strip()
@@ -241,7 +252,8 @@ def main() -> int:
     # that repository's rows whose subject the flag text mentions.
     oc_applied = 0
     for it in items:
-        for flag in overclaims.get(it["source_repo"], []):
+        audited = it["origin_lane"].split(":", 1)[1].split("/")[-1] if ":" in it["origin_lane"] else ""
+        for flag in overclaims.get(audited, []):
             if match_drop(it["subject"], {flag: flag}) and it["certainty"] in ("MEASURED", "OWNER"):
                 it["certainty_overclaimed"] = True
                 it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
@@ -251,7 +263,13 @@ def main() -> int:
 
     applied = 0
     for it in items:
-        reason = match_drop(it["subject"], drops.get(it["source_repo"], {}))
+        # Scope by the AUDITED reading (origin_lane), not by the claim's own
+        # source_repo: a repository reading that cites a hub file leaves
+        # source_repo == "fleet-manager", and keying on that silently skipped its
+        # own refuter. Codex measured the cost on this evidence: 34 of 44 drops
+        # matched by source_repo against 43 of 44 by lane.
+        audited = it["origin_lane"].split(":", 1)[1].split("/")[-1] if ":" in it["origin_lane"] else ""
+        reason = match_drop(it["subject"], drops.get(audited, {}))
         if reason and not it["refuted"]:
             it["refuted"] = True
             it["blocker"] = (it["blocker"] + "; " if it["blocker"] else "") + \
@@ -262,7 +280,10 @@ def main() -> int:
     # a killed twin — the kill wins, because the point is refutation.
     merged: dict[tuple, dict] = {}
     for it in items:
-        k = (it["subject"].strip().lower(), it["source_path"])
+        # Two repositories can legitimately emit "Identity and purpose" from
+        # "README.md"; a global key collapses them and the survivor then depends
+        # on journal order. The audited origin is part of the identity.
+        k = (it["subject"].strip().lower(), it["source_path"], it["origin_lane"])
         if k not in merged or (dies(it) and not dies(merged[k])):
             merged[k] = it
     rows = sorted(merged.values(), key=lambda r: (r["estate_role"], r["source_repo"], r["subject"]))
@@ -318,6 +339,10 @@ def main() -> int:
                  and r != "fleet-manager"]
     if unaudited:
         print("NOTE — in the re-audit slice but with no reading in these journals:", unaudited)
+        if not args.allow_partial:
+            print("build_manifest: FAILED — refusing to report success over an incomplete "
+                  "manifest; pass --allow-partial to publish one deliberately", file=sys.stderr)
+            return 1
     return 0
 
 

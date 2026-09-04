@@ -96,13 +96,26 @@ def commit_at(repo: str, branch: str, until: str | None, token: str) -> tuple[di
 
 
 def commits_between(repo: str, base: str, head: str, token: str) -> tuple[int | None, str]:
-    """`ahead_by` from the compare endpoint: commits on head not on base."""
+    """Commits on head not on base — and never 0 for a head that is not base.
+
+    `ahead_by` alone is not enough. If a default branch is force-reset to an
+    ancestor of the recovered baseline, compare returns `status: "behind"` with
+    `ahead_by == 0` while the head SHA and tree genuinely differ, and the
+    repository would be classified UNCHANGED_REUSABLE and skipped — the one case
+    where skipping a re-audit is least safe, because history was rewritten.
+    """
     if base == head:
         return 0, ""
     status, body = _get(f"/repos/{OWNER}/{repo}/compare/{base}...{head}", token)
     if status != 200 or not isinstance(body, dict):
         return None, f"compare HTTP {status}: {body}"
-    return body.get("ahead_by"), ""
+    ahead = body.get("ahead_by")
+    if ahead == 0:
+        # different SHAs, nothing ahead: behind or diverged. Report it as moved,
+        # with the compare status so the reason survives into the TSV.
+        return max(1, body.get("behind_by") or 1), \
+            f"head differs from baseline with ahead_by=0 (compare status: {body.get('status')})"
+    return ahead, ""
 
 
 def classify(ahead: int | None, archived: bool) -> str:

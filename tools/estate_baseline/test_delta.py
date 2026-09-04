@@ -21,7 +21,9 @@ import csv
 import pathlib
 import sys
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+HERE = pathlib.Path(__file__).resolve().parent
+REPO = HERE.parent.parent
+sys.path.insert(0, str(HERE))
 from delta import classify  # noqa: E402
 
 # --- 1 · branch fixtures: each names its expected outcome BEFORE it runs -----
@@ -38,7 +40,15 @@ UNIT = [
 
 # --- 2 · live controls over the real estate ---------------------------------
 # Positives: default branch moved after the anchor (independently visible in
-# the repository's own commit dates).  Negatives: it did not.
+# the repository's own commit dates).  Negatives: it had not, AT THE SNAPSHOT.
+#
+# The negatives are snapshot-relative and the estate keeps moving, so a fresh
+# delta legitimately reclassifies one the day it receives a commit. Asserting
+# UNCHANGED against a fresh run would turn ordinary movement into a red test —
+# and the finding tells a seed session to run exactly that. So a negative is
+# checked against the COMMITTED snapshot, and against a fresh file it is only
+# required not to be INACCESSIBLE.
+SNAPSHOT = "docs/findings/data/2026-09-04-estate-truth-baseline/delta.tsv"
 POSITIVE = {"fleet-manager", "couch-legend", "substrate-kit", "websites"}
 NEGATIVE = {"pokemon-mod-lab", "shiftlife", "gba-homebrew", "curious-research",
             "venture-lab", "superbot-next", "superbot-plugin-hello"}
@@ -83,10 +93,17 @@ def main() -> int:
                             f"(commits_since={row['commits_since']})")
         else:
             hits += 1
+    fresh = pathlib.Path(path).resolve() != (REPO / SNAPSHOT).resolve()
     for repo in sorted(NEGATIVE):
         row = rows.get(repo)
         if row is None:
             failures.append(f"negative control missing from output: {repo}")
+        elif fresh:
+            # against a fresh delta, movement is legitimate; only a wall is a failure
+            if row["delta_status"] == "INACCESSIBLE":
+                failures.append(f"negative control unreadable: {repo} — {row['note']}")
+            else:
+                hits += 1
         elif row["delta_status"] != "UNCHANGED_REUSABLE":
             failures.append(f"negative control overmatched: {repo} -> {row['delta_status']} "
                             f"(commits_since={row['commits_since']})")
@@ -96,7 +113,9 @@ def main() -> int:
     print(f"unit fixtures  : {len(UNIT)} cases, {killed} kill / {survived} survival / "
           f"{diverted} archived-diverted")
     print(f"real-slice     : {hits}/{len(POSITIVE) + len(NEGATIVE)} controls correct "
-          f"({len(POSITIVE)} positive, {len(NEGATIVE)} negative) over {len(rows)} rows in {path}")
+          f"({len(POSITIVE)} positive, {len(NEGATIVE)} negative"
+          f"{', snapshot-relative' if not fresh else ', fresh file — negatives checked for readability only'})"
+          f" over {len(rows)} rows in {path}")
     for f in failures:
         print("FAIL:", f)
     return 1 if failures else 0

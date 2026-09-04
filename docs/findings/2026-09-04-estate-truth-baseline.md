@@ -436,9 +436,17 @@ the signing, while the repository's README denies all three.
 
 That inverts the naive rule *"the repository always wins"*. The repository wins
 on **what is true**; it does not follow that its **README** wins, and a seed
-built by copying front doors would import the errors. The manifest's
-`canonical_state_source` column exists for this: it points at the repository's
-ledger, not its README.
+built by copying front doors would import the errors.
+
+**Where that distinction actually lives, corrected.** An earlier draft said *"the
+manifest's `canonical_state_source` column exists for this"*. **There is no such
+column** — Codex checked the header against `build_manifest.py::COLUMNS` and
+found only the general `source_path`. So the safeguard is stated in prose here
+and in each repository reading's `canonical_state_source` field (retained in
+[`repo-readings.json`](data/2026-09-04-estate-truth-baseline/repo-readings.json)),
+but it is **not represented in the seed artifact**, and a consumer of the CSV
+alone cannot tell a canonical ledger from whichever file supplied a claim.
+Adding that column is named in § 11 as a seed-time requirement.
 
 ### Contradictions found inside single hub documents
 
@@ -475,18 +483,16 @@ survive · blocker · verifier · the four dissent fields · fact · origin lane
 | | N |
 |---|--:|
 | rows | 183 |
-| **live in `estate`** | **68** — 18 `carry`, 50 `distill` |
-| `archive_only` (stays in fleet-manager, reachable by link) | 55 |
-| killed by the survival rule, published with the branch that fired | 60 |
+| **live in `estate`** | **67** — 18 `carry`, 49 `distill` |
+| `archive_only` (stays in fleet-manager, reachable by link) | 52 |
+| killed by the survival rule, published with the branch that fired | 64 |
 
-**68 live items against ~1,300 tracked files** is the thin seed the plan asks
+**67 live items against ~1,300 tracked files** is the thin seed the plan asks
 for, and the ratio is the point rather than the count: the fresh start exists
 because *"a growing archive nobody reads"* is a named non-goal, and a manifest
 that seeded three hundred items would have reproduced it.
 
-Destination roles of the 68: `practices/` 14 · `repositories/` 14 · `owner/` 11 ·
-`tools/` 9 · `plans/` 6 · `state/` 6 · `decisions/` 3 · `root` 3 · `evidence/` 1 ·
-`ideas/` 1.
+Destination roles of the 67: `practices/` 14 · `repositories/` 13 · `owner/` 11 · `tools/` 9 · `plans/` 6 · `state/` 6 · `decisions/` 3 · `root` 3 · `evidence/` 1 · `ideas/` 1.
 
 > **Every number in this section was wrong until the external round, and the
 > paragraph below it said the opposite of what the artifact showed.** The
@@ -501,8 +507,8 @@ Destination roles of the 68: `practices/` 14 · `repositories/` 14 · `owner/` 1
 
 ### What the rule killed, and what the external round changed about that claim
 
-Sixty rows died across **30 distinct branch strings**. The split by origin:
-**51 kills the rule made itself · 9 echoed from a disposition judge.**
+64 rows died across **31 distinct branch strings**. The split by origin:
+**55 kills the rule made itself · 9 echoed from a disposition judge.**
 
 **The earlier draft of this paragraph said the reverse** — *"all nine were
 already killed by a judge, and the rule independently overturned zero"* — which
@@ -521,16 +527,23 @@ measured before and after:**
   live status — the 'live in production on Railway' clause"*) where the reader
   wrote the bare noun. **This is the 2026-08-29 defect reproduced by the run
   built to avoid it** — a dissent collected and then lost, one layer further
-  down than where that run lost it. Replaced with a content-word overlap join;
-  **34 of 44 now apply**, and the residual 10 are disclosed in § 12 rather than
-  smoothed.
+  down than where that run lost it. Replaced with a content-word containment join
+  carrying an ambiguity guard, and **scoped by the reading that was audited
+  rather than by the claim's own source repository** — a repository reading that
+  cites a hub file leaves `source_repo == "fleet-manager"`, and keying on that
+  skipped its own refuter. **43 of 44 now apply.** The lane fix and its
+  measurement (*"43 of 44 instead of 34"*) are Codex's, reproduced exactly here;
+  the single residual is disclosed in § 12 rather than smoothed.
 - **73 certainty overclaims were collected and read by nothing.** The refute
   schema gathered them; `SCHEMA_FIELDS` had no such field and the rule no such
   branch. Now a field the rule reads — `certainty_overclaimed and certainty in
   ('MEASURED','OWNER')` — with the field audit still clean (0 unread, 0
-  undefined) and the fixtures at 14 cases, 9 kill / 5 survival. **8 of 73
-  applied**, because an overclaim names a claim rather than a seed subject and
-  only some resolve to one; the other 65 are disclosed, not discarded.
+  undefined) and the fixtures at 14 cases, 9 kill / 5 survival. **10 of 73
+  applied**, because an overclaim names a claim in free text rather than a seed
+  subject and only some resolve to one. **The other 63 are a schema defect, not
+  a matching one**: the refute schema should have asked which seed subject each
+  overclaim attaches to. Recorded in § 12 for the next run rather than papered
+  over with a looser threshold.
 
 **A third defect the fixtures caught while fixing the first.** Scoping the drops
 per refuter is required — a drop written about `spider-swing` was reaching a
@@ -713,7 +726,7 @@ with known holes, which is what the acceptance test asked for.
 | Re-check | Why it cannot be inherited |
 |---|---|
 | **Re-run `delta.py` against `anchors.tsv`** | The estate moves; this baseline is a snapshot at 2026-09-04T11:34Z. The command is one line and the anchors are committed. |
-| **The four Substrate Kit rows in § 9** | K1–K5 were an open PR at this measurement. Published release, kit `main`, PR #590's state and what the hub vendors all change without notice. |
+| **The four Substrate Kit rows in § 9** | #590 **merged during this run** and § 9 said `OPEN` for four hours before the external round caught it. What remains unsatisfied is the **release cut** and the hub's adoption, not the merge — re-read all four rows rather than inheriting any of them. One generated manifest blocker still reads *"the open kit PR #590"*: it is agent text retained verbatim from the journal, true when written, and superseded by § 9. |
 | **Every `carry` row's source SHA** | A carry copies bytes. If the source moved, the copy is a stale fork of a live document — the exact failure the fresh start exists to end. |
 | **`fleet-manager`'s own HEAD** | It moved 23 commits between its prior evidence and this run, and it is the substantive seeding source. |
 | **The open-PR inventory** | Taken at one instant with `per_page=100`; `superbot` alone carried 8 open dependabot PRs, and dependabot churn is continuous. |
@@ -724,7 +737,7 @@ with known holes, which is what the acceptance test asked for.
 Only the **shape the kit plants**, never the truth the manifest carries:
 the `hub` adoption profile (no `control/` bus, no generic `docs/` set, a visible
 `sessions/`, a pointer-shaped owner profile, untracked guard telemetry). Until
-kit #590 merges, a release is cut and the new hub adopts it, a seed will be born
+a release carrying K1–K5 is cut and the new hub adopts it, a seed will be born
 into the default shape and will need those five things undone by hand — which is
 exactly the cost `decision 35 in `docs/decisions.md`` sequenced K1–K5 before the seed to avoid. **The
 manifest is consumable either way**; what changes is how much hand-work the seed
@@ -776,10 +789,25 @@ findings.
     and `verification_point` are checked as filled strings, so a narration like
     `(live PR list)` passes as provenance. Three surviving `MEASURED` rows carry
     one. Fixing it needs a path/instant validator and a re-run of the readings.
-11. **10 of 44 adversary drops and 65 of 73 certainty overclaims still reach no
-    row.** The join is content-word overlap; an overclaim names a claim rather
-    than a seed subject, and only some resolve to one. Better than the 19 and 73
-    that were lost before the external round, and not zero.
+11. **1 of 44 adversary drops and 63 of 73 certainty overclaims still reach no
+    row.** The drop residual is now one. The overclaim residual is large and is a
+    **schema defect, not a matching one**: the refute schema collected free text
+    (*"claims tagged MEASURED that are actually REASONED, and why"*) without
+    asking which seed subject each attaches to, so most cannot be resolved to a
+    row by any join. The next run's schema should require the subject. Loosening
+    the threshold to close the gap was considered and rejected — it would kill
+    rows on a guess.
+11b. **The manifest has no `canonical_state_source` column**, so a consumer of
+    the CSV alone cannot distinguish a repository's canonical ledger from
+    whichever file supplied a claim — which is exactly the distinction § 7 says
+    protects the seed from importing stale front doors. The field exists per
+    repository in `repo-readings.json`; adding it to the artifact is a seed-time
+    requirement, not a correction to this run.
+11c. **The drop matcher is a heuristic and is documented as one.** Containment
+    with an ambiguity guard, scoped per audited reading. It refuses rather than
+    guesses when two drops score within 0.15 of each other, so its failure mode
+    is a missed kill rather than a false one — the safer direction, and the
+    reason 43 rather than 44.
 12. **The manifest covers 13 of 28 repositories plus fleet-manager.** The nine
     archived contribute provenance prose and no rows, by design; the five unmoved
     contribute none because their prior evidence is not reusable. Anyone reading

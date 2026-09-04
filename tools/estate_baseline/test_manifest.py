@@ -34,6 +34,10 @@ EXPECTED = {
     "Killed by the judge": "no",         # kill: a disposition judge applied the rule
 }
 
+# The fixture journal has no readings for the real re-audit slice, so the
+# builder's new refusal to report success over an incomplete manifest fires
+# here by design; --allow-partial is the deliberate opt-in that flag exists for.
+
 # The scoping case: `other-repo` emits an item whose subject is IDENTICAL to the
 # drop written about `demo`. Correctly scoped it survives; pooled globally it
 # dies. It is keyed by (subject, source_path) because the subject collides.
@@ -61,7 +65,7 @@ def main() -> int:
             [sys.executable, str(HERE / "build_manifest.py"),
              "--journal", str(FIXTURE),
              "--classification", str(REPO / "docs/findings/data/2026-09-04-estate-truth-baseline/classification.json"),
-             "--out", str(out)],
+             "--out", str(out), "--allow-partial"],
             capture_output=True, text=True, cwd=REPO)
         if proc.returncode != 0:
             print(proc.stdout, proc.stderr)
