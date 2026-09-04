@@ -151,11 +151,31 @@ cd /home/user/fleet-manager && python3 bootstrap.py check --strict
   merged. **Do not delete it** ([D-0015]); a fired one-shot is inert. Disable
   with `update_trigger enabled:false` if it ever misbehaves.
 
+## The base re-read — § BASE discharged, 2026-09-04T17:1xZ
+
+Run immediately before publication, against live `main` on all four repos via
+the direct-PAT path:
+
+| repo | launch pin | live `main` at re-read | moved? |
+|---|---|---|---|
+| `superbot` | `5e3a667b` | `5e3a667b` (2026-08-20T23:17:52Z) | **no** |
+| `superbot-next` | `d5f66dc2` | `d5f66dc2` (2026-08-13T15:21:11Z) | **no** |
+| `spider-bot` | `bf4d7527` | `bf4d7527` (2026-08-25T22:42:55Z) | **no** |
+| `fleet-manager` | — | `2561874` | **yes — merged in** |
+
+**Both product pins are still the live head of `main`**, so every measurement in
+the plan package is against current truth rather than a stale snapshot. That is
+worth stating because a review of two parked repositories could easily have been
+overtaken and never noticed.
+
+`fleet-manager` moved four commits, and one of them mattered: **#1021 merged**
+(`104c2e5`), so the owner statement this session caught mid-run is no longer in
+flight — it is stamped in `docs/decisions.md`. Checked on the way in: **the text
+that landed is the text this session recorded**, so nothing the plan package
+built on it needs revising. `run/in-flight-direction.md`'s standing action is
+discharged in that file.
+
 ## Open at the time of writing
 
-- The fleet's map/root-cause wave, its challenge lanes, its refutation pass and
-  its synthesis are not yet returned; the plan package's matrices, blueprint,
-  verification architecture and roadmap are written from them.
-- The bases must be re-read (`<launch-sha>..origin/main`, all four repos)
-  immediately before the plan is published, per `run/CONTRACTS.md` § BASE.
-- The external review round (`@codex`, hard cap 3 per D-0039) has not run.
+- The external review round (`@codex`, hard cap 3 per the round-cap decision) was
+  requested at 2026-09-04T17:09:08Z on head `c6b1790` and is answering.

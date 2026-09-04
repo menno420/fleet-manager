@@ -11,8 +11,18 @@ A **parallel** fleet-manager session opened
 [#1021](https://github.com/menno420/fleet-manager/pull/1021)
 (`claude/spider-bot-ai-ops-sthix0`, head `864c36ad`, opened 2026-09-04T12:18Z)
 recording a **live owner statement made the same day**. At the time of writing it
-is **open, not merged** — so everything below is *in flight*, and the synthesis
-step must re-check whether it landed, changed, or was rejected.
+was **open, not merged** at the time of writing — so everything below was *in
+flight*, and the synthesis step was required to re-check whether it landed,
+changed, or was rejected.
+
+> **RESOLVED 2026-09-04T17:1xZ, at the base re-read this file demanded.**
+> #1021 **merged** as `104c2e5`, and the decision is now stamped in
+> [`../../../decisions.md`](../../../decisions.md) as **`[D-0042]`** — its
+> permanent home. **Nothing below changed on the way in**: the statement this
+> file recorded is the statement that landed, so every use the plan package
+> makes of it stands as written. This file remains the *record of it arriving
+> mid-run*; the ledger is where it lives. The standing action at the bottom of
+> this file is therefore discharged.
 
 Two other sessions are working this repository concurrently: #1021 above and
 [#1020](https://github.com/menno420/fleet-manager/pull/1020) (the estate truth
@@ -100,7 +110,11 @@ part of it.** Had the plan been published against the launch pins alone it would
 have carried a product definition contradicted by an owner statement made the
 same morning — the precise failure `fleet-preflight` § 6 was written from.
 
-**Standing action for the synthesis step:** re-read #1021's state before
-publishing. If merged, cite `[D-0042]` and the rewritten `intent.md` directly.
+**Standing action for the synthesis step — ✅ DISCHARGED 2026-09-04T17:1xZ.**
+#1021's state was re-read before publishing: **merged** as `104c2e5`, unchanged
+in substance, and the decision is stamped as `[D-0042]` in the estate ledger.
+The plan package links back to *this* file rather than restating the id, under
+the one-home rule; the ledger entry and the rewritten `intent.md` are the
+canonical text.
 If still open, cite it as in-flight and quote the owner statement, which stands
 on its own under the estate's precedence rule regardless of the PR's fate.
