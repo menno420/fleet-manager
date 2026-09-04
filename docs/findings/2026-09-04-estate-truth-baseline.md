@@ -77,11 +77,17 @@ its `UNCONTRACTED` line is empty. Three of its lines did real work:
   **eight times** the measured figure and was not used for sizing.
 - **The pilot was read whole and changed three things**, one of them mine.
   [`data/…/pilot-log.md`](data/2026-09-04-estate-truth-baseline/pilot-log.md).
-  The sharpest was invisible in any summary: a `curl | python3` fetch returned
-  **a different repository's README under HTTP 200**, valid base64, clean
-  decode, while two agents ran concurrently on shared egress. The fleet's
-  instructions were changed to fetch to disk and cross-check the blob sha and
-  size against the tree listing.
+  The sharpest was invisible in any summary: one agent read **a different
+  repository's README** while two ran concurrently. Its own wall blamed the
+  network — *"apparent proxy/cache anomaly on this environment's egress path"* —
+  and that is **wrong**: `creator-kit`'s README is 2,112 bytes, the agent
+  received 2,113 (one trailing newline from the decode), and both transcripts
+  show the two agents reading the same `$OUT/README.md` in a shared scratchpad.
+  Nothing came from the network that should not have; two processes shared a
+  filename. Corrected in the pilot log, which had repeated the agent's
+  attribution. The instruction it produced — cross-check every fetched file's
+  blob sha and size against the tree listing — is kept, because it catches
+  either cause and would have caught this one at the moment it happened.
 
 **Model staffing was chosen per stage, never inherited** ([D-0040] as amended
 2026-09-02): Sonnet 5 read, mapped and enumerated; Opus 5 refuted, adjudicated
