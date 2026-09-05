@@ -1,6 +1,9 @@
 # 2026-09-05 — why the Railway deployment crashed: control-plane OOM, and the crawler that moved to `/queue`
 
-> **Status:** `in-progress` — a diagnosis, not a fix. The owner asked *"Review the
+> **Status:** `complete` — a diagnosis, not a fix. **One Codex round at the
+> flip head: 10 findings, 10 conceded** (3 P1), two of them factual errors in
+> my own numbers; all corrected, and one of them overturned in my favour by
+> enumerating rather than asserting. The owner asked *"Review the
 > railway logs and find out why the deployment crashed"*; the answer is
 > `superbot-websites/control-plane`, OOM-killed twice (2026-09-04 10:57Z and
 > 2026-09-05 08:25Z), and the finding is
@@ -89,6 +92,40 @@ finding, this card, and the mechanical index/telemetry deltas.
   decisions (its own D-0012 is a Gemini budget ruling). The stamp checker
   flagged the duplication; the fix — naming them as the websites decisions they
   are, with a link — was the more accurate wording anyway.
+
+## Adversarial round — Codex, 10 findings, 10 conceded
+
+One round at the flip head (`48ca8b1d`), 3 P1 / 6 P2 / 1 P3. **Every one was
+correct**, and two were factual errors in my own numbers, not phrasing:
+
+| # | Finding | Disposition |
+|---|---|---|
+| P1 | Concurrency figure mixed populations — a 9.13 s mean from one sample with a 53 s probe 35 min later | `[conceded]` — Little's law on matched terms gives **~6**, not 36; ~6× inflation |
+| P1 | 170 cache entries is cardinality, not bytes — cannot exonerate the cache | `[conceded]` — restated: rules out permutation-keyed growth only; cache stays unruled |
+| P1 | `--limit-concurrency` is global and 503s `/healthz`, the configured healthcheck | `[conceded]` — my own fix B would have traded an OOM for a restart loop |
+| P2 | "A only moves the crawler" asserted with no remaining route shown | `[conceded]`, then **overturned in my favour** — see below |
+| P2 | First OOM has no traffic evidence (the window did not bind) | `[conceded]` — first kill downgraded to `REASONED`, second stays `MEASURED` |
+| P2 | 12 s probe = end-to-end delay, not localised event-loop starvation | `[conceded]` |
+| P2 | robots count restated as a census of the day | `[conceded]` — sampling basis restored |
+| P2 | Allocator explanation for the plateau is untested | `[conceded]` — now one of three named candidates |
+| P2 | "peak before each kill ~1.93 GB" contradicted by my own table | `[conceded]` — 1.459 GB before the first; ceiling inferred from the second only |
+| P3 | "twelve hours" flat baseline is eleven | `[conceded]` |
+
+**The one that moved past Codex.** Its P2 on the fix ranking said: do not claim
+gating relocates the incident unless a specific remaining route reproduces the
+cost. Fair — I had asserted it from a partial read. Enumerating instead of
+asserting (`grep listfilter.parse app/*.py`, with `/orders` as the positive
+control) found **five faceted call sites, and `/repos` is public** with its own
+spec over an unmemoized `estate_service.overview()`. So the claim was right and
+my basis for it was not; the finding now names the route. Without the TRAP-003
+route firing on my *corrected* sentence — a negative claim I was about to commit
+— I would have shipped Codex's version, which is wrong in the other direction.
+
+**What the round cost the finding's core:** nothing. The trigger (crawler on
+`/queue`) survived every challenge. What did not survive is the *quantitative*
+memory mechanism — ~6 concurrent requests do not obviously hold 1.9 GB, per-request
+allocation was never profiled, and the finding now says so in its own § 4 rather
+than implying the arithmetic closes.
 
 ## What is NOT done, and why
 
