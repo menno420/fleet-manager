@@ -10,11 +10,11 @@
 > was already prepared and flagged to him by the 2026-08-20 gate decision.
 > Landed on green.
 
-- **📊 Model:** withheld · high · research
+- **📊 Model:** withheld · xhigh · research
 - **⚑ Model-slot note:** this session carries an instruction against a model
   identifier in a pushed artifact; effort and task class are exact.
 - **📍 Venue:** cloud-container
-- **🔗 Session:** [session_01JbCfvTw9YnPtg4ig8LoS6m](https://claude.ai/code/session_01JbCfvTw9YnPtg4ig8LoS6m)
+- **🔗 Session:** [session_01JbCfvTw9YnPtg4ig8LoS6m](https://claude.ai/code/session_01JbCfvTw9YnPtg4ig8LoS6m) · "Railway deployment crash"
 
 💡 Session idea: **a crash that leaves no crash status is the one that survives
 a status check.** Every deployment on the account reads `SUCCESS`, in all four
@@ -24,6 +24,21 @@ the event exists are the crash mail Railway sends the owner and the memory
 metric. Reading deployment status first, and stopping there, would have produced
 a confident "nothing crashed" — which is what the first pass through the logs
 actually produced, before the mail was checked.
+
+## previous-session review
+
+**None — this is a fresh owner-directed ask, not a continuation.** The branch
+was created for it and carried no prior work; `origin/main` was 15 commits
+ahead of the stale local ref at boot, and after `git fetch origin main` the
+branch sits exactly at `main` (`4121b4b`) with nothing of its own. Checked
+rather than assumed, because the first `check --strict` run gated on
+`.sessions/2026-09-04-couch-legend-glass-and-garden.md` — another session's
+card — which is exactly what a stale `origin/main` looks like from the
+added-card lane, and would have read as a real finding against this work.
+
+The nearest prior thread is not a session but a decision: the websites gate of
+2026-08-20, which fixed this same crawler on `/orders` and named `/queue` as
+the likely next target. That prediction is the finding's § 5.
 
 ## What this covers
 
