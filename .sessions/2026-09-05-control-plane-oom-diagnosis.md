@@ -2,8 +2,9 @@
 
 > **Status:** `complete` — a diagnosis, not a fix. **One Codex round at the
 > flip head: 10 findings, 10 conceded** (3 P1), two of them factual errors in
-> my own numbers; all corrected, and one of them overturned in my favour by
-> enumerating rather than asserting. The owner asked *"Review the
+> my own numbers. Round 2 then found the fixes had not reached this card, and
+> round 3 found two of round 2's had not fully landed either — **24 findings,
+> 24 conceded, across three rounds**. The residue is disclosed in § Residue. The owner asked *"Review the
 > railway logs and find out why the deployment crashed"*; the answer is
 > `superbot-websites/control-plane`, OOM-killed twice (2026-09-04 10:57Z and
 > 2026-09-05 08:25Z), and the finding is
@@ -60,7 +61,7 @@ finding, this card, and the mechanical index/telemetry deltas.
    (×3) and 2026-09-05 08:25:48Z.
 3. **The memory metric times it.** Flat at 0.154–0.155 GB for eleven hours, then
    0.195 → 0.622 → 1.166 → 1.459 GB across 09-04 09:00–10:30, kill; refill to
-   1.93 GB in 90 minutes; **19 hours pinned at the ceiling** with CPU at a
+   1.93 GB about two hours after the kill; **19 h pinned at the ceiling** with CPU at a
    saturated full core; second kill 09-05 08:25Z.
 4. **The traffic identifies it.** Of the 5,001 most recent requests, 4,988 on
    `/queue` and 4,998 from `57.141.x` (Meta), 4,438 of them HTTP 499. Mean
@@ -108,23 +109,26 @@ correct**, and two were factual errors in my own numbers, not phrasing:
 | P1 | Concurrency figure mixed populations — a 9.13 s mean from one sample with a 53 s probe 35 min later | `[conceded]` — Little's law on matched terms gives **~6**, not 36; ~6× inflation |
 | P1 | 170 cache entries is cardinality, not bytes — cannot exonerate the cache | `[conceded]` — restated: rules out permutation-keyed growth only; cache stays unruled |
 | P1 | `--limit-concurrency` is global and 503s `/healthz`, the configured healthcheck | `[conceded]` — my own fix B would have traded an OOM for a restart loop |
-| P2 | "A only moves the crawler" asserted with no remaining route shown | `[conceded]`, then **overturned in my favour** — see below |
-| P2 | First OOM has no traffic evidence (the window did not bind) | `[conceded]` — first kill downgraded to `REASONED`, second stays `MEASURED` |
+| P2 | "A only moves the crawler" asserted with no remaining route shown | `[conceded]` — enumerating found `/repos`, a route worth checking; **the relocation claim itself did not survive** (see round 3) |
+| P2 | First OOM has no traffic evidence (the window did not bind) | `[conceded]` — first kill → `REASONED`; round 2 took the **second** there too, so **both** are `REASONED` |
 | P2 | 12 s probe = end-to-end delay, not localised event-loop starvation | `[conceded]` |
 | P2 | robots count restated as a census of the day | `[conceded]` — sampling basis restored |
 | P2 | Allocator explanation for the plateau is untested | `[conceded]` — now one of three named candidates |
 | P2 | "peak before each kill ~1.93 GB" contradicted by my own table | `[conceded]` — 1.459 GB before the first; ceiling inferred from the second only |
 | P3 | "twelve hours" flat baseline is eleven | `[conceded]` |
 
-**The one that moved past Codex.** Its P2 on the fix ranking said: do not claim
-gating relocates the incident unless a specific remaining route reproduces the
-cost. Fair — I had asserted it from a partial read. Enumerating instead of
-asserting (`grep listfilter.parse app/*.py`, with `/orders` as the positive
-control) found **five faceted call sites, and `/repos` is public** with its own
-spec over an unmemoized `estate_service.overview()`. So the claim was right and
-my basis for it was not; the finding now names the route. Without the TRAP-003
-route firing on my *corrected* sentence — a negative claim I was about to commit
-— I would have shipped Codex's version, which is wrong in the other direction.
+**The one I argued with, and lost on the point that mattered.** Its P2 said: do
+not claim gating relocates the incident unless a specific remaining route
+reproduces the cost. I had asserted it from a partial read, so I enumerated
+instead (`grep listfilter.parse app/*.py`, `/orders` as the positive control) and
+found **five faceted call sites, `/repos` public** with its own spec over an
+unmemoized `estate_service.overview()`. I recorded that as the claim surviving
+with a better basis. **Round 3 corrected the record and was right:** a
+`listfilter.parse` call proves a crawlable URL space, not comparable cost, and
+`/repos`' size, latency and allocation were never compared with `/queue`'s. So
+the enumeration found *a route worth checking*, and the relocation claim was
+withdrawn. The lasting value was the enumeration, not the argument — and the
+honest disposition is `[conceded]`, not `[survived]`.
 
 ### Round 2 — 6 findings, 6 conceded, and the lesson is where they were
 
@@ -138,19 +142,47 @@ implemented. Corrected here, and worth generalising: **when review changes a
 claim, grep every surface that repeats it before calling the fix done.**
 
 Its other three, all conceded: the replacement ~6 concurrency figure is also
-unsupportable (the durations are proxy timings spanning the restart, and 89 % are
-499s recording *client* disconnect — which my own § 4 argues is not when the
+unsupportable (the durations are proxy timings spanning the restart, and the
+499s in it record *client* disconnect — which my own § 4 argues is not when the
 handler stopped), so the finding now offers **no** concurrency number; `/repos`
 shares `/queue`'s *structure* but its cost was never compared, so it is "check
 this next", not "the next victim"; and the causal attribution is `REASONED` for
 **both** kills, not just the first — the 08:25–08:38 sample overlaps the second
 kill but mostly covers the restarted service.
 
-**What the round cost the finding's core:** nothing. The trigger (crawler on
-`/queue`) survived every challenge. What did not survive is the *quantitative*
-memory mechanism — ~6 concurrent requests do not obviously hold 1.9 GB, per-request
-allocation was never profiled, and the finding now says so in its own § 4 rather
-than implying the arithmetic closes.
+### Round 3 — 8 findings, 8 conceded, and the cap reached
+
+Round 3 at `a351b99` is the last the three-round cap allows. It found the same
+propagation failure a third time, now in *my corrections themselves*: I had
+removed the ~6 concurrency figure and then **kept the 300 MB-per-request
+arithmetic derived from it**; and I had cited **89 %** as the 499 rate of the
+530-request timing sample when 89 % belongs to the other, capped 5,001-request
+sample — that sample is **17.7 % (94/530)**. Two more were against this card
+again (the review table still said the second kill stayed `MEASURED`; it still
+called the `/repos` argument overturned). The remaining three tightened the
+conclusion itself: the 499 amplifier is a hypothesis, not a measurement, because
+handler lifetimes were never instrumented; **memoization is not
+mechanism-independent** — if the climb is cache retention rather than repeated
+rebuilds, fix B may leave the service OOM-looping, so only A is
+mechanism-independent; and the trigger is **probable**, not established.
+
+### Residue — what this PR does NOT establish
+
+Disclosed rather than left to be discovered, per the round cap:
+
+- **The quantitative memory mechanism is unknown.** No handler concurrency, no
+  per-request allocation, no heap profile. Three candidates (live request set /
+  allocator high-water mark / cache retention) all fit the observed curve.
+- **The causal attribution is `REASONED` for both kills**, not measured. No
+  pre-kill handler or allocation evidence exists for either; another process
+  producing the pre-kill curve is not excluded.
+- **`/repos`' cost was never measured** — structural parity with `/queue` only.
+- **Fix B's sufficiency is conditional** on the mechanism being repeated
+  rebuilds. A is the mechanism-independent option.
+
+What survived all three rounds unchanged: the crawler traffic profile, the
+memory curve, the source-level reading of why `/queue` is expensive and
+unbounded, and that no other Railway service is affected.
 
 ## What is NOT done, and why
 

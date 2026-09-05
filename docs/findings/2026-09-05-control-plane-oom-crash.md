@@ -72,7 +72,7 @@ Railway `metrics(MEMORY_USAGE_GB)`, 30-minute samples. The deployment
 | 09-04 08:30 | 0.166 GB | onset |
 | 09-04 09:00 → 10:30 | 0.195 → 0.622 → 1.166 → 1.459 GB | monotone climb |
 | 09-04 11:00 | **0.260 GB** | ← **first OOM kill** (crash mail 10:57:01Z) |
-| 09-04 11:30 → 13:00 | 0.797 → 1.077 → 1.895 → **1.931 GB** | refills in 90 minutes |
+| 09-04 11:30 → 13:00 | 0.797 → 1.077 → 1.895 → **1.931 GB** | refills to the ceiling ~2 h after the 10:57 kill |
 | 09-04 13:00 → 09-05 07:30 | **1.85–1.93 GB, 19 hours** | pinned at the ceiling |
 | 09-05 08:25 | **0.308 GB** → 0.093 GB | ← **second OOM kill** (crash mail 08:25:48Z) |
 
@@ -176,8 +176,10 @@ Source read at `48b75de8`, the SHA the live `/version` reports.
    were withdrawn under review: ~36 (which paired one sample's arrival rate with
    a 53 s probe taken 35 minutes later — different populations), then ~6 (which
    used the same sample's durations, but those are *proxy* durations spanning
-   the kill and restart, and 89 % of them are 499s recording when the **client**
-   disconnected — while this very section argues the abandoned handler keeps
+   the kill and restart, **17.7 % of them (94/530) 499s** recording when the
+   **client** disconnected — the far higher rate implied by § 3
+   (4,438 of 5,001 ≈ 89 %) belongs to the *other*, capped sample and does not
+   describe this timing population — while this very section argues the abandoned handler keeps
    running). A 499 duration is therefore a lower bound on handler lifetime, not
    a measure of it, and Little's law over it cannot say how many rebuilds were
    in flight. Handler-lifetime instrumentation is the missing measurement.
@@ -185,19 +187,30 @@ Source read at `48b75de8`, the SHA the live `/version` reports.
 **What this section does and does not establish (`REASONED`, and the weakest
 link here).** The three multipliers above are each `MEASURED` in the source, and
 together they explain why `/queue` is expensive per request and unbounded in URL
-space. They do **not** arithmetically account for 1.9 GB: ~6 concurrent requests
-would each have to hold on the order of 300 MB, which is not something I
-measured. **Per-request allocation was never profiled**, and the 19-hour plateau
-does not by itself distinguish (a) a continuously large live request set, (b)
-CPython holding freed arenas at the high-water mark, or (c) retention in the
-cache or elsewhere — all three fit the same curve. The honest statement is that
-the *trigger* is established and the *quantitative memory mechanism is not*; a
-heap profile under load, or `tracemalloc` around one `/queue` request, is the
-measurement that would close it. Nothing in the recommended fixes depends on
-which of (a)–(c) it turns out to be.
+space. They do **not** account for 1.9 GB, and no arithmetic here can: neither
+handler concurrency nor per-request allocation was measured, so there is no
+supportable "N requests × M bytes" statement to make — an earlier draft built one
+from the ~6 figure this section already withdraws, which was the withdrawn number
+smuggled back in as a comparison. **Per-request allocation was never profiled**,
+and the 19-hour plateau does not by itself distinguish (a) a continuously large
+live request set, (b) CPython holding freed arenas at the high-water mark, or
+(c) retention in the cache or elsewhere — all three fit the same curve.
 
-The 89 % 499 rate is the amplifier — most of that memory and CPU is spent
-rendering pages **no client is still listening for**.
+The honest statement, and it is weaker than this finding's earlier drafts: the
+crawler on `/queue` is the **probable trigger** — strongly supported by the
+traffic composition, the memory shape, the source-level cost and the 2026-08-20
+precedent — and the **quantitative memory mechanism is unknown**. What is *not*
+excluded is that some other process produced the pre-kill curve; nothing
+measured here distinguishes crawler-driven retention from that. A heap profile
+under load, or `tracemalloc` plus handler-lifetime instrumentation around one
+`/queue` request, is the measurement that would settle both questions.
+
+The high 499 rate is a **plausible amplifier, not a measured one** (`UNVERIFIED`):
+a 499 records when the client disconnected, and since handler lifetimes were
+never instrumented, it does not follow that the work continued afterwards. If it
+does, the service is spending most of its memory and CPU rendering pages nobody
+is still listening for — worth confirming, because it would change how much the
+fix is worth, not whether it is needed.
 
 ## 5 · What this was, before it was a crash
 
@@ -238,7 +251,13 @@ Not implemented this session: the ask was to find out why, and the change lands 
   and a restart loop. If concurrency is capped, it needs to be route-scoped
   admission control, or reserved capacity for the health path, not a bare global
   flag.
-  **B is not optional, because `/queue` is not the last faceted public route.**
+  **B's sufficiency depends on the mechanism; A's does not.** Memoizing
+  `overview()` addresses repeated rebuilds — case (a) in § 4. If the climb is
+  driven instead by cache retention or another mechanism (cases (b)/(c), neither
+  ruled out), **B may leave the service OOM-looping**, so it should not be
+  chosen *instead of* A without a heap measurement under load first. A removes
+  the traffic and is therefore the mechanism-independent option.
+  **B still matters, because `/queue` is not the last faceted public route.**
   Enumerated at the deployed SHA (`grep listfilter.parse app/*.py`, with
   `/orders` as the positive control): five call sites — `/orders`
   (`main.py:745`, gated), the `/owner` env hub (`owner.py:399`, gated),
@@ -262,5 +281,5 @@ Not implemented this session: the ask was to find out why, and the change lands 
   day), and the crawl continues today.
 
 Until one lands, the service will keep OOM-looping: it refilled to the ceiling
-within 90 minutes of the first kill, and it was already saturated 35 minutes
-after the second.
+to the ceiling within about two hours of the first kill (10:57 → 1.931 GB at
+13:00), and it was already saturated 35 minutes after the second.
