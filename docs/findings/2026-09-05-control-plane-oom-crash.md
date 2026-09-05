@@ -171,18 +171,22 @@ Source read at `48b75de8`, the SHA the live `/version` reports.
    ~240 KB. Concurrent requests share none of it.
 3. **Nothing bounds the concurrency.** The Dockerfile CMD is a bare
    `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}` — **one worker, no
-   `--limit-concurrency`, no request timeout**. **No concurrency figure is
-   offered, because none is supportable from what was measured.** Two attempts
-   were withdrawn under review: ~36 (which paired one sample's arrival rate with
-   a 53 s probe taken 35 minutes later — different populations), then ~6 (which
-   used the same sample's durations, but those are *proxy* durations spanning
-   the kill and restart, **17.7 % of them (94/530) 499s** recording when the
-   **client** disconnected — the far higher rate implied by § 3
-   (4,438 of 5,001 ≈ 89 %) belongs to the *other*, capped sample and does not
-   describe this timing population — while this very section argues the abandoned handler keeps
-   running). A 499 duration is therefore a lower bound on handler lifetime, not
-   a measure of it, and Little's law over it cannot say how many rebuilds were
-   in flight. Handler-lifetime instrumentation is the missing measurement.
+   `--limit-concurrency`, no request timeout**.
+
+   **No concurrency figure is offered, because none is supportable from what was
+   measured.** Two attempts were withdrawn under review. The first, ~36, paired
+   one sample's arrival rate with the 53 s probe taken 35 minutes later — two
+   different populations. The second, ~6, used arrival rate and durations from
+   the same 530-request sample, but those are *proxy* durations spanning the kill
+   and the restart, and **17.7 % of them (94/530) are 499s**, which record when
+   the **client** disconnected. Since this very section argues that the abandoned
+   handler keeps running, a 499 duration is a **lower bound** on handler
+   lifetime, not a measure of it — so Little's law over it cannot say how many
+   rebuilds were in flight. Handler-lifetime instrumentation is the missing
+   measurement.
+
+   *(The much higher 499 rate quoted in § 3 — 4,438 of 5,001, ≈ 89 % — belongs to
+   the other, capped sample and does not describe this timing population.)*
 
 **What this section does and does not establish (`REASONED`, and the weakest
 link here).** The three multipliers above are each `MEASURED` in the source, and
