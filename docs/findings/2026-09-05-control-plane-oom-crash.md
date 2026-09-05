@@ -5,9 +5,14 @@
 >
 > Certainty tags per
 > [`2026-08-05-foundation-continuation.md`](2026-08-05-foundation-continuation.md).
-> Everything in §§ 1–4 is `MEASURED` this session (Railway GraphQL over direct
-> egress, the Railway crash mails in the owner's inbox, live HTTP probes, and
-> the deployed SHA's source) unless tagged otherwise.
+> **The observations in §§ 1–4 are `MEASURED`** this session (Railway GraphQL
+> over direct egress, the Railway crash mails in the owner's inbox, live HTTP
+> probes, and the deployed SHA's source) unless tagged otherwise. **The causal
+> attribution — that the crawler traffic is what killed the service — is
+> `REASONED` for both kills**, not measured: it links measured traffic to a
+> measured memory curve, and no pre-kill handler or allocation evidence exists
+> to close the gap. It is a strong inference over an unusually clean
+> coincidence of shape, timing and precedent; it is still an inference.
 
 ## 0 · The answer in five sentences
 
@@ -81,13 +86,13 @@ after the restart. So the ~2 GB limit reading rests on the 19-hour 1.85–1.93 G
 plateau that preceded the second kill, not on both. I did not read a configured
 limit field; if the Railway API exposes one, it should replace this inference.
 
-**Which kill the traffic evidence actually covers (`REASONED` for the first).**
-The request sample in § 3 spans **08:25–08:38Z on 09-05** — it is time-correlated
-with the **second** kill only. Because the `httpLogs` date window does not bind
-(below), traffic from the 09-04 onset cannot be recovered, so the crawler as
-cause of the **first** OOM rests on the identical memory shape and the prior
-`/orders` precedent — strong, and still an inference. The second kill is
-`MEASURED`.
+**Which kill the traffic evidence actually covers.** The request sample in § 3
+spans **08:25–08:38Z on 09-05**: it *overlaps* the second kill (08:25:48Z) and
+mostly covers the **restarted** service, so it does not measure which work held
+the preceding 1.9 GB. For the **first** kill there is no traffic evidence at all
+— the `httpLogs` date window does not bind (below), so the 09-04 onset window
+cannot be recovered. Both attributions are therefore `REASONED`; the first rests
+additionally on the identical memory shape and the prior `/orders` precedent.
 
 **Timing note (`MEASURED`, method):** the onset above is taken from the metrics
 API, not from `httpLogs`. `httpLogs`' `afterDate`/`beforeDate` did **not** bind
@@ -166,13 +171,16 @@ Source read at `48b75de8`, the SHA the live `/version` reports.
    ~240 KB. Concurrent requests share none of it.
 3. **Nothing bounds the concurrency.** The Dockerfile CMD is a bare
    `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}` — **one worker, no
-   `--limit-concurrency`, no request timeout**. Taking both terms from the *same*
-   sample (40.6 req/min arrival, 9.13 s mean residence, 08:25–08:38Z), Little's
-   law puts **~6 requests in flight** (`REASONED`). An earlier draft of this
-   finding said ~36 by pairing that arrival rate with the 53 s single probe taken
-   35 minutes later — two different populations, and the mistake inflated the
-   figure roughly sixfold; the 53 s probe bounds *one* request's residence under
-   load, not the steady-state mean.
+   `--limit-concurrency`, no request timeout**. **No concurrency figure is
+   offered, because none is supportable from what was measured.** Two attempts
+   were withdrawn under review: ~36 (which paired one sample's arrival rate with
+   a 53 s probe taken 35 minutes later — different populations), then ~6 (which
+   used the same sample's durations, but those are *proxy* durations spanning
+   the kill and restart, and 89 % of them are 499s recording when the **client**
+   disconnected — while this very section argues the abandoned handler keeps
+   running). A 499 duration is therefore a lower bound on handler lifetime, not
+   a measure of it, and Little's law over it cannot say how many rebuilds were
+   in flight. Handler-lifetime instrumentation is the missing measurement.
 
 **What this section does and does not establish (`REASONED`, and the weakest
 link here).** The three multipliers above are each `MEASURED` in the source, and
@@ -237,11 +245,16 @@ Not implemented this session: the ask was to find out why, and the change lands 
   `/queue` + `/queue.json` (`main.py:540,566`, public), and **`/repos`
   (`main.py:432`, public)**. `/repos` carries its own `REPOS_LIST_SPEC`
   (2 multi-select dimensions + sorts, `app/estate.py`) over an
-  `estate_service.overview()` that shows **no memoization either**. So gating
-  `/queue` alone leaves one public faceted surface of the same shape standing —
-  A really can relocate the crawler rather than stop it, and `/repos` should be
-  gated or bounded in the same change. (§ 5's "remaining faceted surface" refers
-  to the three routes the 2026-08-20 decision weighed; `/repos` postdates it.)
+  `estate_service.overview()` that shows **no memoization either**. That is
+  **structural** parity — an unbounded crawlable URL space over an unmemoized
+  rebuild — and it is explicitly **not** a cost measurement: `/repos`' response
+  size, latency and allocation were never compared with `/queue`'s, so nothing
+  here shows that crawling it reproduces this OOM. The honest consequence is
+  narrow and still worth acting on: gating `/queue` alone leaves a surface of
+  the same shape public, so **check `/repos`' cost in the same change** rather
+  than assuming either that it is safe or that it is the next victim.
+  (§ 5's "remaining faceted surface" refers to the three routes the 2026-08-20
+  decision weighed; `/repos` postdates it.)
 - **Rejected, and stays rejected:** an IP-range block (breaks real link
   unfurling, § 3) and relying on robots.txt — measured ignored on 2026-08-20:
   **0 `/robots.txt` fetches in the 3,001 most recent retained requests** sampled

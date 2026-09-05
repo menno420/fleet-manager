@@ -58,7 +58,7 @@ finding, this card, and the mechanical index/telemetry deltas.
 2. **The crash mails name it.** `hello@notify.railway.app`, *"Deploy Ran Out of
    Memory!"* for `control-plane` in `superbot-websites` — 2026-09-04 10:57:01Z
    (×3) and 2026-09-05 08:25:48Z.
-3. **The memory metric times it.** Flat at 0.154–0.155 GB for twelve hours, then
+3. **The memory metric times it.** Flat at 0.154–0.155 GB for eleven hours, then
    0.195 → 0.622 → 1.166 → 1.459 GB across 09-04 09:00–10:30, kill; refill to
    1.93 GB in 90 minutes; **19 hours pinned at the ceiling** with CPU at a
    saturated full core; second kill 09-05 08:25Z.
@@ -71,8 +71,13 @@ finding, this card, and the mechanical index/telemetry deltas.
    unbounded URL space, with the filter widget emitting a link per toggle);
    `owner_queue.overview()` and `fleet.overview()` are **not memoized**, so every
    request rebuilds the whole graph; and the Dockerfile runs a bare single
-   `uvicorn` with no `--limit-concurrency` and no request timeout. Concurrency ×
-   per-request rebuild is the 1.9 GB.
+   `uvicorn` with no `--limit-concurrency` and no request timeout.
+   **That establishes the trigger and the per-request cost — it does NOT explain
+   the 1.9 GB.** Per-request allocation was never profiled and handler lifetimes
+   were never measured, so the quantitative memory mechanism is open; the
+   finding's § 4 names the measurement (a heap profile or `tracemalloc` around
+   one `/queue` request) that would close it. Do not carry "concurrency ×
+   rebuild = 1.9 GB" forward: it was withdrawn under review.
 
 ## Traps this session hit, and what caught them
 
@@ -121,6 +126,26 @@ my basis for it was not; the finding now names the route. Without the TRAP-003
 route firing on my *corrected* sentence — a negative claim I was about to commit
 — I would have shipped Codex's version, which is wrong in the other direction.
 
+### Round 2 — 6 findings, 6 conceded, and the lesson is where they were
+
+Round 2 at `6506b8c` found **the fixes had not propagated**: three of its six
+were against **this card**, not the finding — the card still carried "concurrency
+× rebuild is the 1.9 GB", still said twelve hours, and — the P1 — **still told a
+next session to use `--limit-concurrency`**, the exact unsafe flag round 1 had
+just made me withdraw from the finding. A handoff is read *instead of* the long
+document, so a stale summary is not a cosmetic lag; it is the version that gets
+implemented. Corrected here, and worth generalising: **when review changes a
+claim, grep every surface that repeats it before calling the fix done.**
+
+Its other three, all conceded: the replacement ~6 concurrency figure is also
+unsupportable (the durations are proxy timings spanning the restart, and 89 % are
+499s recording *client* disconnect — which my own § 4 argues is not when the
+handler stopped), so the finding now offers **no** concurrency number; `/repos`
+shares `/queue`'s *structure* but its cost was never compared, so it is "check
+this next", not "the next victim"; and the causal attribution is `REASONED` for
+**both** kills, not just the first — the 08:25–08:38 sample overlaps the second
+kill but mostly covers the restarted service.
+
 **What the round cost the finding's core:** nothing. The trigger (crawler on
 `/queue`) survived every challenge. What did not survive is the *quantitative*
 memory mechanism — ~6 concurrent requests do not obviously hold 1.9 GB, per-request
@@ -129,13 +154,26 @@ than implying the arithmetic closes.
 
 ## What is NOT done, and why
 
-The fix. Two options are in the finding's § 6: **A** gate `/queue` +
-`/queue.json` exactly as `/orders` is gated (one clause each, already prepared
-and flagged to the owner on 2026-08-20), and **B** bound the blast radius
-(`--limit-concurrency`, memoize `overview()`), which is the durable half —
-A moves this crawler to the next page, B stops any faceted route converting
-traffic into an OOM. Both land in `menno420/websites`. A is his call because
-gating a surface changes who can see it; B is uncontroversial but belongs in the
-same change. Until one lands the service keeps OOM-looping: it refilled to the
-ceiling within 90 minutes of the first kill and was already saturated 35 minutes
-after the second.
+The fix. Two options are in the finding's § 6, and **§ 6 is the authority — this
+paragraph is a pointer, not a spec**:
+
+- **A** — gate `/queue` + `/queue.json` exactly as `/orders` is gated (one clause
+  each, prepared and flagged to the owner on 2026-08-20). His call, because
+  gating a surface changes who can see it.
+- **B** — **memoize `overview()`** so concurrent requests share one rebuild:
+  that is the unambiguous half. **If concurrency is also capped it must be
+  route-scoped admission control or reserved health capacity — NOT a bare
+  `--limit-concurrency`**, which is global and would return 503 for `/healthz`,
+  this service's own configured Railway healthcheck, trading the OOM for a
+  restart loop. An earlier draft of this card recommended exactly that flag;
+  it was withdrawn under review, and a session acting on the old wording would
+  have shipped the unsafe fix.
+
+`/repos` (`main.py:432`) is the other public faceted route and shares `/queue`'s
+structure — unbounded filter URL space over an unmemoized overview. **Its cost
+was not measured**, so treat it as the next thing to check, not as a proven
+second victim.
+
+Both land in `menno420/websites`. Until one lands the service keeps OOM-looping:
+it refilled to the ceiling within two hours of the first kill and was already
+saturated 35 minutes after the second.
