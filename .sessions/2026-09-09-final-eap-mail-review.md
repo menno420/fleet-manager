@@ -1,13 +1,13 @@
 # 2026-09-09 — the final EAP mail found and read again: where it is, what still needs his call
 
-> **Status:** `in-progress` — the owner asked for the latest mail draft to be
-> found and reviewed (*"I should have sent it a few days ago but I didn't really
-> have the time to properly read this final version yet. Now I'm also unable to
-> find it."*). What is about to happen: locate the draft in the repo and in his
-> mailbox, verify the two agree, read both parts against their sources and
-> against what the estate has measured since 2026-09-03, and hand back the
-> findings as one-word calls — **nothing in the mail is edited and nothing is
-> sent**; he said on 2026-09-03 he reads it again himself first.
+> **Status:** `complete` — the draft was found (repo + Gmail, identical text
+> word for word, the links the one difference), read again against its sources
+> and against what the estate measured after 2026-09-03, and the findings
+> handed back as one-word calls; **nothing in the mail was edited and nothing
+> was sent** — he reads and decides. Records-only PR (fm #1046), no Codex
+> round ([D-0019] as amended 2026-09-02); the flip rests on the direct checks
+> in § Verify. **After the last checked state (`3273551`):** the flip commit
+> only — the badge and this close-out text, the one exempt commit.
 
 - **📊 Model:** withheld · max · docs-only
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -149,8 +149,47 @@ of the artifact.
 
 ## Verify
 
-*(the commands and their tails, written at the flip)*
+- `python3 tools/check_eap_figures.py` → exit **0** — `[all consumers] 17
+  occurrence(s) checked across 5 file(s); problems: 0` · `liveness: check
+  FIRED on corruption`.
+- `python3 tools/render_eap_mail.py --count` → exit **0** — `2299  WORDS IN
+  THE MAIL`; `--verify` → exit **0** — `source words 2299 -> rendered words
+  2299` · `verify: rendering is loss-free — nothing dropped, nothing introduced`.
+- `python3 tools/check_no_false_walls.py` → exit **0** — `CLEAN — no
+  present-tense standing capability-denial claim in 5 living/binding doc(s)`;
+  `python3 tools/check_doc_routes.py` → exit **0** — `75 routes · 37 docs
+  routed · 0 errors · 0 notes`.
+- `python3 bootstrap.py check --strict --added-card
+  .sessions/2026-09-09-final-eap-mail-review.md` before the flip → exit **1**,
+  `2 finding(s)`, both the born-red HOLD naming this card; on the flipped text
+  → exit **0** (the run immediately before this commit). All exit codes read
+  directly, never after a pipe.
+- Draft vs mailbox (`RAW` → MIME-decoded → whitespace-normalised `difflib`):
+  Part 1 `EQUAL`; Part 2 `DIFFERENT` on URL tokens only — every hunk a
+  `google.com/url?q=` wrapper. Probe draft read back `RAW`: same wrapping in
+  both parts; trashed → `{}`. `curl` on a wrapped link → `HTTP 200`, no
+  `Location`, *Redirect Notice*.
+- Links: 7 local targets `OK`; review site `200 200 200 200` and the mockup
+  anchor present (count 1); superbot document `200`; superbot-games PR 16
+  `200` (`closed`, repository `private: False`); superbot `private: False`.
+- Required check on the born-red head `617747e`: `substrate-gate | completed |
+  failure` — the designed hold (TRAP-006 satisfied).
 
 ## Close-out
 
-*(filled at the flip)*
+- **Shipped** (fm #1046, branch `claude/email-draft-review-eweeef`):
+  `617747e` the born-red card · `3273551` the records batch — the draft's
+  § 2 ▶ 2026-09-09 block and § 1 correction, `docs/owner-queue.md`'s E1
+  pointer, `docs/CAPABILITIES.md`'s 2026-09-09 line, this card's body, the
+  `.substrate/guard-fires.jsonl` delta · then this flip (badge + close-out
+  text; nothing reviewable).
+- **Handed to the owner in chat:** where the draft is, the review as one-word
+  calls, the combined rendered document for the clean-link paste, and the
+  four recipient addresses read from the July thread's headers (chat only).
+- **Program:** E1 stays NOW and stays his; no §7 row (no step completed);
+  the queue entry gained one pointer line, no new ask.
+- **Capability delta:** one measured line in the ledger (the Gmail write path
+  wraps links; the text survives exactly; the clean route). No wall written.
+- **PR:** #1046 lands on green through the server-side lander or a direct
+  merge once `substrate-gate` reports on the flipped head — probed after the
+  push, not assumed.
