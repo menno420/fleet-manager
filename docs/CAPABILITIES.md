@@ -171,6 +171,30 @@ as venue `any`.)
 kit-owned — they refresh at upgrade between the fence markers; local
 findings go here, below the fence.)
 
+- 2026-09-09 · capability · `owner-live` (remote CCR container, auto mode) · **A
+  Gmail draft written through the Gmail MCP (`create_draft` / `update_draft`)
+  keeps its TEXT exactly and stores every LINK wrapped in a Google redirect — in
+  the plain part and the HTML part alike — so an API-staged draft cannot carry
+  clean links; the rendered document pasted into a fresh compose is the
+  clean-link route.** · evidence: the E1 draft `r-9208017789511753451` read
+  back as `RAW` → `multipart/alternative`, 13 `href`s, every one
+  `https://www.google.com/url?q=<url>&source=gmail&ust=<draft date + 24 h, µs>&sa=E`,
+  the plain part carrying the same wrappers with bare `github.com/…`
+  auto-linked as `http://`; a probe draft made the same way (`create_draft`,
+  subject "probe — link wrapping test (session, discard)", one `https://`
+  anchor → `{"id":"r3852694163916063612","messageId":"1a0872b2e6e4bb65"}`)
+  read back `RAW` with identical wrapping in both parts and `Received: … by
+  gmailapi.google.com with HTTPREST`, then `trash_message` → `{}`. Following a
+  wrapped link with `curl` → `HTTP 200`, no `Location`, body *"Redirect Notice —
+  The previous page is sending you to …"*. The content survives exactly: the
+  stored plain text equalled the repo's Part 1 word for word and Part 2 word
+  for word except the URLs (`difflib`, whitespace-normalised). · workaround:
+  when links must be clean, render (`tools/render_eap_mail.py`'s functions)
+  and paste from a browser into a fresh compose — Gmail's editor behaviour on
+  that paste is still unmeasured — or send as staged and accept one
+  interstitial per link. Read back `RAW` after any staging, never a snippet.
+  — LAST-VERIFIED: 2026-09-09
+
 - 2026-09-04 · capability · `owner-live` (remote CCR container, auto mode) ·
   **`superbot-next` boots and can be DRIVEN end to end with no Discord token
   and no network: its composition root runs against a throwaway local

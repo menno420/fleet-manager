@@ -90,6 +90,16 @@ the plain and HTML bodies from this renderer (no paste, no `.eml`), so what is
 unverified is now his half only — that he sees and can edit that draft. The
 `.eml` remains a Part 2-only preview.
 
+**Corrected 2026-09-09 (`MEASURED`, fm #1046) — "his half only" was wrong.**
+The API route stores every link wrapped in a Google redirect
+(`https://www.google.com/url?q=…&source=gmail&ust=…&sa=E`), in both MIME
+parts, confirmed by a probe draft created the same way; a recipient following
+one lands on Google's *Redirect Notice* page before the target. The staged
+draft's TEXT is right (Part 1 word for word, Part 2 word for word except the
+URLs); its links are not clean. The paste from the rendered document is the
+clean-link route again, and how Gmail's editor treats that paste is the step
+that remains unverified (§ 2, *links*).
+
 **And one real trade-off, not a limitation:** the plain-text route **deletes**
 the emphasis rather than preserving it. All 43 spans go, so *"116 to nothing"*
 and *"0 of 16"* land flat. That is a genuine loss for an argument that leans on
@@ -518,6 +528,73 @@ The reports and methods are public:
 >   the July pointer sentence carries it — *stay out* / *back*.
 > - *counts* — Finding 3's three-later-counts parenthetical is compressed to
 >   one sentence (the reviewer's "loses the reader") — *keep* / *restore*.
+>
+> **▶ 2026-09-09 — the review pass (fm #1046): the draft found again, the
+> mailbox copy compared with this file word for word, both parts read against
+> what the estate measured after 2026-09-03.** Nothing below is applied to the
+> mail; each line is a call, and the staged text is the first word of each.
+> - *found* — the mail is this file (Part 1 above the COPY markers, Part 2
+>   between them) and Gmail → Drafts → *"Claude Code Projects EAP — the final
+>   review, six weeks on"* (id `r-9208017789511753451`, dated 2026-09-03
+>   21:45Z, no recipients). Its stored plain text equals this file: Part 1
+>   word for word, Part 2 word for word except the link URLs (next item;
+>   `difflib` over whitespace-normalised text). A second, older draft sits in
+>   the same folder — the 2026-07-22 coordinator note *"Re: Claude Code
+>   Projects EAP: Thank you for being a power user!"*, addressed, never sent;
+>   not this mail.
+> - *links* — **MEASURED 2026-09-09: every one of the staged draft's 13 links
+>   is stored wrapped in a Google redirect** (`https://www.google.com/url?q=…&source=gmail&ust=…&sa=E`),
+>   in the plain part and the HTML part alike, and following one returns
+>   HTTP 200 with Google's *Redirect Notice* page rather than the target. The
+>   wrapping is the Gmail write path's, not a display artifact: a one-line
+>   probe draft created the same way (`create_draft`, one `https://` anchor)
+>   came back wrapped identically (`Received: … by gmailapi.google.com with
+>   HTTPREST`), then trashed. So an API-staged draft cannot carry clean links
+>   (`docs/CAPABILITIES.md`, 2026-09-09). → *send it as staged* (every link
+>   works, one interstitial each) / *paste* (the session handed him the
+>   combined document — Part 1 + rule + Part 2 from `render_eap_mail.py`'s own
+>   functions, 4 anchors, 0 wrappers, Part 1 identical to the staged text —
+>   open in a browser, select all, copy, paste into a FRESH compose, add the
+>   subject and recipients; how Gmail's editor treats that paste is still
+>   unverified).
+> - *scheme* — the nine `github.com/…` links carry no `https://` in the
+>   source, so the renderer emits them as plain text (only the four review-site
+>   links are anchors) and a recipient's client may or may not linkify them;
+>   the staged draft's wrapper had auto-linked them as `http://`. Adding
+>   `https://` to the nine leaves `--count` unchanged. → *leave* /
+>   *add `https://`* / *teach the renderer to anchor bare URLs*.
+> - *not-faulty* — Part 1: *"superbot-next is the example: … and the code
+>   itself was not faulty."* The estate measured otherwise the day after the
+>   rewrite: the headless drive of 2026-09-04
+>   ([`boot-observation.md`](2026-09-04-superbot-rebuild/run/boot-observation.md)
+>   § 5.5) found two unhandled exceptions behind ordinary buttons (*Enable
+>   tickets* and *Auto-create log channel* answer *"Something went wrong on our
+>   end"*; the setup recommender logs an exception on every read), § 5.2 a
+>   `/setup` that renders its first card and never sends it, and § 5.4 three
+>   setup commands that cannot work from slash. Part 2's Finding 1 says the
+>   agents make no claim about code quality either way, so his half carries
+>   the one code-quality claim in the mail, and the record contradicts it.
+>   His sentence, his call → *keep* / *"and the code ran"* / *drop the clause*.
+> - *weeks* — the subject says *six weeks on*; 21 July → 9 September is 50
+>   days, seven weeks. → *seven weeks on* / *drop the count* / *keep*.
+> - *fixed* — Finding 3's last words, *"116 statements catching 0 of 16, is
+>   fixed"*, read as "was repaired" on a first pass; the meaning is "does not
+>   move". → *keep* / *"does not move"* / *"stands"*.
+> - *twice* — the documentation ask appears in Part 1 (*"more organised and
+>   structured in how they document things"*) and again as the addendum's last
+>   clause, quoted as his. → *keep both* / *cut the addendum's* / *cut Part 1's*.
+> - *recipients* — the draft has none; the July thread's headers hold the EAP
+>   alias (To) and three cc addresses — his two 2026-07-16 sent mails carry all
+>   four. Deliberately not copied into this public file. → he adds them.
+> - Re-checked and standing: every local link target exists; the four
+>   review-site pages answer 200 and the mockup anchor is present; the
+>   superbot document and superbot-games PR 16 exist and are public; *98 of
+>   101 closed* is the audit's own 2026-08-11 sweep line
+>   (`docs/audits/2026-08-10-full-read/findings.md:144`); 19 + 1 + 7 = 27;
+>   5 + 4 + 3 + 2 + 2 = 16; `--count` 2,299, `--verify` loss-free,
+>   `check_eap_figures.py` clean. The earlier calls above (a–e, subject, the
+>   fourth item, length, public-soon, thesis, hours, permissions, counts) are
+>   still his; the staged text takes the first word of each.
 >
 > **Where the draft is:** Gmail → Drafts → "Claude Code Projects EAP — the final
 > review, six weeks on" (id `r-9208017789511753451`), no recipients. Part 2 in
