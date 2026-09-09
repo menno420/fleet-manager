@@ -654,7 +654,14 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   VERIFIED-NEEDED: the API half of the Gmail-draft route is measured (create +
   list-back); **his half — that he sees and can edit it in Gmail — is recorded
   only when he says so**, in words. After sending: the send record in § 3 of the
-  draft (date, subject, `Message-Id`), then this entry closes.
+  draft (date, subject, `Message-Id`), then this entry closes. **▶ 2026-09-09 review pass (fm #1046):** the draft is exactly where
+  this entry says — it was not lost — and its text equals the repo word for
+  word; **but its 13 links are stored as Google redirects (measured; a
+  recipient gets a *Redirect Notice* page per click)**, so the clean-link
+  route is the paste from the rendered document the session handed him. The
+  read's other calls (*scheme · not-faulty · weeks · fixed · twice ·
+  recipients*) are in [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md)
+  under ▶ 2026-09-09. Nothing in the mail was edited; he reads and decides.
 - **`OQ-E1-FINAL-EAP-EMAIL` (superseded body) ▶ RE-BRIEFED 2026-08-28 — "soon", and its content brief just WIDENED.** *(Superseded by the 2026-09-03 entry above; kept for its record.)*
   Owner, live (§ 19 of [the sitting record](findings/2026-08-28-od24-sitting-answers.md)). He first selected *"Leave it — not now"*,
   then revised it unprompted minutes later — **the revision governs**: *"About
