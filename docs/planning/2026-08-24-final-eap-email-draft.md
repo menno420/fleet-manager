@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,279 words** (re-derived by `--count`; it stood at 2,299 from the 2026-09-03 evening rewrite, whose addendum is 488 of body plus 75 of its own source bullets, until the 2026-09-17 read cut the two asks Part 1 already carried) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,286 words** (re-derived by `--count`; it stood at 2,299 from the 2026-09-03 evening rewrite, whose addendum is 488 of body plus 75 of its own source bullets, until the 2026-09-17 read cut the two asks Part 1 already carried) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -379,9 +379,10 @@ before calling it a result. If you want a specific
 scenario stress-tested, name it and we will run it and send you the raw results,
 including the ones that make us look bad.
 
-**Addendum — what would make Menno choose a Project over a session.** He was
-asked this in one of the research interviews; his answer from the 2 September
-sitting, ordered by us; the phrases in quotation marks are his.
+**Addendum — what would make Menno choose a Project over a session.** This is a
+question he remembers being asked, and the one he most wanted to answer well;
+his answer from the 2 September sitting, ordered by us; the phrases in
+quotation marks are his.
 
 What the two share: a plain session on a self-scheduled wake chain is
 "basically the same capability" as the advertised autonomous worker — one of
@@ -600,7 +601,7 @@ The reports and methods are public:
 >
 > **▶ 2026-09-17 — the owner read the mail and took the review's changes (fm
 > #1047). Six edits APPLIED to the text; the mail now stands at Part 1 726
-> words, Part 2 2,279.** What changed, each with the reason:
+> words, Part 2 2,286.** What changed, each with the reason:
 > - **not-faulty — APPLIED, clause deleted.** Part 1's *"and the code itself
 >   was not faulty"* is out. It was the mail's only code-quality claim, Part 2's
 >   Finding 1 declines to make one either way, and
@@ -631,11 +632,23 @@ The reports and methods are public:
 >   a back-reference to Part 1 (*"the stall visibility he names above"*) and its
 >   closing documentation ask is cut; Part 1 carries both in his own words. The
 >   addendum's four-item list is intact.
-> - **interviews — APPLIED.** The addendum opened *"You asked him that"*; nothing
->   in the recorded correspondence contains that question, and its only source is
->   his own 2026-09-02 words ([owner-direction](../findings/2026-09-02-owner-direction.md):232,
->   *"one of the questions anthropic asked me…"*). Now: *"He was asked this in one
->   of the research interviews"* — true to the provenance, and Matt is a recipient.
+> - **interviews — APPLIED, THEN CORRECTED THE SAME DAY (Codex round 1, P1).**
+>   The addendum opened *"You asked him that"*; nothing in the recorded
+>   correspondence contains that question, and its only source is his own
+>   2026-09-02 words ([owner-direction](../findings/2026-09-02-owner-direction.md):232,
+>   *"one of the questions anthropic asked me…"*). The first fix wrote *"He was
+>   asked this in one of the research interviews"* — **and that invented a
+>   channel the source does not name.** § 5c records his recollection with no
+>   venue attached; § 6 says the interviews covered *"some of what the mails
+>   also covered"* and never ties this question to them. Codex: *"it does not
+>   identify a research interview… Keep the channel unknown or attribute the
+>   statement directly to Menno"* — conceded. The mail now reads *"This is a
+>   question he remembers being asked, and the one he most wanted to answer
+>   well"*: the recollection is his, the channel is not claimed, and the second
+>   clause is measured (§ 5c, *"the part of the mail he most wants to answer
+>   well"*). **Third instance today of one defect shape** — an unverified
+>   attribution replaced by a more specific unverified attribution — after the
+>   *not-faulty* clause and the 533/533 parity figure.
 > - **short list — APPLIED (his call, new prose in his voice — he checks it reads
 >   like him).** Part 1 now records that he asked on 21 July for a short list of
 >   what they most wanted to know and that it never arrived
@@ -726,7 +739,7 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 2,279 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
+- **d · 2,286 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
   restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
   route reached one page", which was only ever true of **cutting things**. Nobody
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
@@ -814,7 +827,7 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,678 after the cut, 2,299 after Shape A and 2,279 as it now
+   `9b2d83a`, 1,678 after the cut, 2,299 after Shape A and 2,286 as it now
    stands** — the eight-word
    census fix at consequence *e* took it to 1,686, and Shape A's addendum and two
    patches (2026-09-03, § 1 decisions 7–8) account for the rest.

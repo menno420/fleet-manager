@@ -644,7 +644,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   paragraph, is his alone), Part 2 kept at the 1,686 words he chose plus two
   one-clause patches and one addendum — the Projects-versus-sessions answer in
   his terms, with the three false-done rows as the evidence that verification
-  is the deciding line. Block: **2,279 words** by `--count` after the 2026-09-17 edits (2,299 after the evening rewrite) (his edits in fm #1019 + the independent review), addendum 488 of body plus 75 of its source bullets, Part
+  is the deciding line. Block: **2,286 words** by `--count` after the 2026-09-17 edits (2,299 after the evening rewrite) (his edits in fm #1019 + the independent review), addendum 488 of body plus 75 of its source bullets, Part
   1 726 words in his own words (696 before the 2026-09-17 edits). **Staged as a Gmail draft in his own mailbox, no recipients:**
   Drafts → *"Claude Code Projects EAP — the final review"* (id
   `r-9208017789511753451`). WHAT (after the 2026-09-17 edits, fm #1047 — he read the mail and took the review's six changes; subject settled, text final unless he says otherwise): choose the links route (*send as staged*, every link behind a Google redirect notice, or *paste* the clean rendered document), add the recipients — the
@@ -704,7 +704,7 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
     reading, not narrower**.
   - **The length (§ 2 item 6): the literal cap.** Findings 1–3 and asks 1–5 only;
     findings 4–5, asks 6–14 and the optional finding 6 are out.
-    **2,097 → 2,279 words**, measured 2026-09-17 — the cap took it to 1,686,
+    **2,097 → 2,286 words**, measured 2026-09-17 — the cap took it to 1,686,
     Shape A's addendum (2026-09-02, fm #1017) took it to 2,299, and the
     2026-09-17 read removed the two asks Part 1 already carried. *(The count is method-dependent and that was never
     stated, which is why it drifted: the draft said 2,082, this entry said 2,127, the file

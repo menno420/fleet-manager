@@ -47,7 +47,7 @@ copy product architecture or internal product state. Canonical intent:
 
 - **E1 is EDITED AND RESTAGED — the text is final unless he says otherwise;
   his: the links route, the recipients, the send.** He read it 2026-09-17 and
-  took six changes (fm #1047); **Part 1 726 words, Part 2 2,279**; those and the
+  took six changes (fm #1047); **Part 1 726 words, Part 2 2,286**; those and the
   replacement the review withdrew are in
   [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md) ▶ 2026-09-17.
   Before that: Shape A (2026-09-02, fm #1017) put Part 2 at his chosen 1,686
@@ -61,7 +61,7 @@ copy product architecture or internal product state. Canonical intent:
   — *"a revision pass and my own section added/edited"* — **was put to him rather
   than interpreted**: two operations, and the pass covers the whole document. He
   then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
-  **cut the contested 97.5 % ratio**. Part 2 is **2,279 words** (1,686 after his cap; the
+  **cut the contested 97.5 % ratio**. Part 2 is **2,286 words** (1,686 after his cap; the
   2026-09-02 addendum and two patches added the rest, fm #1017; the 2026-09-17
   read de-duplicated two asks), from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
