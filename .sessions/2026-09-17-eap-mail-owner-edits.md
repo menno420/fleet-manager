@@ -1,12 +1,16 @@
 # 2026-09-17 — the owner read the final EAP mail and took the review's changes
 
-> **Status:** `in-progress` — he came back from a week away, read the mail, and
-> said *"you can apply the changes."* What is about to happen: apply the six
-> edits the 2026-09-09 review proposed, update every guarded figure the change
-> moves, restage the Gmail draft with the new text and the settled subject, hand
-> him the clean-link document, and record the one recommendation this review
-> **withdrew** before it shipped. **Nothing is sent** — the links route and the
-> recipients are his.
+> **Status:** `complete` — he read the mail after a week away and said *"you
+> can apply the changes"*; all six are applied, the draft is restaged and
+> verified against its stored bytes, and two review rounds are dispositioned.
+> **Nothing was sent** — the links route, the recipients and the send are his,
+> and one round-2 finding is a call in his hands (§ 2, *your-question*).
+> Codex: two rounds, 5 findings — 3 conceded and fixed, 1 partial, 1 put to
+> him; no third round, and § Review rounds says why. **Reviewed SHA
+> `2f97d9387f` (round 2). After it:** `ecfc4ec` (the two records-only P2 fixes,
+> verified directly — the 474 recomputed from source, the heading re-read —
+> with the COPY block byte-identical) and this flip commit, the badge and the
+> close-out text. Landed on green.
 
 - **📊 Model:** Opus 5 · max · docs-only
 - **📍 Venue:** cloud-container
@@ -87,6 +91,62 @@ COPY block is byte-identical to the head round 2 reviewed, and both were
 verified directly (the 474 recomputed from source, the heading re-read).
 [D-0019]'s cadence reserves Codex for the flip-readiness of real changes.
 
+## 💡 Session idea
+
+**A staging step that diffs what was STORED, not what was sent.** This session
+restaged the mail twice and both times read the draft back as raw MIME and
+diffed it against the renderer's output; both times every difference was a
+Gmail link wrapper and nothing else, which is the only reason the second
+restage could be asserted rather than hoped. The 2026-09-03 session read its
+staging back as a snippet and wrote *"the body in Gmail is the reviewed head's
+text"* — true of every word and false of every link. The check is twenty
+lines and belongs in the render tool: fetch `RAW`, decode the parts, diff the
+plain part against `to_text`, count `google.com/url` in the HTML, fail the
+staging on any hunk that is not a wrapper. It generalises past mail: the
+surface that matters is the stored artifact, and a snippet of it is a label
+read as substance (TRAP-008). Deduped against `docs/owner-queue.md` and the
+2026-09-0x idea slots: the 2026-09-09 card names the same defect, and this is
+its shippable form rather than a second statement of it.
+
+## ⟲ Previous-session review
+
+`.sessions/2026-09-09-final-eap-mail-review.md` (fm #1046) found the draft,
+proved the mailbox copy equalled the repo word for word, and measured the link
+wrapping that no read-back had caught in six days. Every one of its six calls
+survived contact with the owner: he took all six. Its miss is the one this
+session paid for twice. It reported the *not-faulty* clause correctly and then
+offered a replacement — superbot-next's 533/533 parity — taken from a doc-route
+summary rather than the file, which
+`docs/repos/superbot-next/README.md`:90–92 refutes outright; and the fix it
+proposed for the addendum's attribution invented a research interview the
+source never names. Both were caught before they shipped, by the owner-review
+round and by Codex. The lesson is not new and that is the point: the card that
+reports a defect class is not exempt from it, and the only thing that actually
+stopped it twice was a reader who opened the cited file.
+
 ## Close-out
 
-*(filled at the flip)*
+- **Shipped** (fm #1047, branch `claude/eap-mail-owner-edits-2026-09-17`):
+  `add4208` the born-red card · `b7afac2` the six edits plus the five guarded
+  consumers they moved · `2f97d93` the round-1 P1 fix and its eight consumers ·
+  `ecfc4ec` the round-2 P2 fixes and the review record · this flip.
+- **The mail now:** Part 1 **726** words, Part 2 **2,286** by `--count`,
+  addendum body **474**. Subject settled as *"Claude Code Projects EAP — the
+  final review"*, no week-count.
+- **Gmail:** draft `r-9208017789511753451` restaged twice, the second time at
+  the corrected text; read back as `RAW` and diffed against the renderer both
+  times — 13 differing hunks, every one a `google.com/url` wrapper, no
+  recipients. Message id `1a0afe058ae19bac`.
+- **Handed to him in chat:** the combined clean-link document, twice, the
+  second replacing the first; the review of the current state; and the
+  *your-question* call.
+- **Program:** E1 stays NOW and stays his. No §7 row — the step is not
+  complete until he sends. `docs/owner-queue.md`'s heading, WHAT line and
+  figures reconciled; `docs/current-state.md` likewise.
+- **Capability delta:** none new. The Gmail link-wrapping line landed with
+  fm #1046 on 2026-09-09 and needed no revision; this session exercised it
+  twice and it held. No wall written.
+- **Layer-2 handoff:** null (fleet-manager itself; superbot-next was read only
+  as a source at `docs/repos/superbot-next/README.md`, no repo attached)
+- **PR:** #1047, terminal state probed against the API after the flip, not
+  read from a stale response.
