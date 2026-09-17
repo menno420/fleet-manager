@@ -655,6 +655,15 @@ The reports and methods are public:
 >   ([correspondence record](../findings/2026-08-09-eap-correspondence-record.md):170),
 >   so he chose the scope himself. It explains why the mail is broad without
 >   complaining.
+> - **your-question — HIS CALL, raised by Codex round 2 (P1), not applied.**
+>   Part 1 says *"to answer your question about what would make me choose a
+>   Project over a session"*. The record establishes his recollection that
+>   Anthropic asked it, not that these recipients did, so the reviewer is right
+>   that the two halves now attribute differently. The asymmetry is defensible:
+>   the addendum was **the agents** telling the recipients they asked, and this
+>   is **him** addressing the people he remembers asking, which is ordinary in
+>   correspondence. His sentence, so his call → *keep* / *"a question I was
+>   asked"* / *"the question I remember being asked"*.
 > - **STILL HIS, unchanged by this pass:** the links route (*send as staged* with
 >   a redirect notice per click, or *paste* the clean rendered document), the
 >   recipients, and the dated 24 August census figures — today the account holds

@@ -638,13 +638,15 @@ Master handover + priority order: [PROJECT-CLOSEOUT.md](PROJECT-CLOSEOUT.md) §3
   a glance at the UI. **The release is a data bundle, not a software release;
   it is deletable in one call once the notebook exists.**
 
-- **`OQ-E1-FINAL-EAP-EMAIL` ▶ DRAFTED IN FULL AND STAGED 2026-09-03 (fm #1017) — what is left is his: read, edit, add the recipients, send.**
+- **`OQ-E1-FINAL-EAP-EMAIL` ▶ READ, EDITED AND RESTAGED 2026-09-17 (fm #1047; drafted and first staged 2026-09-03, fm #1017) — what is left is his: the links route, the recipients, the send.**
   Shape A (owner, 2026-09-02, [§ 5b](findings/2026-09-02-owner-direction.md)):
   Part 1 proposed from the beat table and his answers (beat 3, the verdict
   paragraph, is his alone), Part 2 kept at the 1,686 words he chose plus two
   one-clause patches and one addendum — the Projects-versus-sessions answer in
   his terms, with the three false-done rows as the evidence that verification
-  is the deciding line. Block: **2,286 words** by `--count` after the 2026-09-17 edits (2,299 after the evening rewrite) (his edits in fm #1019 + the independent review), addendum 488 of body plus 75 of its source bullets, Part
+  is the deciding line. Block: **2,286 words** by `--count` after the 2026-09-17 edits (2,299 after the evening rewrite) (his edits in fm #1019 + the independent review), addendum **474 words of body** (the 488-of-body plus 75-of-source-bullets
+  pair is the 2026-09-03 text's, before the 2026-09-17 read removed the two
+  asks Part 1 already carried; same alphanumeric method as `--count`), Part
   1 726 words in his own words (696 before the 2026-09-17 edits). **Staged as a Gmail draft in his own mailbox, no recipients:**
   Drafts → *"Claude Code Projects EAP — the final review"* (id
   `r-9208017789511753451`). WHAT (after the 2026-09-17 edits, fm #1047 — he read the mail and took the review's six changes; subject settled, text final unless he says otherwise): choose the links route (*send as staged*, every link behind a Google redirect notice, or *paste* the clean rendered document), add the recipients — the
