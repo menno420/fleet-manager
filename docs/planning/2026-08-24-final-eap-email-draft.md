@@ -40,7 +40,7 @@
 | 4 | **Fresh compose, new subject, no reply-linkage** | Plan § 1: the standalone closing statement, readable cold in minutes | replying on the old thread instead |
 | 5 | The thesis is **refined, not replaced**: the wall is human review *because the defects are shaped to survive review* | The month of auditing earned the sharper version; the original is still true and still his | keeping the July wording |
 | 6 | Part 1 is a **beat table placed BEFORE `COPY FROM HERE`**, and the drafted prose is **deleted, not retained** — **OVERTURNED BY THE OWNER 2026-09-02:** *"I would like a proper draft created which I can read and edit"* (§ 5b), and Shape A chosen with Part 1 drafted for him to rewrite. The proposal now sits **below the beat table, still outside the COPY markers**, so `--count` excludes it and it cannot be pasted by accident; beat 3 stays his | Rounds 2 and 3 both rejected weaker versions: a scaffold inside the markers gets pasted whatever the header calls it, and prose outside them still supplies his voice when he is invited to lift phrases — the owner then chose exactly that supply, knowingly | rewriting it in his own words, which is the expected outcome |
-| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,299 words** (re-derived by `--count`; the addendum is 488 of body plus 75 of its own source bullets after the 2026-09-03 evening rewrite) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
+| 7 | **The one-page bound wins — findings 1–3 and asks 1–5 only** — **AMENDED 2026-09-02 (Shape A):** the 1,686 words he chose stay as they are; one addendum and two one-clause patches are added on top, so the block is now **2,097 → 2,286 words** (re-derived by `--count`; it stood at 2,299 from the 2026-09-03 evening rewrite, whose addendum is 488 of body plus 75 of its own source bullets, until the 2026-09-17 read cut the two asks Part 1 already carried) | Two of his own instructions collided (§ 2 item 6: the cap, versus *"add genuinely new points"*). Surfaced rather than resolved, and **he chose the literal cap on 2026-08-25**: findings 4–5 out, asks 6–14 out, optional finding 6 out — 2,097 down to 1,686 words. On 2026-09-02, offered A (Part 2 unchanged plus one addendum), B (rewrite around the month after) and C (the strict cap, no addendum), he chose A | saying which of the two month-after findings goes back, or "cut the addendum" |
 | 8 | **The addendum is the answer to Anthropic's own question — what would make him choose a Project over a session — in his terms**, and it carries the false-done rows | His answers in [§ 5c–5d](../findings/2026-09-02-owner-direction.md) are the content; the DERIVED ordering under them was checked with him in the sitting; his one claim of degree (the coordinator beats a session's fan-out at several tasks at once) goes in marked as his inference, his own caveat. The three false-done rows are FD-01, FD-02 and FD-17 narrowed to its one sub-claim ([the evidence report](../findings/2026-09-02-eap-mail-evidence-report.md) § 3), each re-opened at source before use — FD-01 now also read from the pull request itself | naming another frame, or "drop the false-done rows" |
 
 **Logistics.** Fresh Gmail compose — *not* a reply. To the EAP alias, cc the
@@ -109,11 +109,11 @@ them, and it is why the HTML route exists.
 copy would drift from this one — which is precisely the defect finding 2
 reports.)*
 
-**Subject — pick one** (the first is what the Gmail draft carries; "one month
-on" was written 2026-08-24 and is six weeks by now):
-- *Claude Code Projects EAP — the final review, six weeks on*
-- *Claude Code Projects EAP — the final review, one month on*
-- *Claude Code Projects EAP — what the agents actually built, audited a month later*
+**Subject — settled 2026-09-17**, the count dropped so it cannot age again (it
+read "six weeks on" when the mail was 6 weeks old and was 8 weeks by the time
+he next opened it):
+- *Claude Code Projects EAP — the final review* ← **what the Gmail draft carries**
+- *Claude Code Projects EAP — what the agents actually built, audited two months later*
 
 ---
 
@@ -170,8 +170,10 @@ default, is that he writes it in the compose window and it goes out unchecked.
 
 Hi everyone,
 
-I said on 21 July that I would send one final review in my own words. I
-wanted to take my time to properly review the work the Projects had
+I said on 21 July that I would send one final review in my own words. I also
+asked then for a short list of what you would most like to know from me, so I
+could direct my time on that; it did not arrive, so I have chosen the scope
+myself. I wanted to take my time to properly review the work the Projects had
 completed, and to think about what would actually make me choose a Project
 over a normal session. To answer that properly, I thought it wise to spend
 some time working with normal Claude Code sessions first, to see what I would
@@ -201,9 +203,8 @@ My honest verdict on whether I would use the Projects as they were is about
 fifty-fifty. I might use them, but not as true autonomous agents. Their
 strength was the amount of work they could do in a short time, and the fact
 that the custom instructions were followed pretty well. superbot-next is the
-example: a rebuild that one agent estimated at weeks was built in a few days,
-and the code itself was not faulty. But the functionality was not what I
-intended, so it was not ready to use. That is how I review work, as a finished
+example: a rebuild that one agent estimated at weeks was built in a few days.
+But the functionality was not what I intended, so it was not ready to use. That is how I review work, as a finished
 product, which is only possible once the pull requests actually merge. The
 permission problems mostly started after the classifier update, and they kept
 some of the work from reaching me in a form I could judge. The amount of work
@@ -307,7 +308,7 @@ because the counting method has them:** prevented errors are invisible to it —
 those 116 statements may have stopped things the table cannot see — and our own
 arriving mechanisms have fired in tests but have no measured save yet. **That is the design conclusion we acted on, not a proof
 that documentation never binds** — and the pair it rests on, 116 statements
-catching 0 of 16, is fixed.
+catching 0 of 16, does not move.
 
 **One thing that worked, and it came from outside the platform.** What caught the
 false-dones in these reviews was independent adversarial review by a *different
@@ -378,9 +379,10 @@ before calling it a result. If you want a specific
 scenario stress-tested, name it and we will run it and send you the raw results,
 including the ones that make us look bad.
 
-**Addendum — what would make Menno choose a Project over a session.** You asked
-him that; his answer from the 2 September sitting, ordered by us; the phrases
-in quotation marks are his.
+**Addendum — what would make Menno choose a Project over a session.** This is a
+question he remembers being asked, and the one he most wanted to answer well;
+his answer from the 2 September sitting, ordered by us; the phrases in
+quotation marks are his.
 
 What the two share: a plain session on a self-scheduled wake chain is
 "basically the same capability" as the advertised autonomous worker — one of
@@ -400,9 +402,8 @@ than a session's fan-out is, in his words, inferred and not proven. Third,
 eight Projects at once, which was possible only because usage was unlimited;
 fewer would probably have been better.
 
-What a Project must fix to be chosen: show working-versus-stalled on the Projects
-home screen — he mostly found stalls by opening each one; the mockup is on the
-review site; a coordinator that cannot report its queue exhausted while orders
+What a Project must fix to be chosen: the stall visibility he names above, on the
+Projects home screen; a coordinator that cannot report its queue exhausted while orders
 sit unread in the repository — he sent "continue" to Projects that had declared
 the work done and found it "not nearly anything you could call done"; workers
 that accept the coordinator's authority for merges and other gated actions —
@@ -418,9 +419,8 @@ checked, as were all 13 repositories on the account that night; and the hub mark
 an owner action resolved when only half of it was (integration enabled, quota
 still capped). The first two were caught by a commissioned whole-night review
 that ran once, on no schedule; the third by a consistency review three days
-later; none by a gate. Two asks follow: a "queue exhausted" checked
-against the repository before it is reported, and agents that are, in his words,
-"more organized and structured in how they document things".
+later; none by a gate. One ask follows: a "queue exhausted" checked
+against the repository before it is reported.
 
 The reports and methods are public:
 - The census behind the figures above, measured 2026-08-24 — 27 repositories,
@@ -529,6 +529,9 @@ The reports and methods are public:
 > - *counts* — Finding 3's three-later-counts parenthetical is compressed to
 >   one sentence (the reviewer's "loses the reader") — *keep* / *restore*.
 >
+> **▶ SUPERSEDED IN PART 2026-09-17 (fm #1047) — six of these calls are ANSWERED
+> and applied; read the ▶ 2026-09-17 block below before acting on any line here.**
+>
 > **▶ 2026-09-09 — the review pass (fm #1046): the draft found again, the
 > mailbox copy compared with this file word for word, both parts read against
 > what the estate measured after 2026-09-03.** Nothing below is applied to the
@@ -596,10 +599,82 @@ The reports and methods are public:
 >   fourth item, length, public-soon, thesis, hours, permissions, counts) are
 >   still his; the staged text takes the first word of each.
 >
+> **▶ 2026-09-17 — the owner read the mail and took the review's changes (fm
+> #1047). Six edits APPLIED to the text; the mail now stands at Part 1 726
+> words, Part 2 2,286.** What changed, each with the reason:
+> - **not-faulty — APPLIED, clause deleted.** Part 1's *"and the code itself
+>   was not faulty"* is out. It was the mail's only code-quality claim, Part 2's
+>   Finding 1 declines to make one either way, and
+>   [`boot-observation.md`](2026-09-04-superbot-rebuild/run/boot-observation.md)
+>   § 5.2/§ 5.4/§ 5.5 measured the opposite the day after he wrote it. The
+>   sentence keeps the speed point and drops the quality claim.
+> - **⚠ AND THE FIRST REPLACEMENT OFFERED FOR IT WAS THE SAME DEFECT, CAUGHT
+>   BEFORE IT SHIPPED.** The session proposed *"and it passed every one of its
+>   own parity tests"*, sourced to the 533/533 golden-parity figure as a doc
+>   route had summarised it. Opening the file instead:
+>   [`docs/repos/superbot-next/README.md`](../repos/superbot-next/README.md):90–92
+>   — ***"The 533 goldens do not test the shipping bot.** Every "actual" wire
+>   byte comes from `rendered_panel_payload()` in
+>   `sb/adapters/parity/transport.py`, a serializer used by nothing but the
+>   parity adapter; production installs [another]"*. So the replacement would
+>   have put a second checkable-wrong claim into a vendor mail, in the place the
+>   first was being removed, on a public repository, in a mail arguing that
+>   verification is the deciding line. **Withdrawn; the clause was deleted
+>   instead.** This is TRAP-008 (a label read as substance) inside the document
+>   that reports the defect class — the third recorded instance, and the only
+>   one caught before the artifact left the estate.
+> - **subject — APPLIED.** *"Claude Code Projects EAP — the final review"*; the
+>   count is dropped so it cannot age again. It read "six weeks on" and was
+>   8.3 weeks by the time he next opened it (21 July → 17 September, 58 days).
+> - **fixed — APPLIED.** Finding 3 now closes *"does not move"*; *"is fixed"*
+>   read as "has been repaired", the opposite of the claim.
+> - **twice — APPLIED, both.** The addendum's stall-visibility argument is now
+>   a back-reference to Part 1 (*"the stall visibility he names above"*) and its
+>   closing documentation ask is cut; Part 1 carries both in his own words. The
+>   addendum's four-item list is intact.
+> - **interviews — APPLIED, THEN CORRECTED THE SAME DAY (Codex round 1, P1).**
+>   The addendum opened *"You asked him that"*; nothing in the recorded
+>   correspondence contains that question, and its only source is his own
+>   2026-09-02 words ([owner-direction](../findings/2026-09-02-owner-direction.md):232,
+>   *"one of the questions anthropic asked me…"*). The first fix wrote *"He was
+>   asked this in one of the research interviews"* — **and that invented a
+>   channel the source does not name.** § 5c records his recollection with no
+>   venue attached; § 6 says the interviews covered *"some of what the mails
+>   also covered"* and never ties this question to them. Codex: *"it does not
+>   identify a research interview… Keep the channel unknown or attribute the
+>   statement directly to Menno"* — conceded. The mail now reads *"This is a
+>   question he remembers being asked, and the one he most wanted to answer
+>   well"*: the recollection is his, the channel is not claimed, and the second
+>   clause is measured (§ 5c, *"the part of the mail he most wants to answer
+>   well"*). **Third instance today of one defect shape** — an unverified
+>   attribution replaced by a more specific unverified attribution — after the
+>   *not-faulty* clause and the 533/533 parity figure.
+> - **short list — APPLIED (his call, new prose in his voice — he checks it reads
+>   like him).** Part 1 now records that he asked on 21 July for a short list of
+>   what they most wanted to know and that it never arrived
+>   ([correspondence record](../findings/2026-08-09-eap-correspondence-record.md):170),
+>   so he chose the scope himself. It explains why the mail is broad without
+>   complaining.
+> - **your-question — HIS CALL, raised by Codex round 2 (P1), not applied.**
+>   Part 1 says *"to answer your question about what would make me choose a
+>   Project over a session"*. The record establishes his recollection that
+>   Anthropic asked it, not that these recipients did, so the reviewer is right
+>   that the two halves now attribute differently. The asymmetry is defensible:
+>   the addendum was **the agents** telling the recipients they asked, and this
+>   is **him** addressing the people he remembers asking, which is ordinary in
+>   correspondence. His sentence, so his call → *keep* / *"a question I was
+>   asked"* / *"the question I remember being asked"*.
+> - **STILL HIS, unchanged by this pass:** the links route (*send as staged* with
+>   a redirect notice per click, or *paste* the clean rendered document), the
+>   recipients, and the dated 24 August census figures — today the account holds
+>   **28** repositories and **8,169** pull requests against the mail's 27 and
+>   "just over 8,000", both dated in the text and carried by the linked census,
+>   so *dated* still stands unless he says *refresh*.
+>
 > **Where the draft is:** Gmail → Drafts → "Claude Code Projects EAP — the final
-> review, six weeks on" (id `r-9208017789511753451`), no recipients. Part 2 in
-> it is `python3 tools/render_eap_mail.py`'s output and Part 1 is the proposal
-> above, rendered by the same tool.
+> review" (id `r-9208017789511753451`), no recipients. Part 2 in
+> Part 2 in it is `python3 tools/render_eap_mail.py`'s output and Part 1 is the
+> section above, rendered by the same tool; restaged 2026-09-17 with these edits.
 
 > **⚠ SENDING GATE — added 2026-08-24 after owner-review, and it is a base rate,
 > not a worry.** A Codex round was outstanding when this draft was handed over,
@@ -673,7 +748,7 @@ each is one line to overturn.
 - **c · The month-after spine is three findings, not five** — and the month-after
   is **§ 1 decision 1's entire rationale** for sending this at all. → *"put
   finding 4 back"* (drift, 92 words) or *"finding 5 back"* (cost, 193 words)
-- **d · 2,299 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
+- **d · 2,286 words is about four pages (1,686 before the 2026-09-02 addendum), and one page IS reachable — by
   restructure, not by subtraction.** *(Corrected 2026-08-25: this entry said "no
   route reached one page", which was only ever true of **cutting things**. Nobody
   had tried changing the shape.)* Subtractive floor: cutting the good-parts block
@@ -761,7 +836,8 @@ each is one line to overturn.
    recorded in the queue, the program § 7 row and `docs/planning/README.md`,
    stays true.
 6. **The length — ANSWERED: the literal cap.** **Part 2 was 2,097 words at
-   `9b2d83a`, 1,678 after the cut, and 2,299 as it now stands** — the eight-word
+   `9b2d83a`, 1,678 after the cut, 2,299 after Shape A and 2,286 as it now
+   stands** — the eight-word
    census fix at consequence *e* took it to 1,686, and Shape A's addendum and two
    patches (2026-09-03, § 1 decisions 7–8) account for the rest.
    **The number now comes from a command rather than from prose:**

@@ -45,15 +45,15 @@ copy product architecture or internal product state. Canonical intent:
 
 ### Work state
 
-- **E1 is DRAFTED IN FULL AND STAGED (2026-09-03, fm #1017) — both parts, in
-  a Gmail draft in his own mailbox with no recipients; what is left is his: read it again, add what he wants to add, answer the one-word calls in the draft's § 2, add the recipients, send.** Shape A of 2026-09-02: Part 2 at the
-  1,686 words he chose plus two one-clause patches and the
-  Projects-versus-sessions addendum carrying the three false-done rows;
-  **rewritten once more on 2026-09-03 evening from his own edits (fm #1019)
-  and ChatGPT Work's independent review** — Part 1 in his words (696), the
-  addendum 488 of body plus 75 of source bullets, block 2,299 words by
-  `--count`; he reads it again before anything is sent. *(The paragraph below is the 2026-08-25
-  state, kept.)*
+- **E1 is EDITED AND RESTAGED — the text is final unless he says otherwise;
+  his: the links route, the recipients, the send.** He read it 2026-09-17 and
+  took six changes (fm #1047); **Part 1 726 words, Part 2 2,286**; those and the
+  replacement the review withdrew are in
+  [the draft's § 2](planning/2026-08-24-final-eap-email-draft.md) ▶ 2026-09-17.
+  Before that: Shape A (2026-09-02, fm #1017) put Part 2 at his chosen 1,686
+  words plus two patches and the Projects-versus-sessions addendum with its
+  three false-done rows, rewritten 2026-09-03 from his own edits (fm #1019) and
+  ChatGPT Work's review. *(Below: the 2026-08-25 state, kept.)*
   **E1 was assembled, revised against his own calls, and waiting on two things
   only he can do: Part 1, and sending.** *(2026-08-25, fm #946. The reservation
   was lifted live on 08-24; the "sends 2026-08-24" this line used to carry was
@@ -61,8 +61,9 @@ copy product architecture or internal product state. Canonical intent:
   — *"a revision pass and my own section added/edited"* — **was put to him rather
   than interpreted**: two operations, and the pass covers the whole document. He
   then chose **the literal one-page cap** (findings 1–3 and asks 1–5 only) and
-  **cut the contested 97.5 % ratio**. Part 2 is **2,299 words** (1,686 after his cap; the
-  2026-09-02 addendum and two patches added the rest, fm #1017), from
+  **cut the contested 97.5 % ratio**. Part 2 is **2,286 words** (1,686 after his cap; the
+  2026-09-02 addendum and two patches added the rest, fm #1017; the 2026-09-17
+  read de-duplicated two asks), from
   `python3 tools/render_eap_mail.py --count` rather than from prose — the figure
   had been wrong in all three places it was written. **A session still does not
   send it** *(the "does not draft Part 1" half of this sentence was superseded
@@ -613,8 +614,8 @@ window.
 **Current:** the authoritative next action is the consolidation program's NOW
 pointer in
 [`planning/2026-07-26-consolidation-program.md`](planning/2026-07-26-consolidation-program.md).
-E1 is drafted in full and staged as his Gmail draft (fm #1017) — the rewrite
-of Part 1 and the send remain his alone; D2 is the available track and **its
+E1 is drafted, reviewed, edited and restaged as his Gmail draft (fm #1047,
+2026-09-17) — the links route and the send remain his alone; D2 is the available track and **its
 target is `spider-swing`** (`OQ-FM-D2-TARGET` ANSWERED 2026-08-28, OD-26).
 ~~its next-repo target awaits the owner~~ — corrected 2026-09-04 (fm #1020);
 OD-15 had superseded the older `shiftlife` target on 2026-08-10 and he named
