@@ -53,7 +53,10 @@ document, and this is the sixth.
 **Round 1** on `b7afac2946` (requested 14:46Z, review 14:52:13Z — 335 s):
 **2 findings, both P1 — 1 conceded, 1 partial.**
 - *Avoid attributing the question to a research interview* — **conceded**, and
-  it was this session's own third instance of one shape. The fix for the
+  it was this session's own second instance of one shape (**corrected
+  2026-09-17, fm #1048: this read "third" and counted the owner's* not-faulty
+  *clause as the first — his sentence, not a session's, and a different
+  defect**). The fix for the
   addendum's "You asked him that" had invented a channel; the source records
   only his recollection, with no venue (`docs/findings/2026-09-02-owner-direction.md`
   :230–236, and the only two "interview" mentions in that file, :513 and :564,
