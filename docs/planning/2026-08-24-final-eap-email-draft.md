@@ -646,9 +646,14 @@ The reports and methods are public:
 >   question he remembers being asked, and the one he most wanted to answer
 >   well"*: the recollection is his, the channel is not claimed, and the second
 >   clause is measured (§ 5c, *"the part of the mail he most wants to answer
->   well"*). **Third instance today of one defect shape** — an unverified
+>   well"*). **Second instance today of one defect shape** — an unverified
 >   attribution replaced by a more specific unverified attribution — after the
->   *not-faulty* clause and the 533/533 parity figure.
+>   533/533 parity figure. *(Corrected 2026-09-17, fm #1048: this read "third"
+>   and counted the* not-faulty *clause as the first. That clause is the
+>   OWNER's own sentence from fm #1019, authored by no session, and its defect
+>   is a code-quality claim contradicted by measurement — not an attribution
+>   swapped for a narrower one. A self-critical count was inflated by one and
+>   absorbed his prose into a session's tally.)*
 > - **short list — APPLIED (his call, new prose in his voice — he checks it reads
 >   like him).** Part 1 now records that he asked on 21 July for a short list of
 >   what they most wanted to know and that it never arrived
