@@ -1,9 +1,13 @@
 # 2026-09-18 — one more adversarial review of the final EAP mail before he sends it
 
-> **Status:** `in-progress` — reconfirming the Gmail draft against the
-> committed text and re-verifying claims against their cited sources, one
-> more pass before he reads it. Nothing edited yet; see close-out for the
-> verdict.
+> **Status:** `complete` — the Gmail draft reconfirmed against the committed
+> text (only the known Google link-wrapper differs), Part 1 and Part 2's
+> claims re-verified against their actual cited files, and the
+> `your-question` open call re-read and confirmed still correctly framed.
+> **Nothing needed a fix — no discrepancy found.** Records-only PR
+> (fm #1049), no Codex round ([D-0019] as amended 2026-09-02 — nothing
+> changed that a reviewer would have an opinion about); the flip rests on
+> the direct checks in § Verify.
 
 - **📊 Model:** withheld · xhigh · review/verify
 - **⚑ Model-slot note:** this session carries an instruction against a model
@@ -146,3 +150,31 @@ sources.
   `url?q=` wrappers; HTML part 13/13 `href`s wrapped identically over the
   correct targets. Subject and recipients read from the decoded headers,
   unchanged.
+- `python3 bootstrap.py check --strict --added-card
+  .sessions/2026-09-18-eap-mail-adversarial-review.md` on the born-red
+  head (`61157ba`) → exit **1**, 2 finding(s), both the `session-card-hold`
+  / `preflight-script` born-red HOLD naming this card — read directly
+  against the CI job log (`substrate-gate` run `35341737187`, job
+  `105588948857`), which shows the identical two findings and nothing
+  else. On the flipped text → exit **0** (the run immediately before this
+  commit). All exit codes read directly, never after a pipe.
+
+## Close-out
+
+- **Shipped** (fm #1049, branch `claude/practical-einstein-4vejc4`):
+  `61157ba` the born-red card · this flip (badge + close-out text, the
+  guard-fires delta from the local verify run).
+- **Handed to the owner in chat:** the verdict (nothing needed a fix), the
+  full list of claims checked with their sources, and the `your-question`
+  call restated for his answer.
+- **Program:** E1 stays NOW and stays his; no §7 row (no step completed
+  — the mail was already EDITED AND RESTAGED before this session started
+  and stays there). `docs/owner-queue.md` and `docs/current-state.md`
+  needed no edit — both already agreed with the file.
+- **Capability delta:** none new. The Gmail link-wrapping behavior (fm
+  #1046, 2026-09-09) and the render-tool's word/verify methods held
+  under a third independent exercise. No wall written.
+- **Layer-2 handoff:** null (fleet-manager itself; no other repo
+  attached)
+- **PR:** #1049, terminal state to be probed against the API after the
+  flip lands, not read from a stale response.
